@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:elden_nexus/firebase/auth/auth.dart';
 import 'package:elden_nexus/views/login_register_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// The `LogOutComponent` class represents a widget that allows the user to log out of the application.
 ///
@@ -23,9 +24,18 @@ class LogOutComponent extends StatefulWidget {
 class LogOutComponentState extends State<LogOutComponent> {
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      icon: Icon(Icons.logout, color: Theme.of(context).colorScheme.onPrimary),
-      onPressed: () {
+    return ListTile(
+      leading: Icon(
+          color: Theme.of(context).colorScheme.onPrimaryContainer,
+          Icons.logout),
+      title: Text(
+        'logOut'.tr,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.onPrimaryContainer,
+        ),
+      ),
+      onTap: () async {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -38,10 +48,11 @@ class LogOutComponentState extends State<LogOutComponent> {
               actions: <Widget>[
                 ElevatedButton(
                     onPressed: () async {
+                      prefs.setBool('autoLogin', false);
                       await Auth().signOut();
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const LoginPage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const LoginPage()));
                     },
                     child: Text('yes'.tr)),
                 ElevatedButton(

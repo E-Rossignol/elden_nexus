@@ -17,19 +17,25 @@ class WeaponsPage extends StatefulWidget {
 
 class _WeaponsPageState extends State<WeaponsPage> {
   DatabaseMethods db = DatabaseMethods();
-  List<Weapon> weapons = Helper.getAllWeapons();
+  List<Weapon> weapons = allWeapons();
   List<Weapon> displayedWeapons = [];
-  late Future<List<String>> foundWeapons;
+  late Future<List<String>> futureFoundWeapons;
   WeaponCategory? selectedWeaponCategory;
   Location? selectedLocation;
   SortOption? selectedSortOption;
 
   @override
   void initState() {
-    foundWeapons = db.getUserWeapons(Auth().currentUser!.uid);
+    futureFoundWeapons = db.getUserWeapons(Auth().currentUser!.uid);
     super.initState();
     displayedWeapons = List.from(weapons);
-    sortWeapons(SortOption.name);
+    sortWeapons(SortOption.defaultSort);
+  }
+
+  void setFoundWeapons() async {
+    futureFoundWeapons = db.getUserWeapons(Auth().currentUser!.uid);
+    displayedWeapons = List.from(weapons);
+    sortWeapons(SortOption.defaultSort);
   }
 
   @override
@@ -53,7 +59,7 @@ class _WeaponsPageState extends State<WeaponsPage> {
           child: const RoutingView(),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton:  FloatingActionButton(
           backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           onPressed: () {
             showDialog(
@@ -64,6 +70,26 @@ class _WeaponsPageState extends State<WeaponsPage> {
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      ListTile(
+                        title: Text('Default'),
+                        onTap: () {
+                          setState(() {
+                            selectedSortOption = SortOption.defaultSort;
+                            sortWeapons(SortOption.defaultSort);
+                          });
+                          Navigator.of(context).pop(); // Close the dialog
+                        },
+                      ),
+                      ListTile(
+                        title: Text('Not Found'),
+                        onTap: () {
+                          setState(() {
+                            selectedSortOption = SortOption.notFound;
+                            sortWeapons(SortOption.notFound);
+                          });
+                          Navigator.of(context).pop(); // Close the dialog
+                        },
+                      ),
                       ListTile(
                         title: Text('Name'),
                         onTap: () {
@@ -119,11 +145,13 @@ class _WeaponsPageState extends State<WeaponsPage> {
                                   hint: Text('Location'),
                                   value: selectedLocation,
                                   items: Location.values.map((option) {
-                                    return DropdownMenuItem<Location>(
-                                      value: option,
-                                      child: Text(Helper.strLoc(option)),
-                                    );
-                                  }).toList(),
+                                    if (!Helper.isDLCLoc(option)){
+                                      return DropdownMenuItem<Location>(
+                                        value: option,
+                                        child: Text(Helper.strLoc(option)),
+                                      );
+                                    }
+                                  }).where((item) => item != null).toList().cast<DropdownMenuItem<Location>>(),
                                   onChanged: (option) {
                                     setState(() {
                                       selectedSortOption = SortOption.location;
@@ -148,14 +176,14 @@ class _WeaponsPageState extends State<WeaponsPage> {
         ),
         appBar: AppBar(
           leading: Builder(
-            builder: (context) {
-              return IconButton(
-                icon: const Icon(Icons.menu_rounded),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-              );
-            }
+              builder: (context) {
+                return IconButton(
+                  icon: const Icon(Icons.menu_rounded),
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                );
+              }
           ),
           title: Text(getSortOptionName()),
           actions: <Widget>[
@@ -171,7 +199,7 @@ class _WeaponsPageState extends State<WeaponsPage> {
             Builder(builder: (context) => IconButton(
               icon: const Icon(Icons.save),
               onPressed: () async {
-                List<String> toStoreWeapons = await foundWeapons;
+                List<String> toStoreWeapons = await futureFoundWeapons;
                 await db.saveUserWeapons(toStoreWeapons, Auth().currentUser!.uid);
               },
             ),
@@ -190,9 +218,10 @@ class _WeaponsPageState extends State<WeaponsPage> {
           child: Column(
             children: [
               FutureBuilder(
-                future: foundWeapons,
+                future: futureFoundWeapons,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
+                    print('Found weapons: ${snapshot.data}');
                     return Expanded(
                       child: Scrollbar(
                         thickness: 10,
@@ -201,6 +230,7 @@ class _WeaponsPageState extends State<WeaponsPage> {
                         child: ListView.builder(
                           itemCount: displayedWeapons.length,
                           itemBuilder: (context, index) {
+                            print('Current weapon: ${displayedWeapons[index].name}');
                             return Container(
                                 margin: const EdgeInsets.all(10),
                                 // Add some margin around each ListTile
@@ -221,28 +251,37 @@ class _WeaponsPageState extends State<WeaponsPage> {
                                     ),
                                   ],
                                 ),
-                                child: ListTile(
-                                  leading: Checkbox(
-                                    value: snapshot.data!.contains(weapons[index].name),
-                                    onChanged: (bool? value) {
-                                      setState(() {
-                                        if (value == true) {
-                                          if (!snapshot.data!.contains(weapons[index].name)) {
-                                            snapshot.data!.add(weapons[index].name);
-                                          }
-                                        } else {
-                                          if (snapshot.data!
-                                              .contains(weapons[index].name)) {
-                                            snapshot.data!.remove(weapons[index].name);
-                                          }
+                                child: CheckboxListTile(
+                                  value: snapshot.data!.contains(displayedWeapons[index].name),
+                                  onChanged: (bool? value) {
+                                    setState(() {
+                                      if (value == true) {
+                                        if (!snapshot.data!.contains(displayedWeapons[index].name)) {
+                                          snapshot.data!.add(displayedWeapons[index].name);
                                         }
-                                      });
-                                    },
-                                  ),
+                                      } else {
+                                        if (snapshot.data!
+                                            .contains(displayedWeapons[index].name)) {
+                                          snapshot.data!.remove(displayedWeapons[index].name);
+                                        }
+                                      }
+                                    });
+                                  },
                                   title: SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
                                     child: Row(
                                       children: [
+                                        IconButton(
+                                          icon: Icon(Icons.info_outline, color: Theme.of(context).colorScheme.onSecondaryContainer,),
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => DetailPage(weapon: displayedWeapons[index]),
+                                              ),
+                                            );
+                                          },
+                                        ),
                                         SizedBox(
                                           height: 50,
                                           width: 50,
@@ -270,13 +309,6 @@ class _WeaponsPageState extends State<WeaponsPage> {
                                       ],
                                     ),
                                   ),
-                                  onTap: () {
-                                    showDialog(context: context, builder: (context){
-                                      return DetailPage(weapon: displayedWeapons[index]);
-                                    });
-                                    // Open the item's info
-                                    // You can replace this with your own function
-                                  },
                                 ));
                           },
                         ),
@@ -305,22 +337,99 @@ class _WeaponsPageState extends State<WeaponsPage> {
         return Helper.strCat(selectedWeaponCategory!);
       case SortOption.location:
         return Helper.strLoc(selectedLocation!);
+      case SortOption.defaultSort:
+        return 'Default';
+      case SortOption.notFound:
+        return 'Not Found Yet';
       default:
-        return 'No sorting option selected';
+        return '';
     }
   }
 
-  void sortWeapons(SortOption? option) {
+  void sortWeapons(SortOption? option) async {
+    List<WeaponCategory> categoryOrder = [
+      WeaponCategory.dagger,
+      WeaponCategory.straight_sword,
+      WeaponCategory.greatsword,
+      WeaponCategory.colossal_sword,
+      WeaponCategory.thrusting_sword,
+      WeaponCategory.heavy_thrusting_sword,
+      WeaponCategory.curved_sword,
+      WeaponCategory.curved_greatsword,
+      WeaponCategory.katana,
+      WeaponCategory.twinblade,
+      WeaponCategory.axe,
+      WeaponCategory.great_axe,
+      WeaponCategory.hammer,
+      WeaponCategory.flail,
+      WeaponCategory.great_hammer,
+      WeaponCategory.colossal_weapon,
+      WeaponCategory.spear,
+      WeaponCategory.great_spear,
+      WeaponCategory.halberd,
+      WeaponCategory.reaper,
+      WeaponCategory.whip,
+      WeaponCategory.fist,
+      WeaponCategory.claw,
+      WeaponCategory.light_bow,
+      WeaponCategory.bow,
+      WeaponCategory.great_bow,
+      WeaponCategory.crossbow,
+      WeaponCategory.ballista,
+      WeaponCategory.glintstone_staff,
+      WeaponCategory.sacred_seal,
+      WeaponCategory.torch,
+      WeaponCategory.hand_to_hand_art,
+      WeaponCategory.throwing_blade,
+      WeaponCategory.backhand_blade,
+      WeaponCategory.perfume_bottle,
+      WeaponCategory.beast_claw,
+      WeaponCategory.light_greatsword,
+      WeaponCategory.great_katana,
+      WeaponCategory.small_shield,
+      WeaponCategory.medium_shield,
+      WeaponCategory.greatshield,
+      WeaponCategory.thrusting_shield
+    ];
     setState(() {
       if (option == SortOption.category) {
-        displayedWeapons.sort((a, b) => Helper.strCat(a.weaponCategory).compareTo(Helper.strCat(b.weaponCategory)));
+        displayedWeapons.sort((a, b) {
+          int indexA = categoryOrder.indexOf(a.weaponCategory);
+          int indexB = categoryOrder.indexOf(b.weaponCategory);
+          return indexA.compareTo(indexB);
+        });
       } else if (option == SortOption.name) {
         setState(() {
-          displayedWeapons = Helper.getAllWeapons();
+          displayedWeapons = allWeapons();
           displayedWeapons.sort((a, b) => a.name.compareTo(b.name));
         });
       } else if (option == SortOption.location) {
-        displayedWeapons.sort((a, b) => Helper.strLoc(a.location).compareTo(Helper.strLoc(b.location)));
+        displayedWeapons.sort((a, b) =>
+            Helper.strLoc(a.location).compareTo(Helper.strLoc(b.location)));
+      } else if (option == SortOption.defaultSort) {
+        setState(() {
+          displayedWeapons = allWeapons();
+          displayedWeapons.sort((a, b) => a.name.compareTo(b.name));
+          displayedWeapons.sort((a, b) {
+            int indexA = categoryOrder.indexOf(a.weaponCategory);
+            int indexB = categoryOrder.indexOf(b.weaponCategory);
+            return indexA.compareTo(indexB);
+          });
+        });
+      } else if (option == SortOption.notFound) {
+        futureFoundWeapons.then((foundWeapons) {
+          setState(() {
+            displayedWeapons = weapons
+                .where((weapon) => !foundWeapons.contains(weapon.name))
+                .toList();
+            displayedWeapons.sort((a, b) => a.name.compareTo(b.name));
+            displayedWeapons.sort((a, b) {
+              int indexA = categoryOrder.indexOf(a.weaponCategory);
+              int indexB = categoryOrder.indexOf(b.weaponCategory);
+              return indexA.compareTo(indexB);
+            });
+          });
+        });
       }
     });
   }
@@ -409,5 +518,6 @@ enum SortOption {
   category,
   name,
   location,
-  notFound,
+  defaultSort,
+  notFound
 }

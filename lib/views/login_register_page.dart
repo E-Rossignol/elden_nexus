@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +24,7 @@ class _LoginPageState extends State<LoginPage>{
 
   @override
   void initState() {
-    setPreferences();
+    tryAutoLogin();
     super.initState();
   }
 
@@ -35,13 +34,40 @@ class _LoginPageState extends State<LoginPage>{
     _controllerPassword.text = prefs.getString('password') ?? '';
   }
 
+  void tryAutoLogin() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool autoLogin = prefs.getBool('autoLogin') ?? false;
+    String? email = prefs.getString('email');
+    String? password = prefs.getString('password');
+    if (autoLogin) {
+      if (email != null && password != null ){
+        try{
+          Auth().signInWithEmailAndPassword(email: email, password: password);
+        } on FirebaseAuthException catch (e){
+          setState(() {
+            prefs.setBool('autoLogin', false);
+            errorMessage = e.message;
+          });
+        }
+      }
+    }
+    else {
+      setPreferences();
+    }
+  }
+
   Future<bool> signInWithEmailAndPassword() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
+      prefs.setString('email', _controllerEmail.text);
+      prefs.setString('password', _controllerPassword.text);
+    prefs.setBool('autoLogin', true);
       await Auth().signInWithEmailAndPassword(
           email: _controllerEmail.text, password: _controllerPassword.text);
       return true;
     } on FirebaseAuthException catch (e) {
       setState(() {
+        prefs.setBool('autoLogin', false);
         errorMessage = e.message;
       });
       return false;

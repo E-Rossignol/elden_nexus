@@ -17,11 +17,18 @@ class DatabaseMethods {
   }
 
   Future removeUserObject(String objectName, String userID) async {
-    return await FirebaseFirestore
-        .instance
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('foundObjects')
-        .doc(objectName)
-        .delete();
+        .where('name', isEqualTo: objectName)
+        .where('userID', isEqualTo: userID)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      await FirebaseFirestore.instance
+          .collection('foundObjects')
+          .doc(querySnapshot.docs.first.id)
+          .delete();
+    }
   }
 
   Future<List<String>> getUserWeapons(String userID) async {
@@ -30,7 +37,6 @@ class DatabaseMethods {
         .collection('foundObjects')
         .where('userID', isEqualTo: userID)
         .get();
-
     return querySnapshot.docs.map((doc) => doc['name'].toString()).toList();
   }
 
@@ -38,16 +44,16 @@ class DatabaseMethods {
     List<String> userFoundWeapons = await getUserWeapons(userID);
     List<String> newlyFoundWeapons = weaponNames.where((item) => !userFoundWeapons.contains(item)).toList();
     List<String> removedFromListWeapons = userFoundWeapons.where((item) => !weaponNames.contains(item)).toList();
+    if (newlyFoundWeapons.isEmpty && removedFromListWeapons.isEmpty) {
+      Helper.snackbar('No changes', 'No changes were made');
+      return;
+    }
     for (String weaponName in newlyFoundWeapons) {
-      Map<String, dynamic> json = {
-        'name': weaponName,
-        'userID': userID,
-      };
-      await FirebaseFirestore.instance.collection('foundObjects').add(json);
+      await addUserObject(weaponName, userID);
     }
     for (String weaponName in removedFromListWeapons) {
-      await FirebaseFirestore.instance.collection('foundObjects').doc(weaponName).delete();
+      await removeUserObject(weaponName, userID);
     }
-    Helper.snackbar('Success', 'Weapons saved');
+    Helper.snackbar('Success', 'Changes were saved');
   }
 }

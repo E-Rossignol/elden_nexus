@@ -7,8 +7,8 @@ class Weapon extends Item {
   Weapon({
     required super.name,
     required super.image,
-    required super.way,
     required super.location,
+    required super.way,
     required this.weaponCategory,
     required this.howToFind,
   }) : super(

@@ -1,3 +1,4 @@
+import 'package:elden_nexus/components/settings/log_out_component.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:elden_nexus/components/settings/change_language_component.dart';
@@ -33,6 +34,7 @@ class SettingsViewState extends State<SettingsView> {
   Widget build(BuildContext context) {
     List<Widget> widgets = [];
     widgets.add(const ChangeLanguageComponent());
+    widgets.add(const LogOutComponent());
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,

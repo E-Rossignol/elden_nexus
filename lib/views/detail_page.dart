@@ -17,7 +17,15 @@ class _DetailPageState extends State<DetailPage> {
       child: AlertDialog(
         contentPadding: EdgeInsets.zero,
         titlePadding: EdgeInsets.zero,
-        title: Text(weapon.name, style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Mantinia'),),
+        title: Center(
+            child:
+                Text(
+                  weapon.name,
+                  style: TextStyle(fontFamily: 'Chiralla', fontSize: 20),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+            )
+        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -30,7 +38,7 @@ class _DetailPageState extends State<DetailPage> {
                 child: Column(
                   children: [
                     const Align(alignment: Alignment.centerLeft, child: Text('How to get it:', style: TextStyle(fontWeight: FontWeight.bold))),
-                    Text(weapon.howToFind, textAlign: TextAlign.justify),
+                    Align(alignment: Alignment.centerLeft, child: Text(weapon.howToFind)),
                   ],
                 ),
               ),

@@ -90,6 +90,7 @@ flutter:
     - lib/constants/images/twinblade/
     - lib/constants/images/whip/
     - lib/constants/images/dlc/
+    - lib/constants/icons/
   fonts:
     - family: Mantinia
       fonts:
@@ -97,11 +98,9 @@ flutter:
     - family: GeoSansLight
       fonts:
         - asset: lib/constants/fonts/GeoSansLight/GeoSansLight.ttf
-    #    - asset: lib/constants/fonts/montserrat/Montserrat-Bold.ttf
-    #      weight: 700
-    #- family: Batman
-    #  fonts:
-    #    - asset: lib/constants/fonts/batman/batmfa.ttf
+    - family: Chiralla
+      fonts:
+        - asset: lib/constants/fonts/Chiralla/Chiralla.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -3,10 +3,12 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:elden_nexus/views/widget_tree.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'constants/constant.dart';
 import 'firebase/auth/auth.dart';
 import 'constants/locale/locale_string.dart';
 import 'constants/theme/theme_provider.dart';
 import 'firebase_options.dart';
+import 'models/weapon.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,8 +18,7 @@ Future<void> main() async {
   await Auth().signOut();
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(
-          create: (context) => ThemeProvider()),
+      ChangeNotifierProvider(create: (context) => ThemeProvider()),
     ],
     child: const MyApp(),
   ));
