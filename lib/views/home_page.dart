@@ -4,7 +4,6 @@ import 'package:elden_nexus/views/weapons_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../constants/helper.dart';
-import 'dlc/dlc_weapons_page.dart';
 
 class HomePage extends StatefulWidget {
   final bool isDlc;
@@ -71,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 onTap: () {
-                  Widget toPush = widget.isDlc ? const DlcWeaponsPage() : const WeaponsPage();
+                  Widget toPush = WeaponsPage(isDlc: widget.isDlc);
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => toPush),
@@ -90,10 +89,10 @@ class _HomePageState extends State<HomePage> {
               ),
               color: Theme.of(context).colorScheme.secondary,
               child: ListTile(
-                leading: ImageIcon(const AssetImage('lib/constants/icons/armor_icon.png'), color: Theme.of(context).colorScheme.onSecondary, size: 35,),
+                leading: ImageIcon(const AssetImage('lib/constants/icons/ash_of_war_icon.png'), color: Theme.of(context).colorScheme.onSecondary, size: 35,),
                 title: Center(
                   child: Text(
-                    'ARMORS',
+                    'ASH OF WAR',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onSecondary,
                       fontFamily: 'Mantinia',

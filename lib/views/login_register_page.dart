@@ -6,7 +6,6 @@ import 'package:elden_nexus/views/settings_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../firebase/auth/auth.dart';
 import '../constants/theme/theme_provider.dart';
-import 'weapons_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -104,11 +103,6 @@ class _LoginPageState extends State<LoginPage>{
         fontFamily: 'Mantinia',
       ),
     );
-  }
-
-  void goToMainPage() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => WeaponsPage()));
   }
 
   Widget _submitButton() {

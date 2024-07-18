@@ -7,9 +7,11 @@ import 'package:flutter/material.dart';
 import '../constants/helper.dart';
 import '../models/weapon.dart';
 import 'detail_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class WeaponsPage extends StatefulWidget {
-  const WeaponsPage({super.key});
+  final bool isDlc;
+  const WeaponsPage({super.key, required this.isDlc});
 
   @override
   State<WeaponsPage> createState() => _WeaponsPageState();
@@ -17,15 +19,15 @@ class WeaponsPage extends StatefulWidget {
 
 class _WeaponsPageState extends State<WeaponsPage> {
   DatabaseMethods db = DatabaseMethods();
-  List<Weapon> weapons = allWeapons();
+  late List<Weapon> weapons;
   List<Weapon> displayedWeapons = [];
   late Future<List<String>> futureFoundWeapons;
   WeaponCategory? selectedWeaponCategory;
-  Location? selectedLocation;
   SortOption? selectedSortOption;
 
   @override
   void initState() {
+    weapons = widget.isDlc ? allDlcWeapons() : allWeapons();
     futureFoundWeapons = db.getUserWeapons(Auth().currentUser!.uid);
     super.initState();
     displayedWeapons = List.from(weapons);
@@ -123,45 +125,6 @@ class _WeaponsPageState extends State<WeaponsPage> {
                                       selectedSortOption = SortOption.category;
                                       selectedWeaponCategory = option;
                                       filterWeaponsByCategory(option);
-                                    });
-                                    Navigator.of(context)
-                                        .pop(); // Close the dialog
-                                  },
-                                ),
-                              );
-                            },
-                          );
-                        },
-                      ),
-                      ListTile(
-                        title: Text('Location'),
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: Text('Location'),
-                                content: DropdownButton<Location>(
-                                  hint: Text('Location'),
-                                  value: selectedLocation,
-                                  items: Location.values
-                                      .map((option) {
-                                        if (!Helper.isDLCLoc(option)) {
-                                          return DropdownMenuItem<Location>(
-                                            value: option,
-                                            child: Text(Helper.strLoc(option)),
-                                          );
-                                        }
-                                      })
-                                      .where((item) => item != null)
-                                      .toList()
-                                      .cast<DropdownMenuItem<Location>>(),
-                                  onChanged: (option) {
-                                    setState(() {
-                                      selectedSortOption = SortOption.location;
-                                      selectedLocation = option;
-                                      filterWeaponsByLocation(option);
                                     });
                                     Navigator.of(context)
                                         .pop(); // Close the dialog
@@ -360,8 +323,6 @@ class _WeaponsPageState extends State<WeaponsPage> {
         return 'Name';
       case SortOption.category:
         return Helper.strCat(selectedWeaponCategory!);
-      case SortOption.location:
-        return Helper.strLoc(selectedLocation!);
       case SortOption.defaultSort:
         return 'Default';
       case SortOption.notFound:
@@ -425,15 +386,12 @@ class _WeaponsPageState extends State<WeaponsPage> {
         });
       } else if (option == SortOption.name) {
         setState(() {
-          displayedWeapons = allWeapons();
+          displayedWeapons = widget.isDlc ? allDlcWeapons() : allWeapons();
           displayedWeapons.sort((a, b) => a.name.compareTo(b.name));
         });
-      } else if (option == SortOption.location) {
-        displayedWeapons.sort((a, b) =>
-            Helper.strLoc(a.location).compareTo(Helper.strLoc(b.location)));
       } else if (option == SortOption.defaultSort) {
         setState(() {
-          displayedWeapons = allWeapons();
+          displayedWeapons = widget.isDlc ? allDlcWeapons() : allWeapons();
           displayedWeapons.sort((a, b) => a.name.compareTo(b.name));
           displayedWeapons.sort((a, b) {
             int indexA = categoryOrder.indexOf(a.weaponCategory);
@@ -470,18 +428,6 @@ class _WeaponsPageState extends State<WeaponsPage> {
       }
     });
   }
-
-  void filterWeaponsByLocation(Location? location) {
-    setState(() {
-      if (location == null) {
-        displayedWeapons = List.from(
-            weapons); // If no location is selected, display all weapons
-      } else {
-        displayedWeapons =
-            weapons.where((weapon) => weapon.location == location).toList();
-      }
-    });
-  }
 }
 
 class WeaponSearch extends SearchDelegate<Weapon> {
@@ -512,11 +458,12 @@ class WeaponSearch extends SearchDelegate<Weapon> {
             Weapon(
                 name: '',
                 image: '',
-                location: Location.ainsel_river,
                 weaponCategory: WeaponCategory.axe,
                 howToFind: '',
-                infos: [],
-            isSomber: false));
+                scaling: Scaling(),
+                weight: -1,
+            isSomber: false,
+            ashOfWar: aow('Unsheathe'), mapLink: ''));
       },
     );
   }
@@ -527,7 +474,6 @@ class WeaponSearch extends SearchDelegate<Weapon> {
         .where((weapon) =>
         weapon.name.toLowerCase().contains(query.toLowerCase()))
         .toList();
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       onWeaponsSelected(results);
     });
@@ -563,4 +509,4 @@ class WeaponSearch extends SearchDelegate<Weapon> {
   }
 }
 
-enum SortOption { category, name, location, defaultSort, notFound }
+enum SortOption { category, name, defaultSort, notFound }

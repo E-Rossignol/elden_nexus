@@ -1,7 +1,8 @@
+import 'package:elden_nexus/models/ash_of_war.dart';
 import 'package:elden_nexus/models/weapon.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import '../constants/helper.dart';
 
 class DetailPage extends StatefulWidget {
@@ -20,12 +21,48 @@ class _DetailPageState extends State<DetailPage> {
     );
   }
 
+  void _launchURL(String url) async {
+    if (url == 'Default Link'){
+      Helper.snackbar('Oops', 'No link available yet !');
+    }
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    String isSomberStr = widget.weapon.isSomber ? 'Somber Smithing Stones' : 'Smithing Stones';
-    var gridStr = ['STR', 'DEX', 'INT', 'FAI', 'ARC', 'Weight', 'Ash of War:'];
-    var valueStr = widget.weapon.infos.isEmpty ? ['A', '-', 'B', '-', 'S', '13.5', 'Unsheathe'] : widget.weapon.infos;
     Weapon weapon = widget.weapon;
+    String isSomberStr = weapon.isSomber ? 'Somber Smithing Stones' : 'Smithing Stones';
+    List<String> gridStr = ['STR', 'DEX', 'INT', 'FAI', 'ARC', 'Weight', 'Ash of War:'];
+    List<String> scalingStr = [
+      weapon.scaling.str,
+      weapon.scaling.dex,
+      weapon.scaling.int,
+      weapon.scaling.fai,
+      weapon.scaling.arc,
+    ];
+    AshOfWar aow = weapon.ashOfWar;
+    String url = weapon.mapLink;
+    bool isLinkable = url.isNotEmpty;
+    List<Widget> linkWidgets = [];
+    if (isLinkable) {
+      linkWidgets.add(ElevatedButton(
+        onPressed: () {
+          _launchURL(url);
+        },
+        child: const Text('Open Link'),
+      ));
+    }
+    linkWidgets.add(
+      TextButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        child: const Text('Close'),
+      ));
     return Scaffold(
       endDrawer: const Drawer(
         child: SettingsView(),
@@ -119,7 +156,7 @@ class _DetailPageState extends State<DetailPage> {
                                           fontFamily: "Chiralla", fontSize: 20),
                                     )),
                                 Expanded(
-                                    child: Text(valueStr[0],
+                                    child: Text(scalingStr[0],
                                         style: TextStyle(
                                           color: Theme.of(context).colorScheme.onSurface,
                                             fontFamily: 'Chiralla',
@@ -151,7 +188,7 @@ class _DetailPageState extends State<DetailPage> {
                                           fontFamily: "Chiralla", fontSize: 20),
                                     )),
                                 Expanded(
-                                    child: Text(valueStr[1],
+                                    child: Text(scalingStr[1],
                                         style: const TextStyle(
                                             fontFamily: 'Chiralla',
                                             fontSize: 18))),
@@ -190,7 +227,7 @@ class _DetailPageState extends State<DetailPage> {
                                           fontFamily: "Chiralla", fontSize: 20),
                                     )),
                                 Expanded(
-                                    child: Text(valueStr[2],
+                                    child: Text(scalingStr[2],
                                         style: const TextStyle(
                                             fontFamily: 'Chiralla',
                                             fontSize: 18))),
@@ -221,7 +258,7 @@ class _DetailPageState extends State<DetailPage> {
                                           fontFamily: "Chiralla", fontSize: 20),
                                     )),
                                 Expanded(
-                                    child: Text(valueStr[3],
+                                    child: Text(scalingStr[3],
                                         style: const TextStyle(
                                             fontFamily: 'Chiralla',
                                             fontSize: 18))),
@@ -260,7 +297,7 @@ class _DetailPageState extends State<DetailPage> {
                                           fontFamily: "Chiralla", fontSize: 20),
                                     )),
                                 Expanded(
-                                    child: Text(valueStr[4],
+                                    child: Text(scalingStr[4],
                                         style: const TextStyle(
                                             fontFamily: 'Chiralla',
                                             fontSize: 18))),
@@ -291,7 +328,7 @@ class _DetailPageState extends State<DetailPage> {
                                           fontFamily: "Chiralla", fontSize: 20),
                                     )),
                                 Expanded(
-                                    child: Text(valueStr[5],
+                                    child: Text(scalingStr[5],
                                         style: const TextStyle(
                                             fontFamily: 'Chiralla',
                                             fontSize: 18))),
@@ -363,7 +400,7 @@ class _DetailPageState extends State<DetailPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Expanded(
-                                    child: Text(valueStr[6],
+                                    child: Text(aow.name,
                                         style: TextStyle(
                                             fontFamily: 'Chiralla',
                                             fontSize: 18))),
@@ -390,11 +427,9 @@ class _DetailPageState extends State<DetailPage> {
                                 child: Text(weapon.howToFind)),
                           ),
                           actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text('Close'),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: linkWidgets,
                             ),
                           ],
                         ));

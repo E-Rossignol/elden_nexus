@@ -49,7 +49,7 @@ class _WidgetTreeState extends State<WidgetTree> {
                   context,
                   MaterialPageRoute(builder: (context) => const HomePage(isDlc: false)));
             });
-            return const WeaponsPage();
+            return const WeaponsPage(isDlc: false);
           } else {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               Navigator.push(

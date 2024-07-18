@@ -21,7 +21,6 @@ class _DlcWeaponsPageState extends State<DlcWeaponsPage> {
   List<Weapon> displayedWeapons = [];
   late Future<List<String>> futureFoundWeapons;
   WeaponCategory? selectedWeaponCategory;
-  Location? selectedLocation;
   SortOption? selectedSortOption;
 
   @override
@@ -123,45 +122,6 @@ class _DlcWeaponsPageState extends State<DlcWeaponsPage> {
                                       selectedSortOption = SortOption.category;
                                       selectedWeaponCategory = option;
                                       filterWeaponsByCategory(option);
-                                    });
-                                    Navigator.of(context)
-                                        .pop(); // Close the dialog
-                                  },
-                                ),
-                              );
-                            },
-                          );
-                        },
-                      ),
-                      ListTile(
-                        title: Text('Location'),
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: Text('Location'),
-                                content: DropdownButton<Location>(
-                                  hint: Text('Location'),
-                                  value: selectedLocation,
-                                  items: Location.values
-                                      .map((option) {
-                                        if (Helper.isDLCLoc(option)) {
-                                          return DropdownMenuItem<Location>(
-                                            value: option,
-                                            child: Text(Helper.strLoc(option)),
-                                          );
-                                        }
-                                      })
-                                      .where((item) => item != null)
-                                      .toList()
-                                      .cast<DropdownMenuItem<Location>>(),
-                                  onChanged: (option) {
-                                    setState(() {
-                                      selectedSortOption = SortOption.location;
-                                      selectedLocation = option;
-                                      filterWeaponsByLocation(option);
                                     });
                                     Navigator.of(context)
                                         .pop(); // Close the dialog
@@ -356,8 +316,6 @@ class _DlcWeaponsPageState extends State<DlcWeaponsPage> {
         return 'Name';
       case SortOption.category:
         return Helper.strCat(selectedWeaponCategory!);
-      case SortOption.location:
-        return Helper.strLoc(selectedLocation!);
       case SortOption.defaultSort:
         return 'Default';
       case SortOption.notFound:
@@ -425,10 +383,7 @@ class _DlcWeaponsPageState extends State<DlcWeaponsPage> {
           displayedWeapons = allDlcWeapons();
           displayedWeapons.sort((a, b) => a.name.compareTo(b.name));
         });
-      } else if (option == SortOption.location) {
-        displayedWeapons.sort((a, b) =>
-            Helper.strLoc(a.location).compareTo(Helper.strLoc(b.location)));
-      } else if (option == SortOption.defaultSort) {
+      }  else if (option == SortOption.defaultSort) {
         setState(() {
           displayedWeapons = allDlcWeapons();
           displayedWeapons.sort((a, b) => a.name.compareTo(b.name));
@@ -468,18 +423,6 @@ class _DlcWeaponsPageState extends State<DlcWeaponsPage> {
       }
     });
   }
-
-  void filterWeaponsByLocation(Location? location) {
-    setState(() {
-      if (location == null) {
-        displayedWeapons = List.from(
-            weapons); // If no location is selected, display all weapons
-      } else {
-        displayedWeapons =
-            weapons.where((weapon) => weapon.location == location).toList();
-      }
-    });
-  }
 }
 
 class WeaponSearch extends SearchDelegate<Weapon> {
@@ -509,11 +452,13 @@ class WeaponSearch extends SearchDelegate<Weapon> {
             Weapon(
                 name: '',
                 image: '',
-                location: Location.ainsel_river,
                 weaponCategory: WeaponCategory.axe,
                 howToFind: '',
-                infos: [],
-            isSomber: false));
+                scaling: Scaling(),
+                weight: -1,
+            isSomber: false,
+              ashOfWar: aow('Unsheathe'), mapLink: ''
+            ));
       },
     );
   }
@@ -555,4 +500,4 @@ class WeaponSearch extends SearchDelegate<Weapon> {
   }
 }
 
-enum SortOption { category, name, location, defaultSort, notFound }
+enum SortOption { category, name, defaultSort, notFound }
