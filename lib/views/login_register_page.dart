@@ -22,38 +22,10 @@ class _LoginPageState extends State<LoginPage>{
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
 
-  @override
-  void initState() {
-    tryAutoLogin();
-    super.initState();
-  }
-
   void setPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _controllerEmail.text = prefs.getString('email') ?? '';
     _controllerPassword.text = prefs.getString('password') ?? '';
-  }
-
-  void tryAutoLogin() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool autoLogin = prefs.getBool('autoLogin') ?? false;
-    String? email = prefs.getString('email');
-    String? password = prefs.getString('password');
-    if (autoLogin) {
-      if (email != null && password != null ){
-        try{
-          Auth().signInWithEmailAndPassword(email: email, password: password);
-        } on FirebaseAuthException catch (e){
-          setState(() {
-            prefs.setBool('autoLogin', false);
-            errorMessage = e.message;
-          });
-        }
-      }
-    }
-    else {
-      setPreferences();
-    }
   }
 
   Future<bool> signInWithEmailAndPassword() async {
@@ -142,6 +114,7 @@ class _LoginPageState extends State<LoginPage>{
   Widget _submitButton() {
     return ElevatedButton(
       onPressed: () async {
+        setPreferences();
         isLogin
             ? await signInWithEmailAndPassword()
             : await createUserWithEmailAndPassword();

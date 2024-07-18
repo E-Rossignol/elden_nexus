@@ -227,7 +227,6 @@ class _DlcWeaponsPageState extends State<DlcWeaponsPage> {
                 future: futureFoundWeapons,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
-                    print('Found weapons: ${snapshot.data}');
                     return Expanded(
                       child: Scrollbar(
                         thickness: 10,
@@ -236,8 +235,6 @@ class _DlcWeaponsPageState extends State<DlcWeaponsPage> {
                         child: ListView.builder(
                           itemCount: displayedWeapons.length,
                           itemBuilder: (context, index) {
-                            print(
-                                'Current weapon: ${displayedWeapons[index].name}');
                             return Container(
                                 margin: const EdgeInsets.all(10),
                                 // Add some margin around each ListTile
@@ -410,7 +407,11 @@ class _DlcWeaponsPageState extends State<DlcWeaponsPage> {
       WeaponCategory.perfume_bottle,
       WeaponCategory.beast_claw,
       WeaponCategory.light_greatsword,
-      WeaponCategory.great_katana
+      WeaponCategory.great_katana,
+      WeaponCategory.small_shield,
+      WeaponCategory.medium_shield,
+      WeaponCategory.greatshield,
+      WeaponCategory.thrusting_shield
     ];
     setState(() {
       if (option == SortOption.category) {
@@ -508,10 +509,11 @@ class WeaponSearch extends SearchDelegate<Weapon> {
             Weapon(
                 name: '',
                 image: '',
-                way: ObtentionWay.buy,
                 location: Location.ainsel_river,
                 weaponCategory: WeaponCategory.axe,
-                howToFind: ''));
+                howToFind: '',
+                infos: [],
+            isSomber: false));
       },
     );
   }

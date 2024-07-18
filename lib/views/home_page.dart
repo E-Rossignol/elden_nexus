@@ -3,18 +3,19 @@ import 'package:elden_nexus/views/settings_view.dart';
 import 'package:elden_nexus/views/weapons_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../constants/helper.dart';
+import 'dlc/dlc_weapons_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final bool isDlc;
+  const HomePage({super.key, required this.isDlc});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-
+  String get _title => widget.isDlc ? 'DLC Home' : 'Main Game Home';
   Widget _space(){
     return const SizedBox(
       height: 20,
@@ -42,8 +43,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           ),
-        ],
-        title: const Text('mainPageTitle'),
+        ], title: Text(_title),
       ),
       body: Column(
         children: [
@@ -71,9 +71,10 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 onTap: () {
+                  Widget toPush = widget.isDlc ? const DlcWeaponsPage() : const WeaponsPage();
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const WeaponsPage()),
+                    MaterialPageRoute(builder: (context) => toPush),
                   );
                 },
               ),
@@ -145,6 +146,32 @@ class _HomePageState extends State<HomePage> {
                 title: Center(
                   child: Text(
                     'SPELLS',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSecondary,
+                      fontFamily: 'Mantinia',
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  Helper.snackbar('Dev', 'This feature is under development.');
+                },
+              ),
+            ),
+          ),
+          _space(),
+          Container(
+            margin: const EdgeInsets.all(10),
+            width: MediaQuery.of(context).size.width * 0.8,
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              color: Theme.of(context).colorScheme.secondary,
+              child: ListTile(
+                leading: ImageIcon(const AssetImage('lib/constants/icons/talisman_icon.png'), color: Theme.of(context).colorScheme.onSecondary, size: 35,),
+                title: Center(
+                  child: Text(
+                    'TALISMANS',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onSecondary,
                       fontFamily: 'Mantinia',

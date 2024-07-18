@@ -59,7 +59,7 @@ class _WeaponsPageState extends State<WeaponsPage> {
           child: const RoutingView(),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton:  FloatingActionButton(
+        floatingActionButton: FloatingActionButton(
           backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           onPressed: () {
             showDialog(
@@ -124,7 +124,8 @@ class _WeaponsPageState extends State<WeaponsPage> {
                                       selectedWeaponCategory = option;
                                       filterWeaponsByCategory(option);
                                     });
-                                    Navigator.of(context).pop(); // Close the dialog
+                                    Navigator.of(context)
+                                        .pop(); // Close the dialog
                                   },
                                 ),
                               );
@@ -144,21 +145,26 @@ class _WeaponsPageState extends State<WeaponsPage> {
                                 content: DropdownButton<Location>(
                                   hint: Text('Location'),
                                   value: selectedLocation,
-                                  items: Location.values.map((option) {
-                                    if (!Helper.isDLCLoc(option)){
-                                      return DropdownMenuItem<Location>(
-                                        value: option,
-                                        child: Text(Helper.strLoc(option)),
-                                      );
-                                    }
-                                  }).where((item) => item != null).toList().cast<DropdownMenuItem<Location>>(),
+                                  items: Location.values
+                                      .map((option) {
+                                        if (!Helper.isDLCLoc(option)) {
+                                          return DropdownMenuItem<Location>(
+                                            value: option,
+                                            child: Text(Helper.strLoc(option)),
+                                          );
+                                        }
+                                      })
+                                      .where((item) => item != null)
+                                      .toList()
+                                      .cast<DropdownMenuItem<Location>>(),
                                   onChanged: (option) {
                                     setState(() {
                                       selectedSortOption = SortOption.location;
                                       selectedLocation = option;
                                       filterWeaponsByLocation(option);
                                     });
-                                    Navigator.of(context).pop(); // Close the dialog
+                                    Navigator.of(context)
+                                        .pop(); // Close the dialog
                                   },
                                 ),
                               );
@@ -175,16 +181,14 @@ class _WeaponsPageState extends State<WeaponsPage> {
           child: const Icon(Icons.sort),
         ),
         appBar: AppBar(
-          leading: Builder(
-              builder: (context) {
-                return IconButton(
-                  icon: const Icon(Icons.menu_rounded),
-                  onPressed: () {
-                    Scaffold.of(context).openDrawer();
-                  },
-                );
-              }
-          ),
+          leading: Builder(builder: (context) {
+            return IconButton(
+              icon: const Icon(Icons.menu_rounded),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          }),
           title: Text(getSortOptionName()),
           actions: <Widget>[
             IconButton(
@@ -192,17 +196,23 @@ class _WeaponsPageState extends State<WeaponsPage> {
               onPressed: () {
                 showSearch(
                   context: context,
-                  delegate: WeaponSearch(weapons),
+                  delegate: WeaponSearch(weapons, (selectedWeapons) {
+                    setState(() {
+                      displayedWeapons = selectedWeapons;
+                    });
+                  }),
                 );
               },
             ),
-            Builder(builder: (context) => IconButton(
-              icon: const Icon(Icons.save),
-              onPressed: () async {
-                List<String> toStoreWeapons = await futureFoundWeapons;
-                await db.saveUserWeapons(toStoreWeapons, Auth().currentUser!.uid);
-              },
-            ),
+            Builder(
+              builder: (context) => IconButton(
+                icon: const Icon(Icons.save),
+                onPressed: () async {
+                  List<String> toStoreWeapons = await futureFoundWeapons;
+                  await db.saveUserWeapons(
+                      toStoreWeapons, Auth().currentUser!.uid);
+                },
+              ),
             ),
             Builder(
               builder: (context) => IconButton(
@@ -221,7 +231,6 @@ class _WeaponsPageState extends State<WeaponsPage> {
                 future: futureFoundWeapons,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
-                    print('Found weapons: ${snapshot.data}');
                     return Expanded(
                       child: Scrollbar(
                         thickness: 10,
@@ -230,12 +239,13 @@ class _WeaponsPageState extends State<WeaponsPage> {
                         child: ListView.builder(
                           itemCount: displayedWeapons.length,
                           itemBuilder: (context, index) {
-                            print('Current weapon: ${displayedWeapons[index].name}');
                             return Container(
                                 margin: const EdgeInsets.all(10),
                                 // Add some margin around each ListTile
                                 decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.secondaryContainer,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
                                   // Change the color of the ListTile
                                   borderRadius: BorderRadius.circular(10),
                                   // Add some border radius to the ListTile
@@ -252,17 +262,21 @@ class _WeaponsPageState extends State<WeaponsPage> {
                                   ],
                                 ),
                                 child: CheckboxListTile(
-                                  value: snapshot.data!.contains(displayedWeapons[index].name),
+                                  value: snapshot.data!
+                                      .contains(displayedWeapons[index].name),
                                   onChanged: (bool? value) {
                                     setState(() {
                                       if (value == true) {
-                                        if (!snapshot.data!.contains(displayedWeapons[index].name)) {
-                                          snapshot.data!.add(displayedWeapons[index].name);
+                                        if (!snapshot.data!.contains(
+                                            displayedWeapons[index].name)) {
+                                          snapshot.data!.add(
+                                              displayedWeapons[index].name);
                                         }
                                       } else {
-                                        if (snapshot.data!
-                                            .contains(displayedWeapons[index].name)) {
-                                          snapshot.data!.remove(displayedWeapons[index].name);
+                                        if (snapshot.data!.contains(
+                                            displayedWeapons[index].name)) {
+                                          snapshot.data!.remove(
+                                              displayedWeapons[index].name);
                                         }
                                       }
                                     });
@@ -272,12 +286,21 @@ class _WeaponsPageState extends State<WeaponsPage> {
                                     child: Row(
                                       children: [
                                         IconButton(
-                                          icon: Icon(Icons.info_outline, color: Theme.of(context).colorScheme.onSecondaryContainer,),
+                                          icon: Icon(
+                                            Icons.info_outline,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSecondaryContainer,
+                                          ),
                                           onPressed: () {
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                builder: (context) => DetailPage(weapon: displayedWeapons[index]),
+                                                builder: (context) =>
+                                                    DetailPage(
+                                                        weapon:
+                                                            displayedWeapons[
+                                                                index]),
                                               ),
                                             );
                                           },
@@ -287,14 +310,16 @@ class _WeaponsPageState extends State<WeaponsPage> {
                                           width: 50,
                                           child: ClipRRect(
                                             // Clip the image to make it circular
-                                            borderRadius: BorderRadius.circular(25),
+                                            borderRadius:
+                                                BorderRadius.circular(25),
                                             child: Image.asset(
                                                 displayedWeapons[index].image),
                                           ),
                                         ),
                                         const SizedBox(width: 10),
                                         Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               displayedWeapons[index].name,
@@ -422,7 +447,6 @@ class _WeaponsPageState extends State<WeaponsPage> {
             displayedWeapons = weapons
                 .where((weapon) => !foundWeapons.contains(weapon.name))
                 .toList();
-            displayedWeapons.sort((a, b) => a.name.compareTo(b.name));
             displayedWeapons.sort((a, b) {
               int indexA = categoryOrder.indexOf(a.weaponCategory);
               int indexB = categoryOrder.indexOf(b.weaponCategory);
@@ -437,9 +461,12 @@ class _WeaponsPageState extends State<WeaponsPage> {
   void filterWeaponsByCategory(WeaponCategory? category) {
     setState(() {
       if (category == null) {
-        displayedWeapons = List.from(weapons); // If no category is selected, display all weapons
+        displayedWeapons = List.from(
+            weapons); // If no category is selected, display all weapons
       } else {
-        displayedWeapons = weapons.where((weapon) => weapon.weaponCategory == category).toList();
+        displayedWeapons = weapons
+            .where((weapon) => weapon.weaponCategory == category)
+            .toList();
       }
     });
   }
@@ -447,9 +474,11 @@ class _WeaponsPageState extends State<WeaponsPage> {
   void filterWeaponsByLocation(Location? location) {
     setState(() {
       if (location == null) {
-        displayedWeapons = List.from(weapons); // If no location is selected, display all weapons
+        displayedWeapons = List.from(
+            weapons); // If no location is selected, display all weapons
       } else {
-        displayedWeapons = weapons.where((weapon) => weapon.location == location).toList();
+        displayedWeapons =
+            weapons.where((weapon) => weapon.location == location).toList();
       }
     });
   }
@@ -457,13 +486,15 @@ class _WeaponsPageState extends State<WeaponsPage> {
 
 class WeaponSearch extends SearchDelegate<Weapon> {
   final List<Weapon> weapons;
-  WeaponSearch(this.weapons);
+  final Function(List<Weapon>) onWeaponsSelected;
+
+  WeaponSearch(this.weapons, this.onWeaponsSelected);
 
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: Icon(Icons.clear),
+        icon: const Icon(Icons.clear),
         onPressed: () {
           query = '';
         },
@@ -474,38 +505,57 @@ class WeaponSearch extends SearchDelegate<Weapon> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_back),
+      icon: const Icon(Icons.arrow_back),
       onPressed: () {
-        close(context, Weapon(name: '', image: '', way: ObtentionWay.buy, location: Location.ainsel_river, weaponCategory: WeaponCategory.axe, howToFind: ''));
+        close(
+            context,
+            Weapon(
+                name: '',
+                image: '',
+                location: Location.ainsel_river,
+                weaponCategory: WeaponCategory.axe,
+                howToFind: '',
+                infos: [],
+            isSomber: false));
       },
     );
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    return _buildSuggestionList();
+    final results = weapons
+        .where((weapon) =>
+        weapon.name.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      onWeaponsSelected(results);
+    });
+
+    return _buildSuggestionList(results);
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return _buildSuggestionList();
-  }
-
-  Widget _buildSuggestionList() {
     final suggestionList = query.isEmpty
         ? weapons
-        : weapons.where((weapon) => weapon.name.toLowerCase().startsWith(query.toLowerCase())).toList();
+        : weapons
+        .where((weapon) =>
+        weapon.name.toLowerCase().startsWith(query.toLowerCase()))
+        .toList();
 
+    return _buildSuggestionList(suggestionList);
+  }
+
+  Widget _buildSuggestionList(List<Weapon> suggestionList) {
     return ListView.builder(
       itemCount: suggestionList.length,
       itemBuilder: (context, index) {
         return ListTile(
           title: Text(suggestionList[index].name),
           onTap: () {
+            onWeaponsSelected([suggestionList[index]]);
             close(context, suggestionList[index]);
-            showDialog(context: context, builder: (context){
-              return DetailPage(weapon: suggestionList[index]);
-            });
           },
         );
       },
@@ -513,11 +563,4 @@ class WeaponSearch extends SearchDelegate<Weapon> {
   }
 }
 
-
-enum SortOption {
-  category,
-  name,
-  location,
-  defaultSort,
-  notFound
-}
+enum SortOption { category, name, location, defaultSort, notFound }

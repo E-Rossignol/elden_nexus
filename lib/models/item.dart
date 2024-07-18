@@ -10,7 +10,6 @@ class Item {
     required this.name,
     required this.cat,
     required this.image,
-    required this.way,
     required this.location,
   });
 }
