@@ -71,7 +71,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Celebrants Cleaver',
         image: 'lib/constants/images/axe/celebrants_cleaver.png',
@@ -81,7 +81,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Forked Hatchet',
         image: 'lib/constants/images/axe/forked_hatchet.png',
@@ -91,7 +91,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Hand Axe',
         image: 'lib/constants/images/axe/hand_axe.png',
@@ -101,7 +101,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Highland Axe',
         image: 'lib/constants/images/axe/highland_axe.png',
@@ -111,7 +111,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Icerind Hatchet',
         image: 'lib/constants/images/axe/icerind_hatchet.png',
@@ -121,7 +121,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Iron Cleaver',
         image: 'lib/constants/images/axe/iron_cleaver.png',
@@ -131,7 +131,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Jawbone Axe',
         image: 'lib/constants/images/axe/jawbone_axe.png',
@@ -141,7 +141,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Ripple Blade',
         image: 'lib/constants/images/axe/ripple_blade.png',
@@ -151,7 +151,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Rosuss Axe',
         image: 'lib/constants/images/axe/rosus_axe.png',
@@ -161,7 +161,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Sacrificial Axe',
         image: 'lib/constants/images/axe/sacrificial_axe.png',
@@ -171,7 +171,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Stormhawk Axe',
         image: 'lib/constants/images/axe/stormhawk_axe.png',
@@ -181,7 +181,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Warped Axe',
         image: 'lib/constants/images/axe/warped_axe.png',
@@ -191,7 +191,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
   ];
   List<Weapon> claws = [
     Weapon(
@@ -203,7 +203,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Hookclaws',
         image: 'lib/constants/images/claw/hookclaws.png',
@@ -213,7 +213,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Raptor Talons',
         image: 'lib/constants/images/claw/raptor_talons.png',
@@ -223,7 +223,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Venomous Fang',
         image: 'lib/constants/images/claw/venomous_fang.png',
@@ -233,7 +233,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
   ];
   List<Weapon> colossal_swords = [
     Weapon(
@@ -245,7 +245,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Grafted Blade Greatsword',
         image:
@@ -256,7 +256,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Greatsword',
         image: 'lib/constants/images/colossal_sword/greatsword.png',
@@ -266,7 +266,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Malikeths Black Blade',
         image: 'lib/constants/images/colossal_sword/malikeths_black_blade.png',
@@ -276,7 +276,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Royal Greatsword',
         image: 'lib/constants/images/colossal_sword/royal_greatsword.png',
@@ -286,7 +286,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Ruins Greatsword',
         image: 'lib/constants/images/colossal_sword/ruins_greatsword.png',
@@ -296,7 +296,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Starscourge Greatsword',
         image: 'lib/constants/images/colossal_sword/starscourge_greatsword.png',
@@ -306,7 +306,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Trolls Golden Sword',
         image: 'lib/constants/images/colossal_sword/trolls_golden_sword.png',
@@ -316,7 +316,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Troll Knights Sword',
         image: 'lib/constants/images/colossal_sword/troll_knights_sword.png',
@@ -326,7 +326,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Watchdogs Greatsword',
         image: 'lib/constants/images/colossal_sword/watchdogs_greatsword.png',
@@ -336,7 +336,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Zweihander',
         image: 'lib/constants/images/colossal_sword/zweihander.png',
@@ -346,7 +346,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
   ];
   List<Weapon> colossal_weapons = [
     Weapon(
@@ -358,7 +358,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Dragon Greatclaw',
         image: 'lib/constants/images/colossal_weapon/dragon_greatclaw.png',
@@ -368,7 +368,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Duelist Greataxe',
         image: 'lib/constants/images/colossal_weapon/duelist_greataxe.png',
@@ -378,7 +378,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Envoys Greathorn',
         image: 'lib/constants/images/colossal_weapon/envoys_greathorn.png',
@@ -388,7 +388,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Fallingstar Beast Jaw',
         image: 'lib/constants/images/colossal_weapon/fallingstar_beast_jaw.png',
@@ -398,7 +398,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Ghizas Wheel',
         image: 'lib/constants/images/colossal_weapon/ghizas_wheel.png',
@@ -408,7 +408,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Giant Crusher',
         image: 'lib/constants/images/colossal_weapon/giant_crusher.png',
@@ -418,7 +418,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Golems Halberd',
         image: 'lib/constants/images/colossal_weapon/golems_halberd.png',
@@ -428,7 +428,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Great Club',
         image: 'lib/constants/images/colossal_weapon/great_club.png',
@@ -438,7 +438,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Prelates Inferno Crozier',
         image:
@@ -449,7 +449,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Rotten Greataxe',
         image: 'lib/constants/images/colossal_weapon/rotten_greataxe.png',
@@ -459,7 +459,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Rotten Staff',
         image: 'lib/constants/images/colossal_weapon/rotten_staff.png',
@@ -469,7 +469,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Staff Of The Avatar',
         image: 'lib/constants/images/colossal_weapon/staff_of_the_avatar.png',
@@ -479,7 +479,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Trolls Hammer',
         image: 'lib/constants/images/colossal_weapon/trolls_hammer.png',
@@ -489,7 +489,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Watchdogs Staff',
         image: 'lib/constants/images/colossal_weapon/watchdogs_staff.png',
@@ -499,7 +499,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
   ];
   List<Weapon> curved_greatswords = [
     Weapon(
@@ -511,7 +511,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Bloodhounds Fang',
         image: 'lib/constants/images/curved_greatsword/bloodhounds_fang.png',
@@ -521,7 +521,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Dismounter',
         image: 'lib/constants/images/curved_greatsword/dismounter.png',
@@ -531,7 +531,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Magma Wyrms Scalesword',
         image:
@@ -542,7 +542,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Monks Flameblade',
         image: 'lib/constants/images/curved_greatsword/monks_flameblade.png',
@@ -552,7 +552,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Morgotts Cursed Sword',
         image:
@@ -563,7 +563,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Omen Cleaver',
         image: 'lib/constants/images/curved_greatsword/omen_cleaver.png',
@@ -573,7 +573,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Onyx Lords Greatsword',
         image:
@@ -584,7 +584,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Zamor Curved Sword',
         image: 'lib/constants/images/curved_greatsword/zamor_curved_sword.png',
@@ -594,7 +594,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
   ];
   List<Weapon> curved_swords = [
     Weapon(
@@ -606,7 +606,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Beastmans Curved Sword',
         image: 'lib/constants/images/curved_sword/beastmans_curved_sword.png',
@@ -616,7 +616,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Eclipse Shotel',
         image: 'lib/constants/images/curved_sword/eclipse_shotel.png',
@@ -626,7 +626,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Falchion',
         image: 'lib/constants/images/curved_sword/falchion.png',
@@ -636,7 +636,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Flowing Curved Sword',
         image: 'lib/constants/images/curved_sword/flowing_curved_sword.png',
@@ -646,7 +646,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Grossmesser',
         image: 'lib/constants/images/curved_sword/grossmesser.png',
@@ -656,7 +656,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Magma Blade',
         image: 'lib/constants/images/curved_sword/magma_blade.png',
@@ -666,7 +666,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Mantis Blade',
         image: 'lib/constants/images/curved_sword/mantis_blade.png',
@@ -676,7 +676,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Nox Flowing Sword',
         image: 'lib/constants/images/curved_sword/nox_flowing_sword.png',
@@ -686,7 +686,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Scavengers Curved Sword',
         image: 'lib/constants/images/curved_sword/scavengers_curved_sword.png',
@@ -696,7 +696,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Scimitar',
         image: 'lib/constants/images/curved_sword/scimitar.png',
@@ -706,7 +706,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Serpent-gods Curved Sword',
         image:
@@ -717,7 +717,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Shamshir',
         image: 'lib/constants/images/curved_sword/shamshir.png',
@@ -727,7 +727,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Shotel',
         image: 'lib/constants/images/curved_sword/shotel.png',
@@ -737,7 +737,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Wing Of Astel',
         image: 'lib/constants/images/curved_sword/wing_of_astel.png',
@@ -747,7 +747,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
   ];
   List<Weapon> daggers = [
     Weapon(
@@ -759,7 +759,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Blade Of Calling',
         image: 'lib/constants/images/dagger/blade_of_calling.png',
@@ -769,7 +769,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Bloodstained Dagger',
         image: 'lib/constants/images/dagger/bloodstained_dagger.png',
@@ -779,7 +779,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Celebrants Sickle',
         image: 'lib/constants/images/dagger/celebrants_sickle.png',
@@ -789,7 +789,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Cinquedea',
         image: 'lib/constants/images/dagger/cinquedea.png',
@@ -799,7 +799,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Crystal Knife',
         image: 'lib/constants/images/dagger/crystal_knife.png',
@@ -809,7 +809,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Dagger',
         image: 'lib/constants/images/dagger/dagger.png',
@@ -819,7 +819,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Erdsteel Dagger',
         image: 'lib/constants/images/dagger/erdsteel_dagger.png',
@@ -829,7 +829,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Glintstone Kris',
         image: 'lib/constants/images/dagger/glintstone_kris.png',
@@ -839,7 +839,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Great Knife',
         image: 'lib/constants/images/dagger/great_knife.png',
@@ -849,7 +849,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Ivory Sickle',
         image: 'lib/constants/images/dagger/ivory_sickle.png',
@@ -859,7 +859,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Misericorde',
         image: 'lib/constants/images/dagger/misericorde.png',
@@ -869,7 +869,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Parrying Dagger',
         image: 'lib/constants/images/dagger/parrying_dagger.png',
@@ -879,7 +879,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Reduvia',
         image: 'lib/constants/images/dagger/reduvia.png',
@@ -889,7 +889,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Scorpions Stinger',
         image: 'lib/constants/images/dagger/scorpions_stinger.png',
@@ -899,7 +899,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Wakizashi',
         image: 'lib/constants/images/dagger/wakizashi.png',
@@ -909,7 +909,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
   ];
   List<Weapon> fists = [
     Weapon(
@@ -921,7 +921,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Cipher Pata',
         image: 'lib/constants/images/fist/cipher_pata.png',
@@ -931,7 +931,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Clinging Bone',
         image: 'lib/constants/images/fist/clinging_bone.png',
@@ -941,7 +941,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Grafted Dragon',
         image: 'lib/constants/images/fist/grafted_dragon.png',
@@ -951,7 +951,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Iron Ball',
         image: 'lib/constants/images/fist/iron_ball.png',
@@ -961,7 +961,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Katar',
         image: 'lib/constants/images/fist/katar.png',
@@ -971,7 +971,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Spiked Caestus',
         image: 'lib/constants/images/fist/spiked_caestus.png',
@@ -981,7 +981,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Star Fist',
         image: 'lib/constants/images/fist/star_fist.png',
@@ -991,7 +991,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Veterans Prosthesis',
         image: 'lib/constants/images/fist/veterans_prosthesis.png',
@@ -1001,7 +1001,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
   ];
   List<Weapon> flails = [
     Weapon(
@@ -1013,7 +1013,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Chainlink Flail',
         image: 'lib/constants/images/flail/chainlink_flail.png',
@@ -1023,7 +1023,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Family Heads',
         image: 'lib/constants/images/flail/family_heads.png',
@@ -1033,7 +1033,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Flail',
         image: 'lib/constants/images/flail/flail.png',
@@ -1043,7 +1043,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Nightrider Flail',
         image: 'lib/constants/images/flail/nightrider_flail.png',
@@ -1053,7 +1053,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
   ];
   List<Weapon> great_axes = [
     Weapon(
@@ -1065,7 +1065,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Butchering Knife',
         image: 'lib/constants/images/great_axe/butchering_knife.png',
@@ -1075,7 +1075,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Crescent Moon Axe',
         image: 'lib/constants/images/great_axe/crescent_moon_axe.png',
@@ -1085,7 +1085,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Executioners Greataxe',
         image: 'lib/constants/images/great_axe/executioners_greataxe.png',
@@ -1095,7 +1095,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Gargoyles Black Axe',
         image: 'lib/constants/images/great_axe/gargoyles_black_axe.png',
@@ -1105,7 +1105,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Gargoyles Great Axe',
         image: 'lib/constants/images/great_axe/gargoyles_great_axe.png',
@@ -1115,7 +1115,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Greataxe',
         image: 'lib/constants/images/great_axe/greataxe.png',
@@ -1125,7 +1125,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Great Omenkiller Cleaver',
         image: 'lib/constants/images/great_axe/great_omenkiller_cleaver.png',
@@ -1135,7 +1135,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Longhaft Axe',
         image: 'lib/constants/images/great_axe/longhaft_axe.png',
@@ -1145,7 +1145,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Rusted Anchor',
         image: 'lib/constants/images/great_axe/rusted_anchor.png',
@@ -1155,7 +1155,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Winged Greathorn',
         image: 'lib/constants/images/great_axe/winged_greathorn.png',
@@ -1165,7 +1165,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
   ];
   List<Weapon> great_hammer = [
     Weapon(
@@ -1177,7 +1177,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Beastclaw Greathammer',
         image: 'lib/constants/images/great_hammer/beastclaw_greathammer.png',
@@ -1187,7 +1187,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Brick Hammer',
         image: 'lib/constants/images/great_hammer/brick_hammer.png',
@@ -1197,7 +1197,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Celebrants Skull',
         image: 'lib/constants/images/great_hammer/celebrants_skull.png',
@@ -1207,7 +1207,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Cranial Vessel Candlestand',
         image:
@@ -1218,7 +1218,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Curved Great Club',
         image: 'lib/constants/images/great_hammer/curved_great_club.png',
@@ -1228,7 +1228,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Devourers Scepter',
         image: 'lib/constants/images/great_hammer/devourers_scepter.png',
@@ -1238,7 +1238,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Envoys Long Horn',
         image: 'lib/constants/images/great_hammer/envoys_long_horn.png',
@@ -1248,7 +1248,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Greathorn Hammer',
         image: 'lib/constants/images/great_hammer/greathorn_hammer.png',
@@ -1258,7 +1258,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Great Mace',
         image: 'lib/constants/images/great_hammer/great_mace.png',
@@ -1268,7 +1268,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Great Stars',
         image: 'lib/constants/images/great_hammer/great_stars.png',
@@ -1278,7 +1278,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Large Club',
         image: 'lib/constants/images/great_hammer/large_club.png',
@@ -1288,7 +1288,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Pickaxe',
         image: 'lib/constants/images/great_hammer/pickaxe.png',
@@ -1298,7 +1298,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Rotten Battle Hammer',
         image: 'lib/constants/images/great_hammer/rotten_battle_hammer.png',
@@ -1308,7 +1308,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
   ];
   List<Weapon> great_spear = [
     Weapon(
@@ -1320,7 +1320,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Mohgwyns Sacred Spear',
         image: 'lib/constants/images/great_spear/mohgwyns_sacred_spear.png',
@@ -1330,7 +1330,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Serpent Hunter',
         image: 'lib/constants/images/great_spear/serpent_hunter.png',
@@ -1340,7 +1340,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Silurias Tree',
         image: 'lib/constants/images/great_spear/silurias_tree.png',
@@ -1350,7 +1350,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Treespear',
         image: 'lib/constants/images/great_spear/treespear.png',
@@ -1360,7 +1360,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Vykes War Spear',
         image: 'lib/constants/images/great_spear/vykes_war_spear.png',
@@ -1370,7 +1370,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
   ];
   List<Weapon> halberd = [
     Weapon(
@@ -1382,7 +1382,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Commanders Standard',
         image: 'lib/constants/images/halberd/commanders_standard.png',
@@ -1392,7 +1392,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Dragon Halberd',
         image: 'lib/constants/images/halberd/dragon_halberd.png',
@@ -1402,7 +1402,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Gargoyles Black Halberd',
         image: 'lib/constants/images/halberd/gargoyles_black_halberd.png',
@@ -1412,7 +1412,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Gargoyles Halberd',
         image: 'lib/constants/images/halberd/gargoyles_halberd.png',
@@ -1422,7 +1422,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Glaive',
         image: 'lib/constants/images/halberd/glaive.png',
@@ -1432,7 +1432,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Golden Halberd',
         image: 'lib/constants/images/halberd/golden_halberd.png',
@@ -1442,7 +1442,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Guardians Swordspear',
         image: 'lib/constants/images/halberd/guardians_swordspear.png',
@@ -1452,7 +1452,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Halberd',
         image: 'lib/constants/images/halberd/halberd.png',
@@ -1462,7 +1462,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Lorettas War Sickle',
         image: 'lib/constants/images/halberd/lorettas_war_sickle.png',
@@ -1472,7 +1472,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Lucerne',
         image: 'lib/constants/images/halberd/lucerne.png',
@@ -1482,7 +1482,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Nightrider Glaive',
         image: 'lib/constants/images/halberd/nightrider_glaive.png',
@@ -1492,7 +1492,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Pests Glaive',
         image: 'lib/constants/images/halberd/pests_glaive.png',
@@ -1502,7 +1502,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Ripple Crescent Halberd',
         image: 'lib/constants/images/halberd/ripple_crescent_halberd.png',
@@ -1512,7 +1512,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Vulgar Militia Saw',
         image: 'lib/constants/images/halberd/vulgar_militia_saw.png',
@@ -1522,7 +1522,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Vulgar Militia Shotel',
         image: 'lib/constants/images/halberd/vulgar_militia_shotel.png',
@@ -1532,7 +1532,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
   ];
   List<Weapon> hammer = [
     Weapon(
@@ -1544,7 +1544,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Curved Club',
         image: 'lib/constants/images/hammer/curved_club.png',
@@ -1554,7 +1554,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Envoys Horn',
         image: 'lib/constants/images/hammer/envoys_horn.png',
@@ -1564,7 +1564,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Hammer',
         image: 'lib/constants/images/hammer/hammer.png',
@@ -1574,7 +1574,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Mace',
         image: 'lib/constants/images/hammer/mace.png',
@@ -1584,7 +1584,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Marikas Hammer',
         image: 'lib/constants/images/hammer/marikas_hammer.png',
@@ -1594,7 +1594,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Monks Flamemace',
         image: 'lib/constants/images/hammer/monks_flamemace.png',
@@ -1604,7 +1604,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Morning Star',
         image: 'lib/constants/images/hammer/morning_star.png',
@@ -1614,7 +1614,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Nox Flowing Hammer',
         image: 'lib/constants/images/hammer/nox_flowing_hammer.png',
@@ -1624,7 +1624,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Ringed Finger',
         image: 'lib/constants/images/hammer/ringed_finger.png',
@@ -1634,7 +1634,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Scepter Of The All Knowing',
         image: 'lib/constants/images/hammer/scepter_of_the_all_knowing.png',
@@ -1644,7 +1644,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Spiked Club',
         image: 'lib/constants/images/hammer/spiked_club.png',
@@ -1654,7 +1654,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Stone Club',
         image: 'lib/constants/images/hammer/stone_club.png',
@@ -1664,7 +1664,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Warpick',
         image: 'lib/constants/images/hammer/warpick.png',
@@ -1674,7 +1674,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
   ];
   List<Weapon> heavy_thrusting_swords = [
     Weapon(
@@ -1686,7 +1686,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Dragon Kings Cragblade',
         image:
@@ -1697,7 +1697,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Godskin Stitcher',
         image:
@@ -1708,7 +1708,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Great Epee',
         image: 'lib/constants/images/heavy_thrusting_sword/great_epee.png',
@@ -1718,7 +1718,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
   ];
   List<Weapon> katanas = [
     Weapon(
@@ -1730,7 +1730,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Hand Of Malenia',
         image: 'lib/constants/images/katana/hand_of_malenia.png',
@@ -1740,7 +1740,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Meteoric Ore Blade',
         image: 'lib/constants/images/katana/meteoric_ore_blade.png',
@@ -1750,7 +1750,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Moonveil',
         image: 'lib/constants/images/katana/moonveil.png',
@@ -1760,7 +1760,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Nagakiba',
         image: 'lib/constants/images/katana/nagakiba.png',
@@ -1770,7 +1770,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Rivers Of Blood',
         image: 'lib/constants/images/katana/rivers_of_blood.png',
@@ -1780,7 +1780,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Serpentbone Blade',
         image: 'lib/constants/images/katana/serpentbone_blade.png',
@@ -1790,7 +1790,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Uchigatana',
         image: 'lib/constants/images/katana/uchigatana.png',
@@ -1800,7 +1800,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
   ];
   List<Weapon> reapers = [
     Weapon(
@@ -1812,7 +1812,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Halo Scythe',
         image: 'lib/constants/images/reaper/halo_scythe.png',
@@ -1822,7 +1822,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Scythe',
         image: 'lib/constants/images/reaper/scythe.png',
@@ -1832,7 +1832,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Winged Scythe',
         image: 'lib/constants/images/reaper/winged_scythe.png',
@@ -1842,7 +1842,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
   ];
   List<Weapon> spears = [
     Weapon(
@@ -1854,7 +1854,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Celebrants Rib Rake',
         image: 'lib/constants/images/spear/celebrants_rib_rake.png',
@@ -1864,7 +1864,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Claymans Harpoon',
         image: 'lib/constants/images/spear/claymans_harpoon.png',
@@ -1874,7 +1874,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Cleanrot Spear',
         image: 'lib/constants/images/spear/cleanrot_spear.png',
@@ -1884,7 +1884,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Cross Naginata',
         image: 'lib/constants/images/spear/cross_naginata.png',
@@ -1894,7 +1894,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Crystal Spear',
         image: 'lib/constants/images/spear/crystal_spear.png',
@@ -1904,7 +1904,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Death Ritual Spear',
         image: 'lib/constants/images/spear/death_ritual_spear.png',
@@ -1914,7 +1914,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Inquisitors Girandole',
         image: 'lib/constants/images/spear/inquisitors_girandole.png',
@@ -1924,7 +1924,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Iron Spear',
         image: 'lib/constants/images/spear/iron_spear.png',
@@ -1934,7 +1934,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Partisan',
         image: 'lib/constants/images/spear/partisan.png',
@@ -1944,7 +1944,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Pike',
         image: 'lib/constants/images/spear/pike.png',
@@ -1954,7 +1954,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Rotten Crystal Spear',
         image: 'lib/constants/images/spear/rotten_crystal_spear.png',
@@ -1964,7 +1964,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Short Spear',
         image: 'lib/constants/images/spear/short_spear.png',
@@ -1974,7 +1974,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Spear',
         image: 'lib/constants/images/spear/spear.png',
@@ -1984,7 +1984,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Spiked Spear',
         image: 'lib/constants/images/spear/spiked_spear.png',
@@ -1994,7 +1994,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Torchpole',
         image: 'lib/constants/images/spear/torchpole.png',
@@ -2004,7 +2004,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
   ];
   List<Weapon> straight_swords = [
     Weapon(
@@ -2016,7 +2016,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Cane Sword',
         image: 'lib/constants/images/straight_sword/cane_sword.png',
@@ -2026,7 +2026,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Carian Knights Sword',
         image: 'lib/constants/images/straight_sword/carian_knights_sword.png',
@@ -2036,7 +2036,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Coded Sword',
         image: 'lib/constants/images/straight_sword/coded_sword.png',
@@ -2046,7 +2046,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Crystal Sword',
         image: 'lib/constants/images/straight_sword/crystal_sword.png',
@@ -2056,7 +2056,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Golden Epitaph',
         image: 'lib/constants/images/straight_sword/golden_epitaph.png',
@@ -2066,7 +2066,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Lazuli Glintstone Sword',
         image:
@@ -2077,7 +2077,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Longsword',
         image: 'lib/constants/images/straight_sword/longsword.png',
@@ -2087,7 +2087,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Lordsworns Straight Sword',
         image:
@@ -2098,7 +2098,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Miquellan Knights Sword',
         image:
@@ -2109,7 +2109,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Nobles Slender Sword',
         image: 'lib/constants/images/straight_sword/nobles_slender_sword.png',
@@ -2119,7 +2119,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Ornamental Straight Sword',
         image:
@@ -2130,7 +2130,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Regalia Of Eochaid',
         image: 'lib/constants/images/straight_sword/regalia_of_eochaid.png',
@@ -2140,7 +2140,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Rotten Crystal Sword',
         image: 'lib/constants/images/straight_sword/rotten_crystal_sword.png',
@@ -2150,7 +2150,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Short Sword',
         image: 'lib/constants/images/straight_sword/short_sword.png',
@@ -2160,7 +2160,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Sword Of Night And Flame',
         image:
@@ -2171,7 +2171,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Sword Of St Trina',
         image: 'lib/constants/images/straight_sword/sword_of_st_trina.png',
@@ -2181,7 +2181,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Warhawks Talon',
         image: 'lib/constants/images/straight_sword/warhawks_talon.png',
@@ -2191,7 +2191,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Weathered Straight Sword',
         image:
@@ -2202,7 +2202,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
   ];
   List<Weapon> thrusting_swords = [
     Weapon(
@@ -2214,7 +2214,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Cleanrot Knights Sword',
         image:
@@ -2225,7 +2225,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Estoc',
         image: 'lib/constants/images/thrusting_sword/estoc.png',
@@ -2235,7 +2235,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Frozen Needle',
         image: 'lib/constants/images/thrusting_sword/frozen_needle.png',
@@ -2245,7 +2245,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Nobles Estoc',
         image: 'lib/constants/images/thrusting_sword/nobles_estoc.png',
@@ -2255,7 +2255,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Rapier',
         image: 'lib/constants/images/thrusting_sword/rapier.png',
@@ -2265,7 +2265,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Rogiers Rapier',
         image: 'lib/constants/images/thrusting_sword/rogiers_rapier.png',
@@ -2275,7 +2275,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
   ];
   List<Weapon> twinblades = [
     Weapon(
@@ -2287,7 +2287,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Gargoyles Black Blades',
         image: 'lib/constants/images/twinblade/gargoyles_black_blades.png',
@@ -2297,7 +2297,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Gargoyles Twinblade',
         image: 'lib/constants/images/twinblade/gargoyles_twinblade.png',
@@ -2307,7 +2307,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Godskin Peeler',
         image: 'lib/constants/images/twinblade/godskin_peeler.png',
@@ -2317,7 +2317,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Twinblade',
         image: 'lib/constants/images/twinblade/twinblade.png',
@@ -2327,7 +2327,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Twinned Knight Swords',
         image: 'lib/constants/images/twinblade/twinned_knight_swords.png',
@@ -2337,7 +2337,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
   ];
   List<Weapon> whips = [
     Weapon(
@@ -2349,7 +2349,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Hoslows Petal Whip',
         image: 'lib/constants/images/whip/hoslows_petal_whip.png',
@@ -2359,7 +2359,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Magma Whip Candlestick',
         image: 'lib/constants/images/whip/magma_whip_candlestick.png',
@@ -2369,7 +2369,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Thorned Whip',
         image: 'lib/constants/images/whip/thorned_whip.png',
@@ -2379,7 +2379,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Urumi',
         image: 'lib/constants/images/whip/urumi.png',
@@ -2389,7 +2389,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Whip',
         image: 'lib/constants/images/whip/whip.png',
@@ -2399,7 +2399,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
   ];
   List<Weapon> great_swords = [
     Weapon(
@@ -2411,7 +2411,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Banished Knight\'s Greatsword',
         image:
@@ -2422,7 +2422,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Bastard Sword',
         image: 'lib/constants/images/great_sword/bastard_sword.png',
@@ -2432,7 +2432,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Blasphemous Blade',
         image: 'lib/constants/images/great_sword/blasphemous_blade.png',
@@ -2442,7 +2442,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Claymore',
         image: 'lib/constants/images/great_sword/claymore.png',
@@ -2452,7 +2452,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Dark Moon Greatsword',
         image: 'lib/constants/images/great_sword/dark_moon_greatsword.png',
@@ -2462,7 +2462,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Death\'s poker',
         image: 'lib/constants/images/great_sword/death_poker.png',
@@ -2472,7 +2472,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Flamberge',
         image: 'lib/constants/images/great_sword/flamberge.png',
@@ -2482,7 +2482,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Forked Greatsword',
         image: 'lib/constants/images/great_sword/forked_greatsword.png',
@@ -2492,7 +2492,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Gargoyle\'s Blackblade',
         image: 'lib/constants/images/great_sword/gargoyles_blackblade.png',
@@ -2502,7 +2502,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Gargoyle\'s Greatsword',
         image: 'lib/constants/images/great_sword/gargoyles_greatsword.png',
@@ -2512,7 +2512,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Golden Order Greatsword',
         image: 'lib/constants/images/great_sword/golden_order_greatsword.png',
@@ -2522,7 +2522,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Helphen\'s Steeple',
         image: 'lib/constants/images/great_sword/helphens_steeple.png',
@@ -2532,7 +2532,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Inseparable Sword',
         image: 'lib/constants/images/great_sword/inseparable_sword.png',
@@ -2542,7 +2542,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Iron Greatsword',
         image: 'lib/constants/images/great_sword/iron_greatsword.png',
@@ -2552,7 +2552,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Knight Greatsword',
         image: 'lib/constants/images/great_sword/knight_greatsword.png',
@@ -2562,7 +2562,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Lord\'s Worn\'s Greatsword',
         image: 'lib/constants/images/great_sword/lordsworns_greatsword.png',
@@ -2572,7 +2572,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Marais Executioner\'s Greatsword',
         image:
@@ -2583,7 +2583,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Ordovis\'s Greatsword',
         image: 'lib/constants/images/great_sword/ordoviss_greatsword.png',
@@ -2593,7 +2593,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Sacred Relic Sword',
         image: 'lib/constants/images/great_sword/sacred_relic_sword.png',
@@ -2603,7 +2603,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Sword of Milos',
         image: 'lib/constants/images/great_sword/sword_of_milos.png',
@@ -2613,7 +2613,7 @@ List<Weapon> allWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
   ];
   allWeapons.addAll(axes);
   allWeapons.addAll(claws);
@@ -2664,7 +2664,7 @@ List<Weapon> allDlcWeapons() {
         weight: 5.5,
         isSomber: false,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Forked Tongue Hatchet',
         image: 'lib/constants/images/dlc/forked_tongue_hatchet.png',
@@ -2683,7 +2683,7 @@ List<Weapon> allDlcWeapons() {
         weaponCategory: WeaponCategory.axe,
         howToFind:
             "Taylew's Ruined Forge: From the initial site of grace, continue following the path, get past the enemy, and take the ladder down then jump across the other platforms and turn left. You will find a Golem there. Behind it, at the back of the room, you will find the Smithscript Axe.",
-        scaling: Scaling(str: 'C', dex:'D', int: 'E', fai: 'E'),
+        scaling: Scaling(str: 'C', dex: 'D', int: 'E', fai: 'E'),
         weight: 5.0,
         isSomber: false,
         ashOfWar: aow('Unsheathe'),
@@ -2711,7 +2711,7 @@ List<Weapon> allDlcWeapons() {
         weight: 4.5,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Anvil Hammer',
         image: 'lib/constants/images/dlc/anvil_hammer.png',
@@ -2770,7 +2770,7 @@ List<Weapon> allDlcWeapons() {
         weight: 3,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Curseblade\'s Cirque',
         image: 'lib/constants/images/dlc/curseblades_cirque.png',
@@ -2781,7 +2781,7 @@ List<Weapon> allDlcWeapons() {
         weight: 4.5,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Devonia\'s Hammer',
         image: 'lib/constants/images/dlc/devonias_hammer.png',
@@ -2847,7 +2847,7 @@ List<Weapon> allDlcWeapons() {
         weaponCategory: WeaponCategory.colossal_sword,
         howToFind:
             'The weapon drops from defeating the hostile NPC Invader, Moonrithyll, Carian Knight.',
-        scaling: Scaling(str:'C', dex: 'C', int: 'D'),
+        scaling: Scaling(str: 'C', dex: 'C', int: 'D'),
         weight: 18,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
@@ -2911,7 +2911,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Black Steel Greathammer',
         image: 'lib/constants/images/dlc/black_steel_greathammer.png',
@@ -2922,7 +2922,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Black Steel GreatShield',
         image: 'lib/constants/images/dlc/black_steel_greatshield.png',
@@ -2933,7 +2933,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Black Steel Twinblade',
         image: 'lib/constants/images/dlc/black_steel_twinblade.png',
@@ -2944,7 +2944,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Bloodfiend\'s Fork',
         image: 'lib/constants/images/dlc/bloodfiends_fork.png',
@@ -2955,7 +2955,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Bloodfiend\'s Sacred Spear',
         image: 'lib/constants/images/dlc/bloodfiends_sacred_spear.png',
@@ -2966,7 +2966,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Bone Bow',
         image: 'lib/constants/images/dlc/bone_bow.png',
@@ -2977,7 +2977,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Bonny Butchering Knife',
         image: 'lib/constants/images/dlc/bonny_butchering_knife.png',
@@ -2988,7 +2988,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Carian Sorcery Sword',
         image: 'lib/constants/images/dlc/carian_sorcery_sword.png',
@@ -2999,7 +2999,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Carian Thrusting Shield',
         image: 'lib/constants/images/dlc/carian_thrusting_shield.png',
@@ -3010,7 +3010,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Chilling Perfume Bottle',
         image: 'lib/constants/images/dlc/chilling_perfume_bottle.png',
@@ -3021,7 +3021,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Deadly Poison Perfume Bottle',
         image: 'lib/constants/images/dlc/deadly_poison_perfume_bottle.png',
@@ -3031,7 +3031,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Dancing Blade of Ranah',
         image: 'lib/constants/images/dlc/dancing_blade_of_ranah.png',
@@ -3054,7 +3054,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Dragon-Hunter\'s Great Katana',
         image: 'lib/constants/images/dlc/dragon-hunters.png',
@@ -3064,7 +3064,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Dane\'s Footwork',
         image: 'lib/constants/images/dlc/danes_footwork.png',
@@ -3075,7 +3075,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Dryleaf Arts',
         image: 'lib/constants/images/dlc/dryleaf_arts.png',
@@ -3086,7 +3086,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Maternal Staff',
         image: 'lib/constants/images/dlc/maternal_staff.png',
@@ -3097,7 +3097,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Dryleaf Seal',
         image: 'lib/constants/images/dlc/dryleaf_seal.png',
@@ -3108,7 +3108,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Dueling Shield',
         image: 'lib/constants/images/dlc/dueling_shield.png',
@@ -3119,7 +3119,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Euporia',
         image: 'lib/constants/images/dlc/euporia.png',
@@ -3129,7 +3129,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Falx',
         image: 'lib/constants/images/dlc/falx.png',
@@ -3152,7 +3152,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Fire Knight\'s Shortsword',
         image: 'lib/constants/images/dlc/fire_knights_shortsword.png',
@@ -3162,7 +3162,8 @@ List<Weapon> allDlcWeapons() {
         weight: 2,
         isSomber: false,
         ashOfWar: aow('Unsheathe'),
-        mapLink: 'https://eldenring.wiki.fextralife.com/Shadow+of+the+Erdtree+Map?id=655353&code=mapD'),
+        mapLink:
+            'https://eldenring.wiki.fextralife.com/Shadow+of+the+Erdtree+Map?id=655353&code=mapD'),
     Weapon(
         name: 'Firespark Perfume Bottle',
         image: 'lib/constants/images/dlc/firespark_perfume_bottle.png',
@@ -3173,7 +3174,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Flowerstone Gavel',
         image: 'lib/constants/images/dlc/flowerstone_gavel.png',
@@ -3184,7 +3185,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Frenzyflame Perfume Bottle',
         image: 'lib/constants/images/dlc/frenzyflame_perfume_bottle.png',
@@ -3195,7 +3196,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Freyja\'s Greatsword',
         image: 'lib/constants/images/dlc/freyjas_greatsword.png',
@@ -3218,7 +3219,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Golem Fist',
         image: 'lib/constants/images/dlc/golem_fist.png',
@@ -3229,7 +3230,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Great Katana',
         image: 'lib/constants/images/dlc/great_katana.png',
@@ -3240,7 +3241,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Greatsword of Solitude',
         image: 'lib/constants/images/dlc/greatsword_of_solitude.png',
@@ -3251,7 +3252,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Greatsword of Damnation',
         image: 'lib/constants/images/dlc/greatsword_of_damnation.png',
@@ -3297,7 +3298,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Lamenting Visage',
         image: 'lib/constants/images/dlc/lamenting_visage.png',
@@ -3308,7 +3309,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Leda\'s Sword',
         image: 'lib/constants/images/dlc/ledas_sword.png',
@@ -3319,7 +3320,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Lightning Perfume Bottle',
         image: 'lib/constants/images/dlc/lightning_perfume_bottle.png',
@@ -3330,7 +3331,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Lizard Greatsword',
         image: 'lib/constants/images/dlc/lizard_greatsword.png',
@@ -3341,7 +3342,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Madding Hand',
         image: 'lib/constants/images/dlc/madding_hand.png',
@@ -3352,7 +3353,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Main-Gauche',
         image: 'lib/constants/images/dlc/main_gauche.png',
@@ -3363,7 +3364,8 @@ List<Weapon> allDlcWeapons() {
         weight: 2.5,
         isSomber: false,
         ashOfWar: aow('Unsheathe'),
-        mapLink: 'https://eldenring.wiki.fextralife.com/Interactive+Map?id=655577&code=mapD'),
+        mapLink:
+            'https://eldenring.wiki.fextralife.com/Interactive+Map?id=655577&code=mapD'),
     Weapon(
         name: 'Messmer Soldier\'s Shield',
         image: 'lib/constants/images/dlc/messmer_soldiers_shield.png',
@@ -3374,7 +3376,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Messmer Soldier\'s Spear',
         image: 'lib/constants/images/dlc/messmer_soldiers_spear.png',
@@ -3384,7 +3386,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Milady',
         image: 'lib/constants/images/dlc/milady.png',
@@ -3395,7 +3397,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Nanaya\'s Torch',
         image: 'lib/constants/images/dlc/nanayas_torch.png',
@@ -3406,7 +3408,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Obsidian Lamina',
         image: 'lib/constants/images/dlc/obsidian_lamina.png',
@@ -3417,7 +3419,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Pata',
         image: 'lib/constants/images/dlc/pata.png',
@@ -3428,7 +3430,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Poisoned Hand',
         image: 'lib/constants/images/dlc/poisoned_hand.png',
@@ -3439,7 +3441,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Poleblade of the Bud',
         image: 'lib/constants/images/dlc/poleblade_of_the_bud.png',
@@ -3474,7 +3476,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Rakshasa\'s Great Katana',
         image: 'lib/constants/images/dlc/rakshasas_great_katana.png',
@@ -3485,7 +3487,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Rellana\'s Twinblade',
         image: 'lib/constants/images/dlc/rellanas_twinblade.png',
@@ -3520,7 +3522,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Serpent Flail',
         image: 'lib/constants/images/dlc/serpent_flail.png',
@@ -3531,7 +3533,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Shield of Night',
         image: 'lib/constants/images/dlc/shield_of_night.png',
@@ -3542,7 +3544,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Smithscript Dagger',
         image: 'lib/constants/images/dlc/smithscript_dagger.png',
@@ -3553,7 +3555,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Smithscript Greathammer',
         image: 'lib/constants/images/dlc/smithscript_greathammer.png',
@@ -3564,7 +3566,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Smithscript Shield',
         image: 'lib/constants/images/dlc/smithscript_shield.png',
@@ -3575,7 +3577,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Smithscript Spear',
         image: 'lib/constants/images/dlc/smithscript_spear.png',
@@ -3586,7 +3588,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Spear of the Impaler',
         image: 'lib/constants/images/dlc/spear_of_the_impaler.png',
@@ -3609,7 +3611,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Spirit Glaive',
         image: 'lib/constants/images/dlc/spirit_glaive.png',
@@ -3620,7 +3622,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Spirit Sword',
         image: 'lib/constants/images/dlc/spirit_sword.png',
@@ -3667,7 +3669,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Stone-Sheathed Sword',
         image: 'lib/constants/images/dlc/stone-sheathed_sword.png',
@@ -3678,7 +3680,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Swift Spear',
         image: 'lib/constants/images/dlc/swift_spear.png',
@@ -3689,7 +3691,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Sword Lance',
         image: 'lib/constants/images/dlc/sword_lance.png',
@@ -3712,7 +3714,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Sword of Light',
         image: 'lib/constants/images/dlc/sword_of_light.png',
@@ -3723,7 +3725,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Sword of Night',
         image: 'lib/constants/images/dlc/sword_of_night.png',
@@ -3734,7 +3736,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Thiollier\'s Hidden Needle',
         image: 'lib/constants/images/dlc/thiolliers_hidden_needle.png',
@@ -3745,7 +3747,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Tooth Whip',
         image: 'lib/constants/images/dlc/tooth_whip.png',
@@ -3755,7 +3757,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Velvet Sword of St-Trina',
         image: 'lib/constants/images/dlc/velvet_sword_of_st_trina.png',
@@ -3766,7 +3768,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
         name: 'Verdigris Greatshield',
         image: 'lib/constants/images/dlc/verdigris_greatshield.png',
@@ -3777,7 +3779,7 @@ List<Weapon> allDlcWeapons() {
         weight: -1,
         isSomber: true,
         ashOfWar: aow('Unsheathe'),
-        mapLink: ''),
+        mapLink: ""),
     Weapon(
       name: 'Wolf Crest Shield',
       image: 'lib/constants/images/dlc/wolf_crest_shield.png',
@@ -3788,24 +3790,288 @@ List<Weapon> allDlcWeapons() {
       weight: -1,
       isSomber: false,
       ashOfWar: aow('Unsheathe'),
-      mapLink: '',
+      mapLink: "",
     ),
   ];
   return dlcWeapons;
 }
 
-List<AshOfWar> ashOfWars = [
-  AshOfWar(
-      name: "Unsheathe",
-      image: 'lib/constants/images/ash_of_war/unsheathe.png',
+List<AshOfWar> ashesOfWar() {
+  List<AshOfWar> ashesOfWar = [
+    AshOfWar(
+        name: "Unsheathe",
+        image: 'lib/constants/images/ash_of_war/unsheathe.png',
+        howToFind:
+            "Ash of War: Unsheathe' is dropped by a Teardrop Scarab in the water in the South East portion of Agheel Lake, North West of the Agheel Lake South Site of Grace.",
+        description:
+            "Skill of swordsmen from the Land of Reeds. Sheathe blade, holding it at the hip in a composed stance. Follow up with a normal or strong attack to perform a swift slash attack.",
+        mapLink:
+            'https://eldenring.wiki.fextralife.com/Interactive+Map?id=655056&code=mapD'),
+  ];
+  return ashesOfWar;
+}
+
+List<AshOfWar> dlcAshesOfWar() {
+  List<AshOfWar> ashesOfWar = [
+    AshOfWar(
+      name: 'Aspects of the crucible: Wings',
+      image:
+          'lib/constants/images/ash_of_war/dlc/aspects_of_the_crucible_wings.png',
+      howToFind: "",
+      description:
+          'This skill originates from the lifeforms of the Crucible. Grow a golden pair of wings and take to the air before diving down at the foe, weapon first. A spinning attack is performed when wielding a twinblade',
+      mapLink:
+          'https://eldenring.wiki.fextralife.com/Interactive+Map?id=655056&code=mapD',
+    ),
+    AshOfWar(
+      name: "Blind Spot",
+      image: 'lib/constants/images/ash_of_war/dlc/blind_spot.png',
       howToFind:
-          "Ash of War: Unsheathe' is dropped by a Teardrop Scarab in the water in the South East portion of Agheel Lake, North West of the Agheel Lake South Site of Grace.",
-      description: "Skill of swordsmen from the Land of Reeds. Sheathe blade, holding it at the hip in a composed stance. Follow up with a normal or strong attack to perform a swift slash attack.",
-      compatibleWeapons: [WeaponCategory.katana]),
-];
+          "Comes equipped to the Backhand blade found besides a coffin, in the Inquisitor enemies area of Gravesite Plain, not far from the first site of grace.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655035&code=mapD",
+      description:
+          "Leap into close quarters to take advantage of the enemy's blind spot and gore them from the side. Inputs determine which side you strike from. This attack slips below the opponent's guard.",
+    ),
+    AshOfWar(
+      name: "Blinkbolt",
+      image: 'lib/constants/images/ash_of_war/dlc/blinkbolt.png',
+      howToFind:
+          "Found in a chest within the Fog Rift Catacombs. The room of the third spike dropper with a sorcerer sniping from the back, stand where the sorcerer you defeated was and bait the spike trap down to jump into a notch. Ride the notch up to a room with a chest that holds the ash of war.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=659334&code=mapD",
+      description:
+          "Skill used by the golden knights who served Godwyn. From a low stance, the body is transformed into a bolt of lightning and charges straight ahead at fulgurous speed.",
+    ),
+    AshOfWar(
+      name: "Carian Sovereignty",
+      image: 'lib/constants/images/ash_of_war/dlc/carian_sovereignty.png',
+      howToFind:
+          "Acquired from a teardrop scarab inside a cave south west from Cathedral of Manus Metyr filled with glintslab fireflies. The scarab is located on the ceiling of the cave. To find this cave go to the Church District Highroad Site of Grace. Head directly west until you reach the cliffline and then continue south. The cave is embedded in the east cliff wall at the end of this path.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=659335&code=mapD",
+      description:
+          "Skill passed down the Carian royal family. Transform blade into a magical greatsword and bring it down. Additional input follows up with a horizontal sweep. Charge either attack to enhance potency.",
+    ),
+    AshOfWar(
+      name: "Divine Beast Frost Stomp",
+      image: 'lib/constants/images/ash_of_war/dlc/divine_beast_frost_stomp.png',
+      howToFind:
+          "Obtained by trading Remembrance of the Dancing Lion with Enia at Roundtable Hold.",
+      mapLink: "",
+      description:
+          "A skill which imitates the wrath of the divine beast's dance. Lift a leg up high and stamp it down with great force. Sends a powerful wave of frost straight out along the ground. Can be charged to increase power and range.",
+    ),
+    AshOfWar(
+      name: "Dryleaf Whirlwind",
+      image: 'lib/constants/images/ash_of_war/dlc/dryleaf_whirlwind.png',
+      howToFind: "Found on the edge, besides a column and near a waterfall.",
+      description:
+          "This skill represents the pinnacle of Dane's footwork-based martial artistry. Rise into the air with a series of spinning kicks before crashing down with one final strike. Imbues kicking attacks with energy, increasing their range.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655652&code=mapD",
+    ),
+    AshOfWar(
+      name: "Flame Skewer",
+      image: 'lib/constants/images/ash_of_war/dlc/flame_skewer.png',
+      howToFind:
+          "Acquired as a drop upon defeating the NPC Invader Fire Knight Queelign a second time.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655202&code=mapD",
+      description:
+          "Skill of Queelign of the Fire Knights. Enwreathe armament in flame and assume a low stance before skewering the enemy in a single motion. Strong attack unleashes a follow-up flame attack.",
+    ),
+    AshOfWar(
+      name: "Flame Spear",
+      image: 'lib/constants/images/ash_of_war/dlc/flame_spear.png',
+      howToFind:
+          "Shadow Keep, Sixth Floor: Climb the statues once you've used the lever to move them. Head outside, turn right and head up the stairs, turn left to find a Fire Knight at the end of the bridge. Drops this item and Winged Serpent Helm.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655620&code=mapD",
+      description:
+          "Skill of Kood, captain of the Fire Knights. Ready weapon for a thrusting attack and unleash a spear of flame straight ahead. Charge the attack to increase damage dealt and distance travelled.",
+    ),
+    AshOfWar(
+      name: "Ghostflame Call",
+      image: 'lib/constants/images/ash_of_war/dlc/ghostflame_call.png',
+      howToFind: "Dropped by the Death Rite Bird.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655695&code=mapD",
+      description:
+          "Thrust out armament to summon ghostflame. Follow up with a normal attack to set the ground ablaze with ghostflame, or a strong attack to trigger a massive explosion.",
+    ),
+    AshOfWar(
+      name: "Igon's Drake Hunt",
+      image: 'lib/constants/images/ash_of_war/dlc/igons_drake_hunt.png',
+      howToFind:
+          "Can be found by summoning Igon and then defeating Bayle The Dread, this will cause Igon to die at his previous location, just south-east of Foot of the Jagged Peak. His body will have both Igon's Greatbow and Igon's set.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=658864&code=mapD",
+      description:
+          "Skill of Igon, drake warrior. Ready the bow before unleashing a twisted shot with a great bellow that considerably enhances its power.",
+    ),
+    AshOfWar(
+      name: "Wing Stance",
+      image: 'lib/constants/images/ash_of_war/dlc/wing_stance.png',
+      howToFind:
+          "Castle Ensis: Inside a chest in the tower that you can reach by jumping over the edge just outside Castle Lord's Chamber Site of Grace, and following the cliffside down to the tower before climbing up two ladders to reach it.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655632&code=mapD",
+      description:
+          "Calmly assume a right-sided stance. Normal attack triggers a rapid three-slash combination. Strong attack triggers a leaping thrust.",
+    ),
+    AshOfWar(
+      name: "Palm Blast",
+      image: 'lib/constants/images/ash_of_war/dlc/palm_blast.png',
+      howToFind:
+          "At the Moorth Ruins Site of Grace, use the \"May The Best Win\" emote in front of the DryLeaf Dane Monk, you will then begin a battle and winning will grant you the weapon and it's Ash of War.",
+      description:
+          "Skill of the spiritual seekers known as the Dryleaf Sect. Imbues hand with energy before using a palm strike to unleash an explosive blast. The already formidable power and impact can be bolstered by charging the attack.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=659330&code=mapD",
+    ),
+    AshOfWar(
+      name: "Piercing Throw",
+      image: 'lib/constants/images/ash_of_war/dlc/piercing_throw.png',
+      howToFind:
+          "Found on a scarab juust east of the Ruined Forge of Starfall Past Site of Grace. You'll find it guarded by a small group of Demi-Humans between a crumbled column.",
+      description:
+          "Throw armament with a powerful spin, causing it to bore through foes. When using this skill, the armament can be thrown further than normal and also pierce through enemies.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655043&code=mapD",
+    ),
+    AshOfWar(
+      name: "Raging Beast",
+      image: 'lib/constants/images/ash_of_war/dlc/raging_beast.png',
+      howToFind:
+          "From the Bridge Leading to the Village Grace follow the path heading North.  Once you get to the trees, keep looking east for a teleporting Teardrop Scarab that will have the Ash of War.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=659328&code=mapD",
+      description:
+          "Step with the swiftness of a beast, leap high, and slash foe from above. Initial step can be taken forward, backward, left, or right. Strong attack allows for a follow-up attack.",
+    ),
+    AshOfWar(
+      name: "Rolling Sparks",
+      image: 'lib/constants/images/ash_of_war/dlc/rolling_sparks.png',
+      howToFind:
+          "This can be looted from a flying scarab on the eastern side of the large camp south of Shadow Keep. Ascend the hill past some perfumers and you'll find it at the top in the air above.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=658918&code=mapD",
+      description:
+          " Scatter perfumed powder before you, triggering rolling explosions of deadly sparks. The properties of the sparks are determined by the perfume bottle used.",
+    ),
+    AshOfWar(
+      name: "Savage Claws",
+      image: 'lib/constants/images/ash_of_war/dlc/savage_claws.png',
+      howToFind: "Found on Beast Claw (Weapon).",
+      mapLink: "",
+      description:
+          "Pounce like a beast to viciously slash into foe with left and right claws.",
+    ),
+    AshOfWar(
+      name: "Savage Lion's Claw",
+      image: 'lib/constants/images/ash_of_war/dlc/savage_lions_claw.png',
+      howToFind:
+          "From the Three-Path Cross site of grace in Gravesite Plain, stick to the wall on the left side, and follow the path north. You will eventually come across a small camp where you can find the Ash of War.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=654972&code=mapD",
+      description:
+          "Skill of the particularly brave, even among the Redmanes. Somersault forwards, striking foes with armament. An additional strike may be performed with an additional input.",
+    ),
+    AshOfWar(
+      name: "Scattershot Throw",
+      image: 'lib/constants/images/ash_of_war/dlc/scattershot_throw.png',
+      howToFind:
+          "Can be found by killing a scarab. Just south of Taylew's Ruined Forge entrance, near a bridge. It's hanging high on a pillar with some mobs underneath it.",
+      description:
+          "Employ smithing arts to conjure multiple copies of the armament in both hands and throw them all at once. Follow up with an additional input to throw again.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=659332&code=mapD",
+    ),
+    AshOfWar(
+      name: "Shield Strike",
+      image: 'lib/constants/images/ash_of_war/dlc/shield_strike.png',
+      howToFind: "Found on Dueling Shield and Carian Thrusting Shield.",
+      mapLink: "",
+      description:
+          "A skill that uses the shield to attack. Repeated inputs allow for up to three follow-up attacks.",
+    ),
+    AshOfWar(
+      name: "Shriek of Sorrow",
+      image: 'lib/constants/images/ash_of_war/dlc/shriek_of_sorrow.png',
+      howToFind:
+          "Can be found at Belurat Tower Settlement, in the main Plaza where Fire Knight Queelign invades you, behind the great tree located in the middle.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=654910&code=mapD",
+      description:
+          "Skill utilized by the downtrodden. Scream, causing nearby enemies to flinch, while also recalling deep-seated resentment, boosting attack power based on the amount of HP remaining. The lower the HP, the greater the effect.",
+    ),
+    AshOfWar(
+      name: "Spinning Gravity Thrust",
+      image: 'lib/constants/images/ash_of_war/dlc/spinning_gravity_thrust.png',
+      howToFind:
+          "Comes equipped to the Sword Lance, one of the possible rewards when trading Remembrance of the Wild Boar Rider with Enia at the Roundtable Hold",
+      description:
+          "A gravity skill honed by the disciples of an Alabaster Lord. Uses gravitational power to hang in the air before rotating the body and charging forward. An additional input allows for a follow-up attack.",
+      mapLink: "",
+    ),
+    AshOfWar(
+      name: "Swift Slash",
+      image: 'lib/constants/images/ash_of_war/dlc/swift_slash.png',
+      howToFind:
+          "Reward for siding with Hornsent during his fight with Leda at Shadowkeep.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=659333&code=mapD",
+      description:
+          "A skill passed down amongst hornsent swordsmen. Take a swift forward step to slice through foes. This sharp strike also fires off a shearing vacuum. Can be charged to increase the skill's power and the distance of the forward step.",
+    ),
+    AshOfWar(
+      name: "The Poison Flower Blooms Twice",
+      image:
+          'lib/constants/images/ash_of_war/dlc/the_poison_flower_blooms_twice.png',
+      howToFind:
+          "Dropped by a Teardrop Scarab. From Ravine North Site of Grace in Rauh Base, head south to cross river and find it near a small pool of rot near some ruins.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655401&code=mapD",
+      description:
+          " Conjures stingers of scarlet rot from below to stab the enemy. Landing a follow-up attack on a foe already inflicted with poison or rot deals massive damage in one fell swoop.",
+    ),
+    AshOfWar(
+      name: "Wall of Sparks",
+      image: 'lib/constants/images/ash_of_war/dlc/wall_of_sparks.png',
+      howToFind:
+          "Shadow Keep: Take the left lift down from the Storehouse, first-floor site of grace. take the first exit to the right, and then the first one to the left. You will find this item on a corpse sitting on the rails.",
+      description:
+          "Scatter perfumed powder in vicinity, producing intense sparks after a brief delay. Can be charged to increase power and range. The properties of the sparks are determined by the perfume bottle used.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655526&code=mapD",
+    ),
+    AshOfWar(
+      name: "Overhead Stance",
+      image: 'lib/constants/images/ash_of_war/dlc/overhead_stance.png',
+      howToFind:
+          "Comes equipped to the Great Katana found next to the sleeping Ghostflame Dragon on the lake, west of the Abandoned Ailing Village site of grace.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=654989&code=mapD",
+      description:
+          "A skill that starts with the blade held high in a ready stance. Execute a normal attack from this stance to step forward and slash downwards, or a strong attack to deliver a series of downward slashes.",
+    ),
+  ];
+  return ashesOfWar;
+}
 
 AshOfWar aow(String name) {
-  return ashOfWars
-      .where((element) => element.name.toUpperCase() == name.toUpperCase())
-      .first;
+  bool isDlc = ashesOfWar()
+          .where((element) => element.name.toUpperCase() == name.toUpperCase())
+          .isNotEmpty
+      ? false
+      : true;
+  AshOfWar ash = isDlc
+      ? dlcAshesOfWar()
+          .where((element) => element.name.toUpperCase() == name.toUpperCase())
+          .first
+      : ashesOfWar()
+          .where((element) => element.name.toUpperCase() == name.toUpperCase())
+          .first;
+  return ash;
 }

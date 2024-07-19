@@ -1,4 +1,8 @@
+import 'package:elden_nexus/views/weapons_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../constants/helper.dart';
+import 'ashes_of_war_page.dart';
 import 'home_page.dart';
 
 class RoutingView extends StatefulWidget {
@@ -8,7 +12,8 @@ class RoutingView extends StatefulWidget {
   State<RoutingView> createState() => _RoutingViewState();
 }
 
-class _RoutingViewState extends State<RoutingView> with SingleTickerProviderStateMixin {
+class _RoutingViewState extends State<RoutingView>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   @override
@@ -28,6 +33,8 @@ class _RoutingViewState extends State<RoutingView> with SingleTickerProviderStat
 
   @override
   Widget build(BuildContext context) {
+    String _selectedRoute = "Weapons";
+    String _selectedRouteDlc = "Weapons";
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
@@ -40,16 +47,73 @@ class _RoutingViewState extends State<RoutingView> with SingleTickerProviderStat
           children: [
             ListTile(
               title: Text(
-        'Elden Ring',
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onPrimaryContainer,
-            fontSize: 20,
-          ),
-        ),
+                'Elden Ring',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  fontSize: 20,
+                ),
+              ),
+              trailing: PopupMenuButton<String>(
+                onSelected: (newValue) {
+                  setState(() {
+                    _selectedRoute = newValue;
+                  });
+                  switch (newValue) {
+                    case 'Weapons':
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const WeaponsPage(isDlc: false)),
+                      );
+                      break;
+                    case 'Talismans':
+                      Helper.snackbar(
+                          'Coming Soon', 'Talismans are coming soon');
+                    case 'Ashes of War':
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AshesOfWarPage(
+                                  isDlc: false,
+                                )),
+                      );
+                      break;
+                    case 'Cracked Tears':
+                      Helper.snackbar(
+                          'Coming Soon', 'Cracked Tears are coming soon');
+                    case 'Sorceries':
+                      Helper.snackbar(
+                          'Coming soon', 'Sorceries are coming soon');
+                    case 'Incantations':
+                      Helper.snackbar(
+                          'Coming soon', 'Incantations are coming soon');
+                  }
+                },
+                itemBuilder: (BuildContext context) {
+                  return <String>[
+                    'Weapons',
+                    'Talismans',
+                    'Ashes of War',
+                    'Cracked Tears',
+                    'Sorceries',
+                    'Incantations'
+                  ].map((String value) {
+                    return PopupMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList();
+                },
+              ),
               onTap: () {
-                Navigator.push(
+                setState(() {
+                  Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const HomePage(isDlc: false,)));
+                    MaterialPageRoute(
+                        builder: (context) => const HomePage(isDlc: false)),
+                  );
+                });
               },
             ),
             ListTile(
@@ -61,7 +125,11 @@ class _RoutingViewState extends State<RoutingView> with SingleTickerProviderStat
                       return LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
-                        colors: const <Color>[Colors.orangeAccent, Colors.yellow, Colors.red],
+                        colors: const <Color>[
+                          Colors.orangeAccent,
+                          Colors.yellow,
+                          Colors.red
+                        ],
                         stops: [
                           _controller.value - 1,
                           _controller.value,
@@ -69,20 +137,77 @@ class _RoutingViewState extends State<RoutingView> with SingleTickerProviderStat
                         ],
                       ).createShader(bounds);
                     },
-                    child: const Text(
+                    child: Text(
                       'Shadow of the Erdtree',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
                         fontSize: 20,
                       ),
                     ),
                   );
                 },
               ),
+              trailing: PopupMenuButton<String>(
+                onSelected: (newValue) {
+                  setState(() {
+                    _selectedRouteDlc = newValue;
+                  });
+                  switch (newValue) {
+                    case 'Weapons':
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const WeaponsPage(isDlc: true)),
+                      );
+                      break;
+                    case 'Talismans':
+                      Helper.snackbar(
+                          'Coming Soon', 'Talismans are coming soon');
+                    case 'Ashes of War':
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AshesOfWarPage(
+                                  isDlc: false,
+                                )),
+                      );
+                      break;
+                    case 'Cracked Tears':
+                      Helper.snackbar(
+                          'Coming Soon', 'Cracked Tears are coming soon');
+                    case 'Sorceries':
+                      Helper.snackbar(
+                          'Coming soon', 'Sorceries are coming soon');
+                    case 'Incantations':
+                      Helper.snackbar(
+                          'Coming soon', 'Incantations are coming soon');
+                  }
+                },
+                itemBuilder: (BuildContext context) {
+                  return <String>[
+                    'Weapons',
+                    'Talismans',
+                    'Ashes of War',
+                    'Cracked Tears',
+                    'Sorceries',
+                    'Incantations'
+                  ].map((String value) {
+                    return PopupMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList();
+                },
+              ),
               onTap: () {
-                Navigator.push(
+                setState(() {
+                  Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const HomePage(isDlc: true,)));
+                    MaterialPageRoute(
+                        builder: (context) => const HomePage(isDlc: true)),
+                  );
+                });
               },
             ),
           ],

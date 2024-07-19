@@ -6,8 +6,7 @@ import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import '../constants/helper.dart';
 import '../models/weapon.dart';
-import 'detail_page.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'weapon_detail_page.dart';
 
 class WeaponsPage extends StatefulWidget {
   final bool isDlc;
@@ -260,7 +259,7 @@ class _WeaponsPageState extends State<WeaponsPage> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                    DetailPage(
+                                                    WeaponDetailPage(
                                                         weapon:
                                                             displayedWeapons[
                                                                 index]),
@@ -462,8 +461,9 @@ class WeaponSearch extends SearchDelegate<Weapon> {
                 howToFind: '',
                 scaling: Scaling(),
                 weight: -1,
-            isSomber: false,
-            ashOfWar: aow('Unsheathe'), mapLink: ''));
+                isSomber: false,
+                ashOfWar: aow('Unsheathe'),
+                mapLink: ''));
       },
     );
   }
@@ -471,8 +471,8 @@ class WeaponSearch extends SearchDelegate<Weapon> {
   @override
   Widget buildResults(BuildContext context) {
     final results = weapons
-        .where((weapon) =>
-        weapon.name.toLowerCase().contains(query.toLowerCase()))
+        .where(
+            (weapon) => weapon.name.toLowerCase().contains(query.toLowerCase()))
         .toList();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       onWeaponsSelected(results);
@@ -486,9 +486,9 @@ class WeaponSearch extends SearchDelegate<Weapon> {
     final suggestionList = query.isEmpty
         ? weapons
         : weapons
-        .where((weapon) =>
-        weapon.name.toLowerCase().startsWith(query.toLowerCase()))
-        .toList();
+            .where((weapon) =>
+                weapon.name.toLowerCase().startsWith(query.toLowerCase()))
+            .toList();
 
     return _buildSuggestionList(suggestionList);
   }

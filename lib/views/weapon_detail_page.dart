@@ -4,17 +4,18 @@ import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../constants/helper.dart';
+import 'ashes_of_war_detail_page.dart';
 
-class DetailPage extends StatefulWidget {
+class WeaponDetailPage extends StatefulWidget {
   final Weapon weapon;
 
-  const DetailPage({super.key, required this.weapon});
+  const WeaponDetailPage({super.key, required this.weapon});
 
   @override
-  State<DetailPage> createState() => _DetailPageState();
+  State<WeaponDetailPage> createState() => _WeaponDetailPageState();
 }
 
-class _DetailPageState extends State<DetailPage> {
+class _WeaponDetailPageState extends State<WeaponDetailPage> {
   Widget _space() {
     return const SizedBox(
       height: 10,
@@ -22,7 +23,7 @@ class _DetailPageState extends State<DetailPage> {
   }
 
   void _launchURL(String url) async {
-    if (url == 'Default Link'){
+    if (url == 'Default Link') {
       Helper.snackbar('Oops', 'No link available yet !');
     }
     if (await canLaunchUrl(Uri.parse(url))) {
@@ -35,8 +36,17 @@ class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     Weapon weapon = widget.weapon;
-    String isSomberStr = weapon.isSomber ? 'Somber Smithing Stones' : 'Smithing Stones';
-    List<String> gridStr = ['STR', 'DEX', 'INT', 'FAI', 'ARC', 'Weight', 'Ash of War:'];
+    String isSomberStr =
+        weapon.isSomber ? 'Somber Smithing Stones' : 'Smithing Stones';
+    List<String> gridStr = [
+      'STR',
+      'DEX',
+      'INT',
+      'FAI',
+      'ARC',
+      'Weight',
+      'Ash of War:'
+    ];
     List<String> scalingStr = [
       weapon.scaling.str,
       weapon.scaling.dex,
@@ -56,13 +66,12 @@ class _DetailPageState extends State<DetailPage> {
         child: const Text('Open Link'),
       ));
     }
-    linkWidgets.add(
-      TextButton(
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-        child: const Text('Close'),
-      ));
+    linkWidgets.add(TextButton(
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+      child: const Text('Close'),
+    ));
     return Scaffold(
       endDrawer: const Drawer(
         child: SettingsView(),
@@ -107,21 +116,27 @@ class _DetailPageState extends State<DetailPage> {
               ),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.1,
-              width: MediaQuery.of(context).size.width * 0.7,
-              child: Center(
-                child: Column(
-                  children: [
-                    Text(
-                      Helper.strCat(weapon.weaponCategory).toUpperCase(),
-                      style: const TextStyle(fontFamily: 'Chiralla', fontSize: 18),
-                      maxLines: 1,
-                    ),
-                    Text(isSomberStr, style: const TextStyle(fontSize: 15, fontStyle: FontStyle.italic, fontFamily: 'Chiralla'),),
-                  ],
-                ),
-              )
-            ),
+                height: MediaQuery.of(context).size.height * 0.1,
+                width: MediaQuery.of(context).size.width * 0.7,
+                child: Center(
+                  child: Column(
+                    children: [
+                      Text(
+                        Helper.strCat(weapon.weaponCategory).toUpperCase(),
+                        style: const TextStyle(
+                            fontFamily: 'Chiralla', fontSize: 18),
+                        maxLines: 1,
+                      ),
+                      Text(
+                        isSomberStr,
+                        style: const TextStyle(
+                            fontSize: 15,
+                            fontStyle: FontStyle.italic,
+                            fontFamily: 'Chiralla'),
+                      ),
+                    ],
+                  ),
+                )),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.25,
               width: MediaQuery.of(context).size.width * 0.7,
@@ -138,27 +153,27 @@ class _DetailPageState extends State<DetailPage> {
                           child: Container(
                             decoration: BoxDecoration(
                                 border: Border(
-                                  top: BorderSide(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimary,
-                                    width: 2.0,
-                                  ),
-                                )),
+                              top: BorderSide(
+                                color: Theme.of(context).colorScheme.onPrimary,
+                                width: 2.0,
+                              ),
+                            )),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Expanded(
                                     child: Text(
-                                      gridStr[0],
-                                      style: const TextStyle(
-                                          fontFamily: "Chiralla", fontSize: 20),
-                                    )),
+                                  gridStr[0],
+                                  style: const TextStyle(
+                                      fontFamily: "Chiralla", fontSize: 20),
+                                )),
                                 Expanded(
                                     child: Text(scalingStr[0],
                                         style: TextStyle(
-                                          color: Theme.of(context).colorScheme.onSurface,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface,
                                             fontFamily: 'Chiralla',
                                             fontSize: 18))),
                               ],
@@ -169,24 +184,25 @@ class _DetailPageState extends State<DetailPage> {
                           child: Container(
                             decoration: BoxDecoration(
                                 border: Border(
-                                  top: BorderSide(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimary,
-                                    width: 2.0,
-                                  ),
-                                )),
+                              top: BorderSide(
+                                color: Theme.of(context).colorScheme.onPrimary,
+                                width: 2.0,
+                              ),
+                            )),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Expanded(
                                     child: Text(
-                                      gridStr[1],
-                                      style: TextStyle(
-                                          color: Theme.of(context).colorScheme.onSurface,
-                                          fontFamily: "Chiralla", fontSize: 20),
-                                    )),
+                                  gridStr[1],
+                                  style: TextStyle(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface,
+                                      fontFamily: "Chiralla",
+                                      fontSize: 20),
+                                )),
                                 Expanded(
                                     child: Text(scalingStr[1],
                                         style: const TextStyle(
@@ -208,24 +224,25 @@ class _DetailPageState extends State<DetailPage> {
                           child: Container(
                             decoration: BoxDecoration(
                                 border: Border(
-                                  top: BorderSide(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimary,
-                                    width: 2.0,
-                                  ),
-                                )),
+                              top: BorderSide(
+                                color: Theme.of(context).colorScheme.onPrimary,
+                                width: 2.0,
+                              ),
+                            )),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Expanded(
                                     child: Text(
-                                      gridStr[2],
-                                      style: TextStyle(
-                                          color: Theme.of(context).colorScheme.onSurface,
-                                          fontFamily: "Chiralla", fontSize: 20),
-                                    )),
+                                  gridStr[2],
+                                  style: TextStyle(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface,
+                                      fontFamily: "Chiralla",
+                                      fontSize: 20),
+                                )),
                                 Expanded(
                                     child: Text(scalingStr[2],
                                         style: const TextStyle(
@@ -239,24 +256,25 @@ class _DetailPageState extends State<DetailPage> {
                           child: Container(
                             decoration: BoxDecoration(
                                 border: Border(
-                                  top: BorderSide(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimary,
-                                    width: 2.0,
-                                  ),
-                                )),
+                              top: BorderSide(
+                                color: Theme.of(context).colorScheme.onPrimary,
+                                width: 2.0,
+                              ),
+                            )),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Expanded(
                                     child: Text(
-                                      gridStr[3],
-                                      style: TextStyle(
-                                          color: Theme.of(context).colorScheme.onSurface,
-                                          fontFamily: "Chiralla", fontSize: 20),
-                                    )),
+                                  gridStr[3],
+                                  style: TextStyle(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface,
+                                      fontFamily: "Chiralla",
+                                      fontSize: 20),
+                                )),
                                 Expanded(
                                     child: Text(scalingStr[3],
                                         style: const TextStyle(
@@ -278,24 +296,25 @@ class _DetailPageState extends State<DetailPage> {
                           child: Container(
                             decoration: BoxDecoration(
                                 border: Border(
-                                  top: BorderSide(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimary,
-                                    width: 2.0,
-                                  ),
-                                )),
+                              top: BorderSide(
+                                color: Theme.of(context).colorScheme.onPrimary,
+                                width: 2.0,
+                              ),
+                            )),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Expanded(
                                     child: Text(
-                                      gridStr[4],
-                                      style: TextStyle(
-                                          color: Theme.of(context).colorScheme.onSurface,
-                                          fontFamily: "Chiralla", fontSize: 20),
-                                    )),
+                                  gridStr[4],
+                                  style: TextStyle(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface,
+                                      fontFamily: "Chiralla",
+                                      fontSize: 20),
+                                )),
                                 Expanded(
                                     child: Text(scalingStr[4],
                                         style: const TextStyle(
@@ -309,26 +328,27 @@ class _DetailPageState extends State<DetailPage> {
                           child: Container(
                             decoration: BoxDecoration(
                                 border: Border(
-                                  top: BorderSide(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimary,
-                                    width: 2.0,
-                                  ),
-                                )),
+                              top: BorderSide(
+                                color: Theme.of(context).colorScheme.onPrimary,
+                                width: 2.0,
+                              ),
+                            )),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Expanded(
                                     child: Text(
-                                      gridStr[5],
-                                      style: TextStyle(
-                                          color: Theme.of(context).colorScheme.onSurface,
-                                          fontFamily: "Chiralla", fontSize: 20),
-                                    )),
+                                  gridStr[5],
+                                  style: TextStyle(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface,
+                                      fontFamily: "Chiralla",
+                                      fontSize: 20),
+                                )),
                                 Expanded(
-                                    child: Text(scalingStr[5],
+                                    child: Text(weapon.weight.toString(),
                                         style: const TextStyle(
                                             fontFamily: 'Chiralla',
                                             fontSize: 18))),
@@ -362,23 +382,27 @@ class _DetailPageState extends State<DetailPage> {
                           child: Container(
                             decoration: BoxDecoration(
                                 border: Border(
-                                  top: BorderSide(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimary,
-                                    width: 2.0,
-                                  ),
-                                )),
+                              top: BorderSide(
+                                color: Theme.of(context).colorScheme.onPrimary,
+                                width: 2.0,
+                              ),
+                            )),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Expanded(
-                                    child: Text(
-                                  gridStr[6],
-                                  style: TextStyle(
-                                      color: Theme.of(context).colorScheme.onSurface,
-                                      fontFamily: "Chiralla", fontSize: 20),
+                                    child: TextButton(
+                                  onPressed: null,
+                                  child: Text(
+                                    gridStr[6],
+                                    style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface,
+                                        fontFamily: "Chiralla",
+                                        fontSize: 20),
+                                  ),
                                 )),
                               ],
                             ),
@@ -388,22 +412,26 @@ class _DetailPageState extends State<DetailPage> {
                           child: Container(
                             decoration: BoxDecoration(
                                 border: Border(
-                                  top: BorderSide(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimary,
-                                    width: 2.0,
-                                  ),
-                                )),
+                              top: BorderSide(
+                                color: Theme.of(context).colorScheme.onPrimary,
+                                width: 2.0,
+                              ),
+                            )),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Expanded(
-                                    child: Text(aow.name,
-                                        style: TextStyle(
-                                            fontFamily: 'Chiralla',
-                                            fontSize: 18))),
+                                    child: TextButton(
+                                        onPressed: null,
+                                        child: Text(aow.name,
+                                            style: TextStyle(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onSurface,
+                                                fontFamily: "Chiralla",
+                                                fontSize: 20,
+                                                fontStyle: FontStyle.italic)))),
                               ],
                             ),
                           ),
@@ -428,7 +456,7 @@ class _DetailPageState extends State<DetailPage> {
                           ),
                           actions: [
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: linkWidgets,
                             ),
                           ],

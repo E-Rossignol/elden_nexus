@@ -92,6 +92,8 @@ flutter:
     - lib/constants/images/whip/
     - lib/constants/images/dlc/
     - lib/constants/icons/
+    - lib/constants/images/ash_of_war/
+    - lib/constants/images/ash_of_war/dlc/
   fonts:
     - family: Mantinia
       fonts:
@@ -101,7 +103,9 @@ flutter:
         - asset: lib/constants/fonts/GeoSansLight/GeoSansLight.ttf
     - family: Chiralla
       fonts:
-        - asset: lib/constants/fonts/Chiralla/Chiralla.ttf
+        - asset: lib/constants/fonts/Chiralla/coolvetica_rg.otf
+        - asset: lib/constants/fonts/Chiralla/coolvetica_rg_it.otf
+          style: italic
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

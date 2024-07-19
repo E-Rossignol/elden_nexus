@@ -14,7 +14,7 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage>{
+class _LoginPageState extends State<LoginPage> {
   String? errorMessage;
   bool isLogin = true;
   bool _isPasswordHidden = true;
@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage>{
     try {
       prefs.setString('email', _controllerEmail.text);
       prefs.setString('password', _controllerPassword.text);
-    prefs.setBool('autoLogin', true);
+      prefs.setBool('autoLogin', true);
       await Auth().signInWithEmailAndPassword(
           email: _controllerEmail.text, password: _controllerPassword.text);
       return true;
@@ -64,7 +64,8 @@ class _LoginPageState extends State<LoginPage>{
     });
   }
 
-  Widget _entryField(String title, TextEditingController controller, {bool isPassword = false}) {
+  Widget _entryField(String title, TextEditingController controller,
+      {bool isPassword = false}) {
     return TextField(
       controller: controller,
       obscureText: isPassword ? _isPasswordHidden : false,
@@ -72,11 +73,11 @@ class _LoginPageState extends State<LoginPage>{
         labelText: title,
         suffixIcon: isPassword
             ? IconButton(
-          icon: Icon(_isPasswordHidden
-              ? Icons.visibility
-              : Icons.visibility_off),
-          onPressed: _togglePasswordVisibility,
-        )
+                icon: Icon(_isPasswordHidden
+                    ? Icons.visibility
+                    : Icons.visibility_off),
+                onPressed: _togglePasswordVisibility,
+              )
             : null,
       ),
     );
@@ -149,14 +150,14 @@ class _LoginPageState extends State<LoginPage>{
           appBar: AppBar(backgroundColor: colors.primary, actions: [
             Builder(
                 builder: (context) => IconButton(
-                  onPressed: () {
-                    Scaffold.of(context).openEndDrawer();
-                  },
-                  icon: Icon(
-                    color: colors.onPrimary,
-                    Icons.settings,
-                  ),
-                )),
+                      onPressed: () {
+                        Scaffold.of(context).openEndDrawer();
+                      },
+                      icon: Icon(
+                        color: colors.onPrimary,
+                        Icons.settings,
+                      ),
+                    )),
           ]),
           endDrawer: Drawer(
             backgroundColor: colors.background,

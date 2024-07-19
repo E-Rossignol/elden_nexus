@@ -21,10 +21,10 @@ class Weapon extends Item {
     required this.mapLink,
     required this.weight,
   }) : super(
-    cat: ItemCategory.weapon, // Set the category directly here
-  );
+          cat: ItemCategory.weapon, // Set the category directly here
+        );
 
-  bool isDlc(){
+  bool isDlc() {
     return image.contains('dlc');
   }
 }
@@ -35,5 +35,10 @@ class Scaling {
   String int;
   String fai;
   String arc;
-  Scaling({this.str = '-' , this.dex = '-', this.int = '-', this.fai = '-', this.arc = '-'});
+  Scaling(
+      {this.str = '-',
+      this.dex = '-',
+      this.int = '-',
+      this.fai = '-',
+      this.arc = '-'});
 }

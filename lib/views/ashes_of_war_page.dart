@@ -1,40 +1,39 @@
 import 'package:elden_nexus/constants/constant.dart';
 import 'package:elden_nexus/firebase/auth/auth.dart';
 import 'package:elden_nexus/firebase/database/database.dart';
+import 'package:elden_nexus/models/ash_of_war.dart';
 import 'package:elden_nexus/views/routing_view.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
-import '../../constants/helper.dart';
-import '../../models/weapon.dart';
-import '../detail_page.dart';
+import 'ashes_of_war_detail_page.dart';
 
-class DlcWeaponsPage extends StatefulWidget {
-  const DlcWeaponsPage({super.key});
+class AshesOfWarPage extends StatefulWidget {
+  final bool isDlc;
+
+  const AshesOfWarPage({super.key, required this.isDlc});
 
   @override
-  State<DlcWeaponsPage> createState() => _DlcWeaponsPageState();
+  State<AshesOfWarPage> createState() => _AshesOfWarPageState();
 }
 
-class _DlcWeaponsPageState extends State<DlcWeaponsPage> {
+class _AshesOfWarPageState extends State<AshesOfWarPage> {
   DatabaseMethods db = DatabaseMethods();
-  List<Weapon> weapons = allDlcWeapons();
-  List<Weapon> displayedWeapons = [];
-  late Future<List<String>> futureFoundWeapons;
-  WeaponCategory? selectedWeaponCategory;
+  late List<AshOfWar> ashes;
+  List<AshOfWar> displayedAshes = [];
+  late Future<List<String>> futureFoundAshes;
   SortOption? selectedSortOption;
 
   @override
   void initState() {
-    futureFoundWeapons = db.getUserWeapons(Auth().currentUser!.uid);
+    ashes = widget.isDlc ? dlcAshesOfWar() : ashesOfWar();
+    futureFoundAshes = db.getUserAshes(Auth().currentUser!.uid);
     super.initState();
-    displayedWeapons = List.from(weapons);
-    sortWeapons(SortOption.defaultSort);
+    displayedAshes = List.from(ashes);
   }
 
-  void setFoundWeapons() async {
-    futureFoundWeapons = db.getUserWeapons(Auth().currentUser!.uid);
-    displayedWeapons = List.from(weapons);
-    sortWeapons(SortOption.defaultSort);
+  void setFoundAshes() async {
+    futureFoundAshes = db.getUserAshes(Auth().currentUser!.uid);
+    displayedAshes = List.from(ashes);
   }
 
   @override
@@ -42,9 +41,9 @@ class _DlcWeaponsPageState extends State<DlcWeaponsPage> {
     return PopScope(
       canPop: true,
       onPopInvoked: (context) {
-        if (displayedWeapons != weapons) {
+        if (displayedAshes != ashes) {
           setState(() {
-            displayedWeapons = List.from(weapons);
+            displayedAshes = List.from(ashes);
           });
         }
       },
@@ -70,11 +69,11 @@ class _DlcWeaponsPageState extends State<DlcWeaponsPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       ListTile(
-                        title: Text('Default'),
+                        title: Text('Name'),
                         onTap: () {
                           setState(() {
-                            selectedSortOption = SortOption.defaultSort;
-                            sortWeapons(SortOption.defaultSort);
+                            selectedSortOption = SortOption.name;
+                            sortAshes(SortOption.name);
                           });
                           Navigator.of(context).pop(); // Close the dialog
                         },
@@ -84,52 +83,9 @@ class _DlcWeaponsPageState extends State<DlcWeaponsPage> {
                         onTap: () {
                           setState(() {
                             selectedSortOption = SortOption.notFound;
-                            sortWeapons(SortOption.notFound);
+                            sortAshes(SortOption.notFound);
                           });
                           Navigator.of(context).pop(); // Close the dialog
-                        },
-                      ),
-                      ListTile(
-                        title: Text('Name'),
-                        onTap: () {
-                          setState(() {
-                            selectedSortOption = SortOption.name;
-                            sortWeapons(SortOption.name);
-                          });
-                          Navigator.of(context).pop(); // Close the dialog
-                        },
-                      ),
-                      ListTile(
-                        title: Text('Weapon Category'),
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: Text('Weapon Category'),
-                                content: DropdownButton<WeaponCategory>(
-                                  hint: Text('Category'),
-                                  value: selectedWeaponCategory,
-                                  items: WeaponCategory.values.map((option) {
-                                    return DropdownMenuItem<WeaponCategory>(
-                                      value: option,
-                                      child: Text(Helper.strCat(option)),
-                                    );
-                                  }).toList(),
-                                  onChanged: (option) {
-                                    setState(() {
-                                      selectedSortOption = SortOption.category;
-                                      selectedWeaponCategory = option;
-                                      filterWeaponsByCategory(option);
-                                    });
-                                    Navigator.of(context)
-                                        .pop(); // Close the dialog
-                                  },
-                                ),
-                              );
-                            },
-                          );
                         },
                       ),
                     ],
@@ -149,14 +105,17 @@ class _DlcWeaponsPageState extends State<DlcWeaponsPage> {
               },
             );
           }),
-          title: Text(getSortOptionName()),
           actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
                 showSearch(
                   context: context,
-                  delegate: WeaponSearch(weapons),
+                  delegate: AshesSearch(ashes, (selectedAshes) {
+                    setState(() {
+                      displayedAshes = selectedAshes;
+                    });
+                  }),
                 );
               },
             ),
@@ -164,9 +123,8 @@ class _DlcWeaponsPageState extends State<DlcWeaponsPage> {
               builder: (context) => IconButton(
                 icon: const Icon(Icons.save),
                 onPressed: () async {
-                  List<String> toStoreWeapons = await futureFoundWeapons;
-                  await db.saveUserWeapons(
-                      toStoreWeapons, Auth().currentUser!.uid);
+                  List<String> toStoreAshes = await futureFoundAshes;
+                  await db.saveUserAshes(toStoreAshes, Auth().currentUser!.uid);
                 },
               ),
             ),
@@ -184,7 +142,7 @@ class _DlcWeaponsPageState extends State<DlcWeaponsPage> {
           child: Column(
             children: [
               FutureBuilder(
-                future: futureFoundWeapons,
+                future: futureFoundAshes,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     return Expanded(
@@ -193,7 +151,7 @@ class _DlcWeaponsPageState extends State<DlcWeaponsPage> {
                         interactive: true,
                         thumbVisibility: true,
                         child: ListView.builder(
-                          itemCount: displayedWeapons.length,
+                          itemCount: displayedAshes.length,
                           itemBuilder: (context, index) {
                             return Container(
                                 margin: const EdgeInsets.all(10),
@@ -219,20 +177,20 @@ class _DlcWeaponsPageState extends State<DlcWeaponsPage> {
                                 ),
                                 child: CheckboxListTile(
                                   value: snapshot.data!
-                                      .contains(displayedWeapons[index].name),
+                                      .contains(displayedAshes[index].name),
                                   onChanged: (bool? value) {
                                     setState(() {
                                       if (value == true) {
                                         if (!snapshot.data!.contains(
-                                            displayedWeapons[index].name)) {
-                                          snapshot.data!.add(
-                                              displayedWeapons[index].name);
+                                            displayedAshes[index].name)) {
+                                          snapshot.data!
+                                              .add(displayedAshes[index].name);
                                         }
                                       } else {
                                         if (snapshot.data!.contains(
-                                            displayedWeapons[index].name)) {
+                                            displayedAshes[index].name)) {
                                           snapshot.data!.remove(
-                                              displayedWeapons[index].name);
+                                              displayedAshes[index].name);
                                         }
                                       }
                                     });
@@ -253,10 +211,9 @@ class _DlcWeaponsPageState extends State<DlcWeaponsPage> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                    DetailPage(
-                                                        weapon:
-                                                            displayedWeapons[
-                                                                index]),
+                                                    AshOfWarDetailPage(
+                                                        ash: displayedAshes[
+                                                            index]),
                                               ),
                                             );
                                           },
@@ -269,7 +226,7 @@ class _DlcWeaponsPageState extends State<DlcWeaponsPage> {
                                             borderRadius:
                                                 BorderRadius.circular(25),
                                             child: Image.asset(
-                                                displayedWeapons[index].image),
+                                                displayedAshes[index].image),
                                           ),
                                         ),
                                         const SizedBox(width: 10),
@@ -278,7 +235,7 @@ class _DlcWeaponsPageState extends State<DlcWeaponsPage> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              displayedWeapons[index].name,
+                                              displayedAshes[index].name,
                                               style: const TextStyle(
                                                 // Add some style to the text
                                                 fontSize: 18,
@@ -307,134 +264,38 @@ class _DlcWeaponsPageState extends State<DlcWeaponsPage> {
     );
   }
 
-  String getSortOptionName() {
-    if (selectedSortOption == null) {
-      return '';
-    }
-    switch (selectedSortOption) {
-      case SortOption.name:
-        return 'Name';
-      case SortOption.category:
-        return Helper.strCat(selectedWeaponCategory!);
-      case SortOption.defaultSort:
-        return 'Default';
-      case SortOption.notFound:
-        return 'Not Found Yet';
-      default:
-        return '';
-    }
-  }
-
-  void sortWeapons(SortOption? option) async {
-    List<WeaponCategory> categoryOrder = [
-      WeaponCategory.dagger,
-      WeaponCategory.straight_sword,
-      WeaponCategory.greatsword,
-      WeaponCategory.colossal_sword,
-      WeaponCategory.thrusting_sword,
-      WeaponCategory.heavy_thrusting_sword,
-      WeaponCategory.curved_sword,
-      WeaponCategory.curved_greatsword,
-      WeaponCategory.katana,
-      WeaponCategory.twinblade,
-      WeaponCategory.axe,
-      WeaponCategory.great_axe,
-      WeaponCategory.hammer,
-      WeaponCategory.flail,
-      WeaponCategory.great_hammer,
-      WeaponCategory.colossal_weapon,
-      WeaponCategory.spear,
-      WeaponCategory.great_spear,
-      WeaponCategory.halberd,
-      WeaponCategory.reaper,
-      WeaponCategory.whip,
-      WeaponCategory.fist,
-      WeaponCategory.claw,
-      WeaponCategory.light_bow,
-      WeaponCategory.bow,
-      WeaponCategory.great_bow,
-      WeaponCategory.crossbow,
-      WeaponCategory.ballista,
-      WeaponCategory.glintstone_staff,
-      WeaponCategory.sacred_seal,
-      WeaponCategory.torch,
-      WeaponCategory.thrusting_shield,
-      WeaponCategory.hand_to_hand_art,
-      WeaponCategory.throwing_blade,
-      WeaponCategory.backhand_blade,
-      WeaponCategory.perfume_bottle,
-      WeaponCategory.beast_claw,
-      WeaponCategory.light_greatsword,
-      WeaponCategory.great_katana,
-      WeaponCategory.small_shield,
-      WeaponCategory.medium_shield,
-      WeaponCategory.greatshield,
-      WeaponCategory.thrusting_shield
-    ];
+  void sortAshes(SortOption? option) async {
     setState(() {
-      if (option == SortOption.category) {
-        displayedWeapons.sort((a, b) {
-          int indexA = categoryOrder.indexOf(a.weaponCategory);
-          int indexB = categoryOrder.indexOf(b.weaponCategory);
-          return indexA.compareTo(indexB);
-        });
-      } else if (option == SortOption.name) {
+      if (option == SortOption.name) {
         setState(() {
-          displayedWeapons = allDlcWeapons();
-          displayedWeapons.sort((a, b) => a.name.compareTo(b.name));
-        });
-      }  else if (option == SortOption.defaultSort) {
-        setState(() {
-          displayedWeapons = allDlcWeapons();
-          displayedWeapons.sort((a, b) => a.name.compareTo(b.name));
-          displayedWeapons.sort((a, b) {
-            int indexA = categoryOrder.indexOf(a.weaponCategory);
-            int indexB = categoryOrder.indexOf(b.weaponCategory);
-            return indexA.compareTo(indexB);
-          });
+          displayedAshes = widget.isDlc ? dlcAshesOfWar() : ashesOfWar();
+          displayedAshes.sort((a, b) => a.name.compareTo(b.name));
         });
       } else if (option == SortOption.notFound) {
-        futureFoundWeapons.then((foundWeapons) {
+        futureFoundAshes.then((foundAshes) {
           setState(() {
-            displayedWeapons = weapons
-                .where((weapon) => !foundWeapons.contains(weapon.name))
+            displayedAshes = ashes
+                .where((weapon) => !foundAshes.contains(weapon.name))
                 .toList();
-            displayedWeapons.sort((a, b) => a.name.compareTo(b.name));
-            displayedWeapons.sort((a, b) {
-              int indexA = categoryOrder.indexOf(a.weaponCategory);
-              int indexB = categoryOrder.indexOf(b.weaponCategory);
-              return indexA.compareTo(indexB);
-            });
+            displayedAshes.sort((a, b) => a.name.compareTo(b.name));
           });
         });
-      }
-    });
-  }
-
-  void filterWeaponsByCategory(WeaponCategory? category) {
-    setState(() {
-      if (category == null) {
-        displayedWeapons = List.from(
-            weapons); // If no category is selected, display all weapons
-      } else {
-        displayedWeapons = weapons
-            .where((weapon) => weapon.weaponCategory == category)
-            .toList();
       }
     });
   }
 }
 
-class WeaponSearch extends SearchDelegate<Weapon> {
-  final List<Weapon> weapons;
+class AshesSearch extends SearchDelegate<AshOfWar> {
+  final List<AshOfWar> ashes;
+  final Function(List<AshOfWar>) onAshesSelected;
 
-  WeaponSearch(this.weapons);
+  AshesSearch(this.ashes, this.onAshesSelected);
 
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: Icon(Icons.clear),
+        icon: const Icon(Icons.clear),
         onPressed: () {
           query = '';
         },
@@ -445,54 +306,53 @@ class WeaponSearch extends SearchDelegate<Weapon> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_back),
+      icon: const Icon(Icons.arrow_back),
       onPressed: () {
         close(
             context,
-            Weapon(
+            AshOfWar(
                 name: '',
                 image: '',
-                weaponCategory: WeaponCategory.axe,
+                description: '',
                 howToFind: '',
-                scaling: Scaling(),
-                weight: -1,
-            isSomber: false,
-              ashOfWar: aow('Unsheathe'), mapLink: ''
-            ));
+                mapLink: ''));
       },
     );
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    return _buildSuggestionList();
+    final results = ashes
+        .where((ash) => ash.name.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      onAshesSelected(results);
+    });
+
+    return _buildSuggestionList(results);
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return _buildSuggestionList();
-  }
-
-  Widget _buildSuggestionList() {
     final suggestionList = query.isEmpty
-        ? weapons
-        : weapons
-            .where((weapon) =>
-                weapon.name.toLowerCase().startsWith(query.toLowerCase()))
+        ? ashes
+        : ashes
+            .where(
+                (ash) => ash.name.toLowerCase().startsWith(query.toLowerCase()))
             .toList();
 
+    return _buildSuggestionList(suggestionList);
+  }
+
+  Widget _buildSuggestionList(List<AshOfWar> suggestionList) {
     return ListView.builder(
       itemCount: suggestionList.length,
       itemBuilder: (context, index) {
         return ListTile(
           title: Text(suggestionList[index].name),
           onTap: () {
+            onAshesSelected([suggestionList[index]]);
             close(context, suggestionList[index]);
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return DetailPage(weapon: suggestionList[index]);
-                });
           },
         );
       },
@@ -500,4 +360,4 @@ class WeaponSearch extends SearchDelegate<Weapon> {
   }
 }
 
-enum SortOption { category, name, defaultSort, notFound }
+enum SortOption { name, notFound }

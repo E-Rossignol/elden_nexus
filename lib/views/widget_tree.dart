@@ -1,3 +1,4 @@
+import 'package:elden_nexus/constants/helper.dart';
 import 'package:elden_nexus/firebase/auth/auth.dart';
 import 'package:elden_nexus/views/home_page.dart';
 import 'package:elden_nexus/views/weapons_page.dart';
@@ -13,31 +14,30 @@ class WidgetTree extends StatefulWidget {
 }
 
 class _WidgetTreeState extends State<WidgetTree> {
-
   @override
   void initState() {
     super.initState();
     checkUserLoggedIn();
   }
 
-  void checkUserLoggedIn(){
+  void checkUserLoggedIn() {
     final user = FirebaseAuth.instance.currentUser;
-    if (user != null){
-      print(user.toString());
+    if (user != null) {
+      Helper.snackbar('Login', 'Logged in as ${user.email}');
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const HomePage(isDlc: false)));
+            MaterialPageRoute(
+                builder: (context) => const HomePage(isDlc: false)));
       });
     } else {
-      print('No user logged in');
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.push(
-            context,
+        Navigator.push(context,
             MaterialPageRoute(builder: (context) => const LoginPage()));
       });
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -47,13 +47,13 @@ class _WidgetTreeState extends State<WidgetTree> {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const HomePage(isDlc: false)));
+                  MaterialPageRoute(
+                      builder: (context) => const HomePage(isDlc: true)));
             });
             return const WeaponsPage(isDlc: false);
           } else {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              Navigator.push(
-                  context,
+              Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const LoginPage()));
             });
             return const LoginPage();
