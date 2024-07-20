@@ -1,28 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:elden_nexus/models/ash_of_war.dart';
-
-import '../../constants/constant.dart';
 import '../../models/weapon.dart';
 
 class DatabaseMethods {
-
-  Future<void> renameCollection(String oldName, String newName) async {
-    CollectionReference oldCollection = FirebaseFirestore.instance.collection(oldName);
-    CollectionReference newCollection = FirebaseFirestore.instance.collection(newName);
-
-    // Get all documents from the old collection
-    QuerySnapshot snapshot = await oldCollection.get();
-
-    // Write all documents to the new collection
-    for (QueryDocumentSnapshot doc in snapshot.docs) {
-      await newCollection.doc(doc.id).set(doc.data());
-    }
-
-    // Delete all documents from the old collection
-    for (QueryDocumentSnapshot doc in snapshot.docs) {
-      await oldCollection.doc(doc.id).delete();
-    }
-  }
   // Methods for weapons
   Future addUserWeapon(String weaponName, String userID) async {
     Map<String, dynamic> json = {

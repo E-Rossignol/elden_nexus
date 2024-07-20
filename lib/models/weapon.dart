@@ -62,8 +62,8 @@ class Weapon extends Item {
     Map<StatusEffect, double> mapStatus = {};
     if (statusStr.isNotEmpty) {
       mapStatus = {
-        StatusEffect.values.firstWhere(
-            (e) => e.toString() == 'StatusEffect.${statusStr.split(' ')[0]}'):
+        StatusEffect.values.firstWhere((e) =>
+                e.toString() == 'StatusEffect.${statusStr.split(' ')[0]}'):
             double.parse(statusStr.split(' ')[1])
       };
     }

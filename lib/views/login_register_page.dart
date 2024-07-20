@@ -6,7 +6,6 @@ import 'package:elden_nexus/views/settings_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../firebase/auth/auth.dart';
 import '../constants/theme/theme_provider.dart';
-import 'package:elden_nexus/firebase/database/database.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -162,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
           ]),
           endDrawer: Drawer(
             backgroundColor: colors.background,
-            child: SettingsView(),
+            child: const SettingsView(),
           ),
           body: Container(
             height: double.infinity,

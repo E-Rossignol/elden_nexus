@@ -183,9 +183,7 @@ class _WeaponsPageState extends State<WeaponsPage> {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   return Text(
-                    '${weapons
-                        .where((weapon) => snapshot.data!.contains(weapon.name))
-                        .toList().length}/${weapons.length}',
+                    '${weapons.where((weapon) => snapshot.data!.contains(weapon.name)).toList().length}/${weapons.length}',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onSurface,
                       fontSize: 20,
@@ -213,33 +211,33 @@ class _WeaponsPageState extends State<WeaponsPage> {
               builder: (context) => IconButton(
                 icon: isSaving
                     ? const SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: CircularProgressIndicator())
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator())
                     : isSaved
-                    ? const Icon(Icons.check) // Display "ok" icon
-                    : const Icon(Icons.save), // Display save icon
+                        ? const Icon(Icons.check) // Display "ok" icon
+                        : const Icon(Icons.save), // Display save icon
                 onPressed: isSaving
                     ? null
                     : () async {
-                  setState(() {
-                    isSaving = true;
-                    isSaved = false;
-                  });
-                  List<String> toStoreWeapons = await futureFoundWeapons;
-                  await db.saveUserWeapons(
-                      toStoreWeapons, Auth().currentUser!.uid);
-                  setState(() {
-                    isSaving = false;
-                    isSaved = true;
-                  });
-                  // After 1 second, set isSaved back to false
-                  Future.delayed(const Duration(seconds: 1), () {
-                    setState(() {
-                      isSaved = false;
-                    });
-                  });
-                },
+                        setState(() {
+                          isSaving = true;
+                          isSaved = false;
+                        });
+                        List<String> toStoreWeapons = await futureFoundWeapons;
+                        await db.saveUserWeapons(
+                            toStoreWeapons, Auth().currentUser!.uid);
+                        setState(() {
+                          isSaving = false;
+                          isSaved = true;
+                        });
+                        // After 1 second, set isSaved back to false
+                        Future.delayed(const Duration(seconds: 1), () {
+                          setState(() {
+                            isSaved = false;
+                          });
+                        });
+                      },
               ),
             ),
             Builder(

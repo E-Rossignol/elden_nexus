@@ -1,12 +1,9 @@
-import 'package:elden_nexus/firebase/database/database.dart';
-import 'package:elden_nexus/models/weapon.dart';
 import 'package:elden_nexus/views/ashes_of_war_page.dart';
 import 'package:elden_nexus/views/routing_view.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:elden_nexus/views/weapons_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../constants/helper.dart';
 
 class HomePage extends StatefulWidget {
   final bool isDlc;

@@ -37,7 +37,8 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
   }
 
   Future<void> initAshes() async {
-    ashes = (widget.isDlc ? await Helper.allSOTEAshesOfWar() : allAshesOfWar())!;
+    ashes =
+        (widget.isDlc ? await Helper.allSOTEAshesOfWar() : allAshesOfWar())!;
     futureFoundAshes = db.getUserAshes(Auth().currentUser!.uid);
     displayedAshes = List.from(ashes);
     sortAshes(SortOption.name);
@@ -138,16 +139,14 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   return Text(
-                    '${ashes
-                        .where((ash) => snapshot.data!.contains(ash.name))
-                        .toList().length}/${ashes.length}',
+                    '${ashes.where((ash) => snapshot.data!.contains(ash.name)).toList().length}/${ashes.length}',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onSurface,
                       fontSize: 20,
                     ),
                   );
                 } else {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 }
               },
             ),

@@ -31,8 +31,8 @@ class _RoutingViewState extends State<RoutingView>
 
   @override
   Widget build(BuildContext context) {
-    String _selectedRoute = "Weapons";
-    String _selectedRouteDlc = "Weapons";
+    String selectedRoute = "Weapons";
+    String selectedRouteDlc = "Weapons";
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
@@ -54,9 +54,9 @@ class _RoutingViewState extends State<RoutingView>
               trailing: PopupMenuButton<String>(
                 onSelected: (newValue) {
                   setState(() {
-                    _selectedRoute = newValue;
+                    selectedRoute = newValue;
                   });
-                  switch (newValue) {
+                  switch (selectedRoute) {
                     case 'Weapons':
                       Navigator.push(
                         context,
@@ -140,9 +140,9 @@ class _RoutingViewState extends State<RoutingView>
               trailing: PopupMenuButton<String>(
                 onSelected: (newValue) {
                   setState(() {
-                    _selectedRouteDlc = newValue;
+                    selectedRouteDlc = newValue;
                   });
-                  switch (newValue) {
+                  switch (selectedRouteDlc) {
                     case 'Weapons':
                       Navigator.push(
                         context,

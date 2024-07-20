@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../constants/helper.dart';
-import 'package:photo_view/photo_view.dart';
 
 class WeaponDetailPage extends StatefulWidget {
   final Weapon weapon;
@@ -19,6 +18,7 @@ class WeaponDetailPage extends StatefulWidget {
 class _WeaponDetailPageState extends State<WeaponDetailPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+  late List<Color> statusColors;
 
   Widget _space() {
     return const SizedBox(
@@ -42,9 +42,9 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
     super.initState();
 
     _controller = AnimationController(
-      duration: const Duration(seconds: 1),
+      duration: const Duration(seconds: 5),
       vsync: this,
-    )..repeat(reverse: true);
+    )..repeat(reverse: false);
   }
 
   @override
@@ -60,38 +60,47 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
     String statusStr = "";
     switch (status) {
       case StatusEffect.blood_loss:
+        statusColors = [Colors.red, Colors.purple, Colors.red];
         statusPath = "lib/constants/images/status_effects/blood_loss.png";
-        statusStr = "Blood Loss";
+        statusStr = "Bleed";
         break;
       case StatusEffect.deadly_poison:
+        statusColors = [Colors.black, Colors.green, Colors.white12];
         statusPath = "lib/constants/images/status_effects/poison.png";
         statusStr = "Deadly Poison";
         break;
       case StatusEffect.death_blight:
+        statusColors = [Colors.black, Colors.grey, Colors.white];
         statusPath = "lib/constants/images/status_effects/death_blight.png";
         statusStr = "Death Blight";
         break;
       case StatusEffect.eternal_sleep:
+        statusColors = [Colors.lightBlueAccent, Colors.purple, Colors.blue];
         statusPath = "lib/constants/images/status_effects/sleep.png";
         statusStr = "Eternal Sleep";
         break;
       case StatusEffect.frostbite:
+        statusColors = [Colors.blue, Colors.white, Colors.blueAccent];
         statusPath = "lib/constants/images/status_effects/frostbite.png";
         statusStr = "Frostbite";
         break;
       case StatusEffect.madness:
+        statusColors = [Colors.red, Colors.yellow, Colors.deepOrange];
         statusPath = "lib/constants/images/status_effects/madness.png";
         statusStr = "Madness";
         break;
       case StatusEffect.poison:
+        statusColors = [Colors.greenAccent, Colors.green, Colors.white12];
         statusPath = "lib/constants/images/status_effects/poison.png";
         statusStr = "Poison";
         break;
       case StatusEffect.scarlet_rot:
+        statusColors = [Colors.red, Colors.pink, Colors.redAccent];
         statusPath = "lib/constants/images/status_effects/scarlet_rot.png";
         statusStr = "Scarlet Rot";
         break;
       case StatusEffect.sleep:
+        statusColors = [Colors.lightBlueAccent, Colors.purple, Colors.blue];
         statusPath = "lib/constants/images/status_effects/sleep.png";
         statusStr = "Sleep";
         break;
@@ -104,13 +113,32 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(statusPath, height: 40, width: 40),
-              Text(
-                "${statusValue.toString()} $statusStr",
-                style: const TextStyle(
-                    fontSize: 15,
-                    fontStyle: FontStyle.italic,
-                    fontFamily: 'Chiralla'),
-              ),
+              AnimatedBuilder(
+                animation: _controller,
+                builder: (BuildContext context, Widget? child) {
+                  return ShaderMask(
+                    shaderCallback: (Rect bounds) {
+                      return LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: statusColors,
+                        stops: [
+                          _controller.value - 1,
+                          _controller.value,
+                          _controller.value + 1,
+                        ],
+                      ).createShader(bounds);
+                    },
+                    child: Text(
+                      " $statusStr : ${statusValue.toString()} ",
+                      style: const TextStyle(
+                          fontSize: 15,
+                          fontStyle: FontStyle.italic,
+                          fontFamily: 'Chiralla'),
+                    ),
+                  );
+                },
+              )
             ],
           ),
         ));
@@ -119,6 +147,7 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
   @override
   Widget build(BuildContext context) {
     Weapon weapon = widget.weapon;
+    statusColors = [Colors.orangeAccent, Colors.yellow, Colors.red];
     String isSomberStr =
         weapon.isSomber ? 'Somber Smithing Stones' : 'Smithing Stones';
     List<String> gridStr = [
@@ -258,47 +287,13 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                                       fontFamily: "Chiralla", fontSize: 20),
                                 )),
                                 Expanded(
-                                    child: scalingStr[0] == "-"
-                                        ? Text(scalingStr[0],
-                                            style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSurface,
-                                                fontFamily: 'Chiralla',
-                                                fontSize: 18))
-                                        : AnimatedBuilder(
-                                            animation: _controller,
-                                            builder: (BuildContext context,
-                                                Widget? child) {
-                                              return ShaderMask(
-                                                shaderCallback: (Rect bounds) {
-                                                  return LinearGradient(
-                                                    begin: Alignment.topLeft,
-                                                    end: Alignment.bottomRight,
-                                                    colors: const <Color>[
-                                                      Colors.orangeAccent,
-                                                      Colors.yellow,
-                                                      Colors.red
-                                                    ],
-                                                    stops: [
-                                                      _controller.value - 1,
-                                                      _controller.value,
-                                                      _controller.value + 1,
-                                                    ],
-                                                  ).createShader(bounds);
-                                                },
-                                                child: Text(
-                                                  scalingStr[0],
-                                                  style: TextStyle(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .onPrimaryContainer,
-                                                      fontSize: 18,
-                                                      fontFamily: 'Chiralla'),
-                                                ),
-                                              );
-                                            },
-                                          )),
+                                    child: Text(scalingStr[0],
+                                        style: TextStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface,
+                                            fontFamily: 'Chiralla',
+                                            fontSize: 18))),
                               ],
                             ),
                           ),
@@ -327,47 +322,13 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                                       fontSize: 20),
                                 )),
                                 Expanded(
-                                    child: scalingStr[1] == "-"
-                                        ? Text(scalingStr[1],
-                                            style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSurface,
-                                                fontFamily: 'Chiralla',
-                                                fontSize: 18))
-                                        : AnimatedBuilder(
-                                            animation: _controller,
-                                            builder: (BuildContext context,
-                                                Widget? child) {
-                                              return ShaderMask(
-                                                shaderCallback: (Rect bounds) {
-                                                  return LinearGradient(
-                                                    begin: Alignment.topLeft,
-                                                    end: Alignment.bottomRight,
-                                                    colors: const <Color>[
-                                                      Colors.orangeAccent,
-                                                      Colors.yellow,
-                                                      Colors.red
-                                                    ],
-                                                    stops: [
-                                                      _controller.value - 1,
-                                                      _controller.value,
-                                                      _controller.value + 1,
-                                                    ],
-                                                  ).createShader(bounds);
-                                                },
-                                                child: Text(
-                                                  scalingStr[1],
-                                                  style: TextStyle(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .onPrimaryContainer,
-                                                      fontSize: 18,
-                                                      fontFamily: 'Chiralla'),
-                                                ),
-                                              );
-                                            },
-                                          )),
+                                    child: Text(scalingStr[1],
+                                        style: TextStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface,
+                                            fontFamily: 'Chiralla',
+                                            fontSize: 18))),
                               ],
                             ),
                           ),
@@ -404,47 +365,13 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                                       fontSize: 20),
                                 )),
                                 Expanded(
-                                    child: scalingStr[2] == "-"
-                                        ? Text(scalingStr[2],
-                                            style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSurface,
-                                                fontFamily: 'Chiralla',
-                                                fontSize: 18))
-                                        : AnimatedBuilder(
-                                            animation: _controller,
-                                            builder: (BuildContext context,
-                                                Widget? child) {
-                                              return ShaderMask(
-                                                shaderCallback: (Rect bounds) {
-                                                  return LinearGradient(
-                                                    begin: Alignment.topLeft,
-                                                    end: Alignment.bottomRight,
-                                                    colors: const <Color>[
-                                                      Colors.orangeAccent,
-                                                      Colors.yellow,
-                                                      Colors.red
-                                                    ],
-                                                    stops: [
-                                                      _controller.value - 1,
-                                                      _controller.value,
-                                                      _controller.value + 1,
-                                                    ],
-                                                  ).createShader(bounds);
-                                                },
-                                                child: Text(
-                                                  scalingStr[2],
-                                                  style: TextStyle(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .onPrimaryContainer,
-                                                      fontSize: 18,
-                                                      fontFamily: 'Chiralla'),
-                                                ),
-                                              );
-                                            },
-                                          )),
+                                    child: Text(scalingStr[2],
+                                        style: TextStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface,
+                                            fontFamily: 'Chiralla',
+                                            fontSize: 18))),
                               ],
                             ),
                           ),
@@ -473,47 +400,13 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                                       fontSize: 20),
                                 )),
                                 Expanded(
-                                    child: scalingStr[3] == "-"
-                                        ? Text(scalingStr[3],
-                                            style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSurface,
-                                                fontFamily: 'Chiralla',
-                                                fontSize: 18))
-                                        : AnimatedBuilder(
-                                            animation: _controller,
-                                            builder: (BuildContext context,
-                                                Widget? child) {
-                                              return ShaderMask(
-                                                shaderCallback: (Rect bounds) {
-                                                  return LinearGradient(
-                                                    begin: Alignment.topLeft,
-                                                    end: Alignment.bottomRight,
-                                                    colors: const <Color>[
-                                                      Colors.orangeAccent,
-                                                      Colors.yellow,
-                                                      Colors.red
-                                                    ],
-                                                    stops: [
-                                                      _controller.value - 1,
-                                                      _controller.value,
-                                                      _controller.value + 1,
-                                                    ],
-                                                  ).createShader(bounds);
-                                                },
-                                                child: Text(
-                                                  scalingStr[3],
-                                                  style: TextStyle(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .onPrimaryContainer,
-                                                      fontSize: 18,
-                                                      fontFamily: 'Chiralla'),
-                                                ),
-                                              );
-                                            },
-                                          )),
+                                    child: Text(scalingStr[3],
+                                        style: TextStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface,
+                                            fontFamily: 'Chiralla',
+                                            fontSize: 18))),
                               ],
                             ),
                           ),
@@ -550,47 +443,13 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                                       fontSize: 20),
                                 )),
                                 Expanded(
-                                    child: scalingStr[4] == "-"
-                                        ? Text(scalingStr[4],
-                                            style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSurface,
-                                                fontFamily: 'Chiralla',
-                                                fontSize: 18))
-                                        : AnimatedBuilder(
-                                            animation: _controller,
-                                            builder: (BuildContext context,
-                                                Widget? child) {
-                                              return ShaderMask(
-                                                shaderCallback: (Rect bounds) {
-                                                  return LinearGradient(
-                                                    begin: Alignment.topLeft,
-                                                    end: Alignment.bottomRight,
-                                                    colors: const <Color>[
-                                                      Colors.orangeAccent,
-                                                      Colors.yellow,
-                                                      Colors.red
-                                                    ],
-                                                    stops: [
-                                                      _controller.value - 1,
-                                                      _controller.value,
-                                                      _controller.value + 1,
-                                                    ],
-                                                  ).createShader(bounds);
-                                                },
-                                                child: Text(
-                                                  scalingStr[4],
-                                                  style: TextStyle(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .onPrimaryContainer,
-                                                      fontSize: 18,
-                                                      fontFamily: 'Chiralla'),
-                                                ),
-                                              );
-                                            },
-                                          )),
+                                    child: Text(scalingStr[4],
+                                        style: TextStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface,
+                                            fontFamily: 'Chiralla',
+                                            fontSize: 18))),
                               ],
                             ),
                           ),
@@ -637,7 +496,7 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
             _space(),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.1,
-              width: MediaQuery.of(context).size.width * 0.7,
+              width: MediaQuery.of(context).size.width,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 mainAxisSize: MainAxisSize.max,
@@ -667,6 +526,7 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                                   onPressed: null,
                                   child: Text(
                                     gridStr[6],
+                                    textAlign: TextAlign.justify,
                                     style: TextStyle(
                                         color: Theme.of(context)
                                             .colorScheme
@@ -702,7 +562,8 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                                                     .onSurface,
                                                 fontFamily: "Chiralla",
                                                 fontSize: 20,
-                                                fontStyle: FontStyle.italic)))),
+                                                fontStyle: FontStyle.italic),
+                                            textAlign: TextAlign.center))),
                               ],
                             ),
                           ),
