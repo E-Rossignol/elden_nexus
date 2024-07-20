@@ -1,27 +1,49 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:get/get.dart';
-import '../../constants/helper.dart';
+import 'package:elden_nexus/models/ash_of_war.dart';
+
+import '../../constants/constant.dart';
+import '../../models/weapon.dart';
 
 class DatabaseMethods {
+
+  Future<void> renameCollection(String oldName, String newName) async {
+    CollectionReference oldCollection = FirebaseFirestore.instance.collection(oldName);
+    CollectionReference newCollection = FirebaseFirestore.instance.collection(newName);
+
+    // Get all documents from the old collection
+    QuerySnapshot snapshot = await oldCollection.get();
+
+    // Write all documents to the new collection
+    for (QueryDocumentSnapshot doc in snapshot.docs) {
+      await newCollection.doc(doc.id).set(doc.data());
+    }
+
+    // Delete all documents from the old collection
+    for (QueryDocumentSnapshot doc in snapshot.docs) {
+      await oldCollection.doc(doc.id).delete();
+    }
+  }
   // Methods for weapons
   Future addUserWeapon(String weaponName, String userID) async {
     Map<String, dynamic> json = {
       'name': weaponName,
       'userID': userID,
     };
-    return await FirebaseFirestore.instance.collection('weapons').add(json);
+    return await FirebaseFirestore.instance
+        .collection('usersWeapons')
+        .add(json);
   }
 
   Future removeUserWeapon(String weaponName, String userID) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-        .collection('weapons')
+        .collection('usersWeapons')
         .where('name', isEqualTo: weaponName)
         .where('userID', isEqualTo: userID)
         .get();
 
     if (querySnapshot.docs.isNotEmpty) {
       await FirebaseFirestore.instance
-          .collection('weapons')
+          .collection('usersWeapons')
           .doc(querySnapshot.docs.first.id)
           .delete();
     }
@@ -29,7 +51,7 @@ class DatabaseMethods {
 
   Future<List<String>> getUserWeapons(String userID) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-        .collection('weapons')
+        .collection('usersWeapons')
         .where('userID', isEqualTo: userID)
         .get();
     return querySnapshot.docs.map((doc) => doc['name'].toString()).toList();
@@ -42,7 +64,6 @@ class DatabaseMethods {
     List<String> removedFromListWeapons =
         userFoundWeapons.where((item) => !weaponNames.contains(item)).toList();
     if (newlyFoundWeapons.isEmpty && removedFromListWeapons.isEmpty) {
-      Helper.snackbar('No changes', 'No changes were made');
       return;
     }
     for (String weaponName in newlyFoundWeapons) {
@@ -51,7 +72,6 @@ class DatabaseMethods {
     for (String weaponName in removedFromListWeapons) {
       await removeUserWeapon(weaponName, userID);
     }
-    Helper.snackbar('Success', 'Changes were saved');
   }
 
   // Methods for ashes of war
@@ -60,19 +80,21 @@ class DatabaseMethods {
       'name': ashName,
       'userID': userID,
     };
-    return await FirebaseFirestore.instance.collection('ashesOfWar').add(json);
+    return await FirebaseFirestore.instance
+        .collection('usersAshesOfWar')
+        .add(json);
   }
 
   Future removeUserAsh(String ashName, String userID) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-        .collection('ashesOfWar')
+        .collection('usersAshesOfWar')
         .where('name', isEqualTo: ashName)
         .where('userID', isEqualTo: userID)
         .get();
 
     if (querySnapshot.docs.isNotEmpty) {
       await FirebaseFirestore.instance
-          .collection('ashesOfWar')
+          .collection('usersAshesOfWar')
           .doc(querySnapshot.docs.first.id)
           .delete();
     }
@@ -80,7 +102,7 @@ class DatabaseMethods {
 
   Future<List<String>> getUserAshes(String userID) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-        .collection('ashesOfWar')
+        .collection('usersAshesOfWar')
         .where('userID', isEqualTo: userID)
         .get();
     return querySnapshot.docs.map((doc) => doc['name'].toString()).toList();
@@ -88,20 +110,43 @@ class DatabaseMethods {
 
   Future<void> saveUserAshes(List<String> ashNames, String userID) async {
     List<String> userFoundAshes = await getUserAshes(userID);
-    List<String> newlyFoundAshes =
-        ashNames.where((item) => !userFoundAshes.contains(item)).toList();
-    List<String> removedFromListAshes =
-        userFoundAshes.where((item) => !ashNames.contains(item)).toList();
-    if (newlyFoundAshes.isEmpty && removedFromListAshes.isEmpty) {
-      Helper.snackbar('No changes', 'No changes were made');
-      return;
-    }
-    for (String ashName in newlyFoundAshes) {
+    for (String ashName
+        in ashNames.where((item) => !userFoundAshes.contains(item)).toList()) {
       await addUserAsh(ashName, userID);
     }
-    for (String ashName in removedFromListAshes) {
+    for (String ashName
+        in userFoundAshes.where((item) => !ashNames.contains(item)).toList()) {
       await removeUserAsh(ashName, userID);
     }
-    Helper.snackbar('Success', 'Changes were saved');
+  }
+
+  Future<List<Weapon>?> getAllSOTEWeapons() async {
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('allSOTEWeapons').get();
+    List<Weapon> weapons = [];
+    if (querySnapshot.docs.isEmpty) {
+      return null;
+    } else {
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+        Weapon weapon = Weapon.fromMap(doc.data() as Map<String, dynamic>?);
+        weapons.add(weapon);
+      }
+    }
+    return weapons;
+  }
+
+  Future<List<AshOfWar>?> getAllSOTEAow() async {
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('allSOTEAOW').get();
+    List<AshOfWar> ashesOfWar = [];
+    if (querySnapshot.docs.isEmpty) {
+      return null;
+    } else {
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+        AshOfWar ash = AshOfWar.fromMap(doc.data() as Map<String, dynamic>?);
+        ashesOfWar.add(ash);
+      }
+    }
+    return ashesOfWar;
   }
 }

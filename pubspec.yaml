@@ -43,6 +43,7 @@ dependencies:
   random_string: ^2.3.1
   cloud_firestore: ^5.1.0
   url_launcher: ^6.3.0
+  photo_view: ^0.15.0
 
 dev_dependencies:
   flutter_test:
@@ -67,31 +68,32 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - lib/constants/images/axe/
-    - lib/constants/images/claw/
-    - lib/constants/images/colossal_sword/
-    - lib/constants/images/colossal_weapon/
-    - lib/constants/images/curved_greatsword/
-    - lib/constants/images/curved_sword/
-    - lib/constants/images/dagger/
-    - lib/constants/images/fist/
-    - lib/constants/images/flail/
-    - lib/constants/images/great_hammer/
-    - lib/constants/images/great_spear/
-    - lib/constants/images/great_axe/
-    - lib/constants/images/great_sword/
-    - lib/constants/images/halberd/
-    - lib/constants/images/hammer/
-    - lib/constants/images/heavy_thrusting_sword/
-    - lib/constants/images/katana/
-    - lib/constants/images/reaper/
-    - lib/constants/images/spear/
-    - lib/constants/images/straight_sword/
-    - lib/constants/images/thrusting_sword/
-    - lib/constants/images/twinblade/
-    - lib/constants/images/whip/
-    - lib/constants/images/dlc/
+    - lib/constants/images/main_game_weapons/axe/
+    - lib/constants/images/main_game_weapons/claw/
+    - lib/constants/images/main_game_weapons/colossal_sword/
+    - lib/constants/images/main_game_weapons/colossal_weapon/
+    - lib/constants/images/main_game_weapons/curved_greatsword/
+    - lib/constants/images/main_game_weapons/curved_sword/
+    - lib/constants/images/main_game_weapons/dagger/
+    - lib/constants/images/main_game_weapons/fist/
+    - lib/constants/images/main_game_weapons/flail/
+    - lib/constants/images/main_game_weapons/great_hammer/
+    - lib/constants/images/main_game_weapons/great_spear/
+    - lib/constants/images/main_game_weapons/great_axe/
+    - lib/constants/images/main_game_weapons/great_sword/
+    - lib/constants/images/main_game_weapons/halberd/
+    - lib/constants/images/main_game_weapons/hammer/
+    - lib/constants/images/main_game_weapons/heavy_thrusting_sword/
+    - lib/constants/images/main_game_weapons/katana/
+    - lib/constants/images/main_game_weapons/reaper/
+    - lib/constants/images/main_game_weapons/spear/
+    - lib/constants/images/main_game_weapons/straight_sword/
+    - lib/constants/images/main_game_weapons/thrusting_sword/
+    - lib/constants/images/main_game_weapons/twinblade/
+    - lib/constants/images/main_game_weapons/whip/
+    - lib/constants/images/dlc_weapons/
     - lib/constants/icons/
+    - lib/constants/images/status_effects/
     - lib/constants/images/ash_of_war/
     - lib/constants/images/ash_of_war/dlc/
   fonts:

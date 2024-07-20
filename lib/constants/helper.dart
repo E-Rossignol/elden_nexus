@@ -1,14 +1,10 @@
+import 'package:elden_nexus/firebase/database/database.dart';
 import 'package:get/get.dart';
+import '../models/ash_of_war.dart';
+import '../models/weapon.dart';
 import 'constant.dart';
 
 class Helper {
-  static void snackbar(String title, String message) {
-    Get.snackbar(title, message,
-        duration: const Duration(seconds: 2),
-        snackPosition: SnackPosition.BOTTOM,
-        isDismissible: true);
-  }
-
   static String strCat(WeaponCategory category) {
     switch (category) {
       case WeaponCategory.axe:
@@ -96,5 +92,15 @@ class Helper {
       case WeaponCategory.whip:
         return 'Whip';
     }
+  }
+
+  static Future<List<AshOfWar>?> allSOTEAshesOfWar() {
+    DatabaseMethods db = DatabaseMethods();
+    return db.getAllSOTEAow();
+  }
+
+  static Future<List<Weapon>?> allSOTEWeapons() {
+    DatabaseMethods db = DatabaseMethods();
+    return db.getAllSOTEWeapons();
   }
 }

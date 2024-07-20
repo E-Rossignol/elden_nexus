@@ -15,4 +15,14 @@ class AshOfWar extends Item {
   }) : super(
           cat: ItemCategory.ashOfWar, // Set the category directly here
         );
+
+  static fromMap(Map<String, dynamic>? data) {
+    return AshOfWar(
+      name: data!['name'],
+      image: data['image'],
+      howToFind: data['howToFind'],
+      description: data['description'],
+      mapLink: data['mapLink'],
+    );
+  }
 }

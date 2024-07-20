@@ -6,10 +6,12 @@ import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import '../constants/helper.dart';
 import '../models/weapon.dart';
+import 'loading_screen.dart';
 import 'weapon_detail_page.dart';
 
 class WeaponsPage extends StatefulWidget {
   final bool isDlc;
+
   const WeaponsPage({super.key, required this.isDlc});
 
   @override
@@ -23,12 +25,20 @@ class _WeaponsPageState extends State<WeaponsPage> {
   late Future<List<String>> futureFoundWeapons;
   WeaponCategory? selectedWeaponCategory;
   SortOption? selectedSortOption;
+  late Future<void> initWeaponsFuture;
+  bool isSaving = false;
+  bool isSaved = false;
 
   @override
   void initState() {
-    weapons = widget.isDlc ? allDlcWeapons() : allWeapons();
-    futureFoundWeapons = db.getUserWeapons(Auth().currentUser!.uid);
     super.initState();
+    initWeaponsFuture = initWeapons();
+    futureFoundWeapons = db.getUserWeapons(Auth().currentUser!.uid);
+  }
+
+  Future<void> initWeapons() async {
+    weapons = (widget.isDlc ? await Helper.allSOTEWeapons() : allWeapons())!;
+    futureFoundWeapons = db.getUserWeapons(Auth().currentUser!.uid);
     displayedWeapons = List.from(weapons);
     sortWeapons(SortOption.defaultSort);
   }
@@ -41,6 +51,21 @@ class _WeaponsPageState extends State<WeaponsPage> {
 
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: initWeaponsFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          // The Future is complete, return the main widget
+          return buildMainWidget(context);
+        } else {
+          // The Future is not complete, return a loading indicator
+          return const LoadingScreen();
+        }
+      },
+    );
+  }
+
+  Widget buildMainWidget(BuildContext context) {
     return PopScope(
       canPop: true,
       onPopInvoked: (context) {
@@ -153,6 +178,24 @@ class _WeaponsPageState extends State<WeaponsPage> {
           }),
           title: Text(getSortOptionName()),
           actions: <Widget>[
+            FutureBuilder(
+              future: futureFoundWeapons,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return Text(
+                    '${weapons
+                        .where((weapon) => snapshot.data!.contains(weapon.name))
+                        .toList().length}/${weapons.length}',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontSize: 20,
+                    ),
+                  );
+                } else {
+                  return const CircularProgressIndicator();
+                }
+              },
+            ),
             IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
@@ -168,11 +211,34 @@ class _WeaponsPageState extends State<WeaponsPage> {
             ),
             Builder(
               builder: (context) => IconButton(
-                icon: const Icon(Icons.save),
-                onPressed: () async {
+                icon: isSaving
+                    ? const SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator())
+                    : isSaved
+                    ? const Icon(Icons.check) // Display "ok" icon
+                    : const Icon(Icons.save), // Display save icon
+                onPressed: isSaving
+                    ? null
+                    : () async {
+                  setState(() {
+                    isSaving = true;
+                    isSaved = false;
+                  });
                   List<String> toStoreWeapons = await futureFoundWeapons;
                   await db.saveUserWeapons(
                       toStoreWeapons, Auth().currentUser!.uid);
+                  setState(() {
+                    isSaving = false;
+                    isSaved = true;
+                  });
+                  // After 1 second, set isSaved back to false
+                  Future.delayed(const Duration(seconds: 1), () {
+                    setState(() {
+                      isSaved = false;
+                    });
+                  });
                 },
               ),
             ),
@@ -462,7 +528,7 @@ class WeaponSearch extends SearchDelegate<Weapon> {
                 scaling: Scaling(),
                 weight: -1,
                 isSomber: false,
-                ashOfWar: aow('Unsheathe'),
+                ashOfWar: "",
                 mapLink: ''));
       },
     );

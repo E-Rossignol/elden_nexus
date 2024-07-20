@@ -2,9 +2,12 @@ import 'package:elden_nexus/constants/constant.dart';
 import 'package:elden_nexus/firebase/auth/auth.dart';
 import 'package:elden_nexus/firebase/database/database.dart';
 import 'package:elden_nexus/models/ash_of_war.dart';
+import 'package:elden_nexus/views/loading_screen.dart';
 import 'package:elden_nexus/views/routing_view.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../constants/helper.dart';
 import 'ashes_of_war_detail_page.dart';
 
 class AshesOfWarPage extends StatefulWidget {
@@ -22,13 +25,22 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
   List<AshOfWar> displayedAshes = [];
   late Future<List<String>> futureFoundAshes;
   SortOption? selectedSortOption;
+  late Future<void> initAshesFuture;
+  bool isSaving = false;
+  bool isSaved = false;
 
   @override
   void initState() {
-    ashes = widget.isDlc ? dlcAshesOfWar() : ashesOfWar();
-    futureFoundAshes = db.getUserAshes(Auth().currentUser!.uid);
     super.initState();
+    initAshesFuture = initAshes();
+    futureFoundAshes = db.getUserAshes(Auth().currentUser!.uid);
+  }
+
+  Future<void> initAshes() async {
+    ashes = (widget.isDlc ? await Helper.allSOTEAshesOfWar() : allAshesOfWar())!;
+    futureFoundAshes = db.getUserAshes(Auth().currentUser!.uid);
     displayedAshes = List.from(ashes);
+    sortAshes(SortOption.name);
   }
 
   void setFoundAshes() async {
@@ -38,6 +50,21 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
 
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: initAshesFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          // The Future is complete, return the main widget
+          return buildMainWidget(context);
+        } else {
+          // The Future is not complete, return a loading indicator
+          return const LoadingScreen();
+        }
+      },
+    );
+  }
+
+  Widget buildMainWidget(BuildContext context) {
     return PopScope(
       canPop: true,
       onPopInvoked: (context) {
@@ -106,6 +133,24 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
             );
           }),
           actions: <Widget>[
+            FutureBuilder(
+              future: futureFoundAshes,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return Text(
+                    '${ashes
+                        .where((ash) => snapshot.data!.contains(ash.name))
+                        .toList().length}/${ashes.length}',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontSize: 20,
+                    ),
+                  );
+                } else {
+                  return CircularProgressIndicator();
+                }
+              },
+            ),
             IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
@@ -121,11 +166,35 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
             ),
             Builder(
               builder: (context) => IconButton(
-                icon: const Icon(Icons.save),
-                onPressed: () async {
-                  List<String> toStoreAshes = await futureFoundAshes;
-                  await db.saveUserAshes(toStoreAshes, Auth().currentUser!.uid);
-                },
+                icon: isSaving
+                    ? const SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator())
+                    : isSaved
+                        ? const Icon(Icons.check) // Display "ok" icon
+                        : const Icon(Icons.save), // Display save icon
+                onPressed: isSaving
+                    ? null
+                    : () async {
+                        setState(() {
+                          isSaving = true;
+                          isSaved = false;
+                        });
+                        List<String> toStoreAshes = await futureFoundAshes;
+                        await db.saveUserAshes(
+                            toStoreAshes, Auth().currentUser!.uid);
+                        setState(() {
+                          isSaving = false;
+                          isSaved = true;
+                        });
+                        // After 1 second, set isSaved back to false
+                        Future.delayed(const Duration(seconds: 1), () {
+                          setState(() {
+                            isSaved = false;
+                          });
+                        });
+                      },
               ),
             ),
             Builder(
@@ -268,7 +337,7 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
     setState(() {
       if (option == SortOption.name) {
         setState(() {
-          displayedAshes = widget.isDlc ? dlcAshesOfWar() : ashesOfWar();
+          displayedAshes = ashes;
           displayedAshes.sort((a, b) => a.name.compareTo(b.name));
         });
       } else if (option == SortOption.notFound) {

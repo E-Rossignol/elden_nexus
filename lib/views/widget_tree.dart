@@ -5,6 +5,7 @@ import 'package:elden_nexus/views/weapons_page.dart';
 import 'package:elden_nexus/views/login_register_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class WidgetTree extends StatefulWidget {
   const WidgetTree({super.key});
@@ -23,7 +24,6 @@ class _WidgetTreeState extends State<WidgetTree> {
   void checkUserLoggedIn() {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      Helper.snackbar('Login', 'Logged in as ${user.email}');
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.push(
             context,

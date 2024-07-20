@@ -1,7 +1,5 @@
 import 'package:elden_nexus/views/weapons_page.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../constants/helper.dart';
 import 'ashes_of_war_page.dart';
 import 'home_page.dart';
 
@@ -68,8 +66,6 @@ class _RoutingViewState extends State<RoutingView>
                       );
                       break;
                     case 'Talismans':
-                      Helper.snackbar(
-                          'Coming Soon', 'Talismans are coming soon');
                     case 'Ashes of War':
                       Navigator.push(
                         context,
@@ -80,14 +76,8 @@ class _RoutingViewState extends State<RoutingView>
                       );
                       break;
                     case 'Cracked Tears':
-                      Helper.snackbar(
-                          'Coming Soon', 'Cracked Tears are coming soon');
                     case 'Sorceries':
-                      Helper.snackbar(
-                          'Coming soon', 'Sorceries are coming soon');
                     case 'Incantations':
-                      Helper.snackbar(
-                          'Coming soon', 'Incantations are coming soon');
                   }
                 },
                 itemBuilder: (BuildContext context) {
@@ -162,26 +152,18 @@ class _RoutingViewState extends State<RoutingView>
                       );
                       break;
                     case 'Talismans':
-                      Helper.snackbar(
-                          'Coming Soon', 'Talismans are coming soon');
                     case 'Ashes of War':
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const AshesOfWarPage(
-                                  isDlc: false,
+                                  isDlc: true,
                                 )),
                       );
                       break;
                     case 'Cracked Tears':
-                      Helper.snackbar(
-                          'Coming Soon', 'Cracked Tears are coming soon');
                     case 'Sorceries':
-                      Helper.snackbar(
-                          'Coming soon', 'Sorceries are coming soon');
                     case 'Incantations':
-                      Helper.snackbar(
-                          'Coming soon', 'Incantations are coming soon');
                   }
                 },
                 itemBuilder: (BuildContext context) {
