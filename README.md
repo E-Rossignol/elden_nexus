@@ -18,3 +18,4 @@ samples, guidance on mobile development, and a full API reference.
 # TODO:
 - [ ] Take care of detail pages for incants and sorceries
 - [ ] Take care of sorting for all but weapons and ashes
+- [ ] Implement .tr files for all languages
