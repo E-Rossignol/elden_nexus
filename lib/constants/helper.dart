@@ -1,10 +1,3 @@
-import 'package:elden_nexus/firebase/database/database.dart';
-import 'package:elden_nexus/models/talisman.dart';
-import 'package:get/get.dart';
-import '../models/armor.dart';
-import '../models/ash_of_war.dart';
-import '../models/tear.dart';
-import '../models/weapon.dart';
 import 'constant.dart';
 
 class Helper {

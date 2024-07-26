@@ -8,7 +8,6 @@ import 'package:elden_nexus/views/routing_view.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../constants/helper.dart';
 import '../../models/armor.dart';
 import '../home_page.dart';
 import 'armors_detail_page.dart';

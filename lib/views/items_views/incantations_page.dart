@@ -11,18 +11,18 @@ import 'package:get/get.dart';
 import '../home_page.dart';
 import 'incantations_detail_page.dart';
 
-class IncantsOfWarPage extends StatefulWidget {
+class IncantationsPage extends StatefulWidget {
   final bool isDlc;
 
-  const IncantsOfWarPage({super.key, required this.isDlc});
+  const IncantationsPage({super.key, required this.isDlc});
 
   @override
-  State<IncantsOfWarPage> createState() => _IncantsOfWarPageState();
+  State<IncantationsPage> createState() => _IncantationsPageState();
 }
 
-class _IncantsOfWarPageState extends State<IncantsOfWarPage> {
+class _IncantationsPageState extends State<IncantationsPage> {
   DatabaseMethods db = DatabaseMethods();
-  late List<Incantation> ashes;
+  late List<Incantation> incants;
   List<Incantation> displayedIncants = [];
   late Future<List<String>> futureFoundIncants;
   SortOption? selectedSortOption;
@@ -39,15 +39,15 @@ class _IncantsOfWarPageState extends State<IncantsOfWarPage> {
   }
 
   Future<void> initIncants() async {
-    ashes = (await db.getAllIncantations(widget.isDlc))!;
+    incants = (await db.getAllIncantations(widget.isDlc))!;
     futureFoundIncants = db.getUserIncantations(Auth().currentUser!.uid);
-    displayedIncants = List.from(ashes);
+    displayedIncants = List.from(incants);
     sortIncants(SortOption.name);
   }
 
   void setFoundIncants() async {
     futureFoundIncants = db.getUserIncantations(Auth().currentUser!.uid);
-    displayedIncants = List.from(ashes);
+    displayedIncants = List.from(incants);
   }
 
   @override
@@ -70,9 +70,9 @@ class _IncantsOfWarPageState extends State<IncantsOfWarPage> {
     return PopScope(
       canPop: true,
       onPopInvoked: (context) {
-        if (displayedIncants != ashes) {
+        if (displayedIncants != incants) {
           setState(() {
-            displayedIncants = List.from(ashes);
+            displayedIncants = List.from(incants);
           });
         }
       },
@@ -165,7 +165,7 @@ class _IncantsOfWarPageState extends State<IncantsOfWarPage> {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   return Text(
-                    '${ashes.where((ash) => snapshot.data!.contains(ash.name)).toList().length}/${ashes.length}',
+                    '${incants.where((inc) => snapshot.data!.contains(inc.name)).toList().length}/${incants.length}',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onSurface,
                       fontSize: 20,
@@ -181,7 +181,7 @@ class _IncantsOfWarPageState extends State<IncantsOfWarPage> {
               onPressed: () {
                 showSearch(
                   context: context,
-                  delegate: IncantsSearch(ashes, (selectedIncants) {
+                  delegate: IncantsSearch(incants, (selectedIncants) {
                     setState(() {
                       displayedIncants = selectedIncants;
                     });
@@ -372,14 +372,14 @@ class _IncantsOfWarPageState extends State<IncantsOfWarPage> {
     setState(() {
       if (option == SortOption.name) {
         setState(() {
-          displayedIncants = ashes;
+          displayedIncants = incants;
           displayedIncants.sort((a, b) => a.name.compareTo(b.name));
         });
       } else if (option == SortOption.notFound) {
         futureFoundIncants.then((foundIncants) {
           setState(() {
             displayedIncants =
-                ashes.where((ash) => !foundIncants.contains(ash.name)).toList();
+                incants.where((inc) => !foundIncants.contains(inc.name)).toList();
             displayedIncants.sort((a, b) => a.name.compareTo(b.name));
           });
         });
@@ -389,10 +389,10 @@ class _IncantsOfWarPageState extends State<IncantsOfWarPage> {
 }
 
 class IncantsSearch extends SearchDelegate<Incantation> {
-  final List<Incantation> ashes;
+  final List<Incantation> incants;
   final Function(List<Incantation>) onIncantsSelected;
 
-  IncantsSearch(this.ashes, this.onIncantsSelected);
+  IncantsSearch(this.incants, this.onIncantsSelected);
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -425,8 +425,8 @@ class IncantsSearch extends SearchDelegate<Incantation> {
 
   @override
   Widget buildResults(BuildContext context) {
-    final results = ashes
-        .where((ash) => ash.name.toLowerCase().contains(query.toLowerCase()))
+    final results = incants
+        .where((inc) => inc.name.toLowerCase().contains(query.toLowerCase()))
         .toList();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       onIncantsSelected(results);
@@ -438,10 +438,10 @@ class IncantsSearch extends SearchDelegate<Incantation> {
   @override
   Widget buildSuggestions(BuildContext context) {
     final suggestionList = query.isEmpty
-        ? ashes
-        : ashes
+        ? incants
+        : incants
         .where(
-            (ash) => ash.name.toLowerCase().startsWith(query.toLowerCase()))
+            (inc) => inc.name.toLowerCase().startsWith(query.toLowerCase()))
         .toList();
 
     return _buildSuggestionList(suggestionList);

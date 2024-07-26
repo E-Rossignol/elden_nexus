@@ -9,14 +9,13 @@ import '../../models/tear.dart';
 import '../../models/weapon.dart';
 
 class DatabaseMethods {
-
   Future<List<Weapon>?> getAllWeapons(bool isDlc) async {
     String tableName = isDlc ? 'allSOTEWeapons' : 'allMainGameWeapons';
-    if (tableName.contains("Main")){
+    if (!isDlc) {
       return allWeapons();
     }
     QuerySnapshot querySnapshot =
-    await FirebaseFirestore.instance.collection(tableName).get();
+        await FirebaseFirestore.instance.collection(tableName).get();
     List<Weapon> weapons = [];
     if (querySnapshot.docs.isEmpty) {
       return null;
@@ -65,9 +64,9 @@ class DatabaseMethods {
   Future<void> saveUserWeapons(List<String> weaponNames, String userID) async {
     List<String> userFoundWeapons = await getUserWeapons(userID);
     List<String> newlyFoundWeapons =
-    weaponNames.where((item) => !userFoundWeapons.contains(item)).toList();
+        weaponNames.where((item) => !userFoundWeapons.contains(item)).toList();
     List<String> removedFromListWeapons =
-    userFoundWeapons.where((item) => !weaponNames.contains(item)).toList();
+        userFoundWeapons.where((item) => !weaponNames.contains(item)).toList();
     if (newlyFoundWeapons.isEmpty && removedFromListWeapons.isEmpty) {
       return;
     }
@@ -82,7 +81,7 @@ class DatabaseMethods {
   Future<List<AshOfWar>?> getAllAow(bool isDlc) async {
     String tableName = isDlc ? 'allSOTEAOW' : 'allMainGameAOW';
     QuerySnapshot querySnapshot =
-    await FirebaseFirestore.instance.collection(tableName).get();
+        await FirebaseFirestore.instance.collection(tableName).get();
     List<AshOfWar> ashesOfWar = [];
     if (querySnapshot.docs.isEmpty) {
       return null;
@@ -131,22 +130,22 @@ class DatabaseMethods {
   Future<void> saveUserAshes(List<String> ashNames, String userID) async {
     List<String> userFoundAshes = await getUserAshes(userID);
     for (String ashName
-    in ashNames.where((item) => !userFoundAshes.contains(item)).toList()) {
+        in ashNames.where((item) => !userFoundAshes.contains(item)).toList()) {
       await addUserAsh(ashName, userID);
     }
     for (String ashName
-    in userFoundAshes.where((item) => !ashNames.contains(item)).toList()) {
+        in userFoundAshes.where((item) => !ashNames.contains(item)).toList()) {
       await removeUserAsh(ashName, userID);
     }
   }
 
   Future<List<Talisman>?> getAllTalismans(bool isDlc) async {
     String tableName = isDlc ? 'allSOTETalismans' : 'allMainGameTalismans';
-    if (tableName.contains("Main")){
+    if (!isDlc) {
       return allTalismans();
     }
     QuerySnapshot querySnapshot =
-    await FirebaseFirestore.instance.collection(tableName).get();
+        await FirebaseFirestore.instance.collection(tableName).get();
     List<Talisman> talismans = [];
     if (querySnapshot.docs.isEmpty) {
       return null;
@@ -212,16 +211,12 @@ class DatabaseMethods {
   }
 
   Future<List<Tear>?> getAllTears(bool isDlc) async {
-
     String tableName = isDlc ? 'allSOTETears' : 'allMainGameTears';
-    if (tableName.contains("Main")){
-      return allTears();
-    }
-    else if (tableName.contains("SOTE")){
+    if (isDlc) {
       return allSOTETears();
     }
     QuerySnapshot querySnapshot =
-    await FirebaseFirestore.instance.collection(tableName).get();
+        await FirebaseFirestore.instance.collection(tableName).get();
     List<Tear> tears = [];
     if (querySnapshot.docs.isEmpty) {
       return null;
@@ -239,9 +234,7 @@ class DatabaseMethods {
       'name': tearName,
       'userID': userID,
     };
-    return await FirebaseFirestore.instance
-        .collection('usersTears')
-        .add(json);
+    return await FirebaseFirestore.instance.collection('usersTears').add(json);
   }
 
   Future removeUserTear(String tearName, String userID) async {
@@ -270,26 +263,24 @@ class DatabaseMethods {
   Future<void> saveUserTears(List<String> tearNames, String userID) async {
     List<String> userFoundTears = await getUserTears(userID);
     for (String tearName
-    in tearNames.where((item) => !userFoundTears.contains(item)).toList()) {
+        in tearNames.where((item) => !userFoundTears.contains(item)).toList()) {
       await addUserTear(tearName, userID);
     }
     for (String tearName
-    in userFoundTears.where((item) => !tearNames.contains(item)).toList()) {
+        in userFoundTears.where((item) => !tearNames.contains(item)).toList()) {
       await removeUserAsh(tearName, userID);
     }
   }
 
   Future<List<Armor>?> getAllArmors(bool isDlc) async {
-
     String tableName = isDlc ? 'allSOTEArmors' : 'allMainGameArmors';
-    if (tableName.contains("Main")){
+    if (!isDlc) {
       return allArmors();
-    }
-    else if (tableName.contains("SOTE")){
+    } else if (isDlc) {
       return allSOTEArmors();
     }
     QuerySnapshot querySnapshot =
-    await FirebaseFirestore.instance.collection(tableName).get();
+        await FirebaseFirestore.instance.collection(tableName).get();
     List<Armor> armors = [];
     if (querySnapshot.docs.isEmpty) {
       return null;
@@ -307,9 +298,7 @@ class DatabaseMethods {
       'name': armorName,
       'userID': userID,
     };
-    return await FirebaseFirestore.instance
-        .collection('usersArmors')
-        .add(json);
+    return await FirebaseFirestore.instance.collection('usersArmors').add(json);
   }
 
   Future removeUserArmor(String armorName, String userID) async {
@@ -338,9 +327,9 @@ class DatabaseMethods {
   Future<void> saveUserArmors(List<String> armorNames, String userID) async {
     List<String> userFoundArmors = await getUserArmors(userID);
     List<String> newlyFoundArmors =
-    armorNames.where((item) => !userFoundArmors.contains(item)).toList();
+        armorNames.where((item) => !userFoundArmors.contains(item)).toList();
     List<String> removedFromListArmors =
-    userFoundArmors.where((item) => !armorNames.contains(item)).toList();
+        userFoundArmors.where((item) => !armorNames.contains(item)).toList();
     if (newlyFoundArmors.isEmpty && removedFromListArmors.isEmpty) {
       return;
     }
@@ -353,22 +342,22 @@ class DatabaseMethods {
   }
 
   Future<List<Incantation>?> getAllIncantations(bool isDlc) async {
-
-    String tableName = isDlc ? 'allSOTEIncantations' : 'allMainGameIncantations';
-    if (tableName.contains("Main")){
+    String tableName =
+        isDlc ? 'allSOTEIncantations' : 'allMainGameIncantations';
+    if (!isDlc) {
       return allIncantations();
-    }
-    else if (tableName.contains("SOTE")){
+    } else if (isDlc) {
       return allSOTEIncantations();
     }
     QuerySnapshot querySnapshot =
-    await FirebaseFirestore.instance.collection(tableName).get();
+        await FirebaseFirestore.instance.collection(tableName).get();
     List<Incantation> incants = [];
     if (querySnapshot.docs.isEmpty) {
       return null;
     } else {
       for (QueryDocumentSnapshot doc in querySnapshot.docs) {
-        Incantation incant = Incantation.fromMap(doc.data() as Map<String, dynamic>?);
+        Incantation incant =
+            Incantation.fromMap(doc.data() as Map<String, dynamic>?);
         incants.add(incant);
       }
     }
@@ -408,12 +397,15 @@ class DatabaseMethods {
     return querySnapshot.docs.map((doc) => doc['name'].toString()).toList();
   }
 
-  Future<void> saveUserIncantations(List<String> incantNames, String userID) async {
+  Future<void> saveUserIncantations(
+      List<String> incantNames, String userID) async {
     List<String> userFoundIncantations = await getUserIncantations(userID);
-    List<String> newlyFoundIncantations =
-    incantNames.where((item) => !userFoundIncantations.contains(item)).toList();
-    List<String> removedFromListIncantations =
-    userFoundIncantations.where((item) => !incantNames.contains(item)).toList();
+    List<String> newlyFoundIncantations = incantNames
+        .where((item) => !userFoundIncantations.contains(item))
+        .toList();
+    List<String> removedFromListIncantations = userFoundIncantations
+        .where((item) => !incantNames.contains(item))
+        .toList();
     if (newlyFoundIncantations.isEmpty && removedFromListIncantations.isEmpty) {
       return;
     }
@@ -426,16 +418,14 @@ class DatabaseMethods {
   }
 
   Future<List<Sorcery>?> getAllSorceries(bool isDlc) async {
-
     String tableName = isDlc ? 'allSOTESorceries' : 'allMainGameSorceries';
-    if (tableName.contains("Main")){
+    if (!isDlc) {
       return allSorceries();
-    }
-    else if (tableName.contains("SOTE")){
+    } else if (isDlc) {
       return allSOTESorceries();
     }
     QuerySnapshot querySnapshot =
-    await FirebaseFirestore.instance.collection(tableName).get();
+        await FirebaseFirestore.instance.collection(tableName).get();
     List<Sorcery> sorceries = [];
     if (querySnapshot.docs.isEmpty) {
       return null;
@@ -484,9 +474,9 @@ class DatabaseMethods {
   Future<void> saveUserSorceries(List<String> sorcNames, String userID) async {
     List<String> userFoundSorceries = await getUserSorceries(userID);
     List<String> newlyFoundSorceries =
-    sorcNames.where((item) => !userFoundSorceries.contains(item)).toList();
+        sorcNames.where((item) => !userFoundSorceries.contains(item)).toList();
     List<String> removedFromListSorceries =
-    userFoundSorceries.where((item) => !sorcNames.contains(item)).toList();
+        userFoundSorceries.where((item) => !sorcNames.contains(item)).toList();
     if (newlyFoundSorceries.isEmpty && removedFromListSorceries.isEmpty) {
       return;
     }
@@ -497,13 +487,6 @@ class DatabaseMethods {
       await removeUserSorcery(sorcName, userID);
     }
   }
-
-
-
-
-
-
-
 
   // ONCE DATA ARE IN
   Future<void> storeAll() async {
@@ -521,66 +504,81 @@ class DatabaseMethods {
   Future<void> storeAllMainGameWeapons() async {
     List<Weapon> weapons = allWeapons();
     for (Weapon weapon in weapons) {
-      await FirebaseFirestore.instance.collection('allMainGameWeapons').add(weapon.toMap());
+      await FirebaseFirestore.instance
+          .collection('allMainGameWeapons')
+          .add(weapon.toMap());
     }
   }
 
   Future<void> storeAllMainGameTalismans() async {
     List<Talisman> tals = allTalismans();
     for (Talisman tal in tals) {
-      await FirebaseFirestore.instance.collection('allMainGameTalismans').add(tal.toMap());
+      await FirebaseFirestore.instance
+          .collection('allMainGameTalismans')
+          .add(tal.toMap());
     }
   }
 
   Future<void> storeAllMainGameArmors() async {
     List<Armor> armors = allArmors();
     for (Armor arm in armors) {
-      await FirebaseFirestore.instance.collection('allMainGameArmors').add(arm.toMap());
+      await FirebaseFirestore.instance
+          .collection('allMainGameArmors')
+          .add(arm.toMap());
     }
   }
 
   Future<void> storeAllSOTEArmors() async {
     List<Armor> armors = allSOTEArmors();
     for (Armor arm in armors) {
-      await FirebaseFirestore.instance.collection('allSOTEArmors').add(arm.toMap());
+      await FirebaseFirestore.instance
+          .collection('allSOTEArmors')
+          .add(arm.toMap());
     }
   }
-
 
   Future<void> storeAllSOTETears() async {
     List<Tear> tears = allSOTETears();
     for (Tear tear in tears) {
-      await FirebaseFirestore.instance.collection('allSOTETears').add(tear.toMap());
+      await FirebaseFirestore.instance
+          .collection('allSOTETears')
+          .add(tear.toMap());
     }
   }
 
   Future<void> storeAllMainGameIncantations() async {
     List<Incantation> incants = allIncantations();
     for (Incantation incant in incants) {
-      await FirebaseFirestore.instance.collection('allMainGameIncantations').add(incant.toMap());
+      await FirebaseFirestore.instance
+          .collection('allMainGameIncantations')
+          .add(incant.toMap());
     }
   }
 
   Future<void> storeAllSOTEIncantations() async {
     List<Incantation> incants = allSOTEIncantations();
     for (Incantation incant in incants) {
-      await FirebaseFirestore.instance.collection('allSOTEIncantations').add(incant.toMap());
+      await FirebaseFirestore.instance
+          .collection('allSOTEIncantations')
+          .add(incant.toMap());
     }
   }
 
   Future<void> storeAllMainGameSorceries() async {
     List<Sorcery> sorceries = allSorceries();
     for (Sorcery sorc in sorceries) {
-      await FirebaseFirestore.instance.collection('allMainGameSorceries').add(sorc.toMap());
+      await FirebaseFirestore.instance
+          .collection('allMainGameSorceries')
+          .add(sorc.toMap());
     }
   }
 
   Future<void> storeAllSOTESorceries() async {
     List<Sorcery> sorceries = allSOTESorceries();
     for (Sorcery sorc in sorceries) {
-      await FirebaseFirestore.instance.collection('allSOTESorceries').add(sorc.toMap());
+      await FirebaseFirestore.instance
+          .collection('allSOTESorceries')
+          .add(sorc.toMap());
     }
   }
-
-
 }

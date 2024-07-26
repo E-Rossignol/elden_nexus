@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:elden_nexus/constants/constant.dart';
 import 'package:elden_nexus/firebase/auth/auth.dart';
 import 'package:elden_nexus/firebase/database/database.dart';
 import 'package:elden_nexus/views/loading_screen.dart';
@@ -8,7 +7,6 @@ import 'package:elden_nexus/views/routing_view.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../constants/helper.dart';
 import '../../models/talisman.dart';
 import '../home_page.dart';
 import 'talismans_detail_page.dart';

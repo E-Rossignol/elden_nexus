@@ -2847,259 +2847,36 @@ List<Talisman> allTalismans() {
 }
 
 List<Tear> allSOTETears() {
-  List<Tear> allTears = [];
-  return allTears;
-}
-
-List<Tear> allTears() {
   List<Tear> allTears = [
-    Tear(
-        name: "Ruptured Crystal Tear",
-        image:
-            'lib/constants/images/tears/main_game_tears/ruptured_crystal_tear.png',
-        howToFind: "Dropped by the Erdtree Avatar that resides in Liurnia of the Lakes.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=1065&code=mapA",
-        effect: "Causes concoction to explode in mixed physick.",
-        duration: 3),
-    Tear(
-        name: "Greenspill Crystal Tear",
-        image:
-            'lib/constants/images/tears/main_game_tears/greenspill_crystal_tear.png',
-        howToFind: "Mistwood: Found on an altar next to the Minor Erdtree in Mistwood along with the Spiked Cracked Tear.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=735&code=mapA",
-        effect: "Temporarily boosts stamina in mixed physick (+15%).",
-        duration: 180),
-    Tear(
-        name: "Cerulean Crystal Tear",
-        image:
-            'lib/constants/images/tears/main_game_tears/cerulean_crystal_tear.png',
-        howToFind: "One dropped by the Erdtree Avatar that resides in Liurnia of the Lakes.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=1064&code=mapA",
-        effect: "Restores half of total FP in mixed physick.",
-        duration: 0),
-    Tear(
-        name: "Cerulean Hidden Tear",
-        image:
-            'lib/constants/images/tears/main_game_tears/cerulean_hidden_tear.png',
-        howToFind: "Mt. Gelmir: Minor Erdtree, drops from Ulcerated Tree Spirit. Directly East of the Road of Iniquity Site of Grace.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=3404&lat=-84.3125&lng=68.86496&code=mapA",
-        effect: "Eliminates all FP consumption in mixed physick.",
-        duration: 15),
-    Tear(
-        name: "Crimson Crystal Tear",
-        image:
-            'lib/constants/images/tears/main_game_tears/crimson_crystal_tear.png',
-        howToFind: "In front of the statue in Third Church of Marika.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=789&code=mapA",
-        effect: "Restores half of total HP in mixed physick.",
-        duration: 0),
-    Tear(
-        name: "Crimsonburst Crystal Tear",
-        image:
-            'lib/constants/images/tears/main_game_tears/crimsonburst_crystal_tear.png',
-        howToFind: "Weeping Peninsula beneath the Minor Erdtree: Dropped by the Erdtree Avatar boss upon defeat.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=716&code=mapA",
-        effect: "Steadily restores HP for a time in mixed physick. (7 HP/s)",
-        duration: 180),
-    Tear(
-        name: "Faith-knot Crystal Tear",
-        image:
-            'lib/constants/images/tears/main_game_tears/faith-knot_crystal_tear.png',
-        howToFind: "North of the Demi-Human Forest Ruins. Directly east of the Church of Pilgrimage, just down the cliff. It's in a bowl under a tree and surrounded by poison flower enemies.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=3916&lat=-205.26094&lng=108.12919&code=mapA",
-        effect: "Temporarily boosts faith in mixed physick (+10 faith)",
-        duration: 180),
-    Tear(
-        name: "Strength-knot Crystal Tear",
-        image:
-            'lib/constants/images/tears/main_game_tears/strength-knot_crystal_tear.png',
-        howToFind: "Stormhill: Head Northeast from Stormhill Shack to the cliffs. Look for a small, stone receptacle on the ground next to a troll.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=1350&code=mapA",
-        effect: "Temporarily boosts strength in mixed physick (+10 strength)",
-        duration: 180),
-    Tear(
-        name: "Opaline Bubbletear",
-        image:
-            'lib/constants/images/tears/main_game_tears/opaline_bubbletear.png',
-        howToFind: "Weeping Peninsula, beneath the Minor Erdtree: Dropped by the Erdtree Avatar boss upon defeat.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=715&code=mapA",
-        effect: "Significantly negates next instance of damage.",
-        duration: 180),
-    Tear(
-        name: "Spiked Cracked Tear",
-        image:
-            'lib/constants/images/tears/main_game_tears/spiked_cracked_tear.png',
-        howToFind: "Found on an altar next to the Minor Erdtree in Mistwood along with the Greenspill Crystal Tear.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=734&code=mapA",
-        effect: "Enhances charged attacks for a time in mixed physick (+15% damage)",
-        duration: 180),
-    Tear(
-        name: "Dexterity-knot Crystal Tear",
-        image:
-            'lib/constants/images/tears/main_game_tears/dexterity-knot_crystal_tear.png',
-        howToFind: "Can be found at the top of a small island at Liurnia of the Lakes Southwest of Boilprawn Shack.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=1057&code=mapA",
-        effect: "Temporarily boosts dexterity in mixed physick (+10 dex)",
-        duration: 180),
-    Tear(
-        name: "Lightning-shrouding Cracked Tear",
-        image:
-            'lib/constants/images/tears/main_game_tears/lightning-shrouding_cracked_tear.png',
-        howToFind: "Dropped by Erdtree Avatar in Northeastern Liurnia of the Lakes.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=1863&code=mapA",
-        effect: "Temporarily boosts lightning attacks in mixed physick (+20%).",
-        duration: 180),
-    Tear(
-        name: "Magic-shrouding Cracked Tear",
-        image:
-            'lib/constants/images/tears/main_game_tears/magic-shrouding_cracked_tear.png',
-        howToFind: "Defeat the Erdtree Avatar found in Liurnia of the Lakes, under the Minor Erdtree (Liurnia Northeast) east of the Mausoleum Compound Site of Grace.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=1862&lat=-122.57812&lng=75.22759&code=mapA",
-        effect: "Temporarily boosts magic attacks in mixed physick (+20%).",
-        duration: 180),
-    Tear(
-        name: "Winged Crystal Tear",
-        image:
-            'lib/constants/images/tears/main_game_tears/winged_crystal_tear.png',
-        howToFind: "Found on an altar surrounded by Skull enemies and large gravestones just inside the Capital Outskirts.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=1143&code=mapA",
-        effect: "Temporarily reduces equip load in mixed physick (+450%).",
-        duration: 180),
-    Tear(
-        name: "Holy-shrouding Cracked Tear",
-        image:
-            'lib/constants/images/tears/main_game_tears/holy-shrouding_cracked_tear.png',
-        howToFind: "Dropped by Erdtree Avatar in Northeastern Liurnia of the Lakes.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=1864&code=mapA",
-        effect: "Temporarily boosts holy attacks in mixed physick (+20%).",
-        duration: 180),
-    Tear(
-        name: "Twiggy Cracked Tear",
-        image:
-            'lib/constants/images/tears/main_game_tears/twiggy_cracked_tear.png',
-        howToFind: "Found on an altar guarded by enemies at the base of the Minor Erdtree in Capital Outskirts.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=1145&code=mapA",
-        effect: "Briefly stop rune loss on death in mixed physick.",
-        duration: 180),
-    Tear(
-        name: "Leaden Hardtear",
-        image: 'lib/constants/images/tears/main_game_tears/leaden_hardtear.png',
-        howToFind: "Drops from Ulcerated Tree Spirit in Mt. Gelmir.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+map?id=2558&lat=-84.50&lng=68.54&code=mapA",
-        effect: "Temporarily boosts poise in mixed physick.",
-        duration: 10),
-    Tear(
-        name: "Crimsonspill Crystal Tear",
-        image:
-            'lib/constants/images/tears/main_game_tears/crimsonspill_crystal_tear.png',
-        howToFind: "Dropped by Wormface in Altus Plateau.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+map?id=5781&lat=-87.20&lng=94.43576&code=mapA",
-        effect: "Temporarily boosts max HP in mixed physick (+10%)",
-        duration: 180),
-    Tear(
-        name: "Greenburst Crystal Tear",
-        image:
-            'lib/constants/images/tears/main_game_tears/greenburst_crystal_tear.png',
-        howToFind: "Dropped by the Erdtree Avatar found at the Minor Erdtree in Caelid, east of Smoldering Church.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+map?id=2928&lat=-166.670313&lng=128.698045&code=mapA",
-        effect:
-            "Temporarily boosts stamina recovery speed in mixed physick. (+15 stamina recovery per second)",
-        duration: 180),
-    Tear(
-        name: "Speckled Hardtear",
-        image:
-            'lib/constants/images/tears/main_game_tears/speckled_hardtear.png',
-        howToFind: "Defeat Wormface at Minor Erdtree (Altus Plateau).",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+map?id=5780&lat=-86.96875&lng=91.56022&code=mapA",
-        effect: "Boosts resistance and heals status in mixed physick (+90 resistance).",
-        duration: 180),
-    Tear(
-        name: "Flame-shrouding Cracked Tear",
-        image:
-            'lib/constants/images/tears/main_game_tears/flame-shrouding_cracked_tear.png',
-        howToFind: "Dropped by the Erdtree Avatar found at the Minor Erdtree in Caelid, east of Smoldering Church.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+map?id=2929&lat=-166.995312&lng=129.17451&code=mapA",
-        effect: "Temporarily boosts the power of one's fire attacks. (+20%)",
-        duration: 180),
-    Tear(
-        name: "Crimson Bubbletear",
-        image:
-            'lib/constants/images/tears/main_game_tears/crimson_bubbletear.png',
-        howToFind: "Dropped by the Erdtree Avatar guarding the Minor Erdtree in the east of the Mountaintops of the Giants.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+map?id=3419&lat=-67.792188&lng=162.230176&code=mapA",
-        effect: "Restores HP when near death in mixed physick.",
-        duration: 180),
-    Tear(
-        name: "Crimsonwhorl Bubbletear",
-        image:
-            'lib/constants/images/tears/main_game_tears/crimsonwhorl_bubbletear.png',
-        howToFind: "Mountaintops of the Giants: On a cliff ledge south of Giants' Gravepost (above the grace point, the ledge is accessed by going north-east from the Foot of the Forge grace point, Just follow the edge of the cliff until you see the path going above Giant's Gravepost).",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=3573&lat=-80.71&lng=163.31&code=mapA",
-        effect: "Converts damage received into HP in mixed physick. (5% of max HP when hit)",
-        duration: 15),
-    Tear(
-        name: "Thorny Cracked Tear",
-        image:
-            'lib/constants/images/tears/main_game_tears/thorny_cracked_tear.png',
-        howToFind: "Dropped by the Putrid Avatar at the Minor Erdtree in the Consecrated Snowfield, east of Ordina, Liturgical Town.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=8901&code=mapA",
-        effect: "Makes consecutive attacks grow stronger in mixed physick. (Increases damage by 9%, 13%, and 20%)",
-        duration: 180),
-    Tear(
-        name: "Stonebarb Cracked Tear",
-        image:
-            'lib/constants/images/tears/main_game_tears/stonebarb_cracked_tear.png',
-        howToFind: "Obtained by defeating the Putrid Avatar near the second Minor Erdtree in Caelid.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=5927&lat=-166.976562&lng=131.316543&code=mapA",
-        effect:
-            "Make attacks more likely to break enemy stances in a mixed physick (+30% stance damage)",
-        duration: 30),
-    Tear(
-        name: "Windy Crystal Tear",
-        image:
-            'lib/constants/images/tears/main_game_tears/windy_crystal_tear.png',
-        howToFind: "The item can be found in Caelid in a pit southeast of the Nomadic Merchant near the Southern Aeonia Swamp Bank grace. One of the birds watches over it, facing south.",
-        mapLink: "https://eldenring.wiki.fextralife.com/interactive+map?id=5933&lat=-188.906&lng=145.106&code=mapA",
-        effect: "Enhances dodge rolls for a time in mixed physick (~22% more I-Frames).",
-        duration: 180),
-    Tear(
-        name: "Opaline Hardtear",
-        image:
-            'lib/constants/images/tears/main_game_tears/opaline_hardtear.png',
-        howToFind: "Dropped by Putrid Avatar in Northeastern Caelid.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=5929&lat=-167.487&lng=130.378&code=mapA",
-        effect: "Temporarily boosts all damage negations in physick (+15% damage negation).",
-        duration: 180),
-    Tear(
-        name: "Purifying Crystal Tear",
-        image:
-            'lib/constants/images/tears/main_game_tears/purifying_crystal_tear.png',
-        howToFind: "It can be found at the Second Church of Marika after defeating the invader Bloody Finger Eleonora.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+map?id=5778&lat=-93.75&lng=81.9647&code=mapA",
-        effect: "Purifies the Lord of Blood's curse in a mixed physick.",
-        duration: 0),
-    Tear(
-        name: "Intelligence-knot Crystal Tear",
-        image:
-            'lib/constants/images/tears/main_game_tears/intelligence-knot_crystal_tear.png',
-        howToFind: "From Road to the Manor Site of Grace, head southeast down the slope and turn back towards north. Loot from a small, half-bowl structure guarded by a few Lesser Spider Hand and one Spider Hand.",
-        mapLink: "https://eldenring.wiki.fextralife.com/Interactive+map?id=5920&lat=-112.1328&lng=54.722&code=mapA",
-        effect: "Temporarily boosts intelligence in mixed physick. (+10 int)",
-        duration: 180),
+    Tear(name: 'Test tear', image: 'lib/constants/images/talismans/main_game_talismans/godfrey_icon.png', howToFind: 'NTM', mapLink: '', duration: 10000, effect: 'NIQUE TA MEEEEEEEEEEEEEEEEEEEEERE')
   ];
   return allTears;
 }
 
 List<Armor> allArmors() {
   List<Armor> allArmors = [
-    Armor(name: "Test armor", image: '', armorPiece: ArmorPiece.arms, howToFind: "NTM", mapLink: '', weight: 14)
+    Armor(
+        name: "Test armor",
+        image:
+            'lib/constants/images/talismans/main_game_talismans/godfrey_icon.png',
+        armorPiece: ArmorPiece.arms,
+        howToFind: "NTM",
+        mapLink: '',
+        weight: 14)
   ];
   return allArmors;
 }
 
 List<Armor> allSOTEArmors() {
   List<Armor> allArmors = [
-    Armor(name: "Test armor DLC", image: '', armorPiece: ArmorPiece.legs, howToFind: "NTM DLC", mapLink: '', weight: 14)
+    Armor(
+        name: "Test armor DLC",
+        image:
+            'lib/constants/images/talismans/main_game_talismans/godfrey_icon.png',
+        armorPiece: ArmorPiece.legs,
+        howToFind: "NTM DLC",
+        mapLink: '',
+        weight: 14)
   ];
   return allArmors;
 }
@@ -3108,22 +2885,24 @@ List<Incantation> allIncantations() {
   List<Incantation> allIncantations = [
     Incantation(
         name: "Test incantation",
-        image: '',
+        image:
+            'lib/constants/images/talismans/main_game_talismans/godfrey_icon.png',
         howToFind: "NTM",
         mapLink: '',
         description: "NTM",
         effect: "NTM",
-    damageType: 'fire',
-    fPCost: 10),
+        damageType: 'fire',
+        fPCost: 10),
   ];
   return allIncantations;
 }
 
-List<Incantation> allSOTEIncantations(){
+List<Incantation> allSOTEIncantations() {
   List<Incantation> allIncantations = [
     Incantation(
         name: "Test incantation DLC",
-        image: '',
+        image:
+            'lib/constants/images/talismans/main_game_talismans/godfrey_icon.png',
         howToFind: "NTM DLC",
         mapLink: '',
         description: "NTM DLC",
@@ -3134,26 +2913,28 @@ List<Incantation> allSOTEIncantations(){
   return allIncantations;
 }
 
-List<Sorcery> allSorceries(){
+List<Sorcery> allSorceries() {
   List<Sorcery> allSorceries = [
     Sorcery(
-        name: "Test sorcery DLC",
-        image: '',
-        howToFind: "NTM DLC",
+        name: "Test sorcery",
+        image:
+            'lib/constants/images/talismans/main_game_talismans/godfrey_icon.png',
+        howToFind: "NTM",
         mapLink: '',
-        description: "NTM DLC",
-        effect: "NTM DLC",
+        description: "NTM",
+        effect: "NTM",
         damageType: 'fire',
         fPCost: 10),
   ];
   return allSorceries;
 }
 
-List<Sorcery> allSOTESorceries(){
+List<Sorcery> allSOTESorceries() {
   List<Sorcery> allSorceries = [
     Sorcery(
         name: "Test sorcery DLC",
-        image: '',
+        image:
+            'lib/constants/images/talismans/main_game_talismans/godfrey_icon.png',
         howToFind: "NTM DLC",
         mapLink: '',
         description: "NTM DLC",

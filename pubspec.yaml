@@ -100,6 +100,12 @@ flutter:
     - lib/constants/images/talismans/main_game_talismans/
     - lib/constants/images/tears/main_game_tears/
     - lib/constants/images/tears/dlc_tears/
+    - lib/constants/images/armors/main_game_armors/
+    - lib/constants/images/armors/dlc_armors/
+    - lib/constants/images/incantations/main_game_incantations/
+    - lib/constants/images/incantations/dlc_incantations/
+    - lib/constants/images/sorceries/main_game_sorceries/
+    - lib/constants/images/sorceries/dlc_sorceries/
   fonts:
     - family: Mantinia
       fonts:

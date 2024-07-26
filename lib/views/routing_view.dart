@@ -1,4 +1,7 @@
 import 'items_views/armors_page.dart';
+import 'items_views/incantations_page.dart';
+import 'items_views/sorceries_page.dart';
+import 'items_views/tears_page.dart';
 import 'items_views/weapons_page.dart';
 import 'package:flutter/material.dart';
 import 'items_views/ashes_of_war_page.dart';
@@ -68,23 +71,12 @@ class _RoutingViewState extends State<RoutingView>
                       );
                       break;
                     case 'Talismans':
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Coming Soon'),
-                              content: const Text(
-                                  'Talismans are not available yet.'),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text('Close'),
-                                ),
-                              ],
-                            );
-                          });
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                            const TalismansPage(isDlc: false)),
+                      );
                       break;
                     case 'Armor':
                       Navigator.push(
@@ -101,61 +93,28 @@ class _RoutingViewState extends State<RoutingView>
                       );
                       break;
                     case 'Cracked Tears':
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Coming Soon'),
-                              content: const Text(
-                                  'Cracked Tears are not available yet.'),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text('Close'),
-                                ),
-                              ],
-                            );
-                          });
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                            const TearsPage(isDlc: false)),
+                      );
                       break;
                     case 'Sorceries':
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Coming Soon'),
-                              content: const Text(
-                                  'Sorceries are not available yet.'),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text('Close'),
-                                ),
-                              ],
-                            );
-                          });
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                            const SorceriesPage(isDlc: false)),
+                      );
                       break;
                     case 'Incantations':
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Coming Soon'),
-                              content: const Text(
-                                  'Incantations are not available yet.'),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text('Close'),
-                                ),
-                              ],
-                            );
-                          });
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                            const IncantationsPage(isDlc: false)),
+                      );
                       break;
                   }
                 },
@@ -255,61 +214,28 @@ class _RoutingViewState extends State<RoutingView>
                       );
                       break;
                     case 'Cracked Tears':
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Coming Soon'),
-                              content: const Text(
-                                  'Cracked Tears are not available yet.'),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text('Close'),
-                                ),
-                              ],
-                            );
-                          });
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                            const TearsPage(isDlc: true)),
+                      );
                       break;
                     case 'Sorceries':
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Coming Soon'),
-                              content: const Text(
-                                  'Sorceries are not available yet.'),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text('Close'),
-                                ),
-                              ],
-                            );
-                          });
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                            const SorceriesPage(isDlc: true)),
+                      );
                       break;
                     case 'Incantations':
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Coming Soon'),
-                              content: const Text(
-                                  'Incantations are not available yet.'),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text('Close'),
-                                ),
-                              ],
-                            );
-                          });
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                            const IncantationsPage(isDlc: true)),
+                      );
                       break;
                   }
                 },

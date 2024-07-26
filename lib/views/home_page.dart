@@ -1,5 +1,7 @@
 import 'package:elden_nexus/views/items_views/armors_page.dart';
 import 'package:elden_nexus/views/items_views/ashes_of_war_page.dart';
+import 'package:elden_nexus/views/items_views/incantations_page.dart';
+import 'package:elden_nexus/views/items_views/sorceries_page.dart';
 import 'package:elden_nexus/views/items_views/talismans_page.dart';
 import 'package:elden_nexus/views/items_views/tears_page.dart';
 import 'package:elden_nexus/views/routing_view.dart';
@@ -157,31 +159,11 @@ class _HomePageState extends State<HomePage>
                       ),
                     ),
                     onTap: () {
-                      if (widget.isDlc) {
                         Widget toPush = TalismansPage(isDlc: widget.isDlc);
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => toPush),
                         );
-                      } else {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: const Text('Coming Soon!'),
-                                content: const Text(
-                                    'Talismans page is not yet available. Please check back later.'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text('OK'),
-                                  ),
-                                ],
-                              );
-                            });
-                      }
                     },
                   ),
                 ),
@@ -281,23 +263,11 @@ class _HomePageState extends State<HomePage>
                       ),
                     ),
                     onTap: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Coming Soon!'),
-                              content: const Text(
-                                  'Sorceries page is not yet available. Please check back later.'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text('OK'),
-                                ),
-                              ],
-                            );
-                          });
+                      Widget toPush = SorceriesPage(isDlc: widget.isDlc);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => toPush),
+                      );
                     },
                   ),
                 ),
@@ -328,23 +298,11 @@ class _HomePageState extends State<HomePage>
                       ),
                     ),
                     onTap: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Coming Soon!'),
-                              content: const Text(
-                                  'Incantations page is not yet available. Please check back later.'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text('OK'),
-                                ),
-                              ],
-                            );
-                          });
+                      Widget toPush = IncantationsPage(isDlc: widget.isDlc);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => toPush),
+                      );
                     },
                   ),
                 ),
