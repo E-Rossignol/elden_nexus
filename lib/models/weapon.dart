@@ -28,14 +28,7 @@ class Weapon extends Item {
           cat: ItemCategory.weapon, // Set the category directly here
         );
 
-  bool isDlc() {
-    return image.contains('dlc_weapons');
-  }
-
   Map<String, dynamic> toMap() {
-    String statusStr = status.isNotEmpty
-        ? '${status.keys.first.toString().split('.').last} ${status.values.first}'
-        : "";
     return {
       'name': name,
       'image': image,
@@ -52,7 +45,9 @@ class Weapon extends Item {
       'ashOfWar': ashOfWar,
       'mapLink': mapLink,
       'weight': weight,
-      'status': statusStr,
+      'status': status.isNotEmpty
+          ? '${status.keys.first.toString().split('.').last} ${status.values.first}'
+          : '',
       'passive': passive,
     };
   }

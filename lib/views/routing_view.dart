@@ -1,6 +1,8 @@
-import 'package:elden_nexus/views/weapons_page.dart';
+import 'items_views/armors_page.dart';
+import 'items_views/weapons_page.dart';
 import 'package:flutter/material.dart';
-import 'ashes_of_war_page.dart';
+import 'items_views/ashes_of_war_page.dart';
+import 'items_views/talismans_page.dart';
 import 'home_page.dart';
 
 class RoutingView extends StatefulWidget {
@@ -66,28 +68,106 @@ class _RoutingViewState extends State<RoutingView>
                       );
                       break;
                     case 'Talismans':
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text('Coming Soon'),
+                              content: const Text(
+                                  'Talismans are not available yet.'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('Close'),
+                                ),
+                              ],
+                            );
+                          });
+                      break;
+                    case 'Armor':
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const ArmorsPage(isDlc: false)),
+                      );
+                      break;
                     case 'Ashes of War':
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const AshesOfWarPage(
-                                  isDlc: false,
-                                )),
+                            builder: (context) =>
+                            const AshesOfWarPage(isDlc: false)),
                       );
                       break;
                     case 'Cracked Tears':
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text('Coming Soon'),
+                              content: const Text(
+                                  'Cracked Tears are not available yet.'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('Close'),
+                                ),
+                              ],
+                            );
+                          });
+                      break;
                     case 'Sorceries':
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text('Coming Soon'),
+                              content: const Text(
+                                  'Sorceries are not available yet.'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('Close'),
+                                ),
+                              ],
+                            );
+                          });
+                      break;
                     case 'Incantations':
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text('Coming Soon'),
+                              content: const Text(
+                                  'Incantations are not available yet.'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('Close'),
+                                ),
+                              ],
+                            );
+                          });
+                      break;
                   }
                 },
                 itemBuilder: (BuildContext context) {
                   return <String>[
                     'Weapons',
                     'Talismans',
+                    'Armor',
                     'Ashes of War',
-                    'Cracked Tears',
                     'Sorceries',
-                    'Incantations'
+                    'Incantations',
+                    'Cracked Tears'
                   ].map((String value) {
                     return PopupMenuItem<String>(
                       value: value,
@@ -151,7 +231,20 @@ class _RoutingViewState extends State<RoutingView>
                                 const WeaponsPage(isDlc: true)),
                       );
                       break;
+                    case 'Armor':
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const ArmorsPage(isDlc: true)),
+                      );
+                      break;
                     case 'Talismans':
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const TalismansPage(isDlc: true)),
+                      );
+                      break;
                     case 'Ashes of War':
                       Navigator.push(
                         context,
@@ -162,18 +255,73 @@ class _RoutingViewState extends State<RoutingView>
                       );
                       break;
                     case 'Cracked Tears':
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text('Coming Soon'),
+                              content: const Text(
+                                  'Cracked Tears are not available yet.'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('Close'),
+                                ),
+                              ],
+                            );
+                          });
+                      break;
                     case 'Sorceries':
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text('Coming Soon'),
+                              content: const Text(
+                                  'Sorceries are not available yet.'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('Close'),
+                                ),
+                              ],
+                            );
+                          });
+                      break;
                     case 'Incantations':
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text('Coming Soon'),
+                              content: const Text(
+                                  'Incantations are not available yet.'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('Close'),
+                                ),
+                              ],
+                            );
+                          });
+                      break;
                   }
                 },
                 itemBuilder: (BuildContext context) {
                   return <String>[
                     'Weapons',
                     'Talismans',
+                    'Armor',
                     'Ashes of War',
-                    'Cracked Tears',
                     'Sorceries',
-                    'Incantations'
+                    'Incantations',
+                    'Cracked Tears'
                   ].map((String value) {
                     return PopupMenuItem<String>(
                       value: value,

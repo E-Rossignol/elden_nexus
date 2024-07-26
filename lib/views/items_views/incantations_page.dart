@@ -1,58 +1,59 @@
-import 'package:elden_nexus/constants/constant.dart';
+import 'dart:async';
+
 import 'package:elden_nexus/firebase/auth/auth.dart';
 import 'package:elden_nexus/firebase/database/database.dart';
-import 'package:elden_nexus/models/ash_of_war.dart';
+import 'package:elden_nexus/models/incantation.dart';
 import 'package:elden_nexus/views/loading_screen.dart';
 import 'package:elden_nexus/views/routing_view.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../constants/helper.dart';
-import 'ashes_of_war_detail_page.dart';
+import '../home_page.dart';
+import 'incantations_detail_page.dart';
 
-class AshesOfWarPage extends StatefulWidget {
+class IncantsOfWarPage extends StatefulWidget {
   final bool isDlc;
 
-  const AshesOfWarPage({super.key, required this.isDlc});
+  const IncantsOfWarPage({super.key, required this.isDlc});
 
   @override
-  State<AshesOfWarPage> createState() => _AshesOfWarPageState();
+  State<IncantsOfWarPage> createState() => _IncantsOfWarPageState();
 }
 
-class _AshesOfWarPageState extends State<AshesOfWarPage> {
+class _IncantsOfWarPageState extends State<IncantsOfWarPage> {
   DatabaseMethods db = DatabaseMethods();
-  late List<AshOfWar> ashes;
-  List<AshOfWar> displayedAshes = [];
-  late Future<List<String>> futureFoundAshes;
+  late List<Incantation> ashes;
+  List<Incantation> displayedIncants = [];
+  late Future<List<String>> futureFoundIncants;
   SortOption? selectedSortOption;
-  late Future<void> initAshesFuture;
+  late Future<void> initIncantsFuture;
   bool isSaving = false;
   bool isSaved = false;
+  Timer? saveTimer;
 
   @override
   void initState() {
     super.initState();
-    initAshesFuture = initAshes();
-    futureFoundAshes = db.getUserAshes(Auth().currentUser!.uid);
+    initIncantsFuture = initIncants();
+    futureFoundIncants = db.getUserIncantations(Auth().currentUser!.uid);
   }
 
-  Future<void> initAshes() async {
-    ashes =
-        (widget.isDlc ? await Helper.allSOTEAshesOfWar() : allAshesOfWar())!;
-    futureFoundAshes = db.getUserAshes(Auth().currentUser!.uid);
-    displayedAshes = List.from(ashes);
-    sortAshes(SortOption.name);
+  Future<void> initIncants() async {
+    ashes = (await db.getAllIncantations(widget.isDlc))!;
+    futureFoundIncants = db.getUserIncantations(Auth().currentUser!.uid);
+    displayedIncants = List.from(ashes);
+    sortIncants(SortOption.name);
   }
 
-  void setFoundAshes() async {
-    futureFoundAshes = db.getUserAshes(Auth().currentUser!.uid);
-    displayedAshes = List.from(ashes);
+  void setFoundIncants() async {
+    futureFoundIncants = db.getUserIncantations(Auth().currentUser!.uid);
+    displayedIncants = List.from(ashes);
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: initAshesFuture,
+      future: initIncantsFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           // The Future is complete, return the main widget
@@ -69,9 +70,9 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
     return PopScope(
       canPop: true,
       onPopInvoked: (context) {
-        if (displayedAshes != ashes) {
+        if (displayedIncants != ashes) {
           setState(() {
-            displayedAshes = List.from(ashes);
+            displayedIncants = List.from(ashes);
           });
         }
       },
@@ -101,7 +102,7 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
                         onTap: () {
                           setState(() {
                             selectedSortOption = SortOption.name;
-                            sortAshes(SortOption.name);
+                            sortIncants(SortOption.name);
                           });
                           Navigator.of(context).pop(); // Close the dialog
                         },
@@ -111,7 +112,7 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
                         onTap: () {
                           setState(() {
                             selectedSortOption = SortOption.notFound;
-                            sortAshes(SortOption.notFound);
+                            sortIncants(SortOption.notFound);
                           });
                           Navigator.of(context).pop(); // Close the dialog
                         },
@@ -125,17 +126,42 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
           child: const Icon(Icons.sort),
         ),
         appBar: AppBar(
-          leading: Builder(builder: (context) {
-            return IconButton(
-              icon: const Icon(Icons.menu_rounded),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-            );
-          }),
+          leading: Row(
+            children: [
+              Expanded(
+                child: Builder(builder: (context){
+                  return IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              HomePage(isDlc: widget.isDlc),
+                        ),
+                      );
+                    },
+                  );
+                }),
+              ),
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.only(left: 10),
+                  child: Builder(builder: (context) {
+                    return IconButton(
+                      icon: const Icon(Icons.menu_rounded),
+                      onPressed: () {
+                        Scaffold.of(context).openDrawer();
+                      },
+                    );
+                  }),
+                ),
+              ),
+            ],
+          ),
           actions: <Widget>[
             FutureBuilder(
-              future: futureFoundAshes,
+              future: futureFoundIncants,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   return Text(
@@ -155,9 +181,9 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
               onPressed: () {
                 showSearch(
                   context: context,
-                  delegate: AshesSearch(ashes, (selectedAshes) {
+                  delegate: IncantsSearch(ashes, (selectedIncants) {
                     setState(() {
-                      displayedAshes = selectedAshes;
+                      displayedIncants = selectedIncants;
                     });
                   }),
                 );
@@ -167,33 +193,33 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
               builder: (context) => IconButton(
                 icon: isSaving
                     ? const SizedBox(
-                        width: 24,
-                        height: 24,
-                        child: CircularProgressIndicator())
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator())
                     : isSaved
-                        ? const Icon(Icons.check) // Display "ok" icon
-                        : const Icon(Icons.save), // Display save icon
+                    ? const Icon(Icons.check) // Display "ok" icon
+                    : const Icon(Icons.save), // Display save icon
                 onPressed: isSaving
                     ? null
                     : () async {
-                        setState(() {
-                          isSaving = true;
-                          isSaved = false;
-                        });
-                        List<String> toStoreAshes = await futureFoundAshes;
-                        await db.saveUserAshes(
-                            toStoreAshes, Auth().currentUser!.uid);
-                        setState(() {
-                          isSaving = false;
-                          isSaved = true;
-                        });
-                        // After 1 second, set isSaved back to false
-                        Future.delayed(const Duration(seconds: 1), () {
-                          setState(() {
-                            isSaved = false;
-                          });
-                        });
-                      },
+                  setState(() {
+                    isSaving = true;
+                    isSaved = false;
+                  });
+                  List<String> toStoreIncants = await futureFoundIncants;
+                  await db.saveUserIncantations(
+                      toStoreIncants, Auth().currentUser!.uid);
+                  setState(() {
+                    isSaving = false;
+                    isSaved = true;
+                  });
+                  // After 1 second, set isSaved back to false
+                  Future.delayed(const Duration(seconds: 1), () {
+                    setState(() {
+                      isSaved = false;
+                    });
+                  });
+                },
               ),
             ),
             Builder(
@@ -210,7 +236,7 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
           child: Column(
             children: [
               FutureBuilder(
-                future: futureFoundAshes,
+                future: futureFoundIncants,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     return Expanded(
@@ -219,7 +245,7 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
                         interactive: true,
                         thumbVisibility: true,
                         child: ListView.builder(
-                          itemCount: displayedAshes.length,
+                          itemCount: displayedIncants.length,
                           itemBuilder: (context, index) {
                             return Container(
                                 margin: const EdgeInsets.all(10),
@@ -245,20 +271,30 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
                                 ),
                                 child: CheckboxListTile(
                                   value: snapshot.data!
-                                      .contains(displayedAshes[index].name),
+                                      .contains(displayedIncants[index].name),
                                   onChanged: (bool? value) {
+                                    if (saveTimer != null) {
+                                      saveTimer!.cancel(); // Cancel the previous timer if it's still running
+                                    }
+                                    saveTimer = Timer(const Duration(milliseconds: 500), () async {
+                                      if (value!) {
+                                        await db.addUserIncantation(displayedIncants[index].name, Auth().currentUser!.uid);
+                                      } else {
+                                        await db.removeUserIncantation(displayedIncants[index].name, Auth().currentUser!.uid);
+                                      }
+                                    });
                                     setState(() {
                                       if (value == true) {
                                         if (!snapshot.data!.contains(
-                                            displayedAshes[index].name)) {
+                                            displayedIncants[index].name)) {
                                           snapshot.data!
-                                              .add(displayedAshes[index].name);
+                                              .add(displayedIncants[index].name);
                                         }
                                       } else {
                                         if (snapshot.data!.contains(
-                                            displayedAshes[index].name)) {
+                                            displayedIncants[index].name)) {
                                           snapshot.data!.remove(
-                                              displayedAshes[index].name);
+                                              displayedIncants[index].name);
                                         }
                                       }
                                     });
@@ -279,9 +315,9 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                    AshOfWarDetailPage(
-                                                        ash: displayedAshes[
-                                                            index]),
+                                                    IncantationDetailPage(
+                                                        incant: displayedIncants[
+                                                        index]),
                                               ),
                                             );
                                           },
@@ -292,18 +328,18 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
                                           child: ClipRRect(
                                             // Clip the image to make it circular
                                             borderRadius:
-                                                BorderRadius.circular(25),
+                                            BorderRadius.circular(25),
                                             child: Image.asset(
-                                                displayedAshes[index].image),
+                                                displayedIncants[index].image),
                                           ),
                                         ),
                                         const SizedBox(width: 10),
                                         Column(
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              displayedAshes[index].name,
+                                              displayedIncants[index].name,
                                               style: const TextStyle(
                                                 // Add some style to the text
                                                 fontSize: 18,
@@ -332,20 +368,19 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
     );
   }
 
-  void sortAshes(SortOption? option) async {
+  void sortIncants(SortOption? option) async {
     setState(() {
       if (option == SortOption.name) {
         setState(() {
-          displayedAshes = ashes;
-          displayedAshes.sort((a, b) => a.name.compareTo(b.name));
+          displayedIncants = ashes;
+          displayedIncants.sort((a, b) => a.name.compareTo(b.name));
         });
       } else if (option == SortOption.notFound) {
-        futureFoundAshes.then((foundAshes) {
+        futureFoundIncants.then((foundIncants) {
           setState(() {
-            displayedAshes = ashes
-                .where((weapon) => !foundAshes.contains(weapon.name))
-                .toList();
-            displayedAshes.sort((a, b) => a.name.compareTo(b.name));
+            displayedIncants =
+                ashes.where((ash) => !foundIncants.contains(ash.name)).toList();
+            displayedIncants.sort((a, b) => a.name.compareTo(b.name));
           });
         });
       }
@@ -353,11 +388,11 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
   }
 }
 
-class AshesSearch extends SearchDelegate<AshOfWar> {
-  final List<AshOfWar> ashes;
-  final Function(List<AshOfWar>) onAshesSelected;
+class IncantsSearch extends SearchDelegate<Incantation> {
+  final List<Incantation> ashes;
+  final Function(List<Incantation>) onIncantsSelected;
 
-  AshesSearch(this.ashes, this.onAshesSelected);
+  IncantsSearch(this.ashes, this.onIncantsSelected);
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -378,12 +413,12 @@ class AshesSearch extends SearchDelegate<AshOfWar> {
       onPressed: () {
         close(
             context,
-            AshOfWar(
+            Incantation(
                 name: '',
                 image: '',
                 description: '',
                 howToFind: '',
-                mapLink: ''));
+                mapLink: '', fPCost: 0, damageType: '', effect: ''));
       },
     );
   }
@@ -394,7 +429,7 @@ class AshesSearch extends SearchDelegate<AshOfWar> {
         .where((ash) => ash.name.toLowerCase().contains(query.toLowerCase()))
         .toList();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      onAshesSelected(results);
+      onIncantsSelected(results);
     });
 
     return _buildSuggestionList(results);
@@ -405,21 +440,21 @@ class AshesSearch extends SearchDelegate<AshOfWar> {
     final suggestionList = query.isEmpty
         ? ashes
         : ashes
-            .where(
-                (ash) => ash.name.toLowerCase().startsWith(query.toLowerCase()))
-            .toList();
+        .where(
+            (ash) => ash.name.toLowerCase().startsWith(query.toLowerCase()))
+        .toList();
 
     return _buildSuggestionList(suggestionList);
   }
 
-  Widget _buildSuggestionList(List<AshOfWar> suggestionList) {
+  Widget _buildSuggestionList(List<Incantation> suggestionList) {
     return ListView.builder(
       itemCount: suggestionList.length,
       itemBuilder: (context, index) {
         return ListTile(
           title: Text(suggestionList[index].name),
           onTap: () {
-            onAshesSelected([suggestionList[index]]);
+            onIncantsSelected([suggestionList[index]]);
             close(context, suggestionList[index]);
           },
         );

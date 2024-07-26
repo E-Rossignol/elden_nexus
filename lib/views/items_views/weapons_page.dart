@@ -1,13 +1,16 @@
+import 'dart:async';
+
 import 'package:elden_nexus/constants/constant.dart';
 import 'package:elden_nexus/firebase/auth/auth.dart';
 import 'package:elden_nexus/firebase/database/database.dart';
 import 'package:elden_nexus/views/routing_view.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
-import '../constants/helper.dart';
-import '../models/weapon.dart';
-import 'loading_screen.dart';
-import 'weapon_detail_page.dart';
+import '../../constants/helper.dart';
+import '../../models/weapon.dart';
+import '../home_page.dart';
+import '../loading_screen.dart';
+import 'weapons_detail_page.dart';
 
 class WeaponsPage extends StatefulWidget {
   final bool isDlc;
@@ -28,6 +31,7 @@ class _WeaponsPageState extends State<WeaponsPage> {
   late Future<void> initWeaponsFuture;
   bool isSaving = false;
   bool isSaved = false;
+  Timer? saveTimer;
 
   @override
   void initState() {
@@ -37,7 +41,7 @@ class _WeaponsPageState extends State<WeaponsPage> {
   }
 
   Future<void> initWeapons() async {
-    weapons = (widget.isDlc ? await Helper.allSOTEWeapons() : allWeapons())!;
+    weapons = (await db.getAllWeapons(widget.isDlc))!;
     futureFoundWeapons = db.getUserWeapons(Auth().currentUser!.uid);
     displayedWeapons = List.from(weapons);
     sortWeapons(SortOption.defaultSort);
@@ -168,14 +172,39 @@ class _WeaponsPageState extends State<WeaponsPage> {
           child: const Icon(Icons.sort),
         ),
         appBar: AppBar(
-          leading: Builder(builder: (context) {
-            return IconButton(
-              icon: const Icon(Icons.menu_rounded),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-            );
-          }),
+          leading: Row(
+            children: [
+              Expanded(
+                child: Builder(builder: (context){
+                  return IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              HomePage(isDlc: widget.isDlc),
+                        ),
+                      );
+                    },
+                  );
+                }),
+              ),
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.only(left: 10),
+                  child: Builder(builder: (context) {
+                    return IconButton(
+                      icon: const Icon(Icons.menu_rounded),
+                      onPressed: () {
+                        Scaffold.of(context).openDrawer();
+                      },
+                    );
+                  }),
+                ),
+              ),
+            ],
+          ),
           title: Text(getSortOptionName()),
           actions: <Widget>[
             FutureBuilder(
@@ -290,7 +319,17 @@ class _WeaponsPageState extends State<WeaponsPage> {
                                 child: CheckboxListTile(
                                   value: snapshot.data!
                                       .contains(displayedWeapons[index].name),
-                                  onChanged: (bool? value) {
+                                  onChanged: (bool? value) async {
+                                    if (saveTimer != null) {
+                                      saveTimer!.cancel(); // Cancel the previous timer if it's still running
+                                    }
+                                    saveTimer = Timer(const Duration(milliseconds: 500), () async {
+                                      if (value!) {
+                                        await db.addUserWeapon(displayedWeapons[index].name, Auth().currentUser!.uid);
+                                      } else {
+                                        await db.removeUserWeapon(displayedWeapons[index].name, Auth().currentUser!.uid);
+                                      }
+                                    });
                                     setState(() {
                                       if (value == true) {
                                         if (!snapshot.data!.contains(
@@ -398,14 +437,18 @@ class _WeaponsPageState extends State<WeaponsPage> {
   void sortWeapons(SortOption? option) async {
     List<WeaponCategory> categoryOrder = [
       WeaponCategory.dagger,
+      WeaponCategory.throwing_blade,
       WeaponCategory.straight_sword,
+      WeaponCategory.light_greatsword,
       WeaponCategory.greatsword,
       WeaponCategory.colossal_sword,
       WeaponCategory.thrusting_sword,
       WeaponCategory.heavy_thrusting_sword,
       WeaponCategory.curved_sword,
       WeaponCategory.curved_greatsword,
+      WeaponCategory.backhand_blade,
       WeaponCategory.katana,
+      WeaponCategory.great_katana,
       WeaponCategory.twinblade,
       WeaponCategory.axe,
       WeaponCategory.great_axe,
@@ -419,7 +462,10 @@ class _WeaponsPageState extends State<WeaponsPage> {
       WeaponCategory.reaper,
       WeaponCategory.whip,
       WeaponCategory.fist,
+      WeaponCategory.hand_to_hand_art,
       WeaponCategory.claw,
+      WeaponCategory.beast_claw,
+      WeaponCategory.perfume_bottle,
       WeaponCategory.light_bow,
       WeaponCategory.bow,
       WeaponCategory.great_bow,
@@ -428,13 +474,6 @@ class _WeaponsPageState extends State<WeaponsPage> {
       WeaponCategory.glintstone_staff,
       WeaponCategory.sacred_seal,
       WeaponCategory.torch,
-      WeaponCategory.hand_to_hand_art,
-      WeaponCategory.throwing_blade,
-      WeaponCategory.backhand_blade,
-      WeaponCategory.perfume_bottle,
-      WeaponCategory.beast_claw,
-      WeaponCategory.light_greatsword,
-      WeaponCategory.great_katana,
       WeaponCategory.small_shield,
       WeaponCategory.medium_shield,
       WeaponCategory.greatshield,
@@ -449,12 +488,12 @@ class _WeaponsPageState extends State<WeaponsPage> {
         });
       } else if (option == SortOption.name) {
         setState(() {
-          displayedWeapons = widget.isDlc ? allDlcWeapons() : allWeapons();
+          displayedWeapons = weapons;
           displayedWeapons.sort((a, b) => a.name.compareTo(b.name));
         });
       } else if (option == SortOption.defaultSort) {
         setState(() {
-          displayedWeapons = widget.isDlc ? allDlcWeapons() : allWeapons();
+          displayedWeapons = weapons;
           displayedWeapons.sort((a, b) => a.name.compareTo(b.name));
           displayedWeapons.sort((a, b) {
             int indexA = categoryOrder.indexOf(a.weaponCategory);

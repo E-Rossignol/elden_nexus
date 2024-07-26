@@ -4,7 +4,7 @@ import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../constants/helper.dart';
+import '../../constants/helper.dart';
 
 class WeaponDetailPage extends StatefulWidget {
   final Weapon weapon;

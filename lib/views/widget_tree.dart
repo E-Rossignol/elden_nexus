@@ -1,6 +1,6 @@
 import 'package:elden_nexus/firebase/auth/auth.dart';
 import 'package:elden_nexus/views/home_page.dart';
-import 'package:elden_nexus/views/weapons_page.dart';
+import 'package:elden_nexus/views/items_views/weapons_page.dart';
 import 'package:elden_nexus/views/login_register_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

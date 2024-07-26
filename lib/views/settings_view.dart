@@ -1,4 +1,5 @@
 import 'package:elden_nexus/components/settings/log_out_component.dart';
+import 'package:elden_nexus/firebase/database/database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:elden_nexus/components/settings/change_language_component.dart';
@@ -30,11 +31,42 @@ class SettingsViewState extends State<SettingsView> {
     super.initState();
   }
 
+  Widget storeButton() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ElevatedButton(
+        onPressed: () async {
+          showDialog(context: context, builder: (context) => AlertDialog(
+            title: Text('STORE'),
+            content: Text('ARE YOU SURE TO WANT TO STORE DATA ?'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('NO'),
+              ),
+              TextButton(
+                onPressed: () async {
+                  DatabaseMethods db = DatabaseMethods();
+                  await db.storeAll();
+                },
+                child: Text('YES'),
+              ),
+            ],
+          ));
+        },
+        child: Text('store'.tr),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     List<Widget> widgets = [];
     widgets.add(const ChangeLanguageComponent());
     widgets.add(const LogOutComponent());
+    widgets.add(storeButton());
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,

@@ -68,6 +68,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - lib/constants/icons/
+    - lib/constants/images/status_effects/
     - lib/constants/images/main_game_weapons/axe/
     - lib/constants/images/main_game_weapons/claw/
     - lib/constants/images/main_game_weapons/colossal_sword/
@@ -92,10 +94,12 @@ flutter:
     - lib/constants/images/main_game_weapons/twinblade/
     - lib/constants/images/main_game_weapons/whip/
     - lib/constants/images/dlc_weapons/
-    - lib/constants/icons/
-    - lib/constants/images/status_effects/
-    - lib/constants/images/ash_of_war/
+    - lib/constants/images/ash_of_war/main_game_aow/
     - lib/constants/images/ash_of_war/dlc/
+    - lib/constants/images/talismans/dlc_talismans/
+    - lib/constants/images/talismans/main_game_talismans/
+    - lib/constants/images/tears/main_game_tears/
+    - lib/constants/images/tears/dlc_tears/
   fonts:
     - family: Mantinia
       fonts:
