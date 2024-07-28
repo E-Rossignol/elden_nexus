@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'items_views/armors_page.dart';
 import 'items_views/incantations_page.dart';
 import 'items_views/sorceries_page.dart';

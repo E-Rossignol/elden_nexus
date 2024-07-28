@@ -8,6 +8,7 @@ class Armor extends Item {
   late double weight;
   late String passive;
   late String set;
+  late DamageNegation damageNegation;
 
   Armor({
     required super.name,
@@ -16,6 +17,7 @@ class Armor extends Item {
     required this.howToFind,
     required this.mapLink,
     required this.weight,
+    required this.damageNegation,
     this.set = '',
     this.passive = '',
   }) : super(
@@ -29,6 +31,16 @@ class Armor extends Item {
       'piece': armorPiece.toString().split('.').last,
       'howToFind': howToFind,
       'mapLink': mapLink,
+      'damageNegation': {
+        'physical': damageNegation.physical,
+        'strike': damageNegation.strike,
+        'slash': damageNegation.slash,
+        'pierce': damageNegation.pierce,
+        'magic': damageNegation.magic,
+        'fire': damageNegation.fire,
+        'lightning': damageNegation.lightning,
+        'holy': damageNegation.holy,
+      },
       'weight': weight,
       'set': set,
       'passive': passive,
@@ -43,6 +55,16 @@ class Armor extends Item {
       howToFind: data['howToFind'],
       mapLink: data['mapLink'],
       weight: data['weight'],
+      damageNegation: DamageNegation(
+        physical: data['damageNegation']['physical'],
+        strike: data['damageNegation']['strike'],
+        slash: data['damageNegation']['slash'],
+        pierce: data['damageNegation']['pierce'],
+        magic: data['damageNegation']['magic'],
+        fire: data['damageNegation']['fire'],
+        lightning: data['damageNegation']['lightning'],
+        holy: data['damageNegation']['holy'],
+      ),
       set: data['set'],
       passive: data['passive'],
     );

@@ -70,7 +70,7 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
         statusStr = "Deadly Poison";
         break;
       case StatusEffect.death_blight:
-        statusColors = [Colors.black, Colors.grey, Colors.white];
+        statusColors = [Colors.black, Colors.grey, Theme.of(context).colorScheme.onBackground];
         statusPath = "lib/constants/images/status_effects/death_blight.png";
         statusStr = "Death Blight";
         break;
@@ -80,7 +80,7 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
         statusStr = "Eternal Sleep";
         break;
       case StatusEffect.frostbite:
-        statusColors = [Colors.blue, Colors.white, Colors.blueAccent];
+        statusColors = [Colors.blue, Theme.of(context).colorScheme.onBackground, Colors.blueAccent];
         statusPath = "lib/constants/images/status_effects/frostbite.png";
         statusStr = "Frostbite";
         break;
@@ -144,29 +144,20 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
         ));
   }
 
+  String requirement(double input){
+    if(input == 0){
+      return "-";
+    }
+    return input.toInt().toString();
+  }
+
   @override
   Widget build(BuildContext context) {
+    double defaultHeight = 65;
     Weapon weapon = widget.weapon;
     statusColors = [Colors.orangeAccent, Colors.yellow, Colors.red];
     String isSomberStr =
         weapon.isSomber ? 'Somber Smithing Stones' : 'Smithing Stones';
-    List<String> gridStr = [
-      'STR',
-      'DEX',
-      'INT',
-      'FAI',
-      'ARC',
-      'Weight',
-      'Ash of War:'
-    ];
-    List<String> scalingStr = [
-      weapon.scaling.str,
-      weapon.scaling.dex,
-      weapon.scaling.int,
-      weapon.scaling.fai,
-      weapon.scaling.arc,
-    ];
-    String aow = weapon.ashOfWar;
     String url = weapon.mapLink;
     bool isLinkable = url.isNotEmpty;
     bool hasStatus = weapon.status.isNotEmpty;
@@ -256,324 +247,180 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                   ),
                 )),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.25,
-              width: MediaQuery.of(context).size.width * 0.7,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      mainAxisSize: MainAxisSize.min,
+                height: MediaQuery.of(context).size.height * 0.45,
+                width: MediaQuery.of(context).size.width * 0.7,
+                child: Table(
+                  columnWidths: {
+                    0: FlexColumnWidth(0.5), // First column is half the size
+                    1: FlexColumnWidth(1),
+                    2: FlexColumnWidth(1),
+                  },
+                  children: [
+                    TableRow(
                       children: [
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                              top: BorderSide(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                                width: 2.0,
-                              ),
-                            )),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Expanded(
-                                    child: Text(
-                                  gridStr[0],
-                                  style: const TextStyle(
-                                      fontFamily: "Chiralla", fontSize: 20),
-                                )),
-                                Expanded(
-                                    child: Text(scalingStr[0],
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onSurface,
-                                            fontFamily: 'Chiralla',
-                                            fontSize: 18))),
-                              ],
-                            ),
-                          ),
+                        Center(
+                            child: Container(height: defaultHeight/2, child:
+                            const Text(""))),
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.secondary,
+                              border: Border.all(color: Theme.of(context).colorScheme.background)),
+                          child: Center(
+                              child: Container(height: defaultHeight/2, child:
+                              Center(child: Text("Scaling", style: TextStyle(fontStyle: FontStyle.italic, color: Theme.of(context).colorScheme.onSecondary))))),
                         ),
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                              top: BorderSide(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                                width: 2.0,
-                              ),
-                            )),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Expanded(
-                                    child: Text(
-                                  gridStr[1],
-                                  style: TextStyle(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface,
-                                      fontFamily: "Chiralla",
-                                      fontSize: 20),
-                                )),
-                                Expanded(
-                                    child: Text(scalingStr[1],
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onSurface,
-                                            fontFamily: 'Chiralla',
-                                            fontSize: 18))),
-                              ],
-                            ),
-                          ),
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.secondary,
+                              border: Border.all(color: Theme.of(context).colorScheme.background)),
+                          child: Center(
+                              child: Container(height: defaultHeight/2, child:
+                              Center(child: Text("Requirements", style: TextStyle(fontStyle: FontStyle.italic, color: Theme.of(context).colorScheme.onSecondary))))),
                         ),
                       ],
                     ),
-                  ),
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      mainAxisSize: MainAxisSize.min,
+                    TableRow(
                       children: [
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                              top: BorderSide(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                                width: 2.0,
-                              ),
-                            )),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Expanded(
-                                    child: Text(
-                                  gridStr[2],
-                                  style: TextStyle(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface,
-                                      fontFamily: "Chiralla",
-                                      fontSize: 20),
-                                )),
-                                Expanded(
-                                    child: Text(scalingStr[2],
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onSurface,
-                                            fontFamily: 'Chiralla',
-                                            fontSize: 18))),
-                              ],
-                            ),
-                          ),
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                            color : Theme.of(context).colorScheme.secondary,
+                              border: Border.all(color: Theme.of(context).colorScheme.background)),
+                          child: Center(
+                              child: Container(height: defaultHeight, child:
+                              Center(child: Text("STRENGTH", style: TextStyle(fontStyle: FontStyle.italic, color: Theme.of(context).colorScheme.onSecondary))))),
                         ),
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                              top: BorderSide(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                                width: 2.0,
-                              ),
-                            )),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Expanded(
-                                    child: Text(
-                                  gridStr[3],
-                                  style: TextStyle(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface,
-                                      fontFamily: "Chiralla",
-                                      fontSize: 20),
-                                )),
-                                Expanded(
-                                    child: Text(scalingStr[3],
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onSurface,
-                                            fontFamily: 'Chiralla',
-                                            fontSize: 18))),
-                              ],
-                            ),
-                          ),
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.secondaryContainer,
+                              border: Border.all(color: Theme.of(context).colorScheme.background)),
+                          child: Center(
+                              child: Container(height: defaultHeight, child:
+                              Center(child: Text(weapon.scaling.str, style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer))))),
+                        ),
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.secondaryContainer,
+                              border: Border.all(color: Theme.of(context).colorScheme.background)),
+                          child: Center(
+                              child: Container(height: defaultHeight, child:
+                              Center(child: Text(requirement(weapon.requirements.str), style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer))))),
                         ),
                       ],
                     ),
-                  ),
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      mainAxisSize: MainAxisSize.min,
+                    TableRow(
                       children: [
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                              top: BorderSide(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                                width: 2.0,
-                              ),
-                            )),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Expanded(
-                                    child: Text(
-                                  gridStr[4],
-                                  style: TextStyle(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface,
-                                      fontFamily: "Chiralla",
-                                      fontSize: 20),
-                                )),
-                                Expanded(
-                                    child: Text(scalingStr[4],
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onSurface,
-                                            fontFamily: 'Chiralla',
-                                            fontSize: 18))),
-                              ],
-                            ),
-                          ),
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                              color : Theme.of(context).colorScheme.secondary,
+                              border: Border.all(color: Theme.of(context).colorScheme.background)),
+                          child: Center(
+                              child: Container(height: defaultHeight, child:
+                              Center(child: Text("DEX", style: TextStyle(fontStyle: FontStyle.italic, color: Theme.of(context).colorScheme.onSecondary))))),
                         ),
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                              top: BorderSide(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                                width: 2.0,
-                              ),
-                            )),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Expanded(
-                                    child: Text(
-                                  gridStr[5],
-                                  style: TextStyle(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface,
-                                      fontFamily: "Chiralla",
-                                      fontSize: 20),
-                                )),
-                                Expanded(
-                                    child: Text(weapon.weight.toString(),
-                                        style: const TextStyle(
-                                            fontFamily: 'Chiralla',
-                                            fontSize: 18))),
-                              ],
-                            ),
-                          ),
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.secondaryContainer,
+                              border: Border.all(color: Theme.of(context).colorScheme.background)),
+                          child: Center(
+                              child: Container(height: defaultHeight, child:
+                              Center(child: Text(weapon.scaling.dex, style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer))))),
+                        ),
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.secondaryContainer,
+                              border: Border.all(color: Theme.of(context).colorScheme.background)),
+                          child: Center(
+                              child: Container(height: defaultHeight, child:
+                              Center(child: Text(requirement(weapon.requirements.dex), style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer))))),
                         ),
                       ],
                     ),
-                  ),
-                ],
-              ),
-            ),
-            _space(),
-            _space(),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.1,
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                    TableRow(
                       children: [
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                              top: BorderSide(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                                width: 2.0,
-                              ),
-                            )),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Expanded(
-                                    child: TextButton(
-                                  onPressed: null,
-                                  child: Text(
-                                    gridStr[6],
-                                    textAlign: TextAlign.justify,
-                                    style: TextStyle(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSurface,
-                                        fontFamily: "Chiralla",
-                                        fontSize: 20),
-                                  ),
-                                )),
-                              ],
-                            ),
-                          ),
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                              color : Theme.of(context).colorScheme.secondary,
+                              border: Border.all(color: Theme.of(context).colorScheme.background)),
+                          child: Center(
+                              child: Container(height: defaultHeight, child:
+                              Center(child: Text("INT", style: TextStyle(fontStyle: FontStyle.italic, color: Theme.of(context).colorScheme.onSecondary))))),
                         ),
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                              top: BorderSide(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                                width: 2.0,
-                              ),
-                            )),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Expanded(
-                                    child: TextButton(
-                                        onPressed: null,
-                                        child: Text(aow,
-                                            style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSurface,
-                                                fontFamily: "Chiralla",
-                                                fontSize: 20,
-                                                fontStyle: FontStyle.italic),
-                                            textAlign: TextAlign.center))),
-                              ],
-                            ),
-                          ),
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.secondaryContainer,
+                              border: Border.all(color: Theme.of(context).colorScheme.background)),
+                          child: Center(
+                              child: Container(height: defaultHeight, child:
+                              Center(child: Text(weapon.scaling.int, style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer))))),
+                        ),
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.secondaryContainer,
+                              border: Border.all(color: Theme.of(context).colorScheme.background)),
+                          child: Center(
+                              child: Container(height: defaultHeight, child:
+                              Center(child: Text(requirement(weapon.requirements.int), style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer))))),
                         ),
                       ],
                     ),
-                  ),
-                ],
-              ),
-            ),
+                    TableRow(
+                      children: [
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                              color : Theme.of(context).colorScheme.secondary,
+                              border: Border.all(color: Theme.of(context).colorScheme.background)),
+                          child: Center(
+                              child: Container(height: defaultHeight, child:
+                              Center(child: Text("FAITH", style: TextStyle(fontStyle: FontStyle.italic, color: Theme.of(context).colorScheme.onSecondary))))),
+                        ),
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.secondaryContainer,
+                              border: Border.all(color: Theme.of(context).colorScheme.background)),
+                          child: Center(
+                              child: Container(height: defaultHeight, child:
+                              Center(child: Text(weapon.scaling.fai, style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer))))),
+                        ),
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.secondaryContainer,
+                              border: Border.all(color: Theme.of(context).colorScheme.background)),
+                          child: Center(
+                              child: Container(height: defaultHeight, child:
+                              Center(child: Text(requirement(weapon.requirements.fai), style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer))))),
+                        ),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                              color : Theme.of(context).colorScheme.secondary,
+                              border: Border.all(color: Theme.of(context).colorScheme.background)),
+                          child: Center(
+                              child: Container(height: defaultHeight, child:
+                              Center(child: Text("ARCANE", style: TextStyle(fontStyle: FontStyle.italic, color: Theme.of(context).colorScheme.onSecondary))))),
+                        ),
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.secondaryContainer,
+                              border: Border.all(color: Theme.of(context).colorScheme.background)),
+                          child: Center(
+                              child: Container(height: defaultHeight, child:
+                              Center(child: Text(weapon.scaling.arc, style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer))))),
+                        ),
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.secondaryContainer,
+                              border: Border.all(color: Theme.of(context).colorScheme.background)),
+                          child: Center(
+                              child: Container(height: defaultHeight, child:
+                              Center(child: Text(requirement(weapon.requirements.arc), style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer))))),
+                        ),
+                      ],
+                    ),
+                  ],
+                )),
             _space(),
             ElevatedButton(
               onPressed: () {

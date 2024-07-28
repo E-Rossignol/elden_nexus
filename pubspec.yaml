@@ -70,30 +70,8 @@ flutter:
   assets:
     - lib/constants/icons/
     - lib/constants/images/status_effects/
-    - lib/constants/images/main_game_weapons/axe/
-    - lib/constants/images/main_game_weapons/claw/
-    - lib/constants/images/main_game_weapons/colossal_sword/
-    - lib/constants/images/main_game_weapons/colossal_weapon/
-    - lib/constants/images/main_game_weapons/curved_greatsword/
-    - lib/constants/images/main_game_weapons/curved_sword/
-    - lib/constants/images/main_game_weapons/dagger/
-    - lib/constants/images/main_game_weapons/fist/
-    - lib/constants/images/main_game_weapons/flail/
-    - lib/constants/images/main_game_weapons/great_hammer/
-    - lib/constants/images/main_game_weapons/great_spear/
-    - lib/constants/images/main_game_weapons/great_axe/
-    - lib/constants/images/main_game_weapons/great_sword/
-    - lib/constants/images/main_game_weapons/halberd/
-    - lib/constants/images/main_game_weapons/hammer/
-    - lib/constants/images/main_game_weapons/heavy_thrusting_sword/
-    - lib/constants/images/main_game_weapons/katana/
-    - lib/constants/images/main_game_weapons/reaper/
-    - lib/constants/images/main_game_weapons/spear/
-    - lib/constants/images/main_game_weapons/straight_sword/
-    - lib/constants/images/main_game_weapons/thrusting_sword/
-    - lib/constants/images/main_game_weapons/twinblade/
-    - lib/constants/images/main_game_weapons/whip/
-    - lib/constants/images/dlc_weapons/
+    - lib/constants/images/weapons/main_game_weapons/
+    - lib/constants/images/weapons/dlc_weapons/
     - lib/constants/images/ash_of_war/main_game_aow/
     - lib/constants/images/ash_of_war/dlc/
     - lib/constants/images/talismans/dlc_talismans/

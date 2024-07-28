@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:async';
 
 import 'package:elden_nexus/constants/constant.dart';
@@ -451,7 +453,7 @@ class _WeaponsPageState extends State<WeaponsPage> {
       WeaponCategory.great_katana,
       WeaponCategory.twinblade,
       WeaponCategory.axe,
-      WeaponCategory.great_axe,
+      WeaponCategory.greataxe,
       WeaponCategory.hammer,
       WeaponCategory.flail,
       WeaponCategory.great_hammer,
@@ -563,8 +565,10 @@ class WeaponSearch extends SearchDelegate<Weapon> {
                 weaponCategory: WeaponCategory.axe,
                 howToFind: '',
                 scaling: Scaling(),
+                requirements: Requirement(),
                 weight: -1,
                 isSomber: false,
+                damages: Damage(),
                 ashOfWar: "",
                 mapLink: ''));
       },

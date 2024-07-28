@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:elden_nexus/components/settings/log_out_component.dart';
 import 'package:elden_nexus/firebase/database/database.dart';
 import 'package:flutter/material.dart';

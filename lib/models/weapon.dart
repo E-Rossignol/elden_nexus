@@ -11,6 +11,8 @@ class Weapon extends Item {
   late double weight;
   late Map<StatusEffect, double> status;
   late String passive;
+  late Requirement requirements;
+  late Damage damages;
 
   Weapon({
     required super.name,
@@ -22,6 +24,8 @@ class Weapon extends Item {
     required this.ashOfWar,
     required this.mapLink,
     required this.weight,
+    required this.requirements,
+    required this.damages,
     this.status = const {},
     this.passive = '',
   }) : super(
@@ -40,6 +44,22 @@ class Weapon extends Item {
         'int': scaling.int,
         'fai': scaling.fai,
         'arc': scaling.arc,
+      },
+      'requirements': {
+        'str': requirements.str,
+        'dex': requirements.dex,
+        'int': requirements.int,
+        'fai': requirements.fai,
+        'arc': requirements.arc,
+      },
+      'damages': {
+        'physical': damages.physical,
+        'magic': damages.magic,
+        'fire': damages.fire,
+        'dark': damages.holy,
+        'lightning': damages.lightning,
+        'critical': damages.critical,
+        'sorc': damages.sorc,
       },
       'isSomber': isSomber,
       'ashOfWar': ashOfWar,
@@ -68,6 +88,22 @@ class Weapon extends Item {
       weaponCategory: WeaponCategory.values.firstWhere(
           (e) => e.toString() == 'WeaponCategory.${data['category']}'),
       howToFind: data['howToFind'],
+      requirements: Requirement(
+        str: data['requirements']['str'],
+        dex: data['requirements']['dex'],
+        int: data['requirements']['int'],
+        fai: data['requirements']['fai'],
+        arc: data['requirements']['arc'],
+      ),
+      damages: Damage(
+        physical: data['damages']['physical'],
+        magic: data['damages']['magic'],
+        fire: data['damages']['fire'],
+        holy: data['damages']['holy'],
+        lightning: data['damages']['lightning'],
+        critical: data['damages']['critical'],
+        sorc: data['damages']['sorc'],
+      ),
       scaling: Scaling(
         str: data['scaling']['str'],
         dex: data['scaling']['dex'],
@@ -98,4 +134,24 @@ class Scaling {
       this.int = '-',
       this.fai = '-',
       this.arc = '-'});
+}
+
+class Damage {
+  double physical;
+  double magic;
+  double fire;
+  double holy;
+  double lightning;
+  double critical;
+  double sorc;
+
+  Damage({
+    this.physical = 0,
+    this.magic = 0,
+    this.fire = 0,
+    this.holy = 0,
+    this.lightning = 0,
+    this.critical = 0,
+    this.sorc = 0,
+  });
 }

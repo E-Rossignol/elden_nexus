@@ -137,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
             isLogin = !isLogin;
           });
         },
-        child: Text(isLogin ? 'register' : 'logIn',
+        child: Text(isLogin ? 'No account yet ? Click here !' : 'Already an account ? Click here !',
             style: TextStyle(color: Theme.of(context).colorScheme.onSurface)));
   }
 

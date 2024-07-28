@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:async';
 
 import 'package:elden_nexus/firebase/auth/auth.dart';
@@ -8,6 +10,7 @@ import 'package:elden_nexus/views/routing_view.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../constants/constant.dart';
 import '../home_page.dart';
 import 'incantations_detail_page.dart';
 
@@ -416,9 +419,10 @@ class IncantsSearch extends SearchDelegate<Incantation> {
             Incantation(
                 name: '',
                 image: '',
+                slots: 0,
                 description: '',
                 howToFind: '',
-                mapLink: '', fPCost: 0, damageType: '', effect: ''));
+                mapLink: '', fPCost: 0, damageType: '', effect: '', requirement: SpellsRequirement()));
       },
     );
   }

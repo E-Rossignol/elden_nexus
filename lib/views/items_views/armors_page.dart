@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:async';
 
 import 'package:elden_nexus/constants/constant.dart';
@@ -413,7 +415,7 @@ class armorsSearch extends SearchDelegate<Armor> {
       onPressed: () {
         close(
             context,
-        Armor(name: "", image: '', armorPiece: ArmorPiece.arms, howToFind: '', mapLink: '', weight: -1));
+        Armor(name: "", image: '',damageNegation: DamageNegation(), armorPiece: ArmorPiece.gauntlets, howToFind: '', mapLink: '', weight: -1));
       },
     );
   }

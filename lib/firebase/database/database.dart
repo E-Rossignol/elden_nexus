@@ -9,10 +9,33 @@ import '../../models/tear.dart';
 import '../../models/weapon.dart';
 
 class DatabaseMethods {
+
+  Future<List<Talisman>?> getAllTalismans(bool isDlc) async {
+    String tableName = isDlc ? 'allSOTETalismans' : 'allMainGameTalismans';
+    if (!isDlc) {
+      return allTalismans();
+    }
+    QuerySnapshot querySnapshot =
+    await FirebaseFirestore.instance.collection(tableName).get();
+    List<Talisman> talismans = [];
+    if (querySnapshot.docs.isEmpty) {
+      return null;
+    } else {
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+        Talisman tal = Talisman.fromMap(doc.data() as Map<String, dynamic>?);
+        talismans.add(tal);
+      }
+    }
+    return talismans;
+  }
+
   Future<List<Weapon>?> getAllWeapons(bool isDlc) async {
     String tableName = isDlc ? 'allSOTEWeapons' : 'allMainGameWeapons';
     if (!isDlc) {
       return allWeapons();
+    }
+    if (isDlc){
+      return allSOTEWeapons();
     }
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection(tableName).get();
@@ -137,25 +160,6 @@ class DatabaseMethods {
         in userFoundAshes.where((item) => !ashNames.contains(item)).toList()) {
       await removeUserAsh(ashName, userID);
     }
-  }
-
-  Future<List<Talisman>?> getAllTalismans(bool isDlc) async {
-    String tableName = isDlc ? 'allSOTETalismans' : 'allMainGameTalismans';
-    if (!isDlc) {
-      return allTalismans();
-    }
-    QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection(tableName).get();
-    List<Talisman> talismans = [];
-    if (querySnapshot.docs.isEmpty) {
-      return null;
-    } else {
-      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
-        Talisman tal = Talisman.fromMap(doc.data() as Map<String, dynamic>?);
-        talismans.add(tal);
-      }
-    }
-    return talismans;
   }
 
   Future addUserTalisman(String talismanName, String userID) async {

@@ -33,7 +33,7 @@ class Helper {
         return 'Flail';
       case WeaponCategory.glintstone_staff:
         return 'Glintstone Staff';
-      case WeaponCategory.great_axe:
+      case WeaponCategory.greataxe:
         return 'Great Axe';
       case WeaponCategory.great_bow:
         return 'Great Bow';
