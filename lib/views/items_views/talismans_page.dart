@@ -128,37 +128,11 @@ class _TalismansPageState extends State<TalismansPage> {
           child: const Icon(Icons.sort),
         ),
         appBar: AppBar(
-          leading: Row(
-            children: [
-              Expanded(
-                child: Builder(builder: (context) {
-                  return IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HomePage(isDlc: widget.isDlc),
-                        ),
-                      );
-                    },
-                  );
-                }),
-              ),
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.only(left: 10),
-                  child: Builder(builder: (context) {
-                    return IconButton(
-                      icon: const Icon(Icons.menu_rounded),
-                      onPressed: () {
-                        Scaffold.of(context).openDrawer();
-                      },
-                    );
-                  }),
-                ),
-              ),
-            ],
+          leading: IconButton(
+            icon: const Icon(Icons.menu_rounded),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
           ),
           actions: <Widget>[
             FutureBuilder(

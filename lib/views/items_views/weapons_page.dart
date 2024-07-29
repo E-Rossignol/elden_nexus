@@ -91,121 +91,99 @@ class _WeaponsPageState extends State<WeaponsPage> {
           child: const RoutingView(),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: Text('Sort by:'),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ListTile(
-                        title: Text('Default'),
-                        onTap: () {
-                          setState(() {
-                            selectedSortOption = SortOption.defaultSort;
-                            sortWeapons(SortOption.defaultSort);
-                          });
-                          Navigator.of(context).pop(); // Close the dialog
-                        },
-                      ),
-                      ListTile(
-                        title: Text('Not Found'),
-                        onTap: () {
-                          setState(() {
-                            selectedSortOption = SortOption.notFound;
-                            sortWeapons(SortOption.notFound);
-                          });
-                          Navigator.of(context).pop(); // Close the dialog
-                        },
-                      ),
-                      ListTile(
-                        title: Text('Name'),
-                        onTap: () {
-                          setState(() {
-                            selectedSortOption = SortOption.name;
-                            sortWeapons(SortOption.name);
-                          });
-                          Navigator.of(context).pop(); // Close the dialog
-                        },
-                      ),
-                      ListTile(
-                        title: Text('Weapon Category'),
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: Text('Weapon Category'),
-                                content: DropdownButton<WeaponCategory>(
-                                  hint: Text('Category'),
-                                  value: selectedWeaponCategory,
-                                  items: WeaponCategory.values.map((option) {
-                                    return DropdownMenuItem<WeaponCategory>(
-                                      value: option,
-                                      child: Text(Helper.strCat(option)),
-                                    );
-                                  }).toList(),
-                                  onChanged: (option) {
-                                    setState(() {
-                                      selectedSortOption = SortOption.category;
-                                      selectedWeaponCategory = option;
-                                      filterWeaponsByCategory(option);
-                                    });
-                                    Navigator.of(context)
-                                        .pop(); // Close the dialog
-                                  },
-                                ),
-                              );
-                            },
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                );
-              },
-            );
-          },
-          child: const Icon(Icons.sort),
+        floatingActionButton: Opacity(
+          opacity: 0.8,
+          child: FloatingActionButton(
+            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text('Sort by:'),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ListTile(
+                          title: Text('Default'),
+                          onTap: () {
+                            setState(() {
+                              selectedSortOption = SortOption.defaultSort;
+                              sortWeapons(SortOption.defaultSort);
+                            });
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                        ),
+                        ListTile(
+                          title: Text('Not Found'),
+                          onTap: () {
+                            setState(() {
+                              selectedSortOption = SortOption.notFound;
+                              sortWeapons(SortOption.notFound);
+                            });
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                        ),
+                        ListTile(
+                          title: Text('Name'),
+                          onTap: () {
+                            setState(() {
+                              selectedSortOption = SortOption.name;
+                              sortWeapons(SortOption.name);
+                            });
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                        ),
+                        ListTile(
+                          title: Text('Weapon Category'),
+                          onTap: () {
+                            Navigator.of(context).pop();
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text('Weapon Category'),
+                                  content: DropdownButton<WeaponCategory>(
+                                    hint: Text('Category'),
+                                    value: selectedWeaponCategory,
+                                    items: WeaponCategory.values.map((option) {
+                                      return DropdownMenuItem<WeaponCategory>(
+                                        value: option,
+                                        child: Text(Helper.strCat(option)),
+                                      );
+                                    }).toList(),
+                                    onChanged: (option) {
+                                      setState(() {
+                                        selectedSortOption = SortOption.category;
+                                        selectedWeaponCategory = option;
+                                        filterWeaponsByCategory(option);
+                                      });
+                                      Navigator.of(context)
+                                          .pop(); // Close the dialog
+                                    },
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            },
+            child: const Icon(Icons.sort),
+          ),
         ),
         appBar: AppBar(
-          leading: Row(
-            children: [
-              Expanded(
-                child: Builder(builder: (context){
-                  return IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              HomePage(isDlc: widget.isDlc),
-                        ),
-                      );
-                    },
-                  );
-                }),
-              ),
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.only(left: 10),
-                  child: Builder(builder: (context) {
-                    return IconButton(
-                      icon: const Icon(Icons.menu_rounded),
-                      onPressed: () {
-                        Scaffold.of(context).openDrawer();
-                      },
-                    );
-                  }),
-                ),
-              ),
-            ],
+          leading: Builder(
+            builder: (context) => IconButton(
+              icon: const Icon(Icons.menu_rounded),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            ),
           ),
           title: Text(getSortOptionName()),
           actions: <Widget>[

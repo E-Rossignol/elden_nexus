@@ -24525,7 +24525,7 @@ List<Sorcery> allSorceries() {
         howToFind: "",
         mapLink: "",
         fPCost: 32,
-        effect: "Fires great arrow from a magic great_bow",
+        effect: "Fires great arrow from a magic greatbow",
         slots: 1,
         damageType: "",
         requirement: SpellsRequirement(
@@ -24542,7 +24542,7 @@ List<Sorcery> allSorceries() {
         howToFind: "",
         mapLink: "",
         fPCost: 50,
-        effect: "Fires four great arrow from a magic great_bow at once",
+        effect: "Fires four great arrow from a magic greatbow at once",
         slots: 1,
         damageType: "",
         requirement: SpellsRequirement(
