@@ -16,10 +16,10 @@ class Tear extends Item {
     required this.duration,
     required this.effect,
   }) : super(
-    cat: ItemCategory.tear, // Set the category directly here
-  );
+          cat: ItemCategory.tear, // Set the category directly here
+        );
 
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     return {
       'name': name,
       'image': image,

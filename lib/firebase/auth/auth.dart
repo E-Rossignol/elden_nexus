@@ -19,6 +19,10 @@ class Auth {
         email: email, password: password);
   }
 
+  Future<void> signInWithCredentials(AuthCredential credential) async {
+    await _firebaseAuth.signInWithCredential(credential);
+  }
+
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
   }

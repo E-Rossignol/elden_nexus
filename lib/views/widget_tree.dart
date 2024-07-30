@@ -1,7 +1,7 @@
 import 'package:elden_nexus/firebase/auth/auth.dart';
-import 'package:elden_nexus/views/home_page.dart';
 import 'package:elden_nexus/views/items_views/weapons_page.dart';
 import 'package:elden_nexus/views/login_register_page.dart';
+import 'package:elden_nexus/views/welcome_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,10 +24,8 @@ class _WidgetTreeState extends State<WidgetTree> {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const HomePage(isDlc: false)));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const WelcomePage()));
       });
     } else {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -44,10 +42,8 @@ class _WidgetTreeState extends State<WidgetTree> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const HomePage(isDlc: true)));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const WelcomePage()));
             });
             return const WeaponsPage(isDlc: false);
           } else {

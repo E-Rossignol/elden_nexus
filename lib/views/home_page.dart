@@ -159,11 +159,11 @@ class _HomePageState extends State<HomePage>
                       ),
                     ),
                     onTap: () {
-                        Widget toPush = TalismansPage(isDlc: widget.isDlc);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => toPush),
-                        );
+                      Widget toPush = TalismansPage(isDlc: widget.isDlc);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => toPush),
+                      );
                     },
                   ),
                 ),

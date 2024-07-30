@@ -11,7 +11,7 @@ import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../models/armor.dart';
-import '../home_page.dart';
+import '../welcome_page.dart';
 import 'armors_detail_page.dart';
 
 class ArmorsPage extends StatefulWidget {
@@ -30,8 +30,6 @@ class _ArmorsPageState extends State<ArmorsPage> {
   late Future<List<String>> futureFoundArmors;
   SortOption? selectedSortOption;
   late Future<void> initArmorsFuture;
-  bool isSaving = false;
-  bool isSaved = false;
   Timer? saveTimer;
 
   @override
@@ -129,16 +127,14 @@ class _ArmorsPageState extends State<ArmorsPage> {
           child: const Icon(Icons.sort),
         ),
         appBar: AppBar(
-          leading: Builder(
-            builder: (context) {
-              return IconButton(
-                      icon: const Icon(Icons.menu_rounded),
-                      onPressed: () {
-              Scaffold.of(context).openDrawer();
-                      },
-                    );
-            }
-          ),
+          leading: Builder(builder: (context) {
+            return IconButton(
+              icon: const Icon(Icons.menu_rounded),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          }),
           actions: <Widget>[
             FutureBuilder(
               future: futureFoundArmors,
@@ -157,6 +153,17 @@ class _ArmorsPageState extends State<ArmorsPage> {
               },
             ),
             IconButton(
+              icon: const Icon(Icons.home),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const WelcomePage(),
+                  ),
+                );
+              },
+            ),
+            IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
                 showSearch(
@@ -168,39 +175,6 @@ class _ArmorsPageState extends State<ArmorsPage> {
                   }),
                 );
               },
-            ),
-            Builder(
-              builder: (context) => IconButton(
-                icon: isSaving
-                    ? const SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: CircularProgressIndicator())
-                    : isSaved
-                    ? const Icon(Icons.check) // Display "ok" icon
-                    : const Icon(Icons.save), // Display save icon
-                onPressed: isSaving
-                    ? null
-                    : () async {
-                  setState(() {
-                    isSaving = true;
-                    isSaved = false;
-                  });
-                  List<String> toStoreArmors = await futureFoundArmors;
-                  await db.saveUserArmors(
-                      toStoreArmors, Auth().currentUser!.uid);
-                  setState(() {
-                    isSaving = false;
-                    isSaved = true;
-                  });
-                  // After 1 second, set isSaved back to false
-                  Future.delayed(const Duration(seconds: 1), () {
-                    setState(() {
-                      isSaved = false;
-                    });
-                  });
-                },
-              ),
             ),
             Builder(
               builder: (context) => IconButton(
@@ -255,13 +229,20 @@ class _ArmorsPageState extends State<ArmorsPage> {
                                   onChanged: (bool? value) {
                                     setState(() {
                                       if (saveTimer != null) {
-                                        saveTimer!.cancel(); // Cancel the previous timer if it's still running
+                                        saveTimer!
+                                            .cancel(); // Cancel the previous timer if it's still running
                                       }
-                                      saveTimer = Timer(const Duration(milliseconds: 500), () async {
+                                      saveTimer = Timer(
+                                          const Duration(milliseconds: 500),
+                                          () async {
                                         if (value!) {
-                                          await db.addUserArmor(displayedArmors[index].name, Auth().currentUser!.uid);
+                                          await db.addUserArmor(
+                                              displayedArmors[index].name,
+                                              Auth().currentUser!.uid);
                                         } else {
-                                          await db.removeUserArmor(displayedArmors[index].name, Auth().currentUser!.uid);
+                                          await db.removeUserArmor(
+                                              displayedArmors[index].name,
+                                              Auth().currentUser!.uid);
                                         }
                                       });
                                       if (value == true) {
@@ -297,7 +278,7 @@ class _ArmorsPageState extends State<ArmorsPage> {
                                                 builder: (context) =>
                                                     ArmorDetailPage(
                                                         armor: displayedArmors[
-                                                        index]),
+                                                            index]),
                                               ),
                                             );
                                           },
@@ -308,7 +289,7 @@ class _ArmorsPageState extends State<ArmorsPage> {
                                           child: ClipRRect(
                                             // Clip the image to make it circular
                                             borderRadius:
-                                            BorderRadius.circular(25),
+                                                BorderRadius.circular(25),
                                             child: Image.asset(
                                                 displayedArmors[index].image),
                                           ),
@@ -316,7 +297,7 @@ class _ArmorsPageState extends State<ArmorsPage> {
                                         const SizedBox(width: 10),
                                         Column(
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               displayedArmors[index].name,
@@ -358,8 +339,9 @@ class _ArmorsPageState extends State<ArmorsPage> {
       } else if (option == SortOption.notFound) {
         futureFoundArmors.then((foundArmors) {
           setState(() {
-            displayedArmors =
-                armors.where((armor) => !foundArmors.contains(armor.name)).toList();
+            displayedArmors = armors
+                .where((armor) => !foundArmors.contains(armor.name))
+                .toList();
             displayedArmors.sort((a, b) => a.name.compareTo(b.name));
           });
         });
@@ -393,7 +375,14 @@ class armorsSearch extends SearchDelegate<Armor> {
       onPressed: () {
         close(
             context,
-        Armor(name: "", image: '',damageNegation: DamageNegation(), armorPiece: ArmorPiece.gauntlets, howToFind: '', mapLink: '', weight: -1));
+            Armor(
+                name: "",
+                image: '',
+                damageNegation: DamageNegation(),
+                armorPiece: ArmorPiece.gauntlets,
+                howToFind: '',
+                mapLink: '',
+                weight: -1));
       },
     );
   }
@@ -401,7 +390,8 @@ class armorsSearch extends SearchDelegate<Armor> {
   @override
   Widget buildResults(BuildContext context) {
     final results = armors
-        .where((armor) => armor.name.toLowerCase().contains(query.toLowerCase()))
+        .where(
+            (armor) => armor.name.toLowerCase().contains(query.toLowerCase()))
         .toList();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       onArmorsSelected(results);
@@ -415,9 +405,9 @@ class armorsSearch extends SearchDelegate<Armor> {
     final suggestionList = query.isEmpty
         ? armors
         : armors
-        .where(
-            (armor) => armor.name.toLowerCase().startsWith(query.toLowerCase()))
-        .toList();
+            .where((armor) =>
+                armor.name.toLowerCase().startsWith(query.toLowerCase()))
+            .toList();
 
     return _buildSuggestionList(suggestionList);
   }

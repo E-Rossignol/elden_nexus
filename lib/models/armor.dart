@@ -21,10 +21,10 @@ class Armor extends Item {
     this.set = '',
     this.passive = '',
   }) : super(
-    cat: ItemCategory.armor, // Set the category directly here
-  );
+          cat: ItemCategory.armor, // Set the category directly here
+        );
 
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     return {
       'name': name,
       'image': image,
@@ -46,12 +46,13 @@ class Armor extends Item {
       'passive': passive,
     };
   }
+
   static Armor fromMap(Map<String, dynamic>? data) {
     return Armor(
       name: data!['name'],
       image: data['image'],
-      armorPiece: ArmorPiece.values.firstWhere(
-          (e) => e.toString() == 'ArmorPiece.${data['piece']}'),
+      armorPiece: ArmorPiece.values
+          .firstWhere((e) => e.toString() == 'ArmorPiece.${data['piece']}'),
       howToFind: data['howToFind'],
       mapLink: data['mapLink'],
       weight: data['weight'],

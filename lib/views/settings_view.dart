@@ -38,25 +38,27 @@ class SettingsViewState extends State<SettingsView> {
       padding: const EdgeInsets.all(8.0),
       child: ElevatedButton(
         onPressed: () async {
-          showDialog(context: context, builder: (context) => AlertDialog(
-            title: Text('STORE'),
-            content: Text('ARE YOU SURE TO WANT TO STORE DATA ?'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('NO'),
-              ),
-              TextButton(
-                onPressed: () async {
-                  DatabaseMethods db = DatabaseMethods();
-                  await db.storeAll();
-                },
-                child: Text('YES'),
-              ),
-            ],
-          ));
+          showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                    title: Text('STORE'),
+                    content: Text('ARE YOU SURE TO WANT TO STORE DATA ?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('NO'),
+                      ),
+                      TextButton(
+                        onPressed: () async {
+                          DatabaseMethods db = DatabaseMethods();
+                          await db.storeAll();
+                        },
+                        child: Text('YES'),
+                      ),
+                    ],
+                  ));
         },
         child: Text('store'.tr),
       ),

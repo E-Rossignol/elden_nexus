@@ -143,7 +143,8 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
                     width: MediaQuery.of(context).size.width * 0.7,
                     child: Table(
                       columnWidths: {
-                        0: FlexColumnWidth(0.5), // First column is half the size
+                        0: FlexColumnWidth(
+                            0.5), // First column is half the size
                         1: FlexColumnWidth(1),
                       },
                       children: [
@@ -155,7 +156,8 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
                                     child: const Text(""))),
                             DecoratedBox(
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   border: Border.all(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -177,7 +179,8 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
                           children: [
                             DecoratedBox(
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   border: Border.all(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -209,7 +212,11 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
                                         child: Text(
                                             requirement(sorc.requirement.int),
                                             style: TextStyle(
-                                                color: sorc.requirement.int != 0 ? Colors.redAccent: Theme.of(context).colorScheme.onSecondaryContainer)))),
+                                                color: sorc.requirement.int != 0
+                                                    ? Colors.redAccent
+                                                    : Theme.of(context)
+                                                        .colorScheme
+                                                        .onSecondaryContainer)))),
                               ),
                             ),
                           ],
@@ -218,7 +225,8 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
                           children: [
                             DecoratedBox(
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   border: Border.all(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -250,7 +258,12 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
                                           child: Text(
                                               requirement(sorc.requirement.fai),
                                               style: TextStyle(
-                                                  color: sorc.requirement.fai != 0 ? Colors.redAccent: Theme.of(context).colorScheme.onSecondaryContainer))))),
+                                                  color: sorc.requirement.fai !=
+                                                          0
+                                                      ? Colors.redAccent
+                                                      : Theme.of(context)
+                                                          .colorScheme
+                                                          .onSecondaryContainer))))),
                             ),
                           ],
                         ),
@@ -258,7 +271,8 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
                           children: [
                             DecoratedBox(
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   border: Border.all(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -290,11 +304,15 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
                                           child: Text(
                                               requirement(sorc.requirement.arc),
                                               style: TextStyle(
-                                                  color: sorc.requirement.arc != 0 ? Colors.redAccent: Theme.of(context).colorScheme.onSecondaryContainer))))),
+                                                  color: sorc.requirement.arc !=
+                                                          0
+                                                      ? Colors.redAccent
+                                                      : Theme.of(context)
+                                                          .colorScheme
+                                                          .onSecondaryContainer))))),
                             ),
                           ],
                         ),
-
                       ],
                     )),
               ],
@@ -309,19 +327,19 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
                   showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                        title: Text('How to get ${sorc.name}:'),
-                        content: SingleChildScrollView(
-                          child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(sorc.howToFind)),
-                        ),
-                        actions: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: linkWidgets,
-                          ),
-                        ],
-                      ));
+                            title: Text('How to get ${sorc.name}:'),
+                            content: SingleChildScrollView(
+                              child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(sorc.howToFind)),
+                            ),
+                            actions: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: linkWidgets,
+                              ),
+                            ],
+                          ));
                 },
                 child: const Text('How to get it'),
               ),

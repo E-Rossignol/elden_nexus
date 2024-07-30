@@ -216,7 +216,11 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                       child: Center(
                           child: Text(
                               damagesString(widget.weapon.damages.physical),
-                              style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSecondaryContainer)))),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSecondaryContainer)))),
                 ),
               ),
             ],
@@ -249,7 +253,13 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                       child: Center(
                           child: Text(
                               damagesString(widget.weapon.damages.magic),
-                              style: TextStyle(fontWeight: FontWeight.bold, color: widget.weapon.damages.magic != 0 ? Color.fromRGBO(125, 125, 212, 1) : Theme.of(context).colorScheme.onSecondaryContainer)))),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: widget.weapon.damages.magic != 0
+                                      ? Color.fromRGBO(125, 125, 212, 1)
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .onSecondaryContainer)))),
                 ),
               ),
             ],
@@ -280,9 +290,14 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                   child: Container(
                       height: defaultHeight,
                       child: Center(
-                          child: Text(
-                              damagesString(widget.weapon.damages.fire),
-                              style: TextStyle(fontWeight: FontWeight.bold, color: widget.weapon.damages.fire != 0 ? Color.fromRGBO(239, 0, 0, 1) : Theme.of(context).colorScheme.onSecondaryContainer)))),
+                          child: Text(damagesString(widget.weapon.damages.fire),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: widget.weapon.damages.fire != 0
+                                      ? Color.fromRGBO(239, 0, 0, 1)
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .onSecondaryContainer)))),
                 ),
               ),
             ],
@@ -313,9 +328,14 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                   child: Container(
                       height: defaultHeight,
                       child: Center(
-                          child: Text(
-                              damagesString(widget.weapon.damages.holy),
-                              style: TextStyle(fontWeight: FontWeight.bold, color: widget.weapon.damages.holy != 0 ? Color.fromRGBO(234, 184, 61, 1) : Theme.of(context).colorScheme.onSecondaryContainer)))),
+                          child: Text(damagesString(widget.weapon.damages.holy),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: widget.weapon.damages.holy != 0
+                                      ? Color.fromRGBO(234, 184, 61, 1)
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .onSecondaryContainer)))),
                 ),
               ),
             ],
@@ -348,7 +368,13 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                       child: Center(
                           child: Text(
                               damagesString(widget.weapon.damages.lightning),
-                              style: TextStyle(fontWeight: FontWeight.bold, color: widget.weapon.damages.lightning != 0 ? Color.fromRGBO(223, 223, 0, 1) : Theme.of(context).colorScheme.onSecondaryContainer)))),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: widget.weapon.damages.lightning != 0
+                                      ? Color.fromRGBO(223, 223, 0, 1)
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .onSecondaryContainer)))),
                 ),
               ),
             ],
@@ -383,7 +409,11 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                       child: Center(
                           child: Text(
                               damagesString(widget.weapon.damages.critical),
-                              style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSecondaryContainer)))),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSecondaryContainer)))),
                 ),
               ),
             ],
@@ -419,7 +449,11 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                         child: Center(
                             child: Text(
                                 damagesString(widget.weapon.damages.sorc),
-                                style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSecondaryContainer)))),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSecondaryContainer)))),
                   ),
                 ),
               ],
@@ -460,18 +494,16 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
         child: SettingsView(),
       ),
       appBar: AppBar(
-        leading: Builder(
-          builder: (context) {
-            return IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return WeaponsPage(isDlc: widget.weapon.image.contains("dlc"));
-                }));
-              },
-            );
-          }
-        ),
+        leading: Builder(builder: (context) {
+          return IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return WeaponsPage(isDlc: widget.weapon.image.contains("dlc"));
+              }));
+            },
+          );
+        }),
         automaticallyImplyLeading: false,
         actions: [
           Builder(

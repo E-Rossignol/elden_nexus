@@ -77,13 +77,15 @@ class _RoutingViewState extends State<RoutingView>
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                            const TalismansPage(isDlc: false)),
+                                const TalismansPage(isDlc: false)),
                       );
                       break;
                     case 'Armor':
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const ArmorsPage(isDlc: false)),
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const ArmorsPage(isDlc: false)),
                       );
                       break;
                     case 'Ashes of War':
@@ -91,7 +93,7 @@ class _RoutingViewState extends State<RoutingView>
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                            const AshesOfWarPage(isDlc: false)),
+                                const AshesOfWarPage(isDlc: false)),
                       );
                       break;
                     case 'Cracked Tears':
@@ -99,7 +101,7 @@ class _RoutingViewState extends State<RoutingView>
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                            const TearsPage(isDlc: false)),
+                                const TearsPage(isDlc: false)),
                       );
                       break;
                     case 'Sorceries':
@@ -107,7 +109,7 @@ class _RoutingViewState extends State<RoutingView>
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                            const SorceriesPage(isDlc: false)),
+                                const SorceriesPage(isDlc: false)),
                       );
                       break;
                     case 'Incantations':
@@ -115,7 +117,7 @@ class _RoutingViewState extends State<RoutingView>
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                            const IncantationsPage(isDlc: false)),
+                                const IncantationsPage(isDlc: false)),
                       );
                       break;
                   }
@@ -195,7 +197,9 @@ class _RoutingViewState extends State<RoutingView>
                     case 'Armor':
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const ArmorsPage(isDlc: true)),
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const ArmorsPage(isDlc: true)),
                       );
                       break;
                     case 'Talismans':
@@ -219,8 +223,7 @@ class _RoutingViewState extends State<RoutingView>
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                            const TearsPage(isDlc: true)),
+                            builder: (context) => const TearsPage(isDlc: true)),
                       );
                       break;
                     case 'Sorceries':
@@ -228,7 +231,7 @@ class _RoutingViewState extends State<RoutingView>
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                            const SorceriesPage(isDlc: true)),
+                                const SorceriesPage(isDlc: true)),
                       );
                       break;
                     case 'Incantations':
@@ -236,7 +239,7 @@ class _RoutingViewState extends State<RoutingView>
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                            const IncantationsPage(isDlc: true)),
+                                const IncantationsPage(isDlc: true)),
                       );
                       break;
                   }

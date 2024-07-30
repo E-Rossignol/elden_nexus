@@ -143,19 +143,19 @@ class _TearDetailPageState extends State<TearDetailPage> {
                 showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                      title: Text('How to get ${tear.name}:'),
-                      content: SingleChildScrollView(
-                        child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(tear.howToFind)),
-                      ),
-                      actions: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: linkWidgets,
-                        ),
-                      ],
-                    ));
+                          title: Text('How to get ${tear.name}:'),
+                          content: SingleChildScrollView(
+                            child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(tear.howToFind)),
+                          ),
+                          actions: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: linkWidgets,
+                            ),
+                          ],
+                        ));
               },
               child: const Text('How to get it'),
             ),

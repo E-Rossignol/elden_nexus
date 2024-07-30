@@ -9,14 +9,13 @@ import '../../models/tear.dart';
 import '../../models/weapon.dart';
 
 class DatabaseMethods {
-
   Future<List<Talisman>?> getAllTalismans(bool isDlc) async {
     String tableName = isDlc ? 'allSOTETalismans' : 'allMainGameTalismans';
     if (!isDlc) {
       return allTalismans();
     }
     QuerySnapshot querySnapshot =
-    await FirebaseFirestore.instance.collection(tableName).get();
+        await FirebaseFirestore.instance.collection(tableName).get();
     List<Talisman> talismans = [];
     if (querySnapshot.docs.isEmpty) {
       return null;
@@ -34,7 +33,7 @@ class DatabaseMethods {
     if (!isDlc) {
       return allWeapons();
     }
-    if (isDlc){
+    if (isDlc) {
       return allSOTEWeapons();
     }
     QuerySnapshot querySnapshot =
@@ -82,23 +81,6 @@ class DatabaseMethods {
         .where('userID', isEqualTo: userID)
         .get();
     return querySnapshot.docs.map((doc) => doc['name'].toString()).toList();
-  }
-
-  Future<void> saveUserWeapons(List<String> weaponNames, String userID) async {
-    List<String> userFoundWeapons = await getUserWeapons(userID);
-    List<String> newlyFoundWeapons =
-        weaponNames.where((item) => !userFoundWeapons.contains(item)).toList();
-    List<String> removedFromListWeapons =
-        userFoundWeapons.where((item) => !weaponNames.contains(item)).toList();
-    if (newlyFoundWeapons.isEmpty && removedFromListWeapons.isEmpty) {
-      return;
-    }
-    for (String weaponName in newlyFoundWeapons) {
-      await addUserWeapon(weaponName, userID);
-    }
-    for (String weaponName in removedFromListWeapons) {
-      await removeUserWeapon(weaponName, userID);
-    }
   }
 
   Future<List<AshOfWar>?> getAllAow(bool isDlc) async {
@@ -150,18 +132,6 @@ class DatabaseMethods {
     return querySnapshot.docs.map((doc) => doc['name'].toString()).toList();
   }
 
-  Future<void> saveUserAshes(List<String> ashNames, String userID) async {
-    List<String> userFoundAshes = await getUserAshes(userID);
-    for (String ashName
-        in ashNames.where((item) => !userFoundAshes.contains(item)).toList()) {
-      await addUserAsh(ashName, userID);
-    }
-    for (String ashName
-        in userFoundAshes.where((item) => !ashNames.contains(item)).toList()) {
-      await removeUserAsh(ashName, userID);
-    }
-  }
-
   Future addUserTalisman(String talismanName, String userID) async {
     Map<String, dynamic> json = {
       'name': talismanName,
@@ -193,25 +163,6 @@ class DatabaseMethods {
         .where('userID', isEqualTo: userID)
         .get();
     return querySnapshot.docs.map((doc) => doc['name'].toString()).toList();
-  }
-
-  Future<void> saveUserTalismans(List<String> talismanNames, String userID) async {
-    List<String> userFoundTalismans = await getUserTalismans(userID);
-    List<String> newlyFoundTalismans = talismanNames
-        .where((item) => !userFoundTalismans.contains(item))
-        .toList();
-    List<String> removedFromListTalismans = userFoundTalismans
-        .where((item) => !talismanNames.contains(item))
-        .toList();
-    if (newlyFoundTalismans.isEmpty && removedFromListTalismans.isEmpty) {
-      return;
-    }
-    for (String talName in newlyFoundTalismans) {
-      await addUserTalisman(talName, userID);
-    }
-    for (String talName in removedFromListTalismans) {
-      await removeUserTalisman(talName, userID);
-    }
   }
 
   Future<List<Tear>?> getAllTears(bool isDlc) async {
@@ -264,18 +215,6 @@ class DatabaseMethods {
     return querySnapshot.docs.map((doc) => doc['name'].toString()).toList();
   }
 
-  Future<void> saveUserTears(List<String> tearNames, String userID) async {
-    List<String> userFoundTears = await getUserTears(userID);
-    for (String tearName
-        in tearNames.where((item) => !userFoundTears.contains(item)).toList()) {
-      await addUserTear(tearName, userID);
-    }
-    for (String tearName
-        in userFoundTears.where((item) => !tearNames.contains(item)).toList()) {
-      await removeUserAsh(tearName, userID);
-    }
-  }
-
   Future<List<Armor>?> getAllArmors(bool isDlc) async {
     String tableName = isDlc ? 'allSOTEArmors' : 'allMainGameArmors';
     if (!isDlc) {
@@ -326,23 +265,6 @@ class DatabaseMethods {
         .where('userID', isEqualTo: userID)
         .get();
     return querySnapshot.docs.map((doc) => doc['name'].toString()).toList();
-  }
-
-  Future<void> saveUserArmors(List<String> armorNames, String userID) async {
-    List<String> userFoundArmors = await getUserArmors(userID);
-    List<String> newlyFoundArmors =
-        armorNames.where((item) => !userFoundArmors.contains(item)).toList();
-    List<String> removedFromListArmors =
-        userFoundArmors.where((item) => !armorNames.contains(item)).toList();
-    if (newlyFoundArmors.isEmpty && removedFromListArmors.isEmpty) {
-      return;
-    }
-    for (String weaponName in newlyFoundArmors) {
-      await addUserArmor(weaponName, userID);
-    }
-    for (String weaponName in removedFromListArmors) {
-      await removeUserArmor(weaponName, userID);
-    }
   }
 
   Future<List<Incantation>?> getAllIncantations(bool isDlc) async {
@@ -401,26 +323,6 @@ class DatabaseMethods {
     return querySnapshot.docs.map((doc) => doc['name'].toString()).toList();
   }
 
-  Future<void> saveUserIncantations(
-      List<String> incantNames, String userID) async {
-    List<String> userFoundIncantations = await getUserIncantations(userID);
-    List<String> newlyFoundIncantations = incantNames
-        .where((item) => !userFoundIncantations.contains(item))
-        .toList();
-    List<String> removedFromListIncantations = userFoundIncantations
-        .where((item) => !incantNames.contains(item))
-        .toList();
-    if (newlyFoundIncantations.isEmpty && removedFromListIncantations.isEmpty) {
-      return;
-    }
-    for (String incantName in newlyFoundIncantations) {
-      await addUserIncantation(incantName, userID);
-    }
-    for (String incantName in removedFromListIncantations) {
-      await removeUserIncantation(incantName, userID);
-    }
-  }
-
   Future<List<Sorcery>?> getAllSorceries(bool isDlc) async {
     String tableName = isDlc ? 'allSOTESorceries' : 'allMainGameSorceries';
     if (!isDlc) {
@@ -473,23 +375,6 @@ class DatabaseMethods {
         .where('userID', isEqualTo: userID)
         .get();
     return querySnapshot.docs.map((doc) => doc['name'].toString()).toList();
-  }
-
-  Future<void> saveUserSorceries(List<String> sorcNames, String userID) async {
-    List<String> userFoundSorceries = await getUserSorceries(userID);
-    List<String> newlyFoundSorceries =
-        sorcNames.where((item) => !userFoundSorceries.contains(item)).toList();
-    List<String> removedFromListSorceries =
-        userFoundSorceries.where((item) => !sorcNames.contains(item)).toList();
-    if (newlyFoundSorceries.isEmpty && removedFromListSorceries.isEmpty) {
-      return;
-    }
-    for (String sorcName in newlyFoundSorceries) {
-      await addUserSorcery(sorcName, userID);
-    }
-    for (String sorcName in removedFromListSorceries) {
-      await removeUserSorcery(sorcName, userID);
-    }
   }
 
   // ONCE DATA ARE IN

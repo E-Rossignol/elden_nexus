@@ -4827,8 +4827,7 @@ List<Weapon> allWeapons() {
       mapLink: "",
       ashOfWar: "",
       isSomber: false,
-      image:
-          "lib/constants/images/weapons/main_game_weapons/lion_greatbow.png",
+      image: "lib/constants/images/weapons/main_game_weapons/lion_greatbow.png",
     ),
     Weapon(
       name: "Longbow",
@@ -11633,6 +11632,7 @@ List<Armor> allArmors() {
           holy: 3,
         ),
         howToFind: "",
+        passive: "This is a default passive !!!",
         mapLink: ""),
     Armor(
         name: "Alberich's Pointed Hat",

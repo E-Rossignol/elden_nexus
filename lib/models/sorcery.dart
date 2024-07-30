@@ -24,10 +24,10 @@ class Sorcery extends Item {
     required this.effect,
     required this.requirement,
   }) : super(
-    cat: ItemCategory.sorcery, // Set the category directly here
-  );
+          cat: ItemCategory.sorcery, // Set the category directly here
+        );
 
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     return {
       'name': name,
       'image': image,

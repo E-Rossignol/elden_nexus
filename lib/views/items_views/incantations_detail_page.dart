@@ -92,214 +92,232 @@ class _IncantationDetailPageState extends State<IncantationDetailPage> {
       body: Stack(
         children: [
           SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            children: [
-              _space(),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.3,
-                child: Transform.scale(
-                  scale: 0.8,
-                  child: Image.asset(inc.image),
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              children: [
+                _space(),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  child: Transform.scale(
+                    scale: 0.8,
+                    child: Image.asset(inc.image),
+                  ),
                 ),
-              ),
-              SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  child: Center(
-                    child: Column(
-                      children: [
-                        Text(
-                          fpCost,
-                          style: const TextStyle(
-                              fontSize: 15,
-                              fontStyle: FontStyle.italic,
-                              fontFamily: 'Chiralla'),
-                        ),
-                        Text(
-                          slots,
-                          style: const TextStyle(
-                              fontSize: 15,
-                              fontStyle: FontStyle.italic,
-                              fontFamily: 'Chiralla'),
-                        ),
-                      ],
-                    ),
-                  )),
-              Container(
-                  padding: const EdgeInsets.all(20),
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  child: SingleChildScrollView(
-                    child: Text(
-                      inc.description,
-                      style: const TextStyle(
-                          fontSize: 18, fontStyle: FontStyle.italic),
-                      textAlign: TextAlign.justify,
-                    ),
-                  )),
-              SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.25 - 60,
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  child: Table(
-                    columnWidths: {
-                      0: FlexColumnWidth(0.5), // First column is half the size
-                      1: FlexColumnWidth(1),
-                    },
-                    children: [
-                      TableRow(
+                SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: Center(
+                      child: Column(
                         children: [
-                          Center(
-                              child: Container(
-                                  height: defaultHeight / 2,
-                                  child: const Text(""))),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
+                          Text(
+                            fpCost,
+                            style: const TextStyle(
+                                fontSize: 15,
+                                fontStyle: FontStyle.italic,
+                                fontFamily: 'Chiralla'),
+                          ),
+                          Text(
+                            slots,
+                            style: const TextStyle(
+                                fontSize: 15,
+                                fontStyle: FontStyle.italic,
+                                fontFamily: 'Chiralla'),
+                          ),
+                        ],
+                      ),
+                    )),
+                Container(
+                    padding: const EdgeInsets.all(20),
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    child: SingleChildScrollView(
+                      child: Text(
+                        inc.description,
+                        style: const TextStyle(
+                            fontSize: 18, fontStyle: FontStyle.italic),
+                        textAlign: TextAlign.justify,
+                      ),
+                    )),
+                SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.25 - 60,
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: Table(
+                      columnWidths: {
+                        0: FlexColumnWidth(
+                            0.5), // First column is half the size
+                        1: FlexColumnWidth(1),
+                      },
+                      children: [
+                        TableRow(
+                          children: [
+                            Center(
                                 child: Container(
                                     height: defaultHeight / 2,
-                                    child: Center(
-                                        child: Text("Requirements",
-                                            style: TextStyle(
-                                                fontStyle: FontStyle.italic,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSecondary))))),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight,
-                                    child: Center(
-                                        child: Text("INT",
-                                            style: TextStyle(
-                                                fontStyle: FontStyle.italic,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSecondary))))),
-                          ),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                              child: Container(
-                                  height: defaultHeight,
-                                  child: Center(
-                                      child: Text(
-                                          requirement(inc.requirement.int),
-                                          style: TextStyle(
-                                              color: inc.requirement.int != 0 ? Colors.redAccent: Theme.of(context).colorScheme.onSecondaryContainer)))),
+                                    child: const Text(""))),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight / 2,
+                                      child: Center(
+                                          child: Text("Requirements",
+                                              style: TextStyle(
+                                                  fontStyle: FontStyle.italic,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSecondary))))),
                             ),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight,
-                                    child: Center(
-                                        child: Text("FAI",
-                                            style: TextStyle(
-                                                fontStyle: FontStyle.italic,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSecondary))))),
-                          ),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight,
-                                    child: Center(
-                                        child: Text(
-                                            requirement(inc.requirement.fai),
-                                            style: TextStyle(
-                                                color: inc.requirement.fai != 0 ? Colors.redAccent: Theme.of(context).colorScheme.onSecondaryContainer))))),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight,
-                                    child: Center(
-                                        child: Text("ARC",
-                                            style: TextStyle(
-                                                fontStyle: FontStyle.italic,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSecondary))))),
-                          ),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                          child: Text("INT",
+                                              style: TextStyle(
+                                                  fontStyle: FontStyle.italic,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSecondary))))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
                                 child: Container(
                                     height: defaultHeight,
                                     child: Center(
                                         child: Text(
-                                            requirement(inc.requirement.arc),
+                                            requirement(inc.requirement.int),
                                             style: TextStyle(
-                                                color: inc.requirement.arc != 0 ? Colors.redAccent: Theme.of(context).colorScheme.onSecondaryContainer))))),
-                          ),
-                        ],
-                      ),
-
-                    ],
-                  )),
-            ],
+                                                color: inc.requirement.int != 0
+                                                    ? Colors.redAccent
+                                                    : Theme.of(context)
+                                                        .colorScheme
+                                                        .onSecondaryContainer)))),
+                              ),
+                            ),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                          child: Text("FAI",
+                                              style: TextStyle(
+                                                  fontStyle: FontStyle.italic,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSecondary))))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                          child: Text(
+                                              requirement(inc.requirement.fai),
+                                              style: TextStyle(
+                                                  color: inc.requirement.fai !=
+                                                          0
+                                                      ? Colors.redAccent
+                                                      : Theme.of(context)
+                                                          .colorScheme
+                                                          .onSecondaryContainer))))),
+                            ),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                          child: Text("ARC",
+                                              style: TextStyle(
+                                                  fontStyle: FontStyle.italic,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSecondary))))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                          child: Text(
+                                              requirement(inc.requirement.arc),
+                                              style: TextStyle(
+                                                  color: inc.requirement.arc !=
+                                                          0
+                                                      ? Colors.redAccent
+                                                      : Theme.of(context)
+                                                          .colorScheme
+                                                          .onSecondaryContainer))))),
+                            ),
+                          ],
+                        ),
+                      ],
+                    )),
+              ],
+            ),
           ),
-        ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
@@ -309,25 +327,25 @@ class _IncantationDetailPageState extends State<IncantationDetailPage> {
                   showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                        title: Text('How to get ${inc.name}:'),
-                        content: SingleChildScrollView(
-                          child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(inc.howToFind)),
-                        ),
-                        actions: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: linkWidgets,
-                          ),
-                        ],
-                      ));
+                            title: Text('How to get ${inc.name}:'),
+                            content: SingleChildScrollView(
+                              child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(inc.howToFind)),
+                            ),
+                            actions: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: linkWidgets,
+                              ),
+                            ],
+                          ));
                 },
                 child: const Text('How to get it'),
               ),
             ),
           ),
-    ],
+        ],
       ),
     );
   }

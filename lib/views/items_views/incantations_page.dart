@@ -11,7 +11,7 @@ import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../constants/constant.dart';
-import '../home_page.dart';
+import '../welcome_page.dart';
 import 'incantations_detail_page.dart';
 
 class IncantationsPage extends StatefulWidget {
@@ -30,8 +30,6 @@ class _IncantationsPageState extends State<IncantationsPage> {
   late Future<List<String>> futureFoundIncants;
   SortOption? selectedSortOption;
   late Future<void> initIncantsFuture;
-  bool isSaving = false;
-  bool isSaved = false;
   Timer? saveTimer;
 
   @override
@@ -129,16 +127,14 @@ class _IncantationsPageState extends State<IncantationsPage> {
           child: const Icon(Icons.sort),
         ),
         appBar: AppBar(
-          leading: Builder(
-            builder: (context) {
-              return IconButton(
-                icon: const Icon(Icons.menu_rounded),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-              );
-            }
-          ),
+          leading: Builder(builder: (context) {
+            return IconButton(
+              icon: const Icon(Icons.menu_rounded),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          }),
           actions: <Widget>[
             FutureBuilder(
               future: futureFoundIncants,
@@ -157,6 +153,17 @@ class _IncantationsPageState extends State<IncantationsPage> {
               },
             ),
             IconButton(
+              icon: const Icon(Icons.home),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const WelcomePage(),
+                  ),
+                );
+              },
+            ),
+            IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
                 showSearch(
@@ -168,39 +175,6 @@ class _IncantationsPageState extends State<IncantationsPage> {
                   }),
                 );
               },
-            ),
-            Builder(
-              builder: (context) => IconButton(
-                icon: isSaving
-                    ? const SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: CircularProgressIndicator())
-                    : isSaved
-                    ? const Icon(Icons.check) // Display "ok" icon
-                    : const Icon(Icons.save), // Display save icon
-                onPressed: isSaving
-                    ? null
-                    : () async {
-                  setState(() {
-                    isSaving = true;
-                    isSaved = false;
-                  });
-                  List<String> toStoreIncants = await futureFoundIncants;
-                  await db.saveUserIncantations(
-                      toStoreIncants, Auth().currentUser!.uid);
-                  setState(() {
-                    isSaving = false;
-                    isSaved = true;
-                  });
-                  // After 1 second, set isSaved back to false
-                  Future.delayed(const Duration(seconds: 1), () {
-                    setState(() {
-                      isSaved = false;
-                    });
-                  });
-                },
-              ),
             ),
             Builder(
               builder: (context) => IconButton(
@@ -254,21 +228,28 @@ class _IncantationsPageState extends State<IncantationsPage> {
                                       .contains(displayedIncants[index].name),
                                   onChanged: (bool? value) {
                                     if (saveTimer != null) {
-                                      saveTimer!.cancel(); // Cancel the previous timer if it's still running
+                                      saveTimer!
+                                          .cancel(); // Cancel the previous timer if it's still running
                                     }
-                                    saveTimer = Timer(const Duration(milliseconds: 500), () async {
+                                    saveTimer =
+                                        Timer(const Duration(milliseconds: 500),
+                                            () async {
                                       if (value!) {
-                                        await db.addUserIncantation(displayedIncants[index].name, Auth().currentUser!.uid);
+                                        await db.addUserIncantation(
+                                            displayedIncants[index].name,
+                                            Auth().currentUser!.uid);
                                       } else {
-                                        await db.removeUserIncantation(displayedIncants[index].name, Auth().currentUser!.uid);
+                                        await db.removeUserIncantation(
+                                            displayedIncants[index].name,
+                                            Auth().currentUser!.uid);
                                       }
                                     });
                                     setState(() {
                                       if (value == true) {
                                         if (!snapshot.data!.contains(
                                             displayedIncants[index].name)) {
-                                          snapshot.data!
-                                              .add(displayedIncants[index].name);
+                                          snapshot.data!.add(
+                                              displayedIncants[index].name);
                                         }
                                       } else {
                                         if (snapshot.data!.contains(
@@ -296,8 +277,9 @@ class _IncantationsPageState extends State<IncantationsPage> {
                                               MaterialPageRoute(
                                                 builder: (context) =>
                                                     IncantationDetailPage(
-                                                        incant: displayedIncants[
-                                                        index]),
+                                                        incant:
+                                                            displayedIncants[
+                                                                index]),
                                               ),
                                             );
                                           },
@@ -308,7 +290,7 @@ class _IncantationsPageState extends State<IncantationsPage> {
                                           child: ClipRRect(
                                             // Clip the image to make it circular
                                             borderRadius:
-                                            BorderRadius.circular(25),
+                                                BorderRadius.circular(25),
                                             child: Image.asset(
                                                 displayedIncants[index].image),
                                           ),
@@ -316,7 +298,7 @@ class _IncantationsPageState extends State<IncantationsPage> {
                                         const SizedBox(width: 10),
                                         Column(
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               displayedIncants[index].name,
@@ -358,8 +340,9 @@ class _IncantationsPageState extends State<IncantationsPage> {
       } else if (option == SortOption.notFound) {
         futureFoundIncants.then((foundIncants) {
           setState(() {
-            displayedIncants =
-                incants.where((inc) => !foundIncants.contains(inc.name)).toList();
+            displayedIncants = incants
+                .where((inc) => !foundIncants.contains(inc.name))
+                .toList();
             displayedIncants.sort((a, b) => a.name.compareTo(b.name));
           });
         });
@@ -399,7 +382,11 @@ class IncantsSearch extends SearchDelegate<Incantation> {
                 slots: 0,
                 description: '',
                 howToFind: '',
-                mapLink: '', fPCost: 0, damageType: '', effect: '', requirement: SpellsRequirement()));
+                mapLink: '',
+                fPCost: 0,
+                damageType: '',
+                effect: '',
+                requirement: SpellsRequirement()));
       },
     );
   }
@@ -421,9 +408,9 @@ class IncantsSearch extends SearchDelegate<Incantation> {
     final suggestionList = query.isEmpty
         ? incants
         : incants
-        .where(
-            (inc) => inc.name.toLowerCase().startsWith(query.toLowerCase()))
-        .toList();
+            .where(
+                (inc) => inc.name.toLowerCase().startsWith(query.toLowerCase()))
+            .toList();
 
     return _buildSuggestionList(suggestionList);
   }

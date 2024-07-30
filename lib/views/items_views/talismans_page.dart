@@ -10,7 +10,7 @@ import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../models/talisman.dart';
-import '../home_page.dart';
+import '../welcome_page.dart';
 import 'talismans_detail_page.dart';
 
 class TalismansPage extends StatefulWidget {
@@ -29,8 +29,6 @@ class _TalismansPageState extends State<TalismansPage> {
   late Future<List<String>> futureFoundTals;
   SortOption? selectedSortOption;
   late Future<void> initTalsFuture;
-  bool isSaving = false;
-  bool isSaved = false;
   Timer? saveTimer;
 
   @override
@@ -152,6 +150,17 @@ class _TalismansPageState extends State<TalismansPage> {
               },
             ),
             IconButton(
+              icon: const Icon(Icons.home),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const WelcomePage(),
+                  ),
+                );
+              },
+            ),
+            IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
                 showSearch(
@@ -163,39 +172,6 @@ class _TalismansPageState extends State<TalismansPage> {
                   }),
                 );
               },
-            ),
-            Builder(
-              builder: (context) => IconButton(
-                icon: isSaving
-                    ? const SizedBox(
-                        width: 24,
-                        height: 24,
-                        child: CircularProgressIndicator())
-                    : isSaved
-                        ? const Icon(Icons.check) // Display "ok" icon
-                        : const Icon(Icons.save), // Display save icon
-                onPressed: isSaving
-                    ? null
-                    : () async {
-                        setState(() {
-                          isSaving = true;
-                          isSaved = false;
-                        });
-                        List<String> toStoretals = await futureFoundTals;
-                        await db.saveUserTalismans(
-                            toStoretals, Auth().currentUser!.uid);
-                        setState(() {
-                          isSaving = false;
-                          isSaved = true;
-                        });
-                        // After 1 second, set isSaved back to false
-                        Future.delayed(const Duration(seconds: 1), () {
-                          setState(() {
-                            isSaved = false;
-                          });
-                        });
-                      },
-              ),
             ),
             Builder(
               builder: (context) => IconButton(
@@ -250,13 +226,20 @@ class _TalismansPageState extends State<TalismansPage> {
                                   onChanged: (bool? value) {
                                     setState(() {
                                       if (saveTimer != null) {
-                                        saveTimer!.cancel(); // Cancel the previous timer if it's still running
+                                        saveTimer!
+                                            .cancel(); // Cancel the previous timer if it's still running
                                       }
-                                      saveTimer = Timer(const Duration(milliseconds: 500), () async {
+                                      saveTimer = Timer(
+                                          const Duration(milliseconds: 500),
+                                          () async {
                                         if (value!) {
-                                          await db.addUserTalisman(displayedTals[index].name, Auth().currentUser!.uid);
+                                          await db.addUserTalisman(
+                                              displayedTals[index].name,
+                                              Auth().currentUser!.uid);
                                         } else {
-                                          await db.removeUserTalisman(displayedTals[index].name, Auth().currentUser!.uid);
+                                          await db.removeUserTalisman(
+                                              displayedTals[index].name,
+                                              Auth().currentUser!.uid);
                                         }
                                       });
                                       if (value == true) {

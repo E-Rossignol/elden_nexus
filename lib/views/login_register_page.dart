@@ -1,6 +1,11 @@
 import 'dart:async';
+import 'package:elden_nexus/views/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -131,14 +136,121 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _loginOrRegisterButton() {
-    return TextButton(
-        onPressed: () {
-          setState(() {
-            isLogin = !isLogin;
-          });
-        },
-        child: Text(isLogin ? 'No account yet ? Click here !' : 'Already an account ? Click here !',
-            style: TextStyle(color: Theme.of(context).colorScheme.onSurface)));
+    return isLogin
+        ? Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('No account yet ?',
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface)),
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      isLogin = !isLogin;
+                    });
+                  },
+                  child: Text('Register',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.error)),
+                ),
+              ],
+            ),
+          )
+        : Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Already have an account ?',
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface)),
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      isLogin = !isLogin;
+                    });
+                  },
+                  child: Text('Log in',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.error)),
+                ),
+              ],
+            ),
+          );
+  }
+
+  _signInWithGoogle() async {
+    final GoogleSignIn _googleSignIn = GoogleSignIn();
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+          await _googleSignIn.signIn();
+      if (googleSignInAccount != null) {
+        final GoogleSignInAuthentication googleSignInAuthentication =
+            await googleSignInAccount.authentication;
+        final AuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleSignInAuthentication.accessToken,
+          idToken: googleSignInAuthentication.idToken,
+        );
+        await Auth().signInWithCredentials(credential);
+        Widget toPush = const WelcomePage();
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => toPush),
+        );
+      }
+    } catch (e) {
+      Get.showSnackbar(GetSnackBar(
+        message: 'Error signing in with Google: $e',
+        duration: Duration(seconds: 5),
+      ));
+    }
+  }
+
+  Widget _googleWidget() {
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Or sign in with',
+              style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
+          TextButton(
+            onPressed: () async {
+              await _signInWithGoogle();
+            },
+            child: RichText(
+              text: const TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'G',
+                    style: TextStyle(color: Colors.blue, fontSize: 20),
+                  ),
+                  TextSpan(
+                    text: 'o',
+                    style: TextStyle(color: Colors.red, fontSize: 20),
+                  ),
+                  TextSpan(
+                    text: 'o',
+                    style: TextStyle(color: Colors.yellow, fontSize: 20),
+                  ),
+                  TextSpan(
+                    text: 'g',
+                    style: TextStyle(color: Colors.blue, fontSize: 20),
+                  ),
+                  TextSpan(
+                    text: 'l',
+                    style: TextStyle(color: Colors.green, fontSize: 20),
+                  ),
+                  TextSpan(
+                    text: 'e',
+                    style: TextStyle(color: Colors.red, fontSize: 20),
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   @override
@@ -181,7 +293,7 @@ class _LoginPageState extends State<LoginPage> {
                   _errorMessage(),
                   _submitButton(),
                   _loginOrRegisterButton(),
-                  _space(),
+                  _googleWidget(),
                 ],
               ),
             ),

@@ -8,9 +8,9 @@ import 'package:elden_nexus/models/ash_of_war.dart';
 import 'package:elden_nexus/views/loading_screen.dart';
 import 'package:elden_nexus/views/routing_view.dart';
 import 'package:elden_nexus/views/settings_view.dart';
+import 'package:elden_nexus/views/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../home_page.dart';
 import 'ashes_of_war_detail_page.dart';
 
 class AshesOfWarPage extends StatefulWidget {
@@ -29,8 +29,6 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
   late Future<List<String>> futureFoundAshes;
   SortOption? selectedSortOption;
   late Future<void> initAshesFuture;
-  bool isSaving = false;
-  bool isSaved = false;
   Timer? saveTimer;
 
   @override
@@ -128,16 +126,14 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
           child: const Icon(Icons.sort),
         ),
         appBar: AppBar(
-          leading: Builder(
-            builder: (context) {
-              return IconButton(
-                icon: const Icon(Icons.menu_rounded),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-              );
-            }
-          ),
+          leading: Builder(builder: (context) {
+            return IconButton(
+              icon: const Icon(Icons.menu_rounded),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          }),
           actions: <Widget>[
             FutureBuilder(
               future: futureFoundAshes,
@@ -156,6 +152,17 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
               },
             ),
             IconButton(
+              icon: const Icon(Icons.home),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const WelcomePage(),
+                  ),
+                );
+              },
+            ),
+            IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
                 showSearch(
@@ -167,39 +174,6 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
                   }),
                 );
               },
-            ),
-            Builder(
-              builder: (context) => IconButton(
-                icon: isSaving
-                    ? const SizedBox(
-                        width: 24,
-                        height: 24,
-                        child: CircularProgressIndicator())
-                    : isSaved
-                        ? const Icon(Icons.check) // Display "ok" icon
-                        : const Icon(Icons.save), // Display save icon
-                onPressed: isSaving
-                    ? null
-                    : () async {
-                        setState(() {
-                          isSaving = true;
-                          isSaved = false;
-                        });
-                        List<String> toStoreAshes = await futureFoundAshes;
-                        await db.saveUserAshes(
-                            toStoreAshes, Auth().currentUser!.uid);
-                        setState(() {
-                          isSaving = false;
-                          isSaved = true;
-                        });
-                        // After 1 second, set isSaved back to false
-                        Future.delayed(const Duration(seconds: 1), () {
-                          setState(() {
-                            isSaved = false;
-                          });
-                        });
-                      },
-              ),
             ),
             Builder(
               builder: (context) => IconButton(
@@ -253,13 +227,20 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
                                       .contains(displayedAshes[index].name),
                                   onChanged: (bool? value) {
                                     if (saveTimer != null) {
-                                      saveTimer!.cancel(); // Cancel the previous timer if it's still running
+                                      saveTimer!
+                                          .cancel(); // Cancel the previous timer if it's still running
                                     }
-                                    saveTimer = Timer(const Duration(milliseconds: 500), () async {
+                                    saveTimer =
+                                        Timer(const Duration(milliseconds: 500),
+                                            () async {
                                       if (value!) {
-                                        await db.addUserAsh(displayedAshes[index].name, Auth().currentUser!.uid);
+                                        await db.addUserAsh(
+                                            displayedAshes[index].name,
+                                            Auth().currentUser!.uid);
                                       } else {
-                                        await db.removeUserAsh(displayedAshes[index].name, Auth().currentUser!.uid);
+                                        await db.removeUserAsh(
+                                            displayedAshes[index].name,
+                                            Auth().currentUser!.uid);
                                       }
                                     });
                                     setState(() {

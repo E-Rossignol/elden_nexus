@@ -11,6 +11,7 @@ import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../models/tear.dart';
+import '../welcome_page.dart';
 import 'tears_detail_page.dart';
 
 class TearsPage extends StatefulWidget {
@@ -29,8 +30,6 @@ class _TearsPageState extends State<TearsPage> {
   late Future<List<String>> futureFoundTears;
   SortOption? selectedSortOption;
   late Future<void> initTearsFuture;
-  bool isSaving = false;
-  bool isSaved = false;
   Timer? saveTimer;
 
   @override
@@ -128,16 +127,14 @@ class _TearsPageState extends State<TearsPage> {
           child: const Icon(Icons.sort),
         ),
         appBar: AppBar(
-          leading: Builder(
-            builder: (context) {
-              return IconButton(
-                icon: const Icon(Icons.menu_rounded),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-              );
-            }
-          ),
+          leading: Builder(builder: (context) {
+            return IconButton(
+              icon: const Icon(Icons.menu_rounded),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          }),
           actions: <Widget>[
             FutureBuilder(
               future: futureFoundTears,
@@ -156,6 +153,17 @@ class _TearsPageState extends State<TearsPage> {
               },
             ),
             IconButton(
+              icon: const Icon(Icons.home),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const WelcomePage(),
+                  ),
+                );
+              },
+            ),
+            IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
                 showSearch(
@@ -167,39 +175,6 @@ class _TearsPageState extends State<TearsPage> {
                   }),
                 );
               },
-            ),
-            Builder(
-              builder: (context) => IconButton(
-                icon: isSaving
-                    ? const SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: CircularProgressIndicator())
-                    : isSaved
-                    ? const Icon(Icons.check) // Display "ok" icon
-                    : const Icon(Icons.save), // Display save icon
-                onPressed: isSaving
-                    ? null
-                    : () async {
-                  setState(() {
-                    isSaving = true;
-                    isSaved = false;
-                  });
-                  List<String> toStoretals = await futureFoundTears;
-                  await db.saveUserTears(
-                      toStoretals, Auth().currentUser!.uid);
-                  setState(() {
-                    isSaving = false;
-                    isSaved = true;
-                  });
-                  // After 1 second, set isSaved back to false
-                  Future.delayed(const Duration(seconds: 1), () {
-                    setState(() {
-                      isSaved = false;
-                    });
-                  });
-                },
-              ),
             ),
             Builder(
               builder: (context) => IconButton(
@@ -253,13 +228,20 @@ class _TearsPageState extends State<TearsPage> {
                                       .contains(displayedTears[index].name),
                                   onChanged: (bool? value) {
                                     if (saveTimer != null) {
-                                      saveTimer!.cancel(); // Cancel the previous timer if it's still running
+                                      saveTimer!
+                                          .cancel(); // Cancel the previous timer if it's still running
                                     }
-                                    saveTimer = Timer(const Duration(milliseconds: 500), () async {
+                                    saveTimer =
+                                        Timer(const Duration(milliseconds: 500),
+                                            () async {
                                       if (value!) {
-                                        await db.addUserTear(displayedTears[index].name, Auth().currentUser!.uid);
+                                        await db.addUserTear(
+                                            displayedTears[index].name,
+                                            Auth().currentUser!.uid);
                                       } else {
-                                        await db.removeUserTear(displayedTears[index].name, Auth().currentUser!.uid);
+                                        await db.removeUserTear(
+                                            displayedTears[index].name,
+                                            Auth().currentUser!.uid);
                                       }
                                     });
                                     setState(() {
@@ -296,7 +278,7 @@ class _TearsPageState extends State<TearsPage> {
                                                 builder: (context) =>
                                                     TearDetailPage(
                                                         tear: displayedTears[
-                                                        index]),
+                                                            index]),
                                               ),
                                             );
                                           },
@@ -307,7 +289,7 @@ class _TearsPageState extends State<TearsPage> {
                                           child: ClipRRect(
                                             // Clip the image to make it circular
                                             borderRadius:
-                                            BorderRadius.circular(25),
+                                                BorderRadius.circular(25),
                                             child: Image.asset(
                                                 displayedTears[index].image),
                                           ),
@@ -315,7 +297,7 @@ class _TearsPageState extends State<TearsPage> {
                                         const SizedBox(width: 10),
                                         Column(
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               displayedTears[index].name,
@@ -420,9 +402,9 @@ class talsSearch extends SearchDelegate<Tear> {
     final suggestionList = query.isEmpty
         ? tals
         : tals
-        .where(
-            (tal) => tal.name.toLowerCase().startsWith(query.toLowerCase()))
-        .toList();
+            .where(
+                (tal) => tal.name.toLowerCase().startsWith(query.toLowerCase()))
+            .toList();
 
     return _buildSuggestionList(suggestionList);
   }

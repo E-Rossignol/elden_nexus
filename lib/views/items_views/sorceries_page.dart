@@ -11,7 +11,7 @@ import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../constants/constant.dart';
-import '../home_page.dart';
+import '../welcome_page.dart';
 import 'sorceries_detail_page.dart';
 
 class SorceriesPage extends StatefulWidget {
@@ -30,8 +30,6 @@ class _SorceriesPageState extends State<SorceriesPage> {
   late Future<List<String>> futureFoundSorceries;
   SortOption? selectedSortOption;
   late Future<void> initSorceriesFuture;
-  bool isSaving = false;
-  bool isSaved = false;
   Timer? saveTimer;
 
   @override
@@ -153,6 +151,17 @@ class _SorceriesPageState extends State<SorceriesPage> {
               },
             ),
             IconButton(
+              icon: const Icon(Icons.home),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const WelcomePage(),
+                  ),
+                );
+              },
+            ),
+            IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
                 showSearch(
@@ -164,39 +173,6 @@ class _SorceriesPageState extends State<SorceriesPage> {
                   }),
                 );
               },
-            ),
-            Builder(
-              builder: (context) => IconButton(
-                icon: isSaving
-                    ? const SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: CircularProgressIndicator())
-                    : isSaved
-                    ? const Icon(Icons.check) // Display "ok" icon
-                    : const Icon(Icons.save), // Display save icon
-                onPressed: isSaving
-                    ? null
-                    : () async {
-                  setState(() {
-                    isSaving = true;
-                    isSaved = false;
-                  });
-                  List<String> toStoreSorceries = await futureFoundSorceries;
-                  await db.saveUserSorceries(
-                      toStoreSorceries, Auth().currentUser!.uid);
-                  setState(() {
-                    isSaving = false;
-                    isSaved = true;
-                  });
-                  // After 1 second, set isSaved back to false
-                  Future.delayed(const Duration(seconds: 1), () {
-                    setState(() {
-                      isSaved = false;
-                    });
-                  });
-                },
-              ),
             ),
             Builder(
               builder: (context) => IconButton(
@@ -250,21 +226,28 @@ class _SorceriesPageState extends State<SorceriesPage> {
                                       .contains(displayedSorceries[index].name),
                                   onChanged: (bool? value) {
                                     if (saveTimer != null) {
-                                      saveTimer!.cancel(); // Cancel the previous timer if it's still running
+                                      saveTimer!
+                                          .cancel(); // Cancel the previous timer if it's still running
                                     }
-                                    saveTimer = Timer(const Duration(milliseconds: 500), () async {
+                                    saveTimer =
+                                        Timer(const Duration(milliseconds: 500),
+                                            () async {
                                       if (value!) {
-                                        await db.addUserSorcery(displayedSorceries[index].name, Auth().currentUser!.uid);
+                                        await db.addUserSorcery(
+                                            displayedSorceries[index].name,
+                                            Auth().currentUser!.uid);
                                       } else {
-                                        await db.removeUserSorcery(displayedSorceries[index].name, Auth().currentUser!.uid);
+                                        await db.removeUserSorcery(
+                                            displayedSorceries[index].name,
+                                            Auth().currentUser!.uid);
                                       }
                                     });
                                     setState(() {
                                       if (value == true) {
                                         if (!snapshot.data!.contains(
                                             displayedSorceries[index].name)) {
-                                          snapshot.data!
-                                              .add(displayedSorceries[index].name);
+                                          snapshot.data!.add(
+                                              displayedSorceries[index].name);
                                         }
                                       } else {
                                         if (snapshot.data!.contains(
@@ -292,8 +275,9 @@ class _SorceriesPageState extends State<SorceriesPage> {
                                               MaterialPageRoute(
                                                 builder: (context) =>
                                                     SorceryDetailPage(
-                                                        sorc: displayedSorceries[
-                                                        index]),
+                                                        sorc:
+                                                            displayedSorceries[
+                                                                index]),
                                               ),
                                             );
                                           },
@@ -304,15 +288,16 @@ class _SorceriesPageState extends State<SorceriesPage> {
                                           child: ClipRRect(
                                             // Clip the image to make it circular
                                             borderRadius:
-                                            BorderRadius.circular(25),
+                                                BorderRadius.circular(25),
                                             child: Image.asset(
-                                                displayedSorceries[index].image),
+                                                displayedSorceries[index]
+                                                    .image),
                                           ),
                                         ),
                                         const SizedBox(width: 10),
                                         Column(
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               displayedSorceries[index].name,
@@ -354,8 +339,9 @@ class _SorceriesPageState extends State<SorceriesPage> {
       } else if (option == SortOption.notFound) {
         futureFoundSorceries.then((foundSorceries) {
           setState(() {
-            displayedSorceries =
-                sorceries.where((sorc) => !foundSorceries.contains(sorc.name)).toList();
+            displayedSorceries = sorceries
+                .where((sorc) => !foundSorceries.contains(sorc.name))
+                .toList();
             displayedSorceries.sort((a, b) => a.name.compareTo(b.name));
           });
         });
@@ -395,7 +381,11 @@ class SorceriesSearch extends SearchDelegate<Sorcery> {
                 slots: 0,
                 description: '',
                 howToFind: '',
-                mapLink: '', fPCost: 0, damageType: '', effect: '', requirement: SpellsRequirement()));
+                mapLink: '',
+                fPCost: 0,
+                damageType: '',
+                effect: '',
+                requirement: SpellsRequirement()));
       },
     );
   }
@@ -417,9 +407,9 @@ class SorceriesSearch extends SearchDelegate<Sorcery> {
     final suggestionList = query.isEmpty
         ? sorceries
         : sorceries
-        .where(
-            (sorc) => sorc.name.toLowerCase().startsWith(query.toLowerCase()))
-        .toList();
+            .where((sorc) =>
+                sorc.name.toLowerCase().startsWith(query.toLowerCase()))
+            .toList();
 
     return _buildSuggestionList(suggestionList);
   }

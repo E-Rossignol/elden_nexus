@@ -24,10 +24,10 @@ class Incantation extends Item {
     required this.effect,
     required this.requirement,
   }) : super(
-    cat: ItemCategory.incantation, // Set the category directly here
-  );
+          cat: ItemCategory.incantation, // Set the category directly here
+        );
 
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     return {
       'name': name,
       'image': image,
