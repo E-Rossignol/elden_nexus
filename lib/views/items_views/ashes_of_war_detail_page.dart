@@ -1,4 +1,5 @@
 import 'package:elden_nexus/models/ash_of_war.dart';
+import 'package:elden_nexus/views/items_views/ashes_of_war_page.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -48,83 +49,96 @@ class _AshOfWarDetailPageState extends State<AshOfWarDetailPage> {
       },
       child: const Text('Close'),
     ));
-    return Scaffold(
-      endDrawer: const Drawer(
-        child: SettingsView(),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        child: const Icon(Icons.arrow_back),
-      ),
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        actions: [
-          Builder(
-            builder: (context) => IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () {
-                Scaffold.of(context).openEndDrawer();
-              },
-            ),
+    return PopScope(
+      canPop: true,
+      onPopInvoked: (result) {
+        Navigator.pop(context);
+        Widget toPush = AshesOfWarPage(isDlc: ash.image.contains("dlc"));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => toPush,
           ),
-        ],
-        title: Center(
-          child: Text(
-            ash.name.toUpperCase(),
-            style: const TextStyle(fontFamily: 'Mantinia', fontSize: 16),
-            maxLines: 1,
-          ),
+        );
+      },
+      child: Scaffold(
+        endDrawer: const Drawer(
+          child: SettingsView(),
         ),
-      ),
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          children: [
-            _space(),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.3,
-              child: Transform.scale(
-                scale: 0.8,
-                child: Image.asset(ash.image),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Icon(Icons.arrow_back),
+        ),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          actions: [
+            Builder(
+              builder: (context) => IconButton(
+                icon: const Icon(Icons.settings),
+                onPressed: () {
+                  Scaffold.of(context).openEndDrawer();
+                },
               ),
             ),
-            _space(),
-            Container(
-                padding: const EdgeInsets.all(20),
-                height: MediaQuery.of(context).size.height * 0.45,
-                child: SingleChildScrollView(
-                  child: Text(
-                    ash.description,
-                    style: const TextStyle(
-                        fontSize: 18, fontStyle: FontStyle.italic),
-                    textAlign: TextAlign.justify,
-                  ),
-                )),
-            ElevatedButton(
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                          title: Text('How to get ${ash.name}:'),
-                          content: SingleChildScrollView(
-                            child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(ash.howToFind)),
-                          ),
-                          actions: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: linkWidgets,
-                            ),
-                          ],
-                        ));
-              },
-              child: const Text('How to get it'),
-            ),
           ],
+          title: Center(
+            child: Text(
+              ash.name.toUpperCase(),
+              style: const TextStyle(fontFamily: 'Mantinia', fontSize: 16),
+              maxLines: 1,
+            ),
+          ),
+        ),
+        body: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            children: [
+              _space(),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.3,
+                child: Transform.scale(
+                  scale: 0.8,
+                  child: Image.asset(ash.image),
+                ),
+              ),
+              _space(),
+              Container(
+                  padding: const EdgeInsets.all(20),
+                  height: MediaQuery.of(context).size.height * 0.45,
+                  child: SingleChildScrollView(
+                    child: Text(
+                      ash.description,
+                      style: const TextStyle(
+                          fontSize: 18, fontStyle: FontStyle.italic),
+                      textAlign: TextAlign.justify,
+                    ),
+                  )),
+              ElevatedButton(
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                            title: Text('How to get ${ash.name}:'),
+                            content: SingleChildScrollView(
+                              child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(ash.howToFind)),
+                            ),
+                            actions: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: linkWidgets,
+                              ),
+                            ],
+                          ));
+                },
+                child: const Text('How to get it'),
+              ),
+            ],
+          ),
         ),
       ),
     );

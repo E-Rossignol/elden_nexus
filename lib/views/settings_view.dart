@@ -5,6 +5,7 @@ import 'package:elden_nexus/firebase/database/database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:elden_nexus/components/settings/change_language_component.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// The `SettingsView` class represents the settings view of the application.
 ///
@@ -52,7 +53,7 @@ class SettingsViewState extends State<SettingsView> {
                       ),
                       TextButton(
                         onPressed: () async {
-                          DatabaseMethods db = DatabaseMethods();
+                          DatabaseMethods db = DatabaseMethods.instance;
                           await db.storeAll();
                         },
                         child: Text('YES'),
@@ -65,12 +66,45 @@ class SettingsViewState extends State<SettingsView> {
     );
   }
 
+  Widget resetSharedPreferencesButton() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ElevatedButton(
+        onPressed: () async {
+          showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                    title: Text('RESET SHARED PREFERENCES'),
+                    content: Text('ARE YOU SURE TO WANT TO RESET SHARED PREFERENCES ?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('NO'),
+                      ),
+                      TextButton(
+                        onPressed: () async {
+                          SharedPreferences prefs = await SharedPreferences.getInstance();
+                          await prefs.clear();
+                        },
+                        child: Text('YES'),
+                      ),
+                    ],
+                  ));
+        },
+        child: Text('RESET STORED DATA'),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     List<Widget> widgets = [];
     widgets.add(const ChangeLanguageComponent());
     widgets.add(const LogOutComponent());
     widgets.add(storeButton());
+    widgets.add(resetSharedPreferencesButton());
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,

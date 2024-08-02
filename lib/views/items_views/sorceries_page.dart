@@ -11,6 +11,7 @@ import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../constants/constant.dart';
+import '../home_page.dart';
 import '../welcome_page.dart';
 import 'sorceries_detail_page.dart';
 
@@ -24,7 +25,7 @@ class SorceriesPage extends StatefulWidget {
 }
 
 class _SorceriesPageState extends State<SorceriesPage> {
-  DatabaseMethods db = DatabaseMethods();
+  DatabaseMethods db = DatabaseMethods.instance;
   late List<Sorcery> sorceries;
   List<Sorcery> displayedSorceries = [];
   late Future<List<String>> futureFoundSorceries;
@@ -35,15 +36,15 @@ class _SorceriesPageState extends State<SorceriesPage> {
   @override
   void initState() {
     super.initState();
+    sorceries = widget.isDlc ? db.allDBSOTESorceries : db.allDBSorceries;
     initSorceriesFuture = initSorceries();
     futureFoundSorceries = db.getUserSorceries(Auth().currentUser!.uid);
   }
 
   Future<void> initSorceries() async {
-    sorceries = (await db.getAllSorceries(widget.isDlc))!;
     futureFoundSorceries = db.getUserSorceries(Auth().currentUser!.uid);
     displayedSorceries = List.from(sorceries);
-    sortSorceries(SortOption.name);
+    sortSorceries(SortOption.type);
   }
 
   void setFoundSorceries() async {
@@ -70,12 +71,20 @@ class _SorceriesPageState extends State<SorceriesPage> {
   Widget buildMainWidget(BuildContext context) {
     return PopScope(
       canPop: true,
-      onPopInvoked: (context) {
+      onPopInvoked: (result) {
         if (displayedSorceries != sorceries) {
           setState(() {
             displayedSorceries = List.from(sorceries);
           });
         }
+        Navigator.pop(context);
+        Widget toPush = HomePage(isDlc: widget.isDlc);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => toPush,
+          ),
+        );
       },
       child: Scaffold(
         endDrawer: Drawer(
@@ -98,6 +107,16 @@ class _SorceriesPageState extends State<SorceriesPage> {
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      ListTile(
+                        title: Text('Type'),
+                        onTap: () {
+                          setState(() {
+                            selectedSortOption = SortOption.type;
+                            sortSorceries(SortOption.type);
+                          });
+                          Navigator.of(context).pop(); // Close the dialog
+                        },
+                      ),
                       ListTile(
                         title: Text('Name'),
                         onTap: () {
@@ -127,11 +146,13 @@ class _SorceriesPageState extends State<SorceriesPage> {
           child: const Icon(Icons.sort),
         ),
         appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.menu_rounded),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
+          leading: Builder(
+            builder: (context) => IconButton(
+              icon: const Icon(Icons.menu_rounded),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            ),
           ),
           actions: <Widget>[
             FutureBuilder(
@@ -336,7 +357,27 @@ class _SorceriesPageState extends State<SorceriesPage> {
           displayedSorceries = sorceries;
           displayedSorceries.sort((a, b) => a.name.compareTo(b.name));
         });
-      } else if (option == SortOption.notFound) {
+      } else if (option == SortOption.type) {
+        List<SpellType> types = [
+          SpellType.physical,
+          SpellType.fire,
+          SpellType.holy,
+          SpellType.magic,
+          SpellType.lightning,
+          SpellType.heal,
+          SpellType.aura_buff,
+          SpellType.body_buff,
+          SpellType.unique_buff,
+          SpellType.utility_spell
+        ];
+        displayedSorceries = sorceries;
+        displayedSorceries.sort((a, b) {
+          int indexA = types.indexOf(a.element);
+          int indexB = types.indexOf(b.element);
+          return indexA.compareTo(indexB);
+        });
+      }
+      else if (option == SortOption.notFound) {
         futureFoundSorceries.then((foundSorceries) {
           setState(() {
             displayedSorceries = sorceries
@@ -383,7 +424,7 @@ class SorceriesSearch extends SearchDelegate<Sorcery> {
                 howToFind: '',
                 mapLink: '',
                 fPCost: 0,
-                damageType: '',
+                element: SpellType.physical,
                 effect: '',
                 requirement: SpellsRequirement()));
       },
@@ -430,4 +471,4 @@ class SorceriesSearch extends SearchDelegate<Sorcery> {
   }
 }
 
-enum SortOption { name, notFound }
+enum SortOption { name, notFound, type }

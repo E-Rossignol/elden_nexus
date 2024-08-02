@@ -11,6 +11,7 @@ import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../models/armor.dart';
+import '../home_page.dart';
 import '../welcome_page.dart';
 import 'armors_detail_page.dart';
 
@@ -24,7 +25,7 @@ class ArmorsPage extends StatefulWidget {
 }
 
 class _ArmorsPageState extends State<ArmorsPage> {
-  DatabaseMethods db = DatabaseMethods();
+  DatabaseMethods db = DatabaseMethods.instance;
   late List<Armor> armors;
   List<Armor> displayedArmors = [];
   late Future<List<String>> futureFoundArmors;
@@ -35,12 +36,12 @@ class _ArmorsPageState extends State<ArmorsPage> {
   @override
   void initState() {
     super.initState();
+    armors = widget.isDlc ? db.allDBSOTEArmors : db.allDBArmors;
     initArmorsFuture = initArmors();
     futureFoundArmors = db.getUserArmors(Auth().currentUser!.uid);
   }
 
   Future<void> initArmors() async {
-    armors = (await db.getAllArmors(widget.isDlc))!;
     futureFoundArmors = db.getUserArmors(Auth().currentUser!.uid);
     displayedArmors = List.from(armors);
     sortArmors(SortOption.name);
@@ -70,12 +71,20 @@ class _ArmorsPageState extends State<ArmorsPage> {
   Widget buildMainWidget(BuildContext context) {
     return PopScope(
       canPop: true,
-      onPopInvoked: (context) {
+      onPopInvoked: (result) {
         if (displayedArmors != armors) {
           setState(() {
             displayedArmors = List.from(armors);
           });
         }
+        Navigator.pop(context);
+        Widget toPush = HomePage(isDlc: widget.isDlc);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => toPush,
+          ),
+        );
       },
       child: Scaffold(
         endDrawer: Drawer(
@@ -98,6 +107,26 @@ class _ArmorsPageState extends State<ArmorsPage> {
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      ListTile(
+                        title: Text('Set'),
+                        onTap: () {
+                          setState(() {
+                            selectedSortOption = SortOption.set;
+                            sortArmors(SortOption.set);
+                          });
+                          Navigator.of(context).pop(); // Close the dialog
+                        },
+                      ),
+                      ListTile(
+                        title: Text('Armor Piece'),
+                        onTap: () {
+                          setState(() {
+                            selectedSortOption = SortOption.type;
+                            sortArmors(SortOption.type);
+                          });
+                          Navigator.of(context).pop(); // Close the dialog
+                        },
+                      ),
                       ListTile(
                         title: Text('Name'),
                         onTap: () {
@@ -127,14 +156,14 @@ class _ArmorsPageState extends State<ArmorsPage> {
           child: const Icon(Icons.sort),
         ),
         appBar: AppBar(
-          leading: Builder(builder: (context) {
-            return IconButton(
+          leading: Builder(
+            builder: (context) => IconButton(
               icon: const Icon(Icons.menu_rounded),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
-            );
-          }),
+            ),
+          ),
           actions: <Widget>[
             FutureBuilder(
               future: futureFoundArmors,
@@ -336,7 +365,35 @@ class _ArmorsPageState extends State<ArmorsPage> {
           displayedArmors = armors;
           displayedArmors.sort((a, b) => a.name.compareTo(b.name));
         });
-      } else if (option == SortOption.notFound) {
+      } else if (option == SortOption.set) {
+        List<ArmorPiece> pieces = [
+          ArmorPiece.helm,
+          ArmorPiece.chest,
+          ArmorPiece.gauntlets,
+          ArmorPiece.leg,
+        ];
+        displayedArmors = armors.where((element) => !element.name.contains("(altered)")).toList();
+        displayedArmors.sort((a,b) {
+          int compare = a.set.compareTo(b.set);
+          if (compare != 0) return compare;
+          return pieces.indexOf(a.armorPiece).compareTo(pieces.indexOf(b.armorPiece));
+        });
+      }
+      else if (option == SortOption.type) {
+        List<ArmorPiece> pieces = [
+          ArmorPiece.helm,
+          ArmorPiece.chest,
+          ArmorPiece.gauntlets,
+          ArmorPiece.leg,
+        ];
+        displayedArmors = armors.where((element) => !element.name.contains("(altered)")).toList();
+        displayedArmors.sort((a, b) {
+          int indexA = pieces.indexOf(a.armorPiece);
+          int indexB = pieces.indexOf(b.armorPiece);
+          return indexA.compareTo(indexB);
+        });
+      }
+      else if (option == SortOption.notFound) {
         futureFoundArmors.then((foundArmors) {
           setState(() {
             displayedArmors = armors
@@ -428,4 +485,4 @@ class armorsSearch extends SearchDelegate<Armor> {
   }
 }
 
-enum SortOption { name, notFound }
+enum SortOption { name, notFound, set, type }

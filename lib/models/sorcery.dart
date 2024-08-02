@@ -7,7 +7,7 @@ class Sorcery extends Item {
   late String mapLink;
   late String howToFind;
   late double fPCost;
-  late String damageType;
+  late SpellType element;
   late String effect;
   late double slots;
   late SpellsRequirement requirement = SpellsRequirement();
@@ -20,7 +20,7 @@ class Sorcery extends Item {
     required this.howToFind,
     required this.mapLink,
     required this.fPCost,
-    required this.damageType,
+    required this.element,
     required this.effect,
     required this.requirement,
   }) : super(
@@ -36,7 +36,7 @@ class Sorcery extends Item {
       'howToFind': howToFind,
       'mapLink': mapLink,
       'fPCost': fPCost,
-      'damageType': damageType,
+      'element': element.toString().split('.').last,
       'effect': effect,
       'requirement': {
         'int': requirement.int,
@@ -55,12 +55,13 @@ class Sorcery extends Item {
       howToFind: data?['howToFind'],
       mapLink: data?['mapLink'],
       fPCost: data?['fPCost'],
-      damageType: data?['damageType'],
+      element: SpellType.values
+          .firstWhere((e) => e.toString() == 'SpellType.${data?['element']}'),
       effect: data?['effect'],
       requirement: SpellsRequirement(
-        int: data?['requirement']['int'],
-        fai: data?['requirement']['fai'],
-        arc: data?['requirement']['arc'],
+        int: data?['requirement']['int'] ?? 0,
+        fai: data?['requirement']['fai'] ?? 0,
+        arc: data?['requirement']['arc'] ?? 0,
       ),
     );
   }

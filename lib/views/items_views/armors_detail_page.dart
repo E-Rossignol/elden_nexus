@@ -1,9 +1,10 @@
 import 'package:elden_nexus/models/armor.dart';
 import 'package:elden_nexus/views/settings_view.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'armors_page.dart';
 
 class ArmorDetailPage extends StatefulWidget {
   final Armor armor;
@@ -15,11 +16,6 @@ class ArmorDetailPage extends StatefulWidget {
 }
 
 class _ArmorDetailPageState extends State<ArmorDetailPage> {
-  Widget _space() {
-    return const SizedBox(
-      height: 10,
-    );
-  }
 
   void _launchURL(String url) async {
     if (await canLaunchUrl(Uri.parse(url))) {
@@ -57,500 +53,513 @@ class _ArmorDetailPageState extends State<ArmorDetailPage> {
       },
       child: const Text('Close'),
     ));
-    return Scaffold(
-      endDrawer: const Drawer(
-        child: SettingsView(),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        child: const Icon(Icons.arrow_back),
-      ),
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        actions: [
-          Builder(
-            builder: (context) => IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () {
-                Scaffold.of(context).openEndDrawer();
-              },
+    return PopScope(
+      canPop: true,
+      onPopInvoked: (result) {
+        Navigator.pop(context);
+        Widget toPush = ArmorsPage(isDlc: armor.image.contains("dlc"));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => toPush,
+          ),
+        );
+      },
+      child: Scaffold(
+        endDrawer: const Drawer(
+          child: SettingsView(),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Icon(Icons.arrow_back),
+        ),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          actions: [
+            Builder(
+              builder: (context) => IconButton(
+                icon: const Icon(Icons.settings),
+                onPressed: () {
+                  Scaffold.of(context).openEndDrawer();
+                },
+              ),
+            ),
+          ],
+          title: Center(
+            child: Text(
+              armor.name.toUpperCase(),
+              style: const TextStyle(fontFamily: 'Mantinia', fontSize: 16),
+              maxLines: 1,
             ),
           ),
-        ],
-        title: Center(
-          child: Text(
-            armor.name.toUpperCase(),
-            style: const TextStyle(fontFamily: 'Mantinia', fontSize: 16),
-            maxLines: 1,
-          ),
         ),
-      ),
-      body: Stack(
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  child: Transform.scale(
-                    scale: 0.8,
-                    child: Image.asset(armor.image),
+        body: Stack(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    child: Transform.scale(
+                      scale: 0.8,
+                      child: Image.asset(armor.image),
+                    ),
                   ),
-                ),
-                SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    width: MediaQuery.of(context).size.width * 0.7,
-                    child: Center(
-                      child: Column(
-                        children: [
-                          Text(
-                            "Weight: ${armor.weight}",
-                            style: const TextStyle(
-                                fontSize: 15,
-                                fontStyle: FontStyle.italic,
-                                fontFamily: 'Chiralla'),
-                          ),
-                          if (armor.passive.isNotEmpty)
+                  SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      width: MediaQuery.of(context).size.width * 0.7,
+                      child: Center(
+                        child: Column(
+                          children: [
                             Text(
-                              "Passive: ${armor.passive}",
+                              "Weight: ${armor.weight}",
                               style: const TextStyle(
                                   fontSize: 15,
                                   fontStyle: FontStyle.italic,
                                   fontFamily: 'Chiralla'),
                             ),
-                        ],
-                      ),
-                    )),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  child: Table(
-                    columnWidths: const {
-                      0: FlexColumnWidth(1), // First column is half the size
-                      1: FlexColumnWidth(0.5),
-                    },
-                    children: [
-                      TableRow(
-                        children: [
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight,
-                                    child: Center(
-                                        child: Text("Physical",
-                                            style: TextStyle(
-                                                fontStyle: FontStyle.italic,
-                                                fontWeight: FontWeight.bold,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSecondary))))),
-                          ),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                              child: Container(
-                                  height: defaultHeight,
-                                  child: Center(
-                                      child: Text(
-                                          resString(widget
-                                              .armor.damageNegation.physical),
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .onSecondaryContainer)))),
-                            ),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight,
-                                    child: Center(
-                                        child: Text("Strike",
-                                            style: TextStyle(
-                                                fontStyle: FontStyle.italic,
-                                                fontWeight: FontWeight.bold,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSecondary))))),
-                          ),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                              child: Container(
-                                  height: defaultHeight,
-                                  child: Center(
-                                      child: Text(
-                                          resString(widget
-                                              .armor.damageNegation.strike),
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .onSecondaryContainer)))),
-                            ),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight,
-                                    child: Center(
-                                        child: Text("Slash",
-                                            style: TextStyle(
-                                                fontStyle: FontStyle.italic,
-                                                fontWeight: FontWeight.bold,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSecondary))))),
-                          ),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                              child: Container(
-                                  height: defaultHeight,
-                                  child: Center(
-                                      child: Text(
-                                          resString(widget
-                                              .armor.damageNegation.slash),
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .onSecondaryContainer)))),
-                            ),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight,
-                                    child: Center(
-                                        child: Text("Pierce",
-                                            style: TextStyle(
-                                                fontStyle: FontStyle.italic,
-                                                fontWeight: FontWeight.bold,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSecondary))))),
-                          ),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                              child: Container(
-                                  height: defaultHeight,
-                                  child: Center(
-                                      child: Text(
-                                          resString(widget
-                                              .armor.damageNegation.pierce),
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .onSecondaryContainer)))),
-                            ),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight,
-                                    child: Center(
-                                        child: Text("Magic",
-                                            style: TextStyle(
-                                                fontStyle: FontStyle.italic,
-                                                fontWeight: FontWeight.bold,
-                                                color: Color.fromRGBO(
-                                                    25, 25, 112, 1)))))),
-                          ),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                              child: Container(
-                                  height: defaultHeight,
-                                  child: Center(
-                                      child: Text(
-                                          resString(widget
-                                              .armor.damageNegation.magic),
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: widget.armor.damageNegation
-                                                          .magic !=
-                                                      0
-                                                  ? Color.fromRGBO(
-                                                      125, 125, 212, 1)
-                                                  : Theme.of(context)
-                                                      .colorScheme
-                                                      .onSecondaryContainer)))),
-                            ),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight,
-                                    child: Center(
-                                        child: Text("Fire",
-                                            style: TextStyle(
-                                                fontStyle: FontStyle.italic,
-                                                fontWeight: FontWeight.bold,
-                                                color: Color.fromRGBO(
-                                                    139, 0, 0, 1)))))),
-                          ),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                              child: Container(
-                                  height: defaultHeight,
-                                  child: Center(
-                                      child: Text(
-                                          resString(
-                                              widget.armor.damageNegation.fire),
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: widget.armor.damageNegation
-                                                          .fire !=
-                                                      0
-                                                  ? Color.fromRGBO(239, 0, 0, 1)
-                                                  : Theme.of(context)
-                                                      .colorScheme
-                                                      .onSecondaryContainer)))),
-                            ),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight,
-                                    child: Center(
-                                        child: Text("Holy",
-                                            style: TextStyle(
-                                                fontStyle: FontStyle.italic,
-                                                fontWeight: FontWeight.bold,
-                                                color: Color.fromRGBO(
-                                                    184, 134, 11, 1)))))),
-                          ),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                              child: Container(
-                                  height: defaultHeight,
-                                  child: Center(
-                                      child: Text(
-                                          resString(
-                                              widget.armor.damageNegation.holy),
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: widget.armor.damageNegation
-                                                          .holy !=
-                                                      0
-                                                  ? Color.fromRGBO(
-                                                      234, 184, 61, 1)
-                                                  : Theme.of(context)
-                                                      .colorScheme
-                                                      .onSecondaryContainer)))),
-                            ),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight,
-                                    child: Center(
-                                        child: Text("Lightning",
-                                            style: TextStyle(
-                                                fontStyle: FontStyle.italic,
-                                                fontWeight: FontWeight.bold,
-                                                color: Color.fromRGBO(
-                                                    173, 173, 0, 1)))))),
-                          ),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                              child: Container(
-                                  height: defaultHeight,
-                                  child: Center(
-                                      child: Text(
-                                          resString(widget
-                                              .armor.damageNegation.lightning),
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: widget.armor.damageNegation
-                                                          .lightning !=
-                                                      0
-                                                  ? Color.fromRGBO(
-                                                      223, 223, 0, 1)
-                                                  : Theme.of(context)
-                                                      .colorScheme
-                                                      .onSecondaryContainer)))),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-              child: ElevatedButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                            title: Text('How to get ${armor.name}:'),
-                            content: SingleChildScrollView(
-                              child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(armor.howToFind)),
-                            ),
-                            actions: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: linkWidgets,
+                            if (armor.passive.isNotEmpty)
+                              Text(
+                                "Passive: ${armor.passive}",
+                                style: const TextStyle(
+                                    fontSize: 15,
+                                    fontStyle: FontStyle.italic,
+                                    fontFamily: 'Chiralla'),
                               ),
-                            ],
-                          ));
-                },
-                child: const Text('How to get it'),
+                          ],
+                        ),
+                      )),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.5,
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    child: Table(
+                      columnWidths: const {
+                        0: FlexColumnWidth(1), // First column is half the size
+                        1: FlexColumnWidth(0.5),
+                      },
+                      children: [
+                        TableRow(
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                          child: Text("Physical",
+                                              style: TextStyle(
+                                                  fontStyle: FontStyle.italic,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSecondary))))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                child: Container(
+                                    height: defaultHeight,
+                                    child: Center(
+                                        child: Text(
+                                            resString(widget
+                                                .armor.damageNegation.physical),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onSecondaryContainer)))),
+                              ),
+                            ),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                          child: Text("Strike",
+                                              style: TextStyle(
+                                                  fontStyle: FontStyle.italic,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSecondary))))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                child: Container(
+                                    height: defaultHeight,
+                                    child: Center(
+                                        child: Text(
+                                            resString(widget
+                                                .armor.damageNegation.strike),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onSecondaryContainer)))),
+                              ),
+                            ),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                          child: Text("Slash",
+                                              style: TextStyle(
+                                                  fontStyle: FontStyle.italic,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSecondary))))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                child: Container(
+                                    height: defaultHeight,
+                                    child: Center(
+                                        child: Text(
+                                            resString(widget
+                                                .armor.damageNegation.slash),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onSecondaryContainer)))),
+                              ),
+                            ),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                          child: Text("Pierce",
+                                              style: TextStyle(
+                                                  fontStyle: FontStyle.italic,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSecondary))))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                child: Container(
+                                    height: defaultHeight,
+                                    child: Center(
+                                        child: Text(
+                                            resString(widget
+                                                .armor.damageNegation.pierce),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onSecondaryContainer)))),
+                              ),
+                            ),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: const Center(
+                                          child: Text("Magic",
+                                              style: TextStyle(
+                                                  fontStyle: FontStyle.italic,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Color.fromRGBO(
+                                                      25, 25, 112, 1)))))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                child: Container(
+                                    height: defaultHeight,
+                                    child: Center(
+                                        child: Text(
+                                            resString(widget
+                                                .armor.damageNegation.magic),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: widget.armor.damageNegation
+                                                            .magic !=
+                                                        0
+                                                    ? const Color.fromRGBO(
+                                                        125, 125, 212, 1)
+                                                    : Theme.of(context)
+                                                        .colorScheme
+                                                        .onSecondaryContainer)))),
+                              ),
+                            ),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: const Center(
+                                          child: Text("Fire",
+                                              style: TextStyle(
+                                                  fontStyle: FontStyle.italic,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Color.fromRGBO(
+                                                      139, 0, 0, 1)))))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                child: Container(
+                                    height: defaultHeight,
+                                    child: Center(
+                                        child: Text(
+                                            resString(
+                                                widget.armor.damageNegation.fire),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: widget.armor.damageNegation
+                                                            .fire !=
+                                                        0
+                                                    ? const Color.fromRGBO(239, 0, 0, 1)
+                                                    : Theme.of(context)
+                                                        .colorScheme
+                                                        .onSecondaryContainer)))),
+                              ),
+                            ),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: const Center(
+                                          child: Text("Holy",
+                                              style: TextStyle(
+                                                  fontStyle: FontStyle.italic,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Color.fromRGBO(
+                                                      184, 134, 11, 1)))))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                child: Container(
+                                    height: defaultHeight,
+                                    child: Center(
+                                        child: Text(
+                                            resString(
+                                                widget.armor.damageNegation.holy),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: widget.armor.damageNegation
+                                                            .holy !=
+                                                        0
+                                                    ? const Color.fromRGBO(
+                                                        234, 184, 61, 1)
+                                                    : Theme.of(context)
+                                                        .colorScheme
+                                                        .onSecondaryContainer)))),
+                              ),
+                            ),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: const Center(
+                                          child: Text("Lightning",
+                                              style: TextStyle(
+                                                  fontStyle: FontStyle.italic,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Color.fromRGBO(
+                                                      173, 173, 0, 1)))))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                child: Container(
+                                    height: defaultHeight,
+                                    child: Center(
+                                        child: Text(
+                                            resString(widget
+                                                .armor.damageNegation.lightning),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: widget.armor.damageNegation
+                                                            .lightning !=
+                                                        0
+                                                    ? const Color.fromRGBO(
+                                                        223, 223, 0, 1)
+                                                    : Theme.of(context)
+                                                        .colorScheme
+                                                        .onSecondaryContainer)))),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-        ],
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                child: ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              title: Text('How to get ${armor.name}:'),
+                              content: SingleChildScrollView(
+                                child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(armor.howToFind)),
+                              ),
+                              actions: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: linkWidgets,
+                                ),
+                              ],
+                            ));
+                  },
+                  child: const Text('How to get it'),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

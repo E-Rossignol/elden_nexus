@@ -1,3 +1,6 @@
+import 'package:elden_nexus/firebase/auth/auth.dart';
+import 'package:elden_nexus/firebase/database/database.dart';
+import 'package:elden_nexus/views/login_register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +15,9 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  DatabaseMethods db = DatabaseMethods.instance;
+  await db.initDatas();
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => ThemeProvider()),
@@ -27,10 +33,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      translations: LocaleString(),
-      locale: const Locale('fr', 'FR'),
-      home: const WidgetTree(),
-      theme: Provider.of<ThemeProvider>(context).themeData,
-    );
+        translations: LocaleString(),
+        locale: const Locale('fr', 'FR'),
+        home: Auth().currentUser != null ? const WidgetTree(): const LoginPage(),
+        theme: Provider.of<ThemeProvider>(context).themeData,);
   }
 }

@@ -10,6 +10,7 @@ import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../models/talisman.dart';
+import '../home_page.dart';
 import '../welcome_page.dart';
 import 'talismans_detail_page.dart';
 
@@ -23,7 +24,7 @@ class TalismansPage extends StatefulWidget {
 }
 
 class _TalismansPageState extends State<TalismansPage> {
-  DatabaseMethods db = DatabaseMethods();
+  DatabaseMethods db = DatabaseMethods.instance;
   late List<Talisman> tals;
   List<Talisman> displayedTals = [];
   late Future<List<String>> futureFoundTals;
@@ -34,12 +35,12 @@ class _TalismansPageState extends State<TalismansPage> {
   @override
   void initState() {
     super.initState();
+    tals = widget.isDlc ? db.allDBSOTETalismans : db.allDBTalismans;
     initTalsFuture = initTals();
     futureFoundTals = db.getUserTalismans(Auth().currentUser!.uid);
   }
 
   Future<void> initTals() async {
-    tals = (await db.getAllTalismans(widget.isDlc))!;
     futureFoundTals = db.getUserTalismans(Auth().currentUser!.uid);
     displayedTals = List.from(tals);
     sortTals(SortOption.name);
@@ -69,12 +70,20 @@ class _TalismansPageState extends State<TalismansPage> {
   Widget buildMainWidget(BuildContext context) {
     return PopScope(
       canPop: true,
-      onPopInvoked: (context) {
+      onPopInvoked: (result) {
         if (displayedTals != tals) {
           setState(() {
             displayedTals = List.from(tals);
           });
         }
+        Navigator.pop(context);
+        Widget toPush = HomePage(isDlc: widget.isDlc);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => toPush,
+          ),
+        );
       },
       child: Scaffold(
         endDrawer: Drawer(
@@ -126,11 +135,13 @@ class _TalismansPageState extends State<TalismansPage> {
           child: const Icon(Icons.sort),
         ),
         appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.menu_rounded),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
+          leading: Builder(
+            builder: (context) => IconButton(
+              icon: const Icon(Icons.menu_rounded),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            ),
           ),
           actions: <Widget>[
             FutureBuilder(

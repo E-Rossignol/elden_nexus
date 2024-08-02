@@ -11,6 +11,7 @@ import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../constants/constant.dart';
+import '../home_page.dart';
 import '../welcome_page.dart';
 import 'incantations_detail_page.dart';
 
@@ -24,7 +25,7 @@ class IncantationsPage extends StatefulWidget {
 }
 
 class _IncantationsPageState extends State<IncantationsPage> {
-  DatabaseMethods db = DatabaseMethods();
+  DatabaseMethods db = DatabaseMethods.instance;
   late List<Incantation> incants;
   List<Incantation> displayedIncants = [];
   late Future<List<String>> futureFoundIncants;
@@ -35,15 +36,15 @@ class _IncantationsPageState extends State<IncantationsPage> {
   @override
   void initState() {
     super.initState();
+    incants = widget.isDlc ? db.allDBSOTEIncantations : db.allDBIncantations;
     initIncantsFuture = initIncants();
     futureFoundIncants = db.getUserIncantations(Auth().currentUser!.uid);
   }
 
   Future<void> initIncants() async {
-    incants = (await db.getAllIncantations(widget.isDlc))!;
     futureFoundIncants = db.getUserIncantations(Auth().currentUser!.uid);
     displayedIncants = List.from(incants);
-    sortIncants(SortOption.name);
+    sortIncants(SortOption.type);
   }
 
   void setFoundIncants() async {
@@ -70,12 +71,20 @@ class _IncantationsPageState extends State<IncantationsPage> {
   Widget buildMainWidget(BuildContext context) {
     return PopScope(
       canPop: true,
-      onPopInvoked: (context) {
+      onPopInvoked: (result) {
         if (displayedIncants != incants) {
           setState(() {
             displayedIncants = List.from(incants);
           });
         }
+        Navigator.pop(context);
+        Widget toPush = HomePage(isDlc: widget.isDlc);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => toPush,
+          ),
+        );
       },
       child: Scaffold(
         endDrawer: Drawer(
@@ -98,6 +107,16 @@ class _IncantationsPageState extends State<IncantationsPage> {
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      ListTile(
+                        title: Text('Type'),
+                        onTap: () {
+                          setState(() {
+                            selectedSortOption = SortOption.type;
+                            sortIncants(SortOption.type);
+                          });
+                          Navigator.of(context).pop(); // Close the dialog
+                        },
+                      ),
                       ListTile(
                         title: Text('Name'),
                         onTap: () {
@@ -127,14 +146,14 @@ class _IncantationsPageState extends State<IncantationsPage> {
           child: const Icon(Icons.sort),
         ),
         appBar: AppBar(
-          leading: Builder(builder: (context) {
-            return IconButton(
+          leading: Builder(
+            builder: (context) => IconButton(
               icon: const Icon(Icons.menu_rounded),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
-            );
-          }),
+            ),
+          ),
           actions: <Widget>[
             FutureBuilder(
               future: futureFoundIncants,
@@ -346,6 +365,25 @@ class _IncantationsPageState extends State<IncantationsPage> {
             displayedIncants.sort((a, b) => a.name.compareTo(b.name));
           });
         });
+      } else if (option == SortOption.type) {
+        List<SpellType> types = [
+          SpellType.physical,
+          SpellType.fire,
+          SpellType.holy,
+          SpellType.magic,
+          SpellType.lightning,
+          SpellType.heal,
+          SpellType.aura_buff,
+          SpellType.body_buff,
+          SpellType.unique_buff,
+          SpellType.utility_spell
+        ];
+        displayedIncants = incants;
+        displayedIncants.sort((a, b) {
+          int indexA = types.indexOf(a.element);
+          int indexB = types.indexOf(b.element);
+          return indexA.compareTo(indexB);
+        });
       }
     });
   }
@@ -384,7 +422,7 @@ class IncantsSearch extends SearchDelegate<Incantation> {
                 howToFind: '',
                 mapLink: '',
                 fPCost: 0,
-                damageType: '',
+                element: SpellType.physical,
                 effect: '',
                 requirement: SpellsRequirement()));
       },
@@ -431,4 +469,4 @@ class IncantsSearch extends SearchDelegate<Incantation> {
   }
 }
 
-enum SortOption { name, notFound }
+enum SortOption { name, notFound, type }

@@ -4,13 +4,13 @@ import 'dart:async';
 
 import 'package:elden_nexus/firebase/auth/auth.dart';
 import 'package:elden_nexus/firebase/database/database.dart';
-import 'package:elden_nexus/views/home_page.dart';
 import 'package:elden_nexus/views/loading_screen.dart';
 import 'package:elden_nexus/views/routing_view.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../models/tear.dart';
+import '../home_page.dart';
 import '../welcome_page.dart';
 import 'tears_detail_page.dart';
 
@@ -24,7 +24,7 @@ class TearsPage extends StatefulWidget {
 }
 
 class _TearsPageState extends State<TearsPage> {
-  DatabaseMethods db = DatabaseMethods();
+  DatabaseMethods db = DatabaseMethods.instance;
   late List<Tear> tears;
   List<Tear> displayedTears = [];
   late Future<List<String>> futureFoundTears;
@@ -35,12 +35,12 @@ class _TearsPageState extends State<TearsPage> {
   @override
   void initState() {
     super.initState();
+    tears = widget.isDlc ? db.allDBSOTETears : db.allDBTears;
     initTearsFuture = initTals();
     futureFoundTears = db.getUserTears(Auth().currentUser!.uid);
   }
 
   Future<void> initTals() async {
-    tears = (await db.getAllTears(widget.isDlc))!;
     futureFoundTears = db.getUserTears(Auth().currentUser!.uid);
     displayedTears = List.from(tears);
     sortTals(SortOption.name);
@@ -70,12 +70,20 @@ class _TearsPageState extends State<TearsPage> {
   Widget buildMainWidget(BuildContext context) {
     return PopScope(
       canPop: true,
-      onPopInvoked: (context) {
+      onPopInvoked: (result) {
         if (displayedTears != tears) {
           setState(() {
             displayedTears = List.from(tears);
           });
         }
+        Navigator.pop(context);
+        Widget toPush = HomePage(isDlc: widget.isDlc);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => toPush,
+          ),
+        );
       },
       child: Scaffold(
         endDrawer: Drawer(
@@ -127,14 +135,14 @@ class _TearsPageState extends State<TearsPage> {
           child: const Icon(Icons.sort),
         ),
         appBar: AppBar(
-          leading: Builder(builder: (context) {
-            return IconButton(
+          leading: Builder(
+            builder: (context) => IconButton(
               icon: const Icon(Icons.menu_rounded),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
-            );
-          }),
+            ),
+          ),
           actions: <Widget>[
             FutureBuilder(
               future: futureFoundTears,

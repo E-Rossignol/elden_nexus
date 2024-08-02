@@ -16,7 +16,7 @@ class AshOfWar extends Item {
           cat: ItemCategory.ashOfWar, // Set the category directly here
         );
 
-  static fromMap(Map<String, dynamic>? data) {
+  static AshOfWar fromMap(Map<String, dynamic>? data) {
     return AshOfWar(
       name: data!['name'],
       image: data['image'],
@@ -24,5 +24,15 @@ class AshOfWar extends Item {
       description: data['description'],
       mapLink: data['mapLink'],
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'image': image,
+      'howToFind': howToFind,
+      'description': description,
+      'mapLink': mapLink,
+    };
   }
 }

@@ -2,13 +2,10 @@ import 'dart:async';
 import 'package:elden_nexus/views/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:elden_nexus/views/settings_view.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../firebase/auth/auth.dart';
 import '../constants/theme/theme_provider.dart';
 
@@ -26,24 +23,16 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
 
-  void setPreferences() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    _controllerEmail.text = prefs.getString('email') ?? '';
-    _controllerPassword.text = prefs.getString('password') ?? '';
-  }
-
   Future<bool> signInWithEmailAndPassword() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (Auth().currentUser != null) {
+      await Auth().signOut();
+    }
     try {
-      prefs.setString('email', _controllerEmail.text);
-      prefs.setString('password', _controllerPassword.text);
-      prefs.setBool('autoLogin', true);
       await Auth().signInWithEmailAndPassword(
           email: _controllerEmail.text, password: _controllerPassword.text);
       return true;
     } on FirebaseAuthException catch (e) {
       setState(() {
-        prefs.setBool('autoLogin', false);
         errorMessage = e.message;
       });
       return false;
@@ -51,6 +40,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<bool> createUserWithEmailAndPassword() async {
+    if (Auth().currentUser != null) {
+      await Auth().signOut();
+    }
     try {
       await Auth().createUserWithEmailAndPassword(
           email: _controllerEmail.text, password: _controllerPassword.text);
@@ -114,7 +106,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget _submitButton() {
     return ElevatedButton(
       onPressed: () async {
-        setPreferences();
         isLogin
             ? await signInWithEmailAndPassword()
             : await createUserWithEmailAndPassword();
@@ -180,10 +171,10 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _signInWithGoogle() async {
-    final GoogleSignIn _googleSignIn = GoogleSignIn();
+    final GoogleSignIn googleSignIn = GoogleSignIn();
     try {
       final GoogleSignInAccount? googleSignInAccount =
-          await _googleSignIn.signIn();
+          await googleSignIn.signIn();
       if (googleSignInAccount != null) {
         final GoogleSignInAuthentication googleSignInAuthentication =
             await googleSignInAccount.authentication;
@@ -201,7 +192,7 @@ class _LoginPageState extends State<LoginPage> {
     } catch (e) {
       Get.showSnackbar(GetSnackBar(
         message: 'Error signing in with Google: $e',
-        duration: Duration(seconds: 5),
+        duration: const Duration(seconds: 5),
       ));
     }
   }
@@ -256,50 +247,53 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     ColorScheme colors = Theme.of(context).colorScheme;
-    return Consumer<ThemeProvider>(
-      builder: (context, themeProvider, child) {
-        return Scaffold(
-          appBar: AppBar(backgroundColor: colors.primary, actions: [
-            Builder(
-                builder: (context) => IconButton(
-                      onPressed: () {
-                        Scaffold.of(context).openEndDrawer();
-                      },
-                      icon: Icon(
-                        color: colors.onPrimary,
-                        Icons.settings,
-                      ),
-                    )),
-          ]),
-          endDrawer: Drawer(
-            backgroundColor: colors.background,
-            child: const SettingsView(),
-          ),
-          body: Container(
-            height: double.infinity,
-            width: double.infinity,
-            padding: const EdgeInsets.fromLTRB(20, 50, 20, 50),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  _space(),
-                  _title(),
-                  _space(),
-                  _justLogIn(),
-                  _entryField('Email', _controllerEmail),
-                  _entryField('Password', _controllerPassword,
-                      isPassword: true),
-                  _errorMessage(),
-                  _submitButton(),
-                  _loginOrRegisterButton(),
-                  _googleWidget(),
-                ],
+    return PopScope(
+      canPop: false,
+      child: Consumer<ThemeProvider>(
+        builder: (context, themeProvider, child) {
+          return Scaffold(
+            appBar: AppBar(backgroundColor: colors.primary, actions: [
+              Builder(
+                  builder: (context) => IconButton(
+                        onPressed: () {
+                          Scaffold.of(context).openEndDrawer();
+                        },
+                        icon: Icon(
+                          color: colors.onPrimary,
+                          Icons.settings,
+                        ),
+                      )),
+            ]),
+            endDrawer: Drawer(
+              backgroundColor: colors.background,
+              child: const SettingsView(),
+            ),
+            body: Container(
+              height: double.infinity,
+              width: double.infinity,
+              padding: const EdgeInsets.fromLTRB(20, 50, 20, 50),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    _space(),
+                    _title(),
+                    _space(),
+                    _justLogIn(),
+                    _entryField('Email', _controllerEmail),
+                    _entryField('Password', _controllerPassword,
+                        isPassword: true),
+                    _errorMessage(),
+                    _submitButton(),
+                    _loginOrRegisterButton(),
+                    _googleWidget(),
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

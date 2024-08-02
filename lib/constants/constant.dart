@@ -1,5 +1,4 @@
 // ignore_for_file: ant_identifier_names, non_ant_identifier_names, constant_identifier_names
-
 import 'package:elden_nexus/models/sorcery.dart';
 import 'package:elden_nexus/models/talisman.dart';
 import 'package:elden_nexus/models/tear.dart';
@@ -22,6 +21,19 @@ enum ArmorPiece {
   chest,
   gauntlets,
   leg,
+}
+
+enum SpellType {
+  physical,
+  magic,
+  fire,
+  lightning,
+  holy,
+  heal,
+  aura_buff,
+  body_buff,
+  unique_buff,
+  utility_spell
 }
 
 enum WeaponCategory {
@@ -260,6 +272,7 @@ List<Weapon> allWeapons() {
       howToFind: "",
       mapLink: "",
       ashOfWar: "",
+      status: {StatusEffect.scarlet_rot: 55},
       isSomber: false,
       image:
           "lib/constants/images/weapons/main_game_weapons/antspur_rapier.png",
@@ -827,6 +840,7 @@ List<Weapon> allWeapons() {
       ),
       weaponCategory: WeaponCategory.curved_greatsword,
       weight: 11.5,
+      status: {StatusEffect.blood_loss: 55},
       howToFind: "",
       mapLink: "",
       ashOfWar: "",
@@ -858,6 +872,7 @@ List<Weapon> allWeapons() {
       mapLink: "",
       ashOfWar: "",
       isSomber: false,
+      status: {StatusEffect.blood_loss: 38},
       image:
           "lib/constants/images/weapons/main_game_weapons/bloodstained_dagger.png",
     ),
@@ -883,6 +898,7 @@ List<Weapon> allWeapons() {
       ),
       weaponCategory: WeaponCategory.heavy_thrusting_sword,
       weight: 8.0,
+      status: {StatusEffect.blood_loss: 55},
       howToFind: "",
       mapLink: "",
       ashOfWar: "",
@@ -1291,6 +1307,7 @@ List<Weapon> allWeapons() {
       weaponCategory: WeaponCategory.flail,
       weight: 8.0,
       howToFind: "",
+      status: {StatusEffect.blood_loss: 50},
       mapLink: "",
       ashOfWar: "",
       isSomber: false,
@@ -1695,7 +1712,7 @@ List<Weapon> allWeapons() {
           "lib/constants/images/weapons/main_game_weapons/crescent_moon_axe.png",
     ),
     Weapon(
-      name: "Cross-naginata",
+      name: "Cross-Naginata",
       damages: Damage(
         physical: 122,
         magic: 0,
@@ -1717,6 +1734,7 @@ List<Weapon> allWeapons() {
       howToFind: "",
       mapLink: "",
       ashOfWar: "",
+      status: {StatusEffect.blood_loss: 50},
       isSomber: false,
       image:
           "lib/constants/images/weapons/main_game_weapons/cross-naginata.png",
@@ -1933,6 +1951,7 @@ List<Weapon> allWeapons() {
       ),
       weaponCategory: WeaponCategory.greatsword,
       weight: 10.0,
+      status: {StatusEffect.frostbite: 55},
       howToFind: "",
       mapLink: "",
       ashOfWar: "",
@@ -1994,6 +2013,7 @@ List<Weapon> allWeapons() {
       howToFind: "",
       mapLink: "",
       ashOfWar: "",
+      status: {StatusEffect.frostbite: 65},
       isSomber: false,
       image: "lib/constants/images/weapons/main_game_weapons/deaths_poker.png",
     ),
@@ -2295,6 +2315,7 @@ List<Weapon> allWeapons() {
       howToFind: "",
       mapLink: "",
       ashOfWar: "",
+      status: {StatusEffect.death_blight: 50},
       isSomber: false,
       image:
           "lib/constants/images/weapons/main_game_weapons/eclipse_shotel.png",
@@ -2325,6 +2346,7 @@ List<Weapon> allWeapons() {
       mapLink: "",
       ashOfWar: "",
       isSomber: false,
+      status: {StatusEffect.blood_loss: 55},
       image:
           "lib/constants/images/weapons/main_game_weapons/eleonoras_poleblade.png",
     ),
@@ -2730,6 +2752,7 @@ List<Weapon> allWeapons() {
       howToFind: "",
       mapLink: "",
       ashOfWar: "",
+      status: {StatusEffect.blood_loss: 50},
       isSomber: false,
       image: "lib/constants/images/weapons/main_game_weapons/flail.png",
     ),
@@ -2754,6 +2777,7 @@ List<Weapon> allWeapons() {
       weaponCategory: WeaponCategory.greatsword,
       weight: 10.0,
       howToFind: "",
+      status: {StatusEffect.blood_loss: 55},
       mapLink: "",
       ashOfWar: "",
       isSomber: false,
@@ -2807,6 +2831,7 @@ List<Weapon> allWeapons() {
       weaponCategory: WeaponCategory.greatsword,
       weight: 9.0,
       howToFind: "",
+      status: {StatusEffect.blood_loss: 55},
       mapLink: "",
       ashOfWar: "",
       isSomber: false,
@@ -2836,6 +2861,7 @@ List<Weapon> allWeapons() {
       howToFind: "",
       mapLink: "",
       ashOfWar: "",
+      status: {StatusEffect.blood_loss: 50},
       isSomber: false,
       image:
           "lib/constants/images/weapons/main_game_weapons/forked_hatchet.png",
@@ -2850,6 +2876,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.madness: 55},
       scaling: Scaling(
         str: "E",
         dex: "E",
@@ -2879,6 +2906,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.frostbite: 60},
       scaling: Scaling(
         str: "E",
         dex: "D",
@@ -3198,6 +3226,7 @@ List<Weapon> allWeapons() {
       howToFind: "",
       mapLink: "",
       ashOfWar: "",
+      status: {StatusEffect.blood_loss: 70},
       isSomber: false,
       image: "lib/constants/images/weapons/main_game_weapons/ghizas_wheel.png",
     ),
@@ -3211,6 +3240,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.frostbite: 65},
       scaling: Scaling(
         str: "E",
         dex: "E",
@@ -3739,6 +3769,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.blood_loss: 55},
       scaling: Scaling(
         str: "D",
       ),
@@ -3787,6 +3818,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 110,
       ),
+      status: {StatusEffect.blood_loss: 38},
       scaling: Scaling(
         str: "E",
         dex: "C",
@@ -3837,6 +3869,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.blood_loss: 55},
       scaling: Scaling(
         str: "D",
         dex: "D",
@@ -3864,6 +3897,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.blood_loss: 55},
       scaling: Scaling(
         str: "D",
         dex: "D",
@@ -4101,6 +4135,7 @@ List<Weapon> allWeapons() {
         holy: 76,
         critical: 100,
       ),
+      status: {StatusEffect.blood_loss: 55},
       scaling: Scaling(
         str: "D",
         dex: "D",
@@ -4205,6 +4240,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.blood_loss: 50},
       scaling: Scaling(
         str: "E",
         dex: "B",
@@ -4393,6 +4429,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.blood_loss: 55},
       scaling: Scaling(
         str: "D",
         dex: "D",
@@ -4420,6 +4457,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.frostbite: 65},
       scaling: Scaling(
         str: "E",
         dex: "D",
@@ -4447,6 +4485,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.blood_loss: 50},
       scaling: Scaling(
         str: "D",
         dex: "D",
@@ -5276,6 +5315,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.blood_loss: 50},
       scaling: Scaling(
         str: "D",
         dex: "E",
@@ -5416,6 +5456,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.blood_loss: 55},
       scaling: Scaling(
         str: "D",
         arc: "D",
@@ -5527,6 +5568,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 110,
       ),
+      status: {StatusEffect.blood_loss: 60},
       scaling: Scaling(
         str: "E",
         dex: "C",
@@ -5556,6 +5598,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.blood_loss: 50},
       scaling: Scaling(
         str: "D",
         dex: "D",
@@ -5582,6 +5625,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.blood_loss: 45},
       scaling: Scaling(
         str: "D",
         dex: "C",
@@ -5608,6 +5652,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.blood_loss: 50},
       scaling: Scaling(
         str: "E",
         dex: "C",
@@ -6197,6 +6242,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 110,
       ),
+      status: {StatusEffect.blood_loss: 50},
       scaling: Scaling(
         str: "E",
         dex: "D",
@@ -6327,6 +6373,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.blood_loss: 50},
       scaling: Scaling(
         str: "E",
         dex: "D",
@@ -6411,6 +6458,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.scarlet_rot: 65},
       scaling: Scaling(
         str: "C",
         dex: "E",
@@ -6438,6 +6486,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.scarlet_rot: 55},
       scaling: Scaling(
         str: "?",
         dex: "?",
@@ -6468,6 +6517,7 @@ List<Weapon> allWeapons() {
         critical: 100,
         sorc: 168,
       ),
+      status: {StatusEffect.scarlet_rot: 50},
       scaling: Scaling(
         str: "D",
         int: "B",
@@ -6495,6 +6545,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.scarlet_rot: 50},
       scaling: Scaling(
         str: "D",
         dex: "E",
@@ -6524,6 +6575,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.scarlet_rot: 75},
       scaling: Scaling(
         str: "E",
         dex: "D",
@@ -6715,6 +6767,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.blood_loss: 45},
       scaling: Scaling(
         str: "D",
         dex: "D",
@@ -6797,6 +6850,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 110,
       ),
+      status: {StatusEffect.scarlet_rot: 50},
       scaling: Scaling(
         str: "D",
         dex: "C",
@@ -6824,6 +6878,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.blood_loss: 55},
       scaling: Scaling(
         str: "E",
         dex: "C",
@@ -6879,6 +6934,7 @@ List<Weapon> allWeapons() {
         critical: 100,
         sorc: 50,
       ),
+      status: {StatusEffect.poison: 15},
       scaling: Scaling(
         str: "E",
         dex: "D",
@@ -7195,6 +7251,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.blood_loss: 45},
       scaling: Scaling(
         str: "D",
         dex: "D",
@@ -7222,6 +7279,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.blood_loss: 50},
       scaling: Scaling(
         str: "D",
         dex: "D",
@@ -7248,6 +7306,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 0,
       ),
+      status: {StatusEffect.blood_loss: 50},
       scaling: Scaling(
         str: "D",
       ),
@@ -7272,6 +7331,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.sleep: 72},
       scaling: Scaling(
         str: "E",
         dex: "D",
@@ -7356,6 +7416,7 @@ List<Weapon> allWeapons() {
         critical: 100,
         sorc: 127,
       ),
+      status: {StatusEffect.blood_loss: 45},
       scaling: Scaling(
         str: "D",
         fai: "C",
@@ -7383,6 +7444,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 0,
       ),
+      status: {StatusEffect.blood_loss: 45},
       scaling: Scaling(
         str: "D",
         dex: "E",
@@ -7517,6 +7579,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.blood_loss: 55},
       scaling: Scaling(
         str: "D",
         dex: "D",
@@ -7575,6 +7638,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.sleep: 66},
       scaling: Scaling(
         str: "D",
         dex: "D",
@@ -7604,6 +7668,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.blood_loss: 50},
       scaling: Scaling(
         str: "E",
         dex: "C",
@@ -7848,6 +7913,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.blood_loss: 45},
       scaling: Scaling(
         str: "D",
         dex: "D",
@@ -7900,6 +7966,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.blood_loss: 65},
       scaling: Scaling(
         str: "E",
         dex: "D",
@@ -7929,6 +7996,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.deadly_poison: 72},
       scaling: Scaling(
         str: "D",
         dex: "D",
@@ -7982,6 +8050,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.blood_loss: 55},
       scaling: Scaling(
         str: "D",
       ),
@@ -8034,6 +8103,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.madness: 65},
       scaling: Scaling(
         str: "E",
         dex: "C",
@@ -8063,6 +8133,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.blood_loss: 38},
       scaling: Scaling(
         str: "D",
         dex: "D",
@@ -8329,6 +8400,7 @@ List<Weapon> allWeapons() {
         holy: 104,
         critical: 100,
       ),
+      status: {StatusEffect.blood_loss: 55},
       scaling: Scaling(
         str: "E",
         dex: "D",
@@ -8383,6 +8455,7 @@ List<Weapon> allWeapons() {
         holy: 0,
         critical: 100,
       ),
+      status: {StatusEffect.frostbite: 65},
       scaling: Scaling(
         str: "D",
         dex: "D",
@@ -10738,6 +10811,267 @@ List<Weapon> allSOTEWeapons() {
 List<Talisman> allTalismans() {
   List<Talisman> talismans = [
     Talisman(
+        name: "Boltdrake Talisman +1",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/boltdrake_talisman_+1.png',
+        weight: 0.6,
+        description: "The ancient dragons, who ruled in the prehistoric era before the Erdtree, would protect their lord as a wall of living rock. And so it is that the shape of the dragon has become symbolic of all manner of protections.",
+        howToFind: "",
+        mapLink: "",
+        effect: "Increases Lightning Damage Negation by +17%."),
+    Talisman(
+        name: "Arsenal Charm +1",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/arsenal_charm_+1.png',
+        weight: 1.5,
+        description: "This talisman was derived from an unusual greatsword, once wielded by a hero hungry for vengeance.",
+        howToFind: "",
+        mapLink: "",
+        effect: "It gives +17% Equip Load."),
+    Talisman(
+        name: "Boltdrake Talisman +2",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/boltdrake_talisman_+2.png',
+        weight: 0.6,
+        description: "The ancient dragons, who ruled in the prehistoric era before the Erdtree, would protect their lord as a wall of living rock. And so it is that the shape of the dragon has become symbolic of all manner of protections.",
+        howToFind: "",
+        mapLink: "",
+        effect: "Increases Lightning Damage Negation by +20%."),
+    Talisman(
+        name: "Cerulean Amber Medallion +1",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/cerulean_amber_medallion_+1.png',
+        weight: 0.3,
+        description: "The Erdtree's old sap becomes amber, treasured as the most precious of jewels in the age of Godfrey, the first Elden Lord.",
+        howToFind: "",
+        mapLink: "",
+        effect: "It gives +9% Maximum FP."),
+    Talisman(
+        name: "Cerulean Amber Medallion +2",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/cerulean_amber_medallion_+2.png',
+        weight: 0.3,
+        description: "The Erdtree's old sap becomes amber, treasured as the most precious of jewels in the age of Godfrey, the first Elden Lord.",
+        howToFind: "",
+        mapLink: "",
+        effect: "It gives +11% Maximum FP."),
+    Talisman(
+        name: "Clarifying Horn Charm +1",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/clarifying_horn_charm_+1.png',
+        weight: 0.6,
+        description: "Said to be a budding horn. The ancestral followers believed that the horns of a long-lived beast continue to bud like antlers, over and over again, until the beast one day becomes an ancestral spirit.",
+        howToFind: "",
+        mapLink: "",
+        effect: "It gives +140 Focus."),
+    Talisman(
+        name: "Crimson Amber Medallion +1",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/crimson_amber_medallion_+1.png',
+        weight: 0.3,
+        description: "The Erdtree's old sap becomes amber, treasured as the most precious of jewels in the age of Godfrey, the first Elden Lord.",
+        howToFind: "",
+        mapLink: "",
+        effect: "It gives +7% Maximum HP."),
+    Talisman(
+        name: "Crimson Amber Medallion +2",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/crimson_amber_medallion_+2.png',
+        weight: 0.3,
+        description: "The Erdtree's old sap becomes amber, treasured as the most precious of jewels in the age of Godfrey, the first Elden Lord.",
+        howToFind: "",
+        mapLink: "",
+        effect: "It gives +7.5% Maximum HP."),
+    Talisman(
+        name: "Dragoncrest Shield Talisman +1",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/dragoncrest_shield_talisman_+1.png',
+        weight: 0.8,
+        description: "The ancient dragons, who ruled in the prehistoric era before the Erdtree, would protect their lord as a wall of living rock. And so it is that the shape of the dragon has become symbolic of all manner of protections.",
+        howToFind: "",
+        mapLink: "",
+        effect: "It gives +13% physical damage reduction."),
+    Talisman(
+        name: "Dragoncrest Shield Talisman +2",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/dragoncrest_shield_talisman_+2.png',
+        weight: 0.8,
+        description: "The ancient dragons, who ruled in the prehistoric era before the Erdtree, would protect their lord as a wall of living rock. And so it is that the shape of the dragon has become symbolic of all manner of protections.",
+        howToFind: "",
+        mapLink: "",
+        effect: "It gives +17% physical damage reduction."),
+    Talisman(
+        name: "Erdtree's Favor +1",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/erdtrees_favor_+1.png',
+        weight: 1.5,
+        description: "It is said that when the Age of the Erdtree began, such blessings were personally bestowed upon their recipients by Queen Marika herself.",
+        howToFind: "",
+        mapLink: "",
+        effect: "It gives +3.5% HP, +8.25% stamina, and +6.5% equip load."),
+    Talisman(
+        name: "Erdtree's Favor +2",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/erdtrees_favor_+2.png',
+        weight: 1.5,
+        description: "It is said that when the Age of the Erdtree began, such blessings were personally bestowed upon their recipients by Queen Marika herself.",
+        howToFind: "",
+        mapLink: "",
+        effect: "It gives +4% HP, +9.6% stamina, and +8% equip load."),
+    Talisman(
+        name: "Flamedrake Talisman +1",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/flamedrake_talisman_+1.png',
+        weight: 0.6,
+        description: "The ancient dragons, who ruled in the prehistoric era before the Erdtree, would protect their lord as a wall of living rock. And so it is that the shape of the dragon has become symbolic of all manner of protections.",
+        howToFind: "",
+        mapLink: "",
+        effect: "It gives +17% fire damage negation."),
+    Talisman(
+        name: "Flamedrake Talisman +2",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/flamedrake_talisman_+2.png',
+        weight: 0.6,
+        description: "The ancient dragons, who ruled in the prehistoric era before the Erdtree, would protect their lord as a wall of living rock. And so it is that the shape of the dragon has become symbolic of all manner of protections.",
+        howToFind: "",
+        mapLink: "",
+        effect: "It gives +20% fire damage negation."),
+    Talisman(
+        name: "Haligdrake Talisman +1",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/haligdrake_talisman_+1.png',
+        weight: 0.6,
+        description: "The ancient dragons, who ruled in the prehistoric era before the Erdtree, would protect their lord as a wall of living rock. And so it is that the shape of the dragon has become symbolic of all manner of protections.",
+        howToFind: "",
+        mapLink: "",
+        effect: "It gives +17% holy damage negation."),
+    Talisman(
+        name: "Haligdrake Talisman +2",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/haligdrake_talisman_+2.png',
+        weight: 0.6,
+        description: "The ancient dragons, who ruled in the prehistoric era before the Erdtree, would protect their lord as a wall of living rock. And so it is that the shape of the dragon has become symbolic of all manner of protections.",
+        howToFind: "",
+        mapLink: "",
+        effect: "It gives +20% holy damage negation."),
+    Talisman(
+        name: "Immunizing Horn Charm +1",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/immunizing_horn_charm_+1.png',
+        weight: 0.6,
+        description: "Said to be a budding horn. The ancestral followers believed that the horns of a long-lived beast continue to bud like antlers , over and over again, until the beast one day becomes an ancestral spirit.",
+        howToFind: "",
+        mapLink: "",
+        effect: "It gives +140 Immunity."),
+    Talisman(
+        name: "Mottled Necklace +1",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/mottled_necklace_+1.png',
+        weight: 0.9,
+        description: "Said to be a budding horn. The ancestral followers believed that the horns of a long-lived beast continue to bud like antlers, over and over again, until the beast one day becomes an ancestral spirit.",
+        howToFind: "",
+        mapLink: "",
+        effect: "It gives +60 to Immunity, Robustness, and Focus. "),
+    Talisman(
+        name: "Pearldrake Talisman +1",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/pearldrake_talisman_+1.png',
+        weight: 0.9,
+        description: "Talisman depicting a duo of pearlescent ancient dragons. Greatly boosts non-physical damage negation. The ancient dragons, who ruled in the prehistoric era before the Erdtree, would protect their lord as a wall of living rock. And so it is that the shape of the dragon has become symbolic of all manner of protections.",
+        howToFind: "",
+        mapLink: "",
+        effect: "Lowers elemental damage taken by 7%."),
+    Talisman(
+        name: "Pearldrake Talisman +2",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/pearldrake_talisman_+2.png',
+        weight: 0.9,
+        description: "Talisman depicting a duo of pearlescent ancient dragons. Greatly boosts non-physical damage negation. The ancient dragons, who ruled in the prehistoric era before the Erdtree, would protect their lord as a wall of living rock. And so it is that the shape of the dragon has become symbolic of all manner of protections.",
+        howToFind: "",
+        mapLink: "",
+        effect: "Lowers elemental damage taken by 9%."),
+    Talisman(
+        name: "Prosthesis-Wearer Heirloom",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/prosthesis_wearer_heirloom.png',
+        weight: 0.8,
+        description: "Though born into the accursed rot, when the young girl encountered her mentor and his flowing blade, she gained wings of unparalleled strength.",
+        howToFind: "",
+        mapLink: "",
+        effect: "Increases dexterity by 5 points."),
+    Talisman(
+        name: "Rotten Winged Sword Insignia",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/rotten_winged_sword_insignia.png',
+        weight: 1.4,
+        description: "The four sisters were born in the Swamp of Aeonia, and came to the Haligtree under the aegis of Gowry. And yet, those buds were doomed to never blossom.",
+        howToFind: "",
+        mapLink: "",
+        effect: "Increases attack power for every 3 hits landed, with the bonus increasing further for every 3 hits after that for an overall bonus of 6%/8%/13%."),
+    Talisman(
+        name: "Roar Medallion",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/roar_medallion.png',
+        weight: 0.7,
+        description: "In ancient times, the giants were mortal enemies of the Erdtree. Their bellowing roars desolated nature, triggered avalanches, and whipped up storms of flame.",
+        howToFind: "",
+        mapLink: "",
+        effect: "Boosts the power of roar (including roar-boosted special attacks) and breath attacks by 15%."),
+    Talisman(
+        name: "Silver Scarab",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/silver_scarab.png',
+        weight: 1.2,
+        description: "A talisman facsimile of a scarab, the carrier of treasures and precious things.",
+        howToFind: "",
+        mapLink: "",
+        effect: "Increases Discovery by 75 points (probability of item drop)."),
+    Talisman(
+        name: "Spelldrake Talisman +1",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/spell_drake_talisman_+1.png',
+        weight: 0.6,
+        description: "The ancient dragons, who ruled in the prehistoric era before the Erdtree, would protect their lord as a wall of living rock. And so it is that the shape of the dragon has become symbolic of all manner of protections.",
+        howToFind: "",
+        mapLink: "",
+        effect: "It gives +17% magic damage negation."),
+    Talisman(
+        name: "Spellrake Talisman +2",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/spell_drake_talisman_+2.png',
+        weight: 0.6,
+        description: "The ancient dragons, who ruled in the prehistoric era before the Erdtree, would protect their lord as a wall of living rock. And so it is that the shape of the dragon has become symbolic of all manner of protections.",
+        howToFind: "",
+        mapLink: "",
+        effect: "It gives +20% magic damage negation."),
+    Talisman(
+        name: "Stalwart Horn Charm +1",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/stalwart_horn_charm_+1.png',
+        weight: 0.6,
+        description: "Said to be a budding horn. The ancestral followers believe that the horns of a long-lived beast continue to bud like antlers, over and over again, until the beast one day becomes an ancestral spirit.",
+        howToFind: "",
+        mapLink: "",
+        effect: "It gives +140 Robustness."),
+    Talisman(
+        name: "Viridian Amber Medallion +1",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/viridian_amber_medallion_+1.png',
+        weight: 0.3,
+        description: "The Erdtree's old sap becomes amber, treasured as the most precious of jewels in the age of Godfrey, the first Elden Lord.",
+        howToFind: "",
+        mapLink: "",
+        effect: "It gives +13% Maximum Stamina."),
+    Talisman(
+        name: "Viridian Amber Medallion +2",
+        image:
+        'lib/constants/images/talismans/main_game_talismans/viridian_amber_medallion_+2.png',
+        weight: 0.3,
+        description: "The Erdtree's old sap becomes amber, treasured as the most precious of jewels in the age of Godfrey, the first Elden Lord.",
+        howToFind: "",
+        mapLink: "",
+        effect: "It gives +15% Maximum Stamina."),
+    Talisman(
         name: "Ancestral Spirit's Horn",
         image:
             'lib/constants/images/talismans/main_game_talismans/ancestral_spirits_horn.png',
@@ -11608,7 +11942,9 @@ List<Talisman> allTalismans() {
 }
 
 List<Tear> allSOTETears() {
-  List<Tear> allTears = [];
+  List<Tear> allTears = [
+
+  ];
   return allTears;
 }
 
@@ -11618,7 +11954,7 @@ List<Armor> allArmors() {
         name: "Alberich's Bracers",
         image:
             'lib/constants/images/armors/main_game_armors/alberichs_bracers.png',
-        set: "",
+        set: "Alberich",
         weight: 1.4,
         armorPiece: ArmorPiece.gauntlets,
         damageNegation: DamageNegation(
@@ -11638,7 +11974,7 @@ List<Armor> allArmors() {
         name: "Alberich's Pointed Hat",
         image:
             'lib/constants/images/armors/main_game_armors/alberichs_pointed_hat.png',
-        set: "",
+        set: "Alberich",
         weight: 1.7,
         armorPiece: ArmorPiece.helm,
         damageNegation: DamageNegation(
@@ -11657,7 +11993,7 @@ List<Armor> allArmors() {
         name: "Alberich's Pointed Hat (altered)",
         image:
             'lib/constants/images/armors/main_game_armors/alberichs_pointed_hat_(altered).png',
-        set: "",
+        set: "Alberich",
         weight: 1.0,
         armorPiece: ArmorPiece.helm,
         damageNegation: DamageNegation(
@@ -11676,7 +12012,7 @@ List<Armor> allArmors() {
         name: "Alberich's Robe",
         image:
             'lib/constants/images/armors/main_game_armors/alberichs_robe.png',
-        set: "",
+        set: "Alberich",
         weight: 4.1,
         armorPiece: ArmorPiece.chest,
         damageNegation: DamageNegation(
@@ -11695,7 +12031,7 @@ List<Armor> allArmors() {
         name: "Alberich's Robe (altered)",
         image:
             'lib/constants/images/armors/main_game_armors/alberichs_robe_(altered).png',
-        set: "",
+        set: "Alberich",
         weight: 3.2,
         armorPiece: ArmorPiece.chest,
         damageNegation: DamageNegation(
@@ -11714,7 +12050,7 @@ List<Armor> allArmors() {
         name: "Alberich's Trousers",
         image:
             'lib/constants/images/armors/main_game_armors/alberichs_trousers.png',
-        set: "",
+        set: "Alberich",
         weight: 2.5,
         armorPiece: ArmorPiece.leg,
         damageNegation: DamageNegation(
@@ -11733,7 +12069,7 @@ List<Armor> allArmors() {
         name: "All-knowing Armor",
         image:
             'lib/constants/images/armors/main_game_armors/all-knowing_armor.png',
-        set: "",
+        set: "All-knowing",
         weight: 10.6,
         armorPiece: ArmorPiece.chest,
         damageNegation: DamageNegation(
@@ -11752,7 +12088,7 @@ List<Armor> allArmors() {
         name: "All-knowing Armor (altered)",
         image:
             'lib/constants/images/armors/main_game_armors/all-knowing_armor_(altered).png',
-        set: "",
+        set: "All-knowing",
         weight: 9.3,
         armorPiece: ArmorPiece.chest,
         damageNegation: DamageNegation(
@@ -11771,7 +12107,7 @@ List<Armor> allArmors() {
         name: "All-knowing Gauntlets",
         image:
             'lib/constants/images/armors/main_game_armors/all-knowing_gauntlets.png',
-        set: "",
+        set: "All-knowing",
         weight: 3.5,
         armorPiece: ArmorPiece.gauntlets,
         damageNegation: DamageNegation(
@@ -11790,7 +12126,7 @@ List<Armor> allArmors() {
         name: "All-knowing Greaves",
         image:
             'lib/constants/images/armors/main_game_armors/all-knowing_greaves.png',
-        set: "",
+        set: "All-knowing",
         weight: 6.6,
         armorPiece: ArmorPiece.leg,
         damageNegation: DamageNegation(
@@ -11809,7 +12145,7 @@ List<Armor> allArmors() {
         name: "All-knowing Helm",
         image:
             'lib/constants/images/armors/main_game_armors/all-knowing_helm.png',
-        set: "",
+        set: "All-knowing",
         weight: 4.6,
         armorPiece: ArmorPiece.helm,
         damageNegation: DamageNegation(
@@ -22324,6 +22660,91 @@ List<Armor> allSOTEArmors() {
 List<Incantation> allIncantations() {
   List<Incantation> allIncantations = [
     Incantation(
+        name: "Flame, Grant me Strength",
+        image:
+        'lib/constants/images/incantations/main_game_incantations/flame_grant_me_strength.png',
+        description:
+        "This incantation does not burn the caster, and so it is considered forbidden by the guardians of the Flame.",
+        howToFind: "",
+        mapLink: "",
+        fPCost: 28,
+        effect: "Raises physical and fire-affinity attack power.",
+        slots: 1,
+        element: SpellType.body_buff,
+        requirement: SpellsRequirement(
+          int: 0,
+          fai: 15,
+          arc: 0,
+        )),
+    Incantation(
+        name: "Flame, Cleanse Me",
+        image:
+        'lib/constants/images/incantations/main_game_incantations/flame_cleanse_me.png',
+        description:
+        "Alleviates poison and scarlet rot buildup and cures these ailments. This incantation leaves the caster with subtle burns - a reminder that they must fear the flame.",
+        howToFind: "",
+        mapLink: "",
+        fPCost: 14,
+        effect: "Alleviates buildup of and cures poison and scarlet rot.",
+        slots: 1,
+        element: SpellType.fire,
+        requirement: SpellsRequirement(
+          int: 0,
+          fai: 12,
+          arc: 0,
+        )),
+    Incantation(
+        name: "Flame Sling",
+        image:
+        'lib/constants/images/incantations/main_game_incantations/flame_sling.png',
+        description:
+        "The flame of ruin is anathema to the Erdtree. But prophets sometimes glimpse it within the faith all the same. Sadly when this occurs their sole reward is banishment.",
+        howToFind: "",
+        mapLink: "",
+        fPCost: 11,
+        effect: "Throws balls of raging fire.",
+        slots: 1,
+        element: SpellType.fire,
+        requirement: SpellsRequirement(
+          int: 0,
+          fai: 10,
+          arc: 0,
+        )),
+    Incantation(
+        name: "Catch flame",
+        image:
+        'lib/constants/images/incantations/main_game_incantations/catch_flame.png',
+        description:
+        "The flame of ruin is anathema to the Erdtree. But prophets sometimes glimpse it within the faith all the same. Sadly when this occurs their sole reward is banishment.",
+        howToFind: "",
+        mapLink: "",
+        fPCost: 10,
+        effect: "Momentarily sparks flame from hand.",
+        slots: 1,
+        element: SpellType.fire,
+        requirement: SpellsRequirement(
+          int: 0,
+          fai: 8,
+          arc: 0,
+        )),
+    Incantation(
+        name: "Assassin's Approach",
+        image:
+        'lib/constants/images/incantations/main_game_incantations/assassins_approach.png',
+        description:
+        "The assassins were charged with eliminating Tarnished who had strayed from guidance.",
+        howToFind: "",
+        mapLink: "",
+        fPCost: 15,
+        effect: "Silences footsteps, reduces fall damage / sound.",
+        slots: 1,
+        element: SpellType.utility_spell,
+        requirement: SpellsRequirement(
+          int: 0,
+          fai: 10,
+          arc: 0,
+        )),
+    Incantation(
         name: "Agheel's Flame",
         image:
             'lib/constants/images/incantations/main_game_incantations/agheels_flame.png',
@@ -22334,7 +22755,7 @@ List<Incantation> allIncantations() {
         fPCost: 36,
         effect: "Spews flame breath of Agheel from above",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 23,
@@ -22351,7 +22772,7 @@ List<Incantation> allIncantations() {
         fPCost: 32,
         effect: "Stabs with red lightning spear from above",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 0,
@@ -22368,7 +22789,7 @@ List<Incantation> allIncantations() {
         fPCost: 27,
         effect: "Summons red lightning that spreads from impact",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 26,
@@ -22384,7 +22805,7 @@ List<Incantation> allIncantations() {
         fPCost: 28,
         effect: "Creates throat pouch to spew fire while walking",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 27,
@@ -22400,7 +22821,7 @@ List<Incantation> allIncantations() {
         fPCost: 30,
         effect: "creates shoulder horn to gore foes from a low stance.",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 27,
@@ -22416,7 +22837,7 @@ List<Incantation> allIncantations() {
         fPCost: 32,
         effect: "Creates supple tail to sweep area before caster",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 27,
@@ -22432,7 +22853,7 @@ List<Incantation> allIncantations() {
         fPCost: 30,
         effect: "Greatly increases magic damage negation for self & allies",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 24,
@@ -22448,23 +22869,23 @@ List<Incantation> allIncantations() {
         fPCost: 10,
         effect: "Creates claws that tear through the land.",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 8,
           arc: 0,
         )),
     Incantation(
-        name: "Bestial itution",
+        name: "Bestial Constitution",
         image:
-            'lib/constants/images/incantations/main_game_incantations/bestial_itution.png',
+            'lib/constants/images/incantations/main_game_incantations/bestial_constitution.png',
         description: "Incantation taught by Gurranq, the Beast Clergyman.",
         howToFind: "",
         mapLink: "",
         fPCost: 10,
         effect: "Alleviates blood loss and frost buildup",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 9,
@@ -22481,7 +22902,7 @@ List<Incantation> allIncantations() {
         fPCost: 7,
         effect: "Swiftly flings numerous sharp rock shards",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 10,
@@ -22497,7 +22918,7 @@ List<Incantation> allIncantations() {
         fPCost: 18,
         effect: "Heals HP over a period of time",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 12,
@@ -22513,7 +22934,7 @@ List<Incantation> allIncantations() {
         fPCost: 26,
         effect: "Black blade spinning slash that emits wave of light.",
         slots: 2,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 46,
@@ -22529,7 +22950,7 @@ List<Incantation> allIncantations() {
         fPCost: 15,
         effect: "Throws a ball of raging black fire",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 20,
@@ -22545,7 +22966,7 @@ List<Incantation> allIncantations() {
         fPCost: 15,
         effect: "Enchants right-hand armament with black flame",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 17,
@@ -22562,7 +22983,7 @@ List<Incantation> allIncantations() {
         fPCost: 24,
         effect: "Summons circle of black flame pillars around caster.",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 42,
@@ -22578,7 +22999,7 @@ List<Incantation> allIncantations() {
         fPCost: 30,
         effect: "Increases phyiscal damage negation",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 30,
@@ -22594,7 +23015,7 @@ List<Incantation> allIncantations() {
         fPCost: 60,
         effect: "Grants greater blessing to self and nearby allies",
         slots: 2,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 38,
@@ -22610,7 +23031,7 @@ List<Incantation> allIncantations() {
         fPCost: 23,
         effect: "Grants blessing to self and nearby allies",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 24,
@@ -22626,7 +23047,7 @@ List<Incantation> allIncantations() {
         fPCost: 15,
         effect: "Scatters bloodflame before caster to set area aflame.",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 14,
@@ -22643,7 +23064,7 @@ List<Incantation> allIncantations() {
         fPCost: 20,
         effect: "Enchants right-hand armament with bloodflame",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 12,
@@ -22659,7 +23080,7 @@ List<Incantation> allIncantations() {
         fPCost: 18,
         effect: "Creates bloodflame lacerations that then explode",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 13,
@@ -22675,7 +23096,7 @@ List<Incantation> allIncantations() {
         fPCost: 48,
         effect: "Spews icy breath of Borealis from above",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 23,
@@ -22692,7 +23113,7 @@ List<Incantation> allIncantations() {
         fPCost: 30,
         effect: "Raises a series of flame pillars around caster",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 27,
@@ -22708,7 +23129,7 @@ List<Incantation> allIncantations() {
         fPCost: 7,
         effect: "Cures Poison ailment and reduces poison build-up.",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 10,
@@ -22725,7 +23146,7 @@ List<Incantation> allIncantations() {
         fPCost: 26,
         effect: "Creates area of darkness that conceals caster",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 18,
@@ -22742,7 +23163,7 @@ List<Incantation> allIncantations() {
         fPCost: 46,
         effect: "Strikes surroundings with storm of death lightning",
         slots: 2,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 47,
@@ -22759,7 +23180,7 @@ List<Incantation> allIncantations() {
         fPCost: 11,
         effect: "Fires ring of light before the caster",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 13,
           fai: 13,
@@ -22775,7 +23196,7 @@ List<Incantation> allIncantations() {
         fPCost: 20,
         effect: "Increases holy damage negation.",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 10,
@@ -22792,7 +23213,7 @@ List<Incantation> allIncantations() {
         fPCost: 20,
         effect: "Bolsters caster's body with lightning",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 21,
@@ -22808,7 +23229,7 @@ List<Incantation> allIncantations() {
         fPCost: 42,
         effect: "Channels dragon to rend foes with dragon claws",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 17,
@@ -22824,7 +23245,7 @@ List<Incantation> allIncantations() {
         fPCost: 28,
         effect: "Channels dragon to spew flame breath",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 15,
@@ -22840,7 +23261,7 @@ List<Incantation> allIncantations() {
         fPCost: 36,
         effect: "Channels dragon to spew icy breath",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 15,
@@ -22856,7 +23277,7 @@ List<Incantation> allIncantations() {
         fPCost: 62,
         effect: "Channels dragon to bite foes before caster",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 24,
@@ -22873,7 +23294,7 @@ List<Incantation> allIncantations() {
         fPCost: 48,
         effect: "Spews scarlet rot breath of Ekzykes from above",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 23,
@@ -22891,7 +23312,7 @@ List<Incantation> allIncantations() {
         effect:
             "Creates a steam of golden shooting stars that assail the area.",
         slots: 2,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 50,
@@ -22908,7 +23329,7 @@ List<Incantation> allIncantations() {
         fPCost: 27,
         effect: "Enchants right-hand armament with lightning damage",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 15,
@@ -22924,7 +23345,7 @@ List<Incantation> allIncantations() {
         fPCost: 65,
         effect: "Vastly heals HP for self and nearby allies",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 42,
@@ -22940,7 +23361,7 @@ List<Incantation> allIncantations() {
         fPCost: 26,
         effect: "Sets area and self ablaze with raging flames",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 19,
@@ -22956,7 +23377,7 @@ List<Incantation> allIncantations() {
         fPCost: 20,
         effect: "Increases fire damage negation.",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 10,
@@ -22974,7 +23395,7 @@ List<Incantation> allIncantations() {
         effect:
             "Summons raging fireball that explodes and sets the area ablaze",
         slots: 2,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 41,
@@ -22991,7 +23412,7 @@ List<Incantation> allIncantations() {
         fPCost: 24,
         effect: "Hurls several balls of fire at once",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 28,
@@ -23007,7 +23428,7 @@ List<Incantation> allIncantations() {
         fPCost: 30,
         effect: "Greatly increases fire damage negation",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 24,
@@ -23024,7 +23445,7 @@ List<Incantation> allIncantations() {
         fPCost: 64,
         effect: "Stabs from above with two red lightning spears in tandem",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 46,
@@ -23041,7 +23462,7 @@ List<Incantation> allIncantations() {
         fPCost: 24,
         effect: "Emits concentrated blast of yellow flame of frenzy from eyes",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 22,
@@ -23058,7 +23479,7 @@ List<Incantation> allIncantations() {
         fPCost: 36,
         effect: "Stabs with ice lightning spear from above",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 34,
@@ -23075,7 +23496,7 @@ List<Incantation> allIncantations() {
         fPCost: 32,
         effect: "Hurls massive ball of raging fire",
         slots: 2,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 30,
@@ -23091,7 +23512,7 @@ List<Incantation> allIncantations() {
         fPCost: 36,
         effect: "Channels dragon to spew icy breath.",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(int: 0, fai: 0, arc: 0)),
     Incantation(
         name: "Golden Lightning Fortification",
@@ -23103,14 +23524,14 @@ List<Incantation> allIncantations() {
         fPCost: 30,
         effect: "Greatly increases lightning resistance for self and allies",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 24,
           arc: 0,
         )),
     Incantation(
-        name: "Golden Vow (spell)",
+        name: "Golden Vow",
         image:
             'lib/constants/images/incantations/main_game_incantations/golden_vow_(spell).png',
         description: "An incantation of Erdtree Worship.",
@@ -23119,7 +23540,7 @@ List<Incantation> allIncantations() {
         fPCost: 47,
         effect: "Increases attack and defense for self and allies",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 25,
@@ -23135,7 +23556,7 @@ List<Incantation> allIncantations() {
         fPCost: 45,
         effect: "Greatly Heals HP for self and nearby allies",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 15,
@@ -23152,7 +23573,7 @@ List<Incantation> allIncantations() {
         fPCost: 75,
         effect: "Emits the roar of Elder Dragon Greyoll.",
         slots: 2,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 28,
@@ -23169,7 +23590,7 @@ List<Incantation> allIncantations() {
         fPCost: 21,
         effect: "Creates beast claws to rend surroundings with shockwaves",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 15,
@@ -23185,7 +23606,7 @@ List<Incantation> allIncantations() {
         fPCost: 32,
         effect: "Heals HP for you and nearby allies.",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 12,
@@ -23202,7 +23623,7 @@ List<Incantation> allIncantations() {
         fPCost: 12,
         effect: "Strikes foe with lightning bolt from above",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 24,
@@ -23219,7 +23640,7 @@ List<Incantation> allIncantations() {
         fPCost: 21,
         effect: "Shrieks, building up madness in nearby foes",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 33,
@@ -23236,7 +23657,7 @@ List<Incantation> allIncantations() {
         fPCost: 15,
         effect: "Increases left-hand shield's affinity/ailment resistance",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 19,
           fai: 19,
@@ -23253,7 +23674,7 @@ List<Incantation> allIncantations() {
         fPCost: 32,
         effect: "Latches onto foes to spread madness",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 21,
@@ -23270,7 +23691,7 @@ List<Incantation> allIncantations() {
         fPCost: 35,
         effect: "Sweeps from above with red lightning glaive.",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 40,
@@ -23287,7 +23708,7 @@ List<Incantation> allIncantations() {
         fPCost: 22,
         effect: "Retaliates upon receiving a number of blows",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 0,
@@ -23304,7 +23725,7 @@ List<Incantation> allIncantations() {
         fPCost: 55,
         effect: "Heals all ailments and dispels all special effects",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 37,
           fai: 0,
@@ -23320,7 +23741,7 @@ List<Incantation> allIncantations() {
         fPCost: 20,
         effect: "Increass lighting damage negation",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 10,
@@ -23337,7 +23758,7 @@ List<Incantation> allIncantations() {
         fPCost: 14,
         effect: "Hurls lightning spear before caster",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 17,
@@ -23354,7 +23775,7 @@ List<Incantation> allIncantations() {
         fPCost: 17,
         effect: "Summons lightning bolt that spreads from impact.",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 28,
@@ -23371,7 +23792,7 @@ List<Incantation> allIncantations() {
         fPCost: 17,
         effect: "Creates image of Order to deal holy damage",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 17,
           fai: 17,
@@ -23389,7 +23810,7 @@ List<Incantation> allIncantations() {
         effect:
             "Alleviates poison / blood loss / sleep buildup for self / allies",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 12,
@@ -23405,7 +23826,7 @@ List<Incantation> allIncantations() {
         fPCost: 30,
         effect: "Greatly increases holy damage negation incl. allies",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 27,
@@ -23422,7 +23843,7 @@ List<Incantation> allIncantations() {
         fPCost: 42,
         effect: "Massively heals HP for self and nearby allies",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 20,
@@ -23439,7 +23860,7 @@ List<Incantation> allIncantations() {
         fPCost: 20,
         effect: "Increases magic damage negation",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 10,
@@ -23455,7 +23876,7 @@ List<Incantation> allIncantations() {
         fPCost: 30,
         effect: "Channels wyrm to spew magma breath",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 14,
@@ -23471,7 +23892,7 @@ List<Incantation> allIncantations() {
         fPCost: 20,
         effect: "Thrust out belly with gusto to unelash repelling shockwave",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 26,
@@ -23487,7 +23908,7 @@ List<Incantation> allIncantations() {
         fPCost: 12,
         effect: "Momentarily sparks roaring flame from hand",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 16,
@@ -23504,7 +23925,7 @@ List<Incantation> allIncantations() {
         fPCost: 15,
         effect: "Alleviates death blight buildup",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 0,
@@ -23521,7 +23942,7 @@ List<Incantation> allIncantations() {
         fPCost: 22,
         effect: "Enchanted right-hand armament with holy damage",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 13,
           fai: 13,
@@ -23537,7 +23958,7 @@ List<Incantation> allIncantations() {
         fPCost: 19,
         effect: "Launches countless sticky threads before caster",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 11,
@@ -23554,7 +23975,7 @@ List<Incantation> allIncantations() {
         fPCost: 80,
         effect: "Spews golden breath of Dragonlord Placidusax",
         slots: 3,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 36,
@@ -23571,7 +23992,7 @@ List<Incantation> allIncantations() {
         fPCost: 15,
         effect: "",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 10,
@@ -23587,7 +24008,7 @@ List<Incantation> allIncantations() {
         fPCost: 18,
         effect: "Releases poison mist before caster.",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 12,
@@ -23604,7 +24025,7 @@ List<Incantation> allIncantations() {
         fPCost: 30,
         effect: "Increases affinity damage negation for self & allies",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 35,
@@ -23621,7 +24042,7 @@ List<Incantation> allIncantations() {
         fPCost: 29,
         effect: "Creates golden ring of light to attack wide area",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 31,
           fai: 31,
@@ -23637,7 +24058,7 @@ List<Incantation> allIncantations() {
         fPCost: 9,
         effect: "Produces a shockwave that pushes away foes.",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 12,
@@ -23653,7 +24074,7 @@ List<Incantation> allIncantations() {
         fPCost: 36,
         effect: "Channels dragon to spew scarlet rot breath",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 15,
@@ -23669,7 +24090,7 @@ List<Incantation> allIncantations() {
         fPCost: 56,
         effect: "Creates a giant flower that explodes with scarlet rot.",
         slots: 3,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 35,
@@ -23686,7 +24107,7 @@ List<Incantation> allIncantations() {
         fPCost: 27,
         effect: "Sweeps area before caster with black flame",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 28,
@@ -23704,7 +24125,7 @@ List<Incantation> allIncantations() {
         effect:
             "Creates shadow that lures the aggression of foes of human build",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 13,
@@ -23720,7 +24141,7 @@ List<Incantation> allIncantations() {
         fPCost: 36,
         effect: "Spews magic breath of Glintstone Dragon Smarag from above",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 23,
@@ -23737,7 +24158,7 @@ List<Incantation> allIncantations() {
         fPCost: 15,
         effect: "Hurls a boulder before the caster",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 13,
@@ -23753,7 +24174,7 @@ List<Incantation> allIncantations() {
         fPCost: 1,
         effect: "Incinerates area before caster with stream of fire",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 9,
@@ -23770,7 +24191,7 @@ List<Incantation> allIncantations() {
         fPCost: 14,
         effect: "Releases a swarm of bloodflies before the caster",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 11,
@@ -23787,7 +24208,7 @@ List<Incantation> allIncantations() {
         fPCost: 16,
         effect: "Emits burst of yellow flame of frenzy from eyes",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 16,
@@ -23804,7 +24225,7 @@ List<Incantation> allIncantations() {
         fPCost: 45,
         effect: "Spews magma breath of Theodorix from above",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 21,
@@ -23821,7 +24242,7 @@ List<Incantation> allIncantations() {
         fPCost: 23,
         effect: "Fire three rings of light before the caster",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 23,
           fai: 23,
@@ -23838,7 +24259,7 @@ List<Incantation> allIncantations() {
         fPCost: 42,
         effect: "Emits violent burst of yellow flame of frenzy from eyes.",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 31,
@@ -23854,7 +24275,7 @@ List<Incantation> allIncantations() {
         fPCost: 16,
         effect: "Heals a small amount of HP.",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 8,
@@ -23870,7 +24291,7 @@ List<Incantation> allIncantations() {
         fPCost: 27,
         effect: "Enchants right-hand armament with lightning damage",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(int: 0, fai: 0, arc: 0)),
     Incantation(
         name: "Whirl, O Flame!",
@@ -23882,7 +24303,7 @@ List<Incantation> allIncantations() {
         fPCost: 21,
         effect: "Sweeps area before caster with stream of fire",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 13,
@@ -23899,18 +24320,13 @@ List<Incantation> allIncantations() {
         fPCost: 40,
         effect: "Produces golden shockwave that knocks back foes",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 32,
           arc: 0,
         )),
   ];
-  return allIncantations;
-}
-
-List<Incantation> allSOTEIncantations() {
-  List<Incantation> allIncantations = [];
   return allIncantations;
 }
 
@@ -23927,7 +24343,7 @@ List<Sorcery> allSorceries() {
         fPCost: 26,
         effect: "Sweeping slash followed by cold blade projectile",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 32,
           fai: 0,
@@ -23944,7 +24360,7 @@ List<Sorcery> allSorceries() {
         fPCost: 16,
         effect: "Strikes from behind with projectile fired from distance",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 23,
           fai: 0,
@@ -23960,7 +24376,7 @@ List<Sorcery> allSorceries() {
         fPCost: 24,
         effect: "Summons horde of vengeful spirits that chase down foes",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 34,
           fai: 24,
@@ -23977,7 +24393,7 @@ List<Sorcery> allSorceries() {
         fPCost: 13,
         effect: "Wounds caster to unleash trail of bloodthrorns",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 21,
@@ -23994,7 +24410,7 @@ List<Sorcery> allSorceries() {
         fPCost: 9,
         effect: "Summons thorns from a whorl of your own blood.",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 0,
           fai: 24,
@@ -24011,7 +24427,7 @@ List<Sorcery> allSorceries() {
         fPCost: 45,
         effect: "Lobs an explosive magic projectile in an arc",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 25,
           fai: 0,
@@ -24028,7 +24444,7 @@ List<Sorcery> allSorceries() {
         fPCost: 16,
         effect: "Performs sweeping slash using magical greatsword",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 24,
           fai: 0,
@@ -24044,7 +24460,7 @@ List<Sorcery> allSorceries() {
         fPCost: 26,
         effect: "Forms a defensive arch of numerous magic glintblades",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 34,
           fai: 0,
@@ -24060,7 +24476,7 @@ List<Sorcery> allSorceries() {
         fPCost: 23,
         effect: "Impales foes with magical greatsword",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 27,
           fai: 0,
@@ -24076,7 +24492,7 @@ List<Sorcery> allSorceries() {
         fPCost: 8,
         effect: "Dispels enemy spells and retaliates with glintblades",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 17,
           fai: 0,
@@ -24092,7 +24508,7 @@ List<Sorcery> allSorceries() {
         fPCost: 4,
         effect: "Performs swift sweeping slash using magical sword",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 14,
           fai: 0,
@@ -24109,7 +24525,7 @@ List<Sorcery> allSorceries() {
         fPCost: 18,
         effect: "Pulls foes toward caster with gravity projectile volley",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 36,
           fai: 0,
@@ -24125,7 +24541,7 @@ List<Sorcery> allSorceries() {
         fPCost: 38,
         effect: "Fires a great magic comet",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 52,
           fai: 0,
@@ -24142,7 +24558,7 @@ List<Sorcery> allSorceries() {
         fPCost: 40,
         effect: "Fires a tremendous comet within a starry torrent",
         slots: 3,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 60,
           fai: 0,
@@ -24159,7 +24575,7 @@ List<Sorcery> allSorceries() {
         fPCost: 14,
         effect: "Fires a volley of glintstone crystal shards",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 23,
           fai: 0,
@@ -24176,7 +24592,7 @@ List<Sorcery> allSorceries() {
         fPCost: 14,
         effect: "Fires a burst of glintstone crystal shards",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 18,
           fai: 0,
@@ -24193,7 +24609,7 @@ List<Sorcery> allSorceries() {
         fPCost: 38,
         effect: "Scours area with violent rain of crystal shards",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 41,
           fai: 0,
@@ -24209,7 +24625,7 @@ List<Sorcery> allSorceries() {
         fPCost: 24,
         effect: "Creates crystal mass that fires stream of crystal shards",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 47,
           fai: 0,
@@ -24225,7 +24641,7 @@ List<Sorcery> allSorceries() {
         fPCost: 25,
         effect: "Creates a dark space that draws in spells",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 35,
           fai: 0,
@@ -24241,7 +24657,7 @@ List<Sorcery> allSorceries() {
         fPCost: 36,
         effect: "Causes ghostflame explosion that burns wide area",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 42,
           fai: 30,
@@ -24258,7 +24674,7 @@ List<Sorcery> allSorceries() {
         fPCost: 25,
         effect: "Release a mist of death before caster",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 23,
           fai: 18,
@@ -24275,7 +24691,7 @@ List<Sorcery> allSorceries() {
         fPCost: 46,
         effect: "Releases a downpour of star rain for a while",
         slots: 2,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 52,
           fai: 0,
@@ -24291,7 +24707,7 @@ List<Sorcery> allSorceries() {
         fPCost: 20,
         effect: "Releases cold mist before caster",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 21,
           fai: 0,
@@ -24308,7 +24724,7 @@ List<Sorcery> allSorceries() {
         fPCost: 20,
         effect: "Enchants right-hand armament with frost",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 15,
           fai: 0,
@@ -24325,7 +24741,7 @@ List<Sorcery> allSorceries() {
         fPCost: 37,
         effect: "Attacks using a magic greathammer",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 25,
           fai: 0,
@@ -24342,7 +24758,7 @@ List<Sorcery> allSorceries() {
         fPCost: 27,
         effect: "Covers area with surge of magma from the earth",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 28,
           fai: 15,
@@ -24358,7 +24774,7 @@ List<Sorcery> allSorceries() {
         fPCost: 20,
         effect: "Forms a defensive arch of magic glintblades",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 22,
           fai: 0,
@@ -24375,7 +24791,7 @@ List<Sorcery> allSorceries() {
         fPCost: 10,
         effect: "Fires a horizontally-widening magic arc",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 13,
           fai: 0,
@@ -24392,7 +24808,7 @@ List<Sorcery> allSorceries() {
         fPCost: 25,
         effect: "Fires a magic comet with a trailing tail",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 36,
           fai: 0,
@@ -24408,7 +24824,7 @@ List<Sorcery> allSorceries() {
         fPCost: 12,
         effect: "Fires mass of cold magic from glintstone",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 15,
           fai: 0,
@@ -24425,7 +24841,7 @@ List<Sorcery> allSorceries() {
         fPCost: 7,
         effect: "Fires magic projectiles from glintstone",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 10,
           fai: 0,
@@ -24442,7 +24858,7 @@ List<Sorcery> allSorceries() {
         fPCost: 14,
         effect: "Fires three shooting stars that pursue foes",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 12,
           fai: 0,
@@ -24459,7 +24875,7 @@ List<Sorcery> allSorceries() {
         fPCost: 12,
         effect: "Pulls foes toward caster with gravity projectile",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 17,
           fai: 0,
@@ -24476,7 +24892,7 @@ List<Sorcery> allSorceries() {
         fPCost: 12,
         effect: "Fires larger magic projectiles from glintstone",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 16,
           fai: 0,
@@ -24493,7 +24909,7 @@ List<Sorcery> allSorceries() {
         fPCost: 16,
         effect: "Launches a large magic bubble",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 25,
           fai: 0,
@@ -24510,7 +24926,7 @@ List<Sorcery> allSorceries() {
         fPCost: 43,
         effect: "Forms a defensive arch of larger magic glintblades",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 29,
           fai: 0,
@@ -24527,7 +24943,7 @@ List<Sorcery> allSorceries() {
         fPCost: 32,
         effect: "Fires great arrow from a magic greatbow",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 26,
           fai: 0,
@@ -24544,7 +24960,7 @@ List<Sorcery> allSorceries() {
         fPCost: 50,
         effect: "Fires four great arrow from a magic greatbow at once",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 46,
           fai: 0,
@@ -24560,7 +24976,7 @@ List<Sorcery> allSorceries() {
         fPCost: 10,
         effect: "Alleviates buildup of sleep and madness",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 17,
           fai: 0,
@@ -24576,7 +24992,7 @@ List<Sorcery> allSorceries() {
         fPCost: 25,
         effect: "Summon a magic mass that sprays projectiles over area",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 15,
           fai: 0,
@@ -24592,7 +25008,7 @@ List<Sorcery> allSorceries() {
         fPCost: 12,
         effect: "Creates sigil that forms a projectile glintblade after delay",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 14,
           fai: 0,
@@ -24609,7 +25025,7 @@ List<Sorcery> allSorceries() {
         fPCost: 24,
         effect: "Fire lump of magma that explodes on contact",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 19,
           fai: 10,
@@ -24626,7 +25042,7 @@ List<Sorcery> allSorceries() {
         fPCost: 30,
         effect: "Calls small meteors down from the sky.",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 30,
           fai: 0,
@@ -24643,7 +25059,7 @@ List<Sorcery> allSorceries() {
         fPCost: 60,
         effect: "Calls a hail of small meteorites from the void.",
         slots: 2,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 55,
           fai: 0,
@@ -24659,7 +25075,7 @@ List<Sorcery> allSorceries() {
         fPCost: 32,
         effect: "Fires semi-invisible magic comet",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 38,
           fai: 0,
@@ -24675,7 +25091,7 @@ List<Sorcery> allSorceries() {
         fPCost: 20,
         effect: "Releases life-sapping silver mist before caster",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 14,
           fai: 0,
@@ -24691,7 +25107,7 @@ List<Sorcery> allSorceries() {
         fPCost: 7,
         effect: "Swiftly fires a semi-invisible",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 18,
           fai: 0,
@@ -24708,28 +25124,11 @@ List<Sorcery> allSorceries() {
         fPCost: 12,
         effect: "Launches several bubbles of magic.",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 10,
           fai: 0,
           arc: 0,
-        )),
-    Sorcery(
-        name: "Oracle Bubbles",
-        image:
-            'lib/constants/images/sorceries/main_game_sorceries/oracle_bubbles.png',
-        description:
-            "Sorcery of the claymen who served as priests in the ancient",
-        howToFind: "",
-        mapLink: "",
-        fPCost: 12,
-        effect: "Launches several small magic bubbles.",
-        slots: 1,
-        damageType: "",
-        requirement: SpellsRequirement(
-          int: 19,
-          fai: 0,
-          arc: 15,
         )),
     Sorcery(
         name: "Rancorcall",
@@ -24741,7 +25140,7 @@ List<Sorcery> allSorceries() {
         fPCost: 14,
         effect: "Summons vengeful spirits that chase down foes",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 16,
           fai: 14,
@@ -24757,7 +25156,7 @@ List<Sorcery> allSorceries() {
         fPCost: 62,
         effect: "Incarnate a cold, dark moon and launch it at foes.",
         slots: 2,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 68,
           fai: 0,
@@ -24774,7 +25173,7 @@ List<Sorcery> allSorceries() {
         fPCost: 55,
         effect: "Incarnate a full moon and launch it at foes",
         slots: 2,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 70,
           fai: 0,
@@ -24791,7 +25190,7 @@ List<Sorcery> allSorceries() {
         fPCost: 30,
         effect: "Thurst staff into ground to emit a massive shockwave",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 21,
           fai: 0,
@@ -24808,7 +25207,7 @@ List<Sorcery> allSorceries() {
         fPCost: 18,
         effect: "Summons rocks from the earth and sends its flying",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 18,
           fai: 0,
@@ -24825,7 +25224,7 @@ List<Sorcery> allSorceries() {
         fPCost: 32,
         effect: "Fires lump of magma that explodes after delay",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 21,
           fai: 12,
@@ -24841,7 +25240,7 @@ List<Sorcery> allSorceries() {
         fPCost: 35,
         effect: "Releases searing spirits that repeatedly explode after delay",
         slots: 2,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 40,
           fai: 18,
@@ -24858,7 +25257,7 @@ List<Sorcery> allSorceries() {
         fPCost: 25,
         effect: "Enchants right-hand armament with magic damage",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 12,
           fai: 0,
@@ -24875,7 +25274,7 @@ List<Sorcery> allSorceries() {
         fPCost: 30,
         effect: "Enhances left-handed shield damage negation",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 12,
           fai: 0,
@@ -24892,7 +25291,7 @@ List<Sorcery> allSorceries() {
         fPCost: 16,
         effect: "Fire twin spiraling projectiles",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 27,
           fai: 0,
@@ -24909,7 +25308,7 @@ List<Sorcery> allSorceries() {
         fPCost: 12,
         effect: "Thrust staff into ground to emit a shockwave",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 15,
           fai: 0,
@@ -24926,7 +25325,7 @@ List<Sorcery> allSorceries() {
         fPCost: 32,
         effect: "Creates crystal mass that shatters in forward burst",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 38,
           fai: 0,
@@ -24943,7 +25342,7 @@ List<Sorcery> allSorceries() {
         fPCost: 36,
         effect: "Fires six shooting stars that pursue foes",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 24,
           fai: 0,
@@ -24960,7 +25359,7 @@ List<Sorcery> allSorceries() {
         fPCost: 12,
         effect: "Creates star light to illuminate surroundings",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 15,
           fai: 0,
@@ -24976,7 +25375,7 @@ List<Sorcery> allSorceries() {
         fPCost: 50,
         effect: "Fire twelve dark shooting stars that pursue foes",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 43,
           fai: 0,
@@ -24993,7 +25392,7 @@ List<Sorcery> allSorceries() {
         fPCost: 5,
         effect: "Swiftly fires magic projectiles from glintstone",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 12,
           fai: 0,
@@ -25010,7 +25409,7 @@ List<Sorcery> allSorceries() {
         fPCost: 20,
         effect: "Raises the magic strength of those within the sigil",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 20,
           fai: 0,
@@ -25026,7 +25425,7 @@ List<Sorcery> allSorceries() {
         fPCost: 7,
         effect: "Erect a magic forcefield to deflect spells",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 18,
           fai: 0,
@@ -25043,7 +25442,7 @@ List<Sorcery> allSorceries() {
         fPCost: 20,
         effect: "Summons Those Who Live in Death",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 28,
           fai: 20,
@@ -25060,7 +25459,7 @@ List<Sorcery> allSorceries() {
         fPCost: 18,
         effect: "Makes right-hand armament completely invisible",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 12,
           fai: 0,
@@ -25077,7 +25476,7 @@ List<Sorcery> allSorceries() {
         fPCost: 20,
         effect: "Makes the caster semi-invisible",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 16,
           fai: 0,
@@ -25093,17 +25492,12 @@ List<Sorcery> allSorceries() {
         fPCost: 22,
         effect: "Thrust staff into ground to create freezing tornado.",
         slots: 1,
-        damageType: "",
+        element: SpellType.physical,
         requirement: SpellsRequirement(
           int: 36,
           fai: 0,
           arc: 0,
         )),
   ];
-  return allSorceries;
-}
-
-List<Sorcery> allSOTESorceries() {
-  List<Sorcery> allSorceries = [];
   return allSorceries;
 }

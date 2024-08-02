@@ -11,6 +11,7 @@ import 'package:elden_nexus/views/settings_view.dart';
 import 'package:elden_nexus/views/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../home_page.dart';
 import 'ashes_of_war_detail_page.dart';
 
 class AshesOfWarPage extends StatefulWidget {
@@ -23,7 +24,7 @@ class AshesOfWarPage extends StatefulWidget {
 }
 
 class _AshesOfWarPageState extends State<AshesOfWarPage> {
-  DatabaseMethods db = DatabaseMethods();
+  DatabaseMethods db = DatabaseMethods.instance;
   late List<AshOfWar> ashes;
   List<AshOfWar> displayedAshes = [];
   late Future<List<String>> futureFoundAshes;
@@ -34,12 +35,12 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
   @override
   void initState() {
     super.initState();
+    ashes = widget.isDlc ? db.allDBSOTEAshesOfWar : db.allDBAshesOfWar;
     initAshesFuture = initAshes();
     futureFoundAshes = db.getUserAshes(Auth().currentUser!.uid);
   }
 
   Future<void> initAshes() async {
-    ashes = (await db.getAllAow(widget.isDlc))!;
     futureFoundAshes = db.getUserAshes(Auth().currentUser!.uid);
     displayedAshes = List.from(ashes);
     sortAshes(SortOption.name);
@@ -69,12 +70,20 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
   Widget buildMainWidget(BuildContext context) {
     return PopScope(
       canPop: true,
-      onPopInvoked: (context) {
+      onPopInvoked: (result) {
         if (displayedAshes != ashes) {
           setState(() {
             displayedAshes = List.from(ashes);
           });
         }
+        Navigator.pop(context);
+        Widget toPush = HomePage(isDlc: widget.isDlc);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => toPush,
+          ),
+        );
       },
       child: Scaffold(
         endDrawer: Drawer(
@@ -126,14 +135,14 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
           child: const Icon(Icons.sort),
         ),
         appBar: AppBar(
-          leading: Builder(builder: (context) {
-            return IconButton(
+          leading: Builder(
+            builder: (context) => IconButton(
               icon: const Icon(Icons.menu_rounded),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
-            );
-          }),
+            ),
+          ),
           actions: <Widget>[
             FutureBuilder(
               future: futureFoundAshes,

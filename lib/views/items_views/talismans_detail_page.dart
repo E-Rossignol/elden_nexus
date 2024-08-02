@@ -1,4 +1,5 @@
 import 'package:elden_nexus/models/talisman.dart';
+import 'package:elden_nexus/views/items_views/talismans_page.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -79,101 +80,114 @@ class _TalismanDetailPageState extends State<TalismanDetailPage> {
       },
       child: const Text('Close'),
     ));
-    return Scaffold(
-      endDrawer: const Drawer(
-        child: SettingsView(),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        child: const Icon(Icons.arrow_back),
-      ),
-      appBar: AppBar(
-        actions: [
-          Builder(
-            builder: (context) => IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () {
-                Scaffold.of(context).openEndDrawer();
-              },
-            ),
+    return PopScope(
+      canPop: true,
+      onPopInvoked: (result) {
+        Navigator.pop(context);
+        Widget toPush = TalismansPage(isDlc: tal.image.contains("dlc"));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => toPush,
           ),
-        ],
-        title: Center(
-          child: Text(
-            tal.name.toUpperCase(),
-            style: const TextStyle(fontFamily: 'Mantinia', fontSize: 16),
-            maxLines: 1,
-          ),
+        );
+      },
+      child: Scaffold(
+        endDrawer: const Drawer(
+          child: SettingsView(),
         ),
-      ),
-      body: Stack(
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              children: [
-                _space(),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  child: Transform.scale(
-                    scale: 0.8,
-                    child: Image.asset(tal.image),
-                  ),
-                ),
-                _space(),
-                Container(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    child: SingleChildScrollView(
-                      child: buildRichText(
-                        tal.effect,
-                      ),
-                    )),
-                Container(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                    height: MediaQuery.of(context).size.height * 0.25,
-                    child: SingleChildScrollView(
-                      child: Text(
-                        tal.description,
-                        style: const TextStyle(
-                            fontSize: 18, fontStyle: FontStyle.italic),
-                        textAlign: TextAlign.justify,
-                      ),
-                    )),
-              ],
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-              child: ElevatedButton(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Icon(Icons.arrow_back),
+        ),
+        appBar: AppBar(
+          actions: [
+            Builder(
+              builder: (context) => IconButton(
+                icon: const Icon(Icons.settings),
                 onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                            title: Text('How to get ${tal.name}:'),
-                            content: SingleChildScrollView(
-                              child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(tal.howToFind)),
-                            ),
-                            actions: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: linkWidgets,
-                              ),
-                            ],
-                          ));
+                  Scaffold.of(context).openEndDrawer();
                 },
-                child: const Text('How to get it'),
               ),
             ),
+          ],
+          title: Center(
+            child: Text(
+              tal.name.toUpperCase(),
+              style: const TextStyle(fontFamily: 'Mantinia', fontSize: 16),
+              maxLines: 1,
+            ),
           ),
-        ],
+        ),
+        body: Stack(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                children: [
+                  _space(),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    child: Transform.scale(
+                      scale: 0.8,
+                      child: Image.asset(tal.image),
+                    ),
+                  ),
+                  _space(),
+                  Container(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      child: SingleChildScrollView(
+                        child: buildRichText(
+                          tal.effect,
+                        ),
+                      )),
+                  Container(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                      height: MediaQuery.of(context).size.height * 0.25,
+                      child: SingleChildScrollView(
+                        child: Text(
+                          tal.description,
+                          style: const TextStyle(
+                              fontSize: 18, fontStyle: FontStyle.italic),
+                          textAlign: TextAlign.justify,
+                        ),
+                      )),
+                ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                child: ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              title: Text('How to get ${tal.name}:'),
+                              content: SingleChildScrollView(
+                                child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(tal.howToFind)),
+                              ),
+                              actions: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: linkWidgets,
+                                ),
+                              ],
+                            ));
+                  },
+                  child: const Text('How to get it'),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

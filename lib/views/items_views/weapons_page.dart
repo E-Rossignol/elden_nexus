@@ -10,6 +10,7 @@ import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import '../../constants/helper.dart';
 import '../../models/weapon.dart';
+import '../home_page.dart';
 import '../loading_screen.dart';
 import '../welcome_page.dart';
 import 'weapons_detail_page.dart';
@@ -24,7 +25,7 @@ class WeaponsPage extends StatefulWidget {
 }
 
 class _WeaponsPageState extends State<WeaponsPage> {
-  DatabaseMethods db = DatabaseMethods();
+  DatabaseMethods db = DatabaseMethods.instance;
   late List<Weapon> weapons;
   List<Weapon> displayedWeapons = [];
   late Future<List<String>> futureFoundWeapons;
@@ -36,12 +37,12 @@ class _WeaponsPageState extends State<WeaponsPage> {
   @override
   void initState() {
     super.initState();
+    weapons= widget.isDlc ? db.allDBSOTEWeapons : db.allDBWeapons;
     initWeaponsFuture = initWeapons();
     futureFoundWeapons = db.getUserWeapons(Auth().currentUser!.uid);
   }
 
   Future<void> initWeapons() async {
-    weapons = (await db.getAllWeapons(widget.isDlc))!;
     futureFoundWeapons = db.getUserWeapons(Auth().currentUser!.uid);
     displayedWeapons = List.from(weapons);
     sortWeapons(SortOption.defaultSort);
@@ -72,12 +73,20 @@ class _WeaponsPageState extends State<WeaponsPage> {
   Widget buildMainWidget(BuildContext context) {
     return PopScope(
       canPop: true,
-      onPopInvoked: (context) {
+      onPopInvoked: (result) {
         if (displayedWeapons != weapons) {
           setState(() {
             displayedWeapons = List.from(weapons);
           });
         }
+        Navigator.pop(context);
+        Widget toPush = HomePage(isDlc: widget.isDlc);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => toPush,
+          ),
+        );
       },
       child: Scaffold(
         endDrawer: Drawer(

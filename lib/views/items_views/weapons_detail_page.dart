@@ -141,7 +141,7 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
       )
     ];
     List<Widget> hasNoStatus = [
-      Center(
+      const Center(
         child: Text(""),
       )
     ];
@@ -181,7 +181,7 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
       height: MediaQuery.of(context).size.height * percentage,
       width: MediaQuery.of(context).size.width * 0.65,
       child: Table(
-        columnWidths: {
+        columnWidths: const {
           0: FlexColumnWidth(1), // First column is half the size
           1: FlexColumnWidth(0.5),
         },
@@ -235,7 +235,7 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                 child: Center(
                     child: Container(
                         height: defaultHeight,
-                        child: Center(
+                        child: const Center(
                             child: Text("Magic",
                                 style: TextStyle(
                                     fontStyle: FontStyle.italic,
@@ -256,7 +256,7 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: widget.weapon.damages.magic != 0
-                                      ? Color.fromRGBO(125, 125, 212, 1)
+                                      ? const Color.fromRGBO(125, 125, 212, 1)
                                       : Theme.of(context)
                                           .colorScheme
                                           .onSecondaryContainer)))),
@@ -274,7 +274,7 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                 child: Center(
                     child: Container(
                         height: defaultHeight,
-                        child: Center(
+                        child: const Center(
                             child: Text("Fire",
                                 style: TextStyle(
                                     fontStyle: FontStyle.italic,
@@ -294,7 +294,7 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: widget.weapon.damages.fire != 0
-                                      ? Color.fromRGBO(239, 0, 0, 1)
+                                      ? const Color.fromRGBO(239, 0, 0, 1)
                                       : Theme.of(context)
                                           .colorScheme
                                           .onSecondaryContainer)))),
@@ -312,7 +312,7 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                 child: Center(
                     child: Container(
                         height: defaultHeight,
-                        child: Center(
+                        child: const Center(
                             child: Text("Holy",
                                 style: TextStyle(
                                     fontStyle: FontStyle.italic,
@@ -332,7 +332,7 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: widget.weapon.damages.holy != 0
-                                      ? Color.fromRGBO(234, 184, 61, 1)
+                                      ? const Color.fromRGBO(234, 184, 61, 1)
                                       : Theme.of(context)
                                           .colorScheme
                                           .onSecondaryContainer)))),
@@ -350,7 +350,7 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                 child: Center(
                     child: Container(
                         height: defaultHeight,
-                        child: Center(
+                        child: const Center(
                             child: Text("Lightning",
                                 style: TextStyle(
                                     fontStyle: FontStyle.italic,
@@ -371,7 +371,7 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: widget.weapon.damages.lightning != 0
-                                      ? Color.fromRGBO(223, 223, 0, 1)
+                                      ? const Color.fromRGBO(223, 223, 0, 1)
                                       : Theme.of(context)
                                           .colorScheme
                                           .onSecondaryContainer)))),
@@ -489,550 +489,563 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
       },
       child: const Text('Close'),
     ));
-    return Scaffold(
-      endDrawer: const Drawer(
-        child: SettingsView(),
-      ),
-      appBar: AppBar(
-        leading: Builder(builder: (context) {
-          return IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return WeaponsPage(isDlc: widget.weapon.image.contains("dlc"));
-              }));
-            },
-          );
-        }),
-        automaticallyImplyLeading: false,
-        actions: [
-          Builder(
-            builder: (context) => IconButton(
-              icon: const Icon(Icons.settings),
+    return PopScope(
+      canPop: true,
+      onPopInvoked: (result) {
+        Navigator.pop(context);
+        Widget toPush = WeaponsPage(isDlc: weapon.image.contains("dlc"));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => toPush,
+          ),
+        );
+      },
+      child: Scaffold(
+        endDrawer: const Drawer(
+          child: SettingsView(),
+        ),
+        appBar: AppBar(
+          leading: Builder(builder: (context) {
+            return IconButton(
+              icon: const Icon(Icons.arrow_back),
               onPressed: () {
-                Scaffold.of(context).openEndDrawer();
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return WeaponsPage(isDlc: widget.weapon.image.contains("dlc"));
+                }));
               },
+            );
+          }),
+          automaticallyImplyLeading: false,
+          actions: [
+            Builder(
+              builder: (context) => IconButton(
+                icon: const Icon(Icons.settings),
+                onPressed: () {
+                  Scaffold.of(context).openEndDrawer();
+                },
+              ),
+            ),
+          ],
+          title: Center(
+            child: Text(
+              weapon.name.toUpperCase(),
+              style: const TextStyle(fontFamily: 'Mantinia', fontSize: 16),
+              maxLines: 1,
             ),
           ),
-        ],
-        title: Center(
-          child: Text(
-            weapon.name.toUpperCase(),
-            style: const TextStyle(fontFamily: 'Mantinia', fontSize: 16),
-            maxLines: 1,
-          ),
         ),
-      ),
-      body: Stack(children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.2,
-                child: Transform.scale(
-                  scale: 0.8,
-                  child: Image.asset(weapon.image),
+        body: Stack(children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.2,
+                  child: Transform.scale(
+                    scale: 0.8,
+                    child: Image.asset(weapon.image),
+                  ),
                 ),
-              ),
-              SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  child: Center(
-                    child: Column(
-                      children: [
-                        Text(
-                          Helper.strCat(weapon.weaponCategory).toUpperCase(),
-                          style: const TextStyle(
-                              fontFamily: 'Chiralla', fontSize: 18),
-                          maxLines: 1,
-                        ),
-                        Text(
-                          isSomberStr,
-                          style: const TextStyle(
-                              fontSize: 15,
-                              fontStyle: FontStyle.italic,
-                              fontFamily: 'Chiralla'),
-                        ),
-                        Text(
-                          weight,
-                          style: const TextStyle(
-                              fontSize: 15,
-                              fontStyle: FontStyle.italic,
-                              fontFamily: 'Chiralla'),
-                        ),
-                      ],
-                    ),
-                  )),
-              SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  child: _statusEffect(hasStatus)),
-              SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.45 - 60,
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  child: Table(
-                    columnWidths: {
-                      0: FlexColumnWidth(0.5),
-                      // First column is half the size
-                      1: FlexColumnWidth(1),
-                      2: FlexColumnWidth(1),
-                    },
-                    children: [
-                      TableRow(
+                SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: Center(
+                      child: Column(
                         children: [
-                          Center(
-                              child: Container(
-                                  height: defaultHeight / 2,
-                                  child: const Text(""))),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight / 2,
-                                    child: Center(
-                                        child: Text("Scaling",
-                                            style: TextStyle(
-                                                fontStyle: FontStyle.italic,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSecondary))))),
+                          Text(
+                            Helper.strCat(weapon.weaponCategory).toUpperCase(),
+                            style: const TextStyle(
+                                fontFamily: 'Chiralla', fontSize: 18),
+                            maxLines: 1,
                           ),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight / 2,
-                                    child: Center(
-                                        child: Text("Requirements",
-                                            style: TextStyle(
-                                                fontStyle: FontStyle.italic,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSecondary))))),
+                          Text(
+                            isSomberStr,
+                            style: const TextStyle(
+                                fontSize: 15,
+                                fontStyle: FontStyle.italic,
+                                fontFamily: 'Chiralla'),
+                          ),
+                          Text(
+                            weight,
+                            style: const TextStyle(
+                                fontSize: 15,
+                                fontStyle: FontStyle.italic,
+                                fontFamily: 'Chiralla'),
                           ),
                         ],
                       ),
-                      TableRow(
-                        children: [
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
+                    )),
+                SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: _statusEffect(hasStatus)),
+                SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.45 - 60,
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: Table(
+                      columnWidths: const {
+                        0: FlexColumnWidth(0.5),
+                        // First column is half the size
+                        1: FlexColumnWidth(1),
+                        2: FlexColumnWidth(1),
+                      },
+                      children: [
+                        TableRow(
+                          children: [
+                            Center(
+                                child: Container(
+                                    height: defaultHeight / 2,
+                                    child: const Text(""))),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight / 2,
+                                      child: Center(
+                                          child: Text("Scaling",
+                                              style: TextStyle(
+                                                  fontStyle: FontStyle.italic,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSecondary))))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight / 2,
+                                      child: Center(
+                                          child: Text("Requirements",
+                                              style: TextStyle(
+                                                  fontStyle: FontStyle.italic,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSecondary))))),
+                            ),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                          child: Text("STR",
+                                              style: TextStyle(
+                                                  fontStyle: FontStyle.italic,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSecondary))))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                          child: Text(weapon.scaling.str,
+                                              style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSecondaryContainer,
+                                                  fontWeight:
+                                                      FontWeight.bold))))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
                                 child: Container(
                                     height: defaultHeight,
                                     child: Center(
-                                        child: Text("STR",
+                                        child: Text(
+                                            requirement(weapon.requirements.str),
                                             style: TextStyle(
-                                                fontStyle: FontStyle.italic,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSecondary))))),
-                          ),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight,
-                                    child: Center(
-                                        child: Text(weapon.scaling.str,
-                                            style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSecondaryContainer,
-                                                fontWeight:
-                                                    FontWeight.bold))))),
-                          ),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                              child: Container(
-                                  height: defaultHeight,
-                                  child: Center(
-                                      child: Text(
-                                          requirement(weapon.requirements.str),
-                                          style: TextStyle(
-                                              color:
-                                                  weapon.requirements.str != 0
+                                                color:
+                                                    weapon.requirements.str != 0
+                                                        ? Colors.redAccent
+                                                        : Theme.of(context)
+                                                            .colorScheme
+                                                            .onSecondaryContainer,
+                                                fontWeight: FontWeight.bold)))),
+                              ),
+                            ),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                          child: Text("DEX",
+                                              style: TextStyle(
+                                                  fontStyle: FontStyle.italic,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSecondary))))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                          child: Text(weapon.scaling.dex,
+                                              style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSecondaryContainer,
+                                                  fontWeight:
+                                                      FontWeight.bold))))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                          child: Text(
+                                              requirement(
+                                                  weapon.requirements.dex),
+                                              style: TextStyle(
+                                                  color: weapon
+                                                              .requirements.dex !=
+                                                          0
                                                       ? Colors.redAccent
                                                       : Theme.of(context)
                                                           .colorScheme
                                                           .onSecondaryContainer,
-                                              fontWeight: FontWeight.bold)))),
-                            ),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight,
-                                    child: Center(
-                                        child: Text("DEX",
-                                            style: TextStyle(
-                                                fontStyle: FontStyle.italic,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSecondary))))),
-                          ),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight,
-                                    child: Center(
-                                        child: Text(weapon.scaling.dex,
-                                            style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSecondaryContainer,
-                                                fontWeight:
-                                                    FontWeight.bold))))),
-                          ),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight,
-                                    child: Center(
-                                        child: Text(
-                                            requirement(
-                                                weapon.requirements.dex),
-                                            style: TextStyle(
-                                                color: weapon
-                                                            .requirements.dex !=
-                                                        0
-                                                    ? Colors.redAccent
-                                                    : Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondaryContainer,
-                                                fontWeight:
-                                                    FontWeight.bold))))),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight,
-                                    child: Center(
-                                        child: Text("INT",
-                                            style: TextStyle(
-                                                fontStyle: FontStyle.italic,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSecondary))))),
-                          ),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight,
-                                    child: Center(
-                                        child: Text(weapon.scaling.int,
-                                            style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSecondaryContainer,
-                                                fontWeight:
-                                                    FontWeight.bold))))),
-                          ),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight,
-                                    child: Center(
-                                        child: Text(
-                                            requirement(
-                                                weapon.requirements.int),
-                                            style: TextStyle(
-                                                color: weapon
-                                                            .requirements.int !=
-                                                        0
-                                                    ? Colors.redAccent
-                                                    : Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondaryContainer,
-                                                fontWeight:
-                                                    FontWeight.bold))))),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight,
-                                    child: Center(
-                                        child: Text("FAITH",
-                                            style: TextStyle(
-                                                fontStyle: FontStyle.italic,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSecondary))))),
-                          ),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight,
-                                    child: Center(
-                                        child: Text(weapon.scaling.fai,
-                                            style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSecondaryContainer,
-                                                fontWeight:
-                                                    FontWeight.bold))))),
-                          ),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight,
-                                    child: Center(
-                                        child: Text(
-                                            requirement(
-                                                weapon.requirements.fai),
-                                            style: TextStyle(
-                                                color: weapon
-                                                            .requirements.fai !=
-                                                        0
-                                                    ? Colors.redAccent
-                                                    : Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondaryContainer,
-                                                fontWeight:
-                                                    FontWeight.bold))))),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight,
-                                    child: Center(
-                                        child: Text("ARC",
-                                            style: TextStyle(
-                                                fontStyle: FontStyle.italic,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSecondary))))),
-                          ),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight,
-                                    child: Center(
-                                        child: Text(weapon.scaling.arc,
-                                            style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSecondaryContainer,
-                                                fontWeight:
-                                                    FontWeight.bold))))),
-                          ),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background)),
-                            child: Center(
-                                child: Container(
-                                    height: defaultHeight,
-                                    child: Center(
-                                        child: Text(
-                                            requirement(
-                                                weapon.requirements.arc),
-                                            style: TextStyle(
-                                                color: weapon
-                                                            .requirements.arc !=
-                                                        0
-                                                    ? Colors.redAccent
-                                                    : Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondaryContainer,
-                                                fontWeight:
-                                                    FontWeight.bold))))),
-                          ),
-                        ],
-                      ),
-                    ],
-                  )),
-            ],
-          ),
-        ),
-        Align(
-          alignment: Alignment.bottomRight,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 60, 20),
-            child: ElevatedButton(
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                          title: Text('How to get ${weapon.name}:'),
-                          content: SingleChildScrollView(
-                            child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(weapon.howToFind)),
-                          ),
-                          actions: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: linkWidgets,
+                                                  fontWeight:
+                                                      FontWeight.bold))))),
                             ),
                           ],
-                        ));
-              },
-              child: const Text('How to get it'),
-            ),
-          ),
-        ),
-        Align(
-          alignment: Alignment.bottomLeft,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(60, 0, 0, 20),
-            child: ElevatedButton(
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                          title: Center(child: Text('Damages')),
-                          content: SingleChildScrollView(
-                            child: damageWidget(),
-                          ),
-                          actions: [
-                            Center(
-                              child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Text('Close')),
-                            )
+                        ),
+                        TableRow(
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                          child: Text("INT",
+                                              style: TextStyle(
+                                                  fontStyle: FontStyle.italic,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSecondary))))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                          child: Text(weapon.scaling.int,
+                                              style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSecondaryContainer,
+                                                  fontWeight:
+                                                      FontWeight.bold))))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                          child: Text(
+                                              requirement(
+                                                  weapon.requirements.int),
+                                              style: TextStyle(
+                                                  color: weapon
+                                                              .requirements.int !=
+                                                          0
+                                                      ? Colors.redAccent
+                                                      : Theme.of(context)
+                                                          .colorScheme
+                                                          .onSecondaryContainer,
+                                                  fontWeight:
+                                                      FontWeight.bold))))),
+                            ),
                           ],
-                        ));
-              },
-              child: const Text('Damages'),
+                        ),
+                        TableRow(
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                          child: Text("FAITH",
+                                              style: TextStyle(
+                                                  fontStyle: FontStyle.italic,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSecondary))))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                          child: Text(weapon.scaling.fai,
+                                              style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSecondaryContainer,
+                                                  fontWeight:
+                                                      FontWeight.bold))))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                          child: Text(
+                                              requirement(
+                                                  weapon.requirements.fai),
+                                              style: TextStyle(
+                                                  color: weapon
+                                                              .requirements.fai !=
+                                                          0
+                                                      ? Colors.redAccent
+                                                      : Theme.of(context)
+                                                          .colorScheme
+                                                          .onSecondaryContainer,
+                                                  fontWeight:
+                                                      FontWeight.bold))))),
+                            ),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                          child: Text("ARC",
+                                              style: TextStyle(
+                                                  fontStyle: FontStyle.italic,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSecondary))))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                          child: Text(weapon.scaling.arc,
+                                              style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSecondaryContainer,
+                                                  fontWeight:
+                                                      FontWeight.bold))))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background)),
+                              child: Center(
+                                  child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                          child: Text(
+                                              requirement(
+                                                  weapon.requirements.arc),
+                                              style: TextStyle(
+                                                  color: weapon
+                                                              .requirements.arc !=
+                                                          0
+                                                      ? Colors.redAccent
+                                                      : Theme.of(context)
+                                                          .colorScheme
+                                                          .onSecondaryContainer,
+                                                  fontWeight:
+                                                      FontWeight.bold))))),
+                            ),
+                          ],
+                        ),
+                      ],
+                    )),
+              ],
             ),
           ),
-        ),
-      ]),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 60, 20),
+              child: ElevatedButton(
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                            title: Text('How to get ${weapon.name}:'),
+                            content: SingleChildScrollView(
+                              child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(weapon.howToFind)),
+                            ),
+                            actions: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: linkWidgets,
+                              ),
+                            ],
+                          ));
+                },
+                child: const Text('How to get it'),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(60, 0, 0, 20),
+              child: ElevatedButton(
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                            title: const Center(child: Text('Damages')),
+                            content: SingleChildScrollView(
+                              child: damageWidget(),
+                            ),
+                            actions: [
+                              Center(
+                                child: ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('Close')),
+                              )
+                            ],
+                          ));
+                },
+                child: const Text('Damages'),
+              ),
+            ),
+          ),
+        ]),
+      ),
     );
   }
 
