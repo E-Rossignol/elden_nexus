@@ -51,27 +51,21 @@ class _AshOfWarDetailPageState extends State<AshOfWarDetailPage> {
     ));
     return PopScope(
       canPop: true,
-      onPopInvoked: (result) {
-        Navigator.pop(context);
-        Widget toPush = AshesOfWarPage(isDlc: ash.image.contains("dlc"));
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => toPush,
-          ),
-        );
-      },
       child: Scaffold(
-        endDrawer: const Drawer(
+        endDrawer: Drawer(
           child: SettingsView(),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: const Icon(Icons.arrow_back),
-        ),
         appBar: AppBar(
+          leading: Builder(builder: (context) {
+            return IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return AshesOfWarPage(isDlc: widget.ash.image.contains("dlc"));
+                }));
+              },
+            );
+          }),
           automaticallyImplyLeading: false,
           actions: [
             Builder(
@@ -91,54 +85,59 @@ class _AshOfWarDetailPageState extends State<AshOfWarDetailPage> {
             ),
           ),
         ),
-        body: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            children: [
-              _space(),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.3,
-                child: Transform.scale(
-                  scale: 0.8,
-                  child: Image.asset(ash.image),
+        body: Stack(
+          fit: StackFit.expand,
+          children: [
+            SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              children: [
+                _space(),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  child: Transform.scale(
+                    scale: 0.8,
+                    child: Image.asset(ash.image),
+                  ),
                 ),
-              ),
-              _space(),
-              Container(
-                  padding: const EdgeInsets.all(20),
-                  height: MediaQuery.of(context).size.height * 0.45,
-                  child: SingleChildScrollView(
-                    child: Text(
-                      ash.description,
-                      style: const TextStyle(
-                          fontSize: 18, fontStyle: FontStyle.italic),
-                      textAlign: TextAlign.justify,
-                    ),
-                  )),
-              ElevatedButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                            title: Text('How to get ${ash.name}:'),
-                            content: SingleChildScrollView(
-                              child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(ash.howToFind)),
-                            ),
-                            actions: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: linkWidgets,
+                _space(),
+                Container(
+                    padding: const EdgeInsets.all(20),
+                    height: MediaQuery.of(context).size.height * 0.45,
+                    child: SingleChildScrollView(
+                      child: Text(
+                        ash.description,
+                        style: const TextStyle(
+                            fontSize: 18, fontStyle: FontStyle.italic),
+                        textAlign: TextAlign.justify,
+                      ),
+                    )),
+                ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              title: Text('How to get ${ash.name}:'),
+                              content: SingleChildScrollView(
+                                child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(ash.howToFind)),
                               ),
-                            ],
-                          ));
-                },
-                child: const Text('How to get it'),
-              ),
-            ],
+                              actions: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: linkWidgets,
+                                ),
+                              ],
+                            ));
+                  },
+                  child: const Text('How to get it'),
+                ),
+              ],
+            ),
           ),
+      ],
         ),
       ),
     );

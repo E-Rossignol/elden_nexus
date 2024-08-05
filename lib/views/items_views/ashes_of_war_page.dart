@@ -8,8 +8,8 @@ import 'package:elden_nexus/models/ash_of_war.dart';
 import 'package:elden_nexus/views/loading_screen.dart';
 import 'package:elden_nexus/views/routing_view.dart';
 import 'package:elden_nexus/views/settings_view.dart';
-import 'package:elden_nexus/views/welcome_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import '../home_page.dart';
 import 'ashes_of_war_detail_page.dart';
@@ -30,7 +30,6 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
   late Future<List<String>> futureFoundAshes;
   SortOption? selectedSortOption;
   late Future<void> initAshesFuture;
-  Timer? saveTimer;
 
   @override
   void initState() {
@@ -76,63 +75,58 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
             displayedAshes = List.from(ashes);
           });
         }
-        Navigator.pop(context);
-        Widget toPush = HomePage(isDlc: widget.isDlc);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => toPush,
-          ),
-        );
       },
       child: Scaffold(
         endDrawer: Drawer(
           backgroundColor: Theme.of(context).colorScheme.background,
-          child: const SettingsView(),
+          child: SettingsView(),
         ),
         drawer: Drawer(
           backgroundColor: Theme.of(context).colorScheme.background,
           child: const RoutingView(),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: Text('Sort by:'),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ListTile(
-                        title: Text('Name'),
-                        onTap: () {
-                          setState(() {
-                            selectedSortOption = SortOption.name;
-                            sortAshes(SortOption.name);
-                          });
-                          Navigator.of(context).pop(); // Close the dialog
-                        },
-                      ),
-                      ListTile(
-                        title: Text('Not Found'),
-                        onTap: () {
-                          setState(() {
-                            selectedSortOption = SortOption.notFound;
-                            sortAshes(SortOption.notFound);
-                          });
-                          Navigator.of(context).pop(); // Close the dialog
-                        },
-                      ),
-                    ],
-                  ),
-                );
-              },
-            );
-          },
-          child: const Icon(Icons.sort),
+        floatingActionButton: Opacity(
+          opacity: 0.8,
+          child: FloatingActionButton(
+            backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text('Sort by:'),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ListTile(
+                          title: Text('Name'),
+                          onTap: () {
+                            setState(() {
+                              selectedSortOption = SortOption.name;
+                              sortAshes(SortOption.name);
+                            });
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                        ),
+                        ListTile(
+                          title: Text('Not Found'),
+                          onTap: () {
+                            setState(() {
+                              selectedSortOption = SortOption.notFound;
+                              sortAshes(SortOption.notFound);
+                            });
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            },
+            child: Icon(Icons.sort, color: Theme.of(context).colorScheme.secondaryContainer),
+          ),
         ),
         appBar: AppBar(
           leading: Builder(
@@ -156,7 +150,7 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
                     ),
                   );
                 } else {
-                  return const CircularProgressIndicator();
+                  return const Text("");
                 }
               },
             ),
@@ -166,7 +160,7 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const WelcomePage(),
+                    builder: (context) => HomePage(isDlc: widget.isDlc),
                   ),
                 );
               },
@@ -234,24 +228,7 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
                                 child: CheckboxListTile(
                                   value: snapshot.data!
                                       .contains(displayedAshes[index].name),
-                                  onChanged: (bool? value) {
-                                    if (saveTimer != null) {
-                                      saveTimer!
-                                          .cancel(); // Cancel the previous timer if it's still running
-                                    }
-                                    saveTimer =
-                                        Timer(const Duration(milliseconds: 500),
-                                            () async {
-                                      if (value!) {
-                                        await db.addUserAsh(
-                                            displayedAshes[index].name,
-                                            Auth().currentUser!.uid);
-                                      } else {
-                                        await db.removeUserAsh(
-                                            displayedAshes[index].name,
-                                            Auth().currentUser!.uid);
-                                      }
-                                    });
+                                  onChanged: (bool? value) async {
                                     setState(() {
                                       if (value == true) {
                                         if (!snapshot.data!.contains(
@@ -267,6 +244,15 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
                                         }
                                       }
                                     });
+                                      if (value!) {
+                                        await db.addUserAsh(
+                                            displayedAshes[index].name,
+                                            Auth().currentUser!.uid);
+                                      } else {
+                                        await db.removeUserAsh(
+                                            displayedAshes[index].name,
+                                            Auth().currentUser!.uid);
+                                      }
                                   },
                                   title: SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
@@ -326,7 +312,10 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
                       ),
                     );
                   } else {
-                    return const CircularProgressIndicator();
+                    return SpinKitSpinningLines(
+                      color: Theme.of(context).colorScheme.primary,
+                      size: 50.0,
+                    );
                   }
                 },
               ),
@@ -410,7 +399,7 @@ class AshesSearch extends SearchDelegate<AshOfWar> {
         ? ashes
         : ashes
             .where(
-                (ash) => ash.name.toLowerCase().startsWith(query.toLowerCase()))
+                (ash) => ash.name.toLowerCase().contains(query.toLowerCase()))
             .toList();
 
     return _buildSuggestionList(suggestionList);

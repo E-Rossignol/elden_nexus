@@ -88,27 +88,21 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
     ));
     return PopScope(
       canPop: true,
-      onPopInvoked: (result) {
-        Navigator.pop(context);
-        Widget toPush = SorceriesPage(isDlc: sorc.image.contains("dlc"));
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => toPush,
-          ),
-        );
-      },
       child: Scaffold(
-        endDrawer: const Drawer(
+        endDrawer: Drawer(
           child: SettingsView(),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: const Icon(Icons.arrow_back),
-        ),
         appBar: AppBar(
+          leading: Builder(builder: (context) {
+            return IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return SorceriesPage(isDlc: widget.sorc.image.contains("dlc"));
+                }));
+              },
+            );
+          }),
           automaticallyImplyLeading: false,
           actions: [
             Builder(
@@ -129,6 +123,7 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
           ),
         ),
         body: Stack(
+          fit: StackFit.expand,
           children: [
             SizedBox(
               height: MediaQuery.of(context).size.height,

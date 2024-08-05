@@ -9,10 +9,10 @@ import 'package:elden_nexus/views/loading_screen.dart';
 import 'package:elden_nexus/views/routing_view.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import '../../constants/constant.dart';
 import '../home_page.dart';
-import '../welcome_page.dart';
 import 'sorceries_detail_page.dart';
 
 class SorceriesPage extends StatefulWidget {
@@ -31,7 +31,6 @@ class _SorceriesPageState extends State<SorceriesPage> {
   late Future<List<String>> futureFoundSorceries;
   SortOption? selectedSortOption;
   late Future<void> initSorceriesFuture;
-  Timer? saveTimer;
 
   @override
   void initState() {
@@ -77,73 +76,68 @@ class _SorceriesPageState extends State<SorceriesPage> {
             displayedSorceries = List.from(sorceries);
           });
         }
-        Navigator.pop(context);
-        Widget toPush = HomePage(isDlc: widget.isDlc);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => toPush,
-          ),
-        );
       },
       child: Scaffold(
         endDrawer: Drawer(
           backgroundColor: Theme.of(context).colorScheme.background,
-          child: const SettingsView(),
+          child: SettingsView(),
         ),
         drawer: Drawer(
           backgroundColor: Theme.of(context).colorScheme.background,
           child: const RoutingView(),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: Text('Sort by:'),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ListTile(
-                        title: Text('Type'),
-                        onTap: () {
-                          setState(() {
-                            selectedSortOption = SortOption.type;
-                            sortSorceries(SortOption.type);
-                          });
-                          Navigator.of(context).pop(); // Close the dialog
-                        },
-                      ),
-                      ListTile(
-                        title: Text('Name'),
-                        onTap: () {
-                          setState(() {
-                            selectedSortOption = SortOption.name;
-                            sortSorceries(SortOption.name);
-                          });
-                          Navigator.of(context).pop(); // Close the dialog
-                        },
-                      ),
-                      ListTile(
-                        title: Text('Not Found'),
-                        onTap: () {
-                          setState(() {
-                            selectedSortOption = SortOption.notFound;
-                            sortSorceries(SortOption.notFound);
-                          });
-                          Navigator.of(context).pop(); // Close the dialog
-                        },
-                      ),
-                    ],
-                  ),
-                );
-              },
-            );
-          },
-          child: const Icon(Icons.sort),
+        floatingActionButton: Opacity(
+          opacity: 0.8,
+          child: FloatingActionButton(
+            backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text('Sort by:'),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ListTile(
+                          title: Text('Type'),
+                          onTap: () {
+                            setState(() {
+                              selectedSortOption = SortOption.type;
+                              sortSorceries(SortOption.type);
+                            });
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                        ),
+                        ListTile(
+                          title: Text('Name'),
+                          onTap: () {
+                            setState(() {
+                              selectedSortOption = SortOption.name;
+                              sortSorceries(SortOption.name);
+                            });
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                        ),
+                        ListTile(
+                          title: Text('Not Found'),
+                          onTap: () {
+                            setState(() {
+                              selectedSortOption = SortOption.notFound;
+                              sortSorceries(SortOption.notFound);
+                            });
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            },
+            child: Icon(Icons.sort, color: Theme.of(context).colorScheme.secondaryContainer),
+          ),
         ),
         appBar: AppBar(
           leading: Builder(
@@ -167,7 +161,7 @@ class _SorceriesPageState extends State<SorceriesPage> {
                     ),
                   );
                 } else {
-                  return const CircularProgressIndicator();
+                  return const Text("");
                 }
               },
             ),
@@ -177,7 +171,7 @@ class _SorceriesPageState extends State<SorceriesPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const WelcomePage(),
+                    builder: (context) => HomePage(isDlc: widget.isDlc),
                   ),
                 );
               },
@@ -245,24 +239,7 @@ class _SorceriesPageState extends State<SorceriesPage> {
                                 child: CheckboxListTile(
                                   value: snapshot.data!
                                       .contains(displayedSorceries[index].name),
-                                  onChanged: (bool? value) {
-                                    if (saveTimer != null) {
-                                      saveTimer!
-                                          .cancel(); // Cancel the previous timer if it's still running
-                                    }
-                                    saveTimer =
-                                        Timer(const Duration(milliseconds: 500),
-                                            () async {
-                                      if (value!) {
-                                        await db.addUserSorcery(
-                                            displayedSorceries[index].name,
-                                            Auth().currentUser!.uid);
-                                      } else {
-                                        await db.removeUserSorcery(
-                                            displayedSorceries[index].name,
-                                            Auth().currentUser!.uid);
-                                      }
-                                    });
+                                  onChanged: (bool? value) async {
                                     setState(() {
                                       if (value == true) {
                                         if (!snapshot.data!.contains(
@@ -278,6 +255,15 @@ class _SorceriesPageState extends State<SorceriesPage> {
                                         }
                                       }
                                     });
+                                      if (value!) {
+                                        await db.addUserSorcery(
+                                            displayedSorceries[index].name,
+                                            Auth().currentUser!.uid);
+                                      } else {
+                                        await db.removeUserSorcery(
+                                            displayedSorceries[index].name,
+                                            Auth().currentUser!.uid);
+                                      }
                                   },
                                   title: SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
@@ -339,7 +325,10 @@ class _SorceriesPageState extends State<SorceriesPage> {
                       ),
                     );
                   } else {
-                    return const CircularProgressIndicator();
+                    return SpinKitSpinningLines(
+                      color: Theme.of(context).colorScheme.primary,
+                      size: 50.0,
+                    );
                   }
                 },
               ),
@@ -449,7 +438,7 @@ class SorceriesSearch extends SearchDelegate<Sorcery> {
         ? sorceries
         : sorceries
             .where((sorc) =>
-                sorc.name.toLowerCase().startsWith(query.toLowerCase()))
+                sorc.name.toLowerCase().contains(query.toLowerCase()))
             .toList();
 
     return _buildSuggestionList(suggestionList);

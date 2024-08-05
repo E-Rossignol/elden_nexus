@@ -82,27 +82,21 @@ class _TearDetailPageState extends State<TearDetailPage> {
     ));
     return PopScope(
       canPop: true,
-      onPopInvoked: (result) {
-        Navigator.pop(context);
-        Widget toPush = TearsPage(isDlc: tear.image.contains("dlc"));
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => toPush,
-          ),
-        );
-      },
       child: Scaffold(
-        endDrawer: const Drawer(
+        endDrawer: Drawer(
           child: SettingsView(),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: const Icon(Icons.arrow_back),
-        ),
         appBar: AppBar(
+          leading: Builder(builder: (context) {
+            return IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return TearsPage(isDlc: widget.tear.image.contains("dlc"));
+                }));
+              },
+            );
+          }),
           automaticallyImplyLeading: false,
           actions: [
             Builder(
@@ -122,58 +116,64 @@ class _TearDetailPageState extends State<TearDetailPage> {
             ),
           ),
         ),
-        body: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            children: [
-              _space(),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.3,
-                child: Transform.scale(
-                  scale: 0.8,
-                  child: Image.asset(tear.image),
-                ),
-              ),
-              _space(),
-              Container(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  height: MediaQuery.of(context).size.height * 0.2,
-                  child: SingleChildScrollView(
-                    child: buildRichText(
-                      tear.effect,
+        body: Stack(
+          fit: StackFit.expand,
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                children: [
+                  _space(),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    child: Transform.scale(
+                      scale: 0.8,
+                      child: Image.asset(tear.image),
                     ),
-                  )),
-              if (tear.duration != 0)
-                Container(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    child: SingleChildScrollView(
-                      child: buildRichText("Lasts ${tear.duration} seconds"),
-                    )),
-              ElevatedButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                            title: Text('How to get ${tear.name}:'),
-                            content: SingleChildScrollView(
-                              child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(tear.howToFind)),
-                            ),
-                            actions: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: linkWidgets,
-                              ),
-                            ],
-                          ));
-                },
-                child: const Text('How to get it'),
+                  ),
+                  _space(),
+                  Container(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      child: SingleChildScrollView(
+                        child: buildRichText(
+                          tear.effect,
+                        ),
+                      )),
+                  if (tear.duration != 0)
+                    Container(
+                        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        child: SingleChildScrollView(
+                          child:
+                              buildRichText("Lasts ${tear.duration} seconds"),
+                        )),
+                  ElevatedButton(
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                title: Text('How to get ${tear.name}:'),
+                                content: SingleChildScrollView(
+                                  child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(tear.howToFind)),
+                                ),
+                                actions: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: linkWidgets,
+                                  ),
+                                ],
+                              ));
+                    },
+                    child: const Text('How to get it'),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:elden_nexus/components/settings/change_language_component.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../components/settings/change_password_component.dart';
+
 /// The `SettingsView` class represents the settings view of the application.
 ///
 /// It extends `StatefulWidget` to create a mutable state for this widget.
@@ -15,7 +17,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// The `Scaffold` widget has an `AppBar` with a title `Text` widget that displays 'Settings'.
 /// The body of the `Scaffold` is a `Padding` widget that contains a `ListView` with `DarkModeSwitchComponent`, `ChangeLanguageComponent`, and `LogOutComponent` components.
 class SettingsView extends StatefulWidget {
-  const SettingsView({super.key});
+  final bool isLogin;
+  SettingsView({this.isLogin = false, super.key});
+
 
   @override
   SettingsViewState createState() => SettingsViewState();
@@ -29,9 +33,15 @@ class SettingsView extends StatefulWidget {
 /// The `Scaffold` widget has an `AppBar` with a title `Text` widget that displays 'Settings'.
 /// The body of the `Scaffold` is a `Padding` widget that contains a `ListView` with `DarkModeSwitchComponent`, `ChangeLanguageComponent`, and `LogOutComponent` components.
 class SettingsViewState extends State<SettingsView> {
+  SharedPreferences? prefs;
   @override
   void initState() {
     super.initState();
+    SharedPreferences.getInstance().then((value) {
+      setState(() {
+        prefs = value;
+      });
+    });
   }
 
   Widget storeButton() {
@@ -74,26 +84,62 @@ class SettingsViewState extends State<SettingsView> {
           showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                    title: Text('RESET SHARED PREFERENCES'),
-                    content: Text('ARE YOU SURE TO WANT TO RESET SHARED PREFERENCES ?'),
+                    title: Text('Reset'),
+                    content: Text('Reset datas ?'),
                     actions: [
                       TextButton(
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        child: Text('NO'),
+                        child: Text('No'),
                       ),
                       TextButton(
                         onPressed: () async {
-                          SharedPreferences prefs = await SharedPreferences.getInstance();
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
                           await prefs.clear();
+                          Get.snackbar('RESET', 'Data reseted !');
+                          Navigator.of(context).pop();
                         },
-                        child: Text('YES'),
+                        child: Text('Yes'),
                       ),
                     ],
                   ));
         },
-        child: Text('RESET STORED DATA'),
+        child: Text('Reset internal datas'),
+      ),
+    );
+  }
+
+  Widget rewriteSharedPreferencesButton() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ElevatedButton(
+        onPressed: () async {
+          showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                    title: Text('Rewrite'),
+                    content: Text('Rewrite datas ?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('No'),
+                      ),
+                      TextButton(
+                        onPressed: () async {
+                          await DatabaseMethods.instance.initDatas();
+                          Get.snackbar('RESET', 'Data re-wrote !');
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('Yes'),
+                      ),
+                    ],
+                  ));
+        },
+        child: Text('Rewrite internal datas'),
       ),
     );
   }
@@ -102,14 +148,21 @@ class SettingsViewState extends State<SettingsView> {
   Widget build(BuildContext context) {
     List<Widget> widgets = [];
     widgets.add(const ChangeLanguageComponent());
+    if (!widget.isLogin)
+      widgets.add(const ChangePasswordComponent());
     widgets.add(const LogOutComponent());
-    widgets.add(storeButton());
-    widgets.add(resetSharedPreferencesButton());
+    bool isErwan = prefs?.getBool('isErwan') ?? false;
+    if (isErwan){
+      widgets.add(storeButton());
+      widgets.add(resetSharedPreferencesButton());
+      widgets.add(rewriteSharedPreferencesButton());
+    }
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
         backgroundColor: Theme.of(context).colorScheme.background,
-        title: Text('settings'.tr),
+        title: Text('Settings'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

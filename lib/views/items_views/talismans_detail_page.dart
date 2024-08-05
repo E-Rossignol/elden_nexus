@@ -30,7 +30,7 @@ class _TalismanDetailPageState extends State<TalismanDetailPage> {
   }
 
   List<TextSpan> _buildTextSpans(String text) {
-    RegExp regExp = RegExp(r'\d+|%|\+'); // Matches any number
+    RegExp regExp = RegExp(r'\d+\w?|%|\+'); // Matches any number
     List<TextSpan> spans = [];
     text.splitMapJoin(
       regExp,
@@ -82,27 +82,21 @@ class _TalismanDetailPageState extends State<TalismanDetailPage> {
     ));
     return PopScope(
       canPop: true,
-      onPopInvoked: (result) {
-        Navigator.pop(context);
-        Widget toPush = TalismansPage(isDlc: tal.image.contains("dlc"));
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => toPush,
-          ),
-        );
-      },
       child: Scaffold(
-        endDrawer: const Drawer(
+        endDrawer: Drawer(
           child: SettingsView(),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: const Icon(Icons.arrow_back),
-        ),
         appBar: AppBar(
+          leading: Builder(builder: (context) {
+            return IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return TalismansPage(isDlc: widget.tal.image.contains("dlc"));
+                }));
+              },
+            );
+          }),
           actions: [
             Builder(
               builder: (context) => IconButton(
@@ -113,15 +107,19 @@ class _TalismanDetailPageState extends State<TalismanDetailPage> {
               ),
             ),
           ],
-          title: Center(
-            child: Text(
-              tal.name.toUpperCase(),
-              style: const TextStyle(fontFamily: 'Mantinia', fontSize: 16),
-              maxLines: 1,
+          title: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Center(
+              child: Text(
+                tal.name.replaceAll("+", "plus ").toUpperCase(),
+                style: const TextStyle(fontFamily: 'Mantinia', fontSize: 16, fontWeight: FontWeight.bold),
+                maxLines: 1,
+              ),
             ),
           ),
         ),
         body: Stack(
+          fit: StackFit.expand,
           children: [
             SizedBox(
               height: MediaQuery.of(context).size.height,

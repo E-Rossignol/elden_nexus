@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:elden_nexus/views/settings_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../firebase/auth/auth.dart';
 import '../constants/theme/theme_provider.dart';
 
@@ -17,15 +18,25 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  SharedPreferences? prefs;
   String? errorMessage;
   bool isLogin = true;
   bool _isPasswordHidden = true;
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+    SharedPreferences.getInstance().then((value) {
+        prefs = value;
+    });
+  }
+
   Future<bool> signInWithEmailAndPassword() async {
     if (Auth().currentUser != null) {
       await Auth().signOut();
+      return false;
     }
     try {
       await Auth().signInWithEmailAndPassword(
@@ -64,9 +75,11 @@ class _LoginPageState extends State<LoginPage> {
   Widget _entryField(String title, TextEditingController controller,
       {bool isPassword = false}) {
     return TextField(
+      style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 22),
       controller: controller,
       obscureText: isPassword ? _isPasswordHidden : false,
       decoration: InputDecoration(
+        labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 20),
         labelText: title,
         suffixIcon: isPassword
             ? IconButton(
@@ -199,12 +212,12 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _googleWidget() {
     return Center(
-      child: Row(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text('Or sign in with',
               style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
-          TextButton(
+          ElevatedButton(
             onPressed: () async {
               await _signInWithGoogle();
             },
@@ -246,29 +259,38 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isErwan = prefs?.getBool('isErwan') ?? false;
     ColorScheme colors = Theme.of(context).colorScheme;
     return PopScope(
       canPop: false,
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, child) {
           return Scaffold(
-            appBar: AppBar(backgroundColor: colors.primary, actions: [
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+                backgroundColor: Colors.black, actions: [
               Builder(
                   builder: (context) => IconButton(
                         onPressed: () {
                           Scaffold.of(context).openEndDrawer();
                         },
                         icon: Icon(
-                          color: colors.onPrimary,
+                          color: colors.primary,
                           Icons.settings,
                         ),
                       )),
             ]),
             endDrawer: Drawer(
               backgroundColor: colors.background,
-              child: const SettingsView(),
+              child: SettingsView(isLogin: true),
             ),
             body: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('lib/constants/images/app/app_background.jpeg'),
+                  fit: BoxFit.cover,
+                ),
+              ),
               height: double.infinity,
               width: double.infinity,
               padding: const EdgeInsets.fromLTRB(20, 50, 20, 50),
@@ -279,13 +301,16 @@ class _LoginPageState extends State<LoginPage> {
                     _space(),
                     _title(),
                     _space(),
-                    _justLogIn(),
+                    if (isErwan)
+                      _justLogIn(),
                     _entryField('Email', _controllerEmail),
                     _entryField('Password', _controllerPassword,
                         isPassword: true),
                     _errorMessage(),
                     _submitButton(),
+                    SizedBox(height: 30),
                     _loginOrRegisterButton(),
+                    SizedBox(height: 30),
                     _googleWidget(),
                   ],
                 ),

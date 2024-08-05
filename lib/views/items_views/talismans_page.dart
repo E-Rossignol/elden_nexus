@@ -8,10 +8,10 @@ import 'package:elden_nexus/views/loading_screen.dart';
 import 'package:elden_nexus/views/routing_view.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import '../../models/talisman.dart';
 import '../home_page.dart';
-import '../welcome_page.dart';
 import 'talismans_detail_page.dart';
 
 class TalismansPage extends StatefulWidget {
@@ -30,7 +30,6 @@ class _TalismansPageState extends State<TalismansPage> {
   late Future<List<String>> futureFoundTals;
   SortOption? selectedSortOption;
   late Future<void> initTalsFuture;
-  Timer? saveTimer;
 
   @override
   void initState() {
@@ -43,7 +42,7 @@ class _TalismansPageState extends State<TalismansPage> {
   Future<void> initTals() async {
     futureFoundTals = db.getUserTalismans(Auth().currentUser!.uid);
     displayedTals = List.from(tals);
-    sortTals(SortOption.name);
+    sortTals(SortOption.defaultSort);
   }
 
   void setFoundtals() async {
@@ -76,63 +75,69 @@ class _TalismansPageState extends State<TalismansPage> {
             displayedTals = List.from(tals);
           });
         }
-        Navigator.pop(context);
-        Widget toPush = HomePage(isDlc: widget.isDlc);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => toPush,
-          ),
-        );
       },
       child: Scaffold(
         endDrawer: Drawer(
           backgroundColor: Theme.of(context).colorScheme.background,
-          child: const SettingsView(),
+          child: SettingsView(),
         ),
         drawer: Drawer(
           backgroundColor: Theme.of(context).colorScheme.background,
           child: const RoutingView(),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: Text('Sort by:'),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ListTile(
-                        title: Text('Name'),
-                        onTap: () {
-                          setState(() {
-                            selectedSortOption = SortOption.name;
-                            sortTals(SortOption.name);
-                          });
-                          Navigator.of(context).pop(); // Close the dialog
-                        },
-                      ),
-                      ListTile(
-                        title: Text('Not Found'),
-                        onTap: () {
-                          setState(() {
-                            selectedSortOption = SortOption.notFound;
-                            sortTals(SortOption.notFound);
-                          });
-                          Navigator.of(context).pop(); // Close the dialog
-                        },
-                      ),
-                    ],
-                  ),
-                );
-              },
-            );
-          },
-          child: const Icon(Icons.sort),
+        floatingActionButton: Opacity(
+          opacity: 0.8,
+          child: FloatingActionButton(
+            backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text('Sort by:'),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ListTile(
+                          title: Text('Default'),
+                          onTap: () {
+                            setState(() {
+                              selectedSortOption = SortOption.defaultSort;
+                              sortTals(SortOption.defaultSort);
+                            });
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                        ),
+                        ListTile(
+                          title: Text('Name'),
+                          onTap: () {
+                            setState(() {
+                              selectedSortOption = SortOption.name;
+                              sortTals(SortOption.name);
+                            });
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                        ),
+                        ListTile(
+                          title: Text('Not Found'),
+                          onTap: () {
+                            setState(() {
+                              selectedSortOption = SortOption.notFound;
+                              sortTals(SortOption.notFound);
+                            });
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            },
+            child: Icon(Icons.sort,
+                color: Theme.of(context).colorScheme.secondaryContainer),
+          ),
         ),
         appBar: AppBar(
           leading: Builder(
@@ -156,7 +161,7 @@ class _TalismansPageState extends State<TalismansPage> {
                     ),
                   );
                 } else {
-                  return const CircularProgressIndicator();
+                  return const Text("");
                 }
               },
             ),
@@ -166,7 +171,7 @@ class _TalismansPageState extends State<TalismansPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const WelcomePage(),
+                    builder: (context) => HomePage(isDlc: widget.isDlc),
                   ),
                 );
               },
@@ -235,14 +240,20 @@ class _TalismansPageState extends State<TalismansPage> {
                                   value: snapshot.data!
                                       .contains(displayedTals[index].name),
                                   onChanged: (bool? value) {
-                                    setState(() {
-                                      if (saveTimer != null) {
-                                        saveTimer!
-                                            .cancel(); // Cancel the previous timer if it's still running
+                                    if (value == true) {
+                                      if (!snapshot.data!.contains(
+                                          displayedTals[index].name)) {
+                                        snapshot.data!
+                                            .add(displayedTals[index].name);
                                       }
-                                      saveTimer = Timer(
-                                          const Duration(milliseconds: 500),
-                                          () async {
+                                    } else {
+                                      if (snapshot.data!.contains(
+                                          displayedTals[index].name)) {
+                                        snapshot.data!.remove(
+                                            displayedTals[index].name);
+                                      }
+                                    }
+                                    setState(() async {
                                         if (value!) {
                                           await db.addUserTalisman(
                                               displayedTals[index].name,
@@ -253,20 +264,6 @@ class _TalismansPageState extends State<TalismansPage> {
                                               Auth().currentUser!.uid);
                                         }
                                       });
-                                      if (value == true) {
-                                        if (!snapshot.data!.contains(
-                                            displayedTals[index].name)) {
-                                          snapshot.data!
-                                              .add(displayedTals[index].name);
-                                        }
-                                      } else {
-                                        if (snapshot.data!.contains(
-                                            displayedTals[index].name)) {
-                                          snapshot.data!.remove(
-                                              displayedTals[index].name);
-                                        }
-                                      }
-                                    });
                                   },
                                   title: SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
@@ -326,7 +323,10 @@ class _TalismansPageState extends State<TalismansPage> {
                       ),
                     );
                   } else {
-                    return const CircularProgressIndicator();
+                    return SpinKitSpinningLines(
+                      color: Theme.of(context).colorScheme.primary,
+                      size: 50.0,
+                    );
                   }
                 },
               ),
@@ -351,6 +351,171 @@ class _TalismansPageState extends State<TalismansPage> {
                 tals.where((tal) => !foundtals.contains(tal.name)).toList();
             displayedTals.sort((a, b) => a.name.compareTo(b.name));
           });
+        });
+      } else if (option == SortOption.defaultSort) {
+        List<String> defaultSortOrder = [
+          "Crimson Amber Medallion",
+          "Crimson Amber Medallion +1",
+          "Crimson Amber Medallion +2",
+          "Crimson Seed Talisman",
+          "Blessed Dew Talisman",
+          "Cerulean Amber Medallion",
+          "Cerulean Amber Medallion +1",
+          "Cerulean Amber Medallion +2",
+          "Cerulean Seed Talisman",
+          "Viridian Amber Medallion",
+          "Viridian Amber Medallion +1",
+          "Viridian Amber Medallion +2",
+          "Green Turtle Talisman",
+          "Arsenal Charm",
+          "Arsenal Charm +1",
+          "Great-jar's Arsenal",
+          "Erdtree's Favor",
+          "Erdtree's Favor +1",
+          "Erdtree's Favor +2",
+          "Radagon's Scarseal",
+          "Radagon's Soreseal",
+          "Marika's Scarseal",
+          "Marika's Soreseal",
+          "Starscourge Heirloom",
+          "Prosthesis-Wearer Heirloom",
+          "Stargazer Heirloom",
+          "Two Fingers Heirloom",
+          "Dragoncrest Shield Talisman",
+          "Dragoncrest Shield Talisman +1",
+          "Dragoncrest Shield Talisman +2",
+          "Dragoncrest Greatshield Talisman",
+          "Spelldrake Talisman",
+          "Spelldrake Talisman +1",
+          "Spelldrake Talisman +2",
+          "Flamedrake Talisman",
+          "Flamedrake Talisman +1",
+          "Flamedrake Talisman +2",
+          "Boltdrake Talisman",
+          "Boltdrake Talisman +1",
+          "Boltdrake Talisman +2",
+          "Haligdrake Talisman",
+          "Haligdrake Talisman +1",
+          "Haligdrake Talisman +2",
+          "Pearldrake Talisman",
+          "Pearldrake Talisman +1",
+          "Pearldrake Talisman +2",
+          "Immunizing Horn Charm",
+          "Immunizing Horn Charm +1",
+          "Stalwart Horn Charm",
+          "Stalwart Horn Charm +1",
+          "Clarifying Horn Charm",
+          "Clarifying Horn Charm +1",
+          "Mottled Necklace",
+          "Mottled Necklace +1",
+          "Prince Of Death's Pustule",
+          "Prince Of Death's Cyst",
+          "Dagger Talisman",
+          "Curved Sword Talisman",
+          "Twinblade Talisman",
+          "Axe Talisman",
+          "Hammer Talisman",
+          "Spear Talisman",
+          "Lance Talisman",
+          "Claw Talisman",
+          "Greatshield Talisman",
+          "Arrow's Sting Talisman",
+          "Arrow's Reach Talisman",
+          "Graven-school Talisman",
+          "Graven-mass Talisman",
+          "Faithful's Canvas Talisman",
+          "Flock's Canvas Talisman",
+          "Primal Glintstone Blade",
+          "Moon Of Nokstella",
+          "Old Lord's Talisman",
+          "Radagon Icon",
+          "Roar Medallion",
+          "Companion Jar",
+          "Perfumer's Talisman",
+          "Carian Filigreed Crest",
+          "Warrior Jar Shard",
+          "Shard Of Alexander",
+          "Godfrey Icon",
+          "Bull-goat's Talisman",
+          "Blue Dancer Charm",
+          "Magic Scorpion Charm",
+          "Fire Scorpion Charm",
+          "Lightning Scorpion Charm",
+          "Sacred Scorpion Charm",
+          "Crucible Scale Talisman",
+          "Crucible Feather Talisman",
+          "Crucible Knot Talisman",
+          "Red-feathered Branchsword",
+          "Blue-feathered Branchsword",
+          "Ritual Sword Talisman",
+          "Ritual Shield Talisman",
+          "Assassin's Crimson Dagger",
+          "Assassin's Cerulean Dagger",
+          "Winged Sword Insignia",
+          "Rotten Winged Sword Insignia",
+          "Millicent's Prosthesis",
+          "Godskin Swaddling Cloth",
+          "Kindred Of Rot's Exultation",
+          "Lord Of Blood's Exultation",
+          "Taker's Cameo",
+          "Ancestral Spirit's Horn",
+          "Gold Scarab",
+          "Silver Scarab",
+          "Crepus's Vial",
+          "Concealing Veil",
+          "Longtail Cat Talisman",
+          "Furled Finger's Trick-mirror",
+          "Host's Trick-mirror",
+          "Shabriri's Woe",
+          "Daedicar's Woe",
+          "Sacrificial Twig",
+          "Entwining Umbilical Cord",
+
+          "Crimson Amber Medallion +3",
+          "Cerulean Amber Medallion +3",
+          "Viridian Amber Medallion +3",
+          "Two-Headed Turtle Talisman",
+          "Stalwart Horn Charm +2",
+          "Immunizing Horn Charm +2",
+          "Clarifying Horn Charm +2",
+          "Mottled Necklace +2",
+          "Spelldrake Talisman +3",
+          "Flamedrake Talisman +3",
+          "Boltdrake Talisman +3",
+          "Golden Braid",
+          "Pearldrake Talisman +3",
+          "Crimson Seed Talisman +1",
+          "Cerulean Seed Talisman +1",
+          "Blessed Blue Dew Talisman",
+          "Fine Crucible Feather Talisman",
+          "Outer God Heirloom",
+          "Shattered Stone Talisman",
+          "Two-Handed Sword Talisman",
+          "Crusade Insignia",
+          "Aged One's Exultation",
+          "Arrow's Soaring Sting Talisman",
+          "Pearl Shield Talisman",
+          "Dried Bouquet",
+          "Smithing Talisman",
+          "Ailment Talisman",
+          "Retaliatory Crossed-Tree",
+          "Lacerating Crossed-tree",
+          "Sharpshot Talisman",
+          "St-Trina's Smile",
+          "Talisman of the Dread",
+          "Enraged Divine Beast",
+          "Beloved Stardust",
+          "Talisman of Lord's Bestowal",
+          "Verdigris Discus",
+          "Rellana's Cameo",
+          "Blade of Mercy",
+          "Talisman of All Crucibles"
+        ];
+        setState(() {
+          displayedTals = tals;
+          displayedTals.sort((a, b) => defaultSortOrder
+              .indexOf(a.name)
+              .compareTo(defaultSortOrder.indexOf(b.name)));
         });
       }
     });
@@ -412,7 +577,7 @@ class talsSearch extends SearchDelegate<Talisman> {
         ? tals
         : tals
             .where(
-                (tal) => tal.name.toLowerCase().startsWith(query.toLowerCase()))
+                (tal) => tal.name.toLowerCase().contains(query.toLowerCase()))
             .toList();
 
     return _buildSuggestionList(suggestionList);
@@ -434,4 +599,4 @@ class talsSearch extends SearchDelegate<Talisman> {
   }
 }
 
-enum SortOption { name, notFound }
+enum SortOption { name, notFound, defaultSort }

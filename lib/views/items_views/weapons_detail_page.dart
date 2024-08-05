@@ -491,18 +491,8 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
     ));
     return PopScope(
       canPop: true,
-      onPopInvoked: (result) {
-        Navigator.pop(context);
-        Widget toPush = WeaponsPage(isDlc: weapon.image.contains("dlc"));
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => toPush,
-          ),
-        );
-      },
       child: Scaffold(
-        endDrawer: const Drawer(
+        endDrawer: Drawer(
           child: SettingsView(),
         ),
         appBar: AppBar(
@@ -535,7 +525,9 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
             ),
           ),
         ),
-        body: Stack(children: [
+        body: Stack(
+          fit: StackFit.expand,
+            children: [
           SizedBox(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,

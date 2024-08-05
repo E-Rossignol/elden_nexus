@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});
@@ -10,21 +11,35 @@ class LoadingScreen extends StatefulWidget {
 class _LoadingScreenState extends State<LoadingScreen> {
   @override
   Widget build(BuildContext context) {
+
     return Stack(
       fit: StackFit.expand,
       children: [
-        // Background color or image
-        DecoratedBox(
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
-          ),
+        Image.asset(
+          'lib/constants/images/app/background.jpeg',
+          fit: BoxFit.cover,
         ),
         Center(
-          child: CircularProgressIndicator(
-            strokeWidth: 5,
-            backgroundColor: Theme.of(context).colorScheme.secondary,
-            valueColor: AlwaysStoppedAnimation<Color>(
-                Theme.of(context).colorScheme.primary),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.5,
+              ),
+              SpinKitCubeGrid(
+                color: Theme.of(context).colorScheme.primary,
+                size: 50.0,
+              ),
+              SizedBox(height: 20),
+              Text(
+                "Loading".toUpperCase(),
+                style: TextStyle(
+                  fontFamily: 'Mantinia',
+                  color: Theme.of(context).colorScheme.onBackground,
+                  fontSize: 22,
+                ),
+              ),
+            ],
           ),
         ),
       ],

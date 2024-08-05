@@ -52,8 +52,9 @@ class _RoutingViewState extends State<RoutingView>
           children: [
             ListTile(
               title: Text(
-                'Elden Ring',
+                'Base Game'.toUpperCase(),
                 style: TextStyle(
+                  fontFamily: "Mantinia",
                   color: Theme.of(context).colorScheme.onPrimaryContainer,
                   fontSize: 20,
                 ),
@@ -171,10 +172,11 @@ class _RoutingViewState extends State<RoutingView>
                       ).createShader(bounds);
                     },
                     child: Text(
-                      'Shadow of the Erdtree',
+                      'Shadow of the Erdtree'.toUpperCase(),
                       style: TextStyle(
+                        fontFamily: "Mantinia",
                         color: Theme.of(context).colorScheme.onPrimaryContainer,
-                        fontSize: 20,
+                        fontSize: 17,
                       ),
                     ),
                   );

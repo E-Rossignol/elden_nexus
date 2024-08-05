@@ -9,10 +9,10 @@ import 'package:elden_nexus/views/loading_screen.dart';
 import 'package:elden_nexus/views/routing_view.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import '../../models/armor.dart';
 import '../home_page.dart';
-import '../welcome_page.dart';
 import 'armors_detail_page.dart';
 
 class ArmorsPage extends StatefulWidget {
@@ -31,7 +31,6 @@ class _ArmorsPageState extends State<ArmorsPage> {
   late Future<List<String>> futureFoundArmors;
   SortOption? selectedSortOption;
   late Future<void> initArmorsFuture;
-  Timer? saveTimer;
 
   @override
   void initState() {
@@ -77,83 +76,78 @@ class _ArmorsPageState extends State<ArmorsPage> {
             displayedArmors = List.from(armors);
           });
         }
-        Navigator.pop(context);
-        Widget toPush = HomePage(isDlc: widget.isDlc);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => toPush,
-          ),
-        );
       },
       child: Scaffold(
         endDrawer: Drawer(
           backgroundColor: Theme.of(context).colorScheme.background,
-          child: const SettingsView(),
+          child: SettingsView(),
         ),
         drawer: Drawer(
           backgroundColor: Theme.of(context).colorScheme.background,
           child: const RoutingView(),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: Text('Sort by:'),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ListTile(
-                        title: Text('Set'),
-                        onTap: () {
-                          setState(() {
-                            selectedSortOption = SortOption.set;
-                            sortArmors(SortOption.set);
-                          });
-                          Navigator.of(context).pop(); // Close the dialog
-                        },
-                      ),
-                      ListTile(
-                        title: Text('Armor Piece'),
-                        onTap: () {
-                          setState(() {
-                            selectedSortOption = SortOption.type;
-                            sortArmors(SortOption.type);
-                          });
-                          Navigator.of(context).pop(); // Close the dialog
-                        },
-                      ),
-                      ListTile(
-                        title: Text('Name'),
-                        onTap: () {
-                          setState(() {
-                            selectedSortOption = SortOption.name;
-                            sortArmors(SortOption.name);
-                          });
-                          Navigator.of(context).pop(); // Close the dialog
-                        },
-                      ),
-                      ListTile(
-                        title: Text('Not Found'),
-                        onTap: () {
-                          setState(() {
-                            selectedSortOption = SortOption.notFound;
-                            sortArmors(SortOption.notFound);
-                          });
-                          Navigator.of(context).pop(); // Close the dialog
-                        },
-                      ),
-                    ],
-                  ),
-                );
-              },
-            );
-          },
-          child: const Icon(Icons.sort),
+        floatingActionButton: Opacity(
+          opacity: 0.8,
+          child: FloatingActionButton(
+            backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text('Sort by:'),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ListTile(
+                          title: Text('Set'),
+                          onTap: () {
+                            setState(() {
+                              selectedSortOption = SortOption.set;
+                              sortArmors(SortOption.set);
+                            });
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                        ),
+                        ListTile(
+                          title: Text('Armor Piece'),
+                          onTap: () {
+                            setState(() {
+                              selectedSortOption = SortOption.type;
+                              sortArmors(SortOption.type);
+                            });
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                        ),
+                        ListTile(
+                          title: Text('Name'),
+                          onTap: () {
+                            setState(() {
+                              selectedSortOption = SortOption.name;
+                              sortArmors(SortOption.name);
+                            });
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                        ),
+                        ListTile(
+                          title: Text('Not Found'),
+                          onTap: () {
+                            setState(() {
+                              selectedSortOption = SortOption.notFound;
+                              sortArmors(SortOption.notFound);
+                            });
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            },
+            child: Icon(Icons.sort, color: Theme.of(context).colorScheme.secondaryContainer),
+          ),
         ),
         appBar: AppBar(
           leading: Builder(
@@ -177,7 +171,7 @@ class _ArmorsPageState extends State<ArmorsPage> {
                     ),
                   );
                 } else {
-                  return const CircularProgressIndicator();
+                  return Text("", style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 20));
                 }
               },
             ),
@@ -187,7 +181,7 @@ class _ArmorsPageState extends State<ArmorsPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const WelcomePage(),
+                    builder: (context) => HomePage(isDlc: widget.isDlc),
                   ),
                 );
               },
@@ -255,25 +249,8 @@ class _ArmorsPageState extends State<ArmorsPage> {
                                 child: CheckboxListTile(
                                   value: snapshot.data!
                                       .contains(displayedArmors[index].name),
-                                  onChanged: (bool? value) {
+                                  onChanged: (bool? value) async {
                                     setState(() {
-                                      if (saveTimer != null) {
-                                        saveTimer!
-                                            .cancel(); // Cancel the previous timer if it's still running
-                                      }
-                                      saveTimer = Timer(
-                                          const Duration(milliseconds: 500),
-                                          () async {
-                                        if (value!) {
-                                          await db.addUserArmor(
-                                              displayedArmors[index].name,
-                                              Auth().currentUser!.uid);
-                                        } else {
-                                          await db.removeUserArmor(
-                                              displayedArmors[index].name,
-                                              Auth().currentUser!.uid);
-                                        }
-                                      });
                                       if (value == true) {
                                         if (!snapshot.data!.contains(
                                             displayedArmors[index].name)) {
@@ -287,7 +264,16 @@ class _ArmorsPageState extends State<ArmorsPage> {
                                               displayedArmors[index].name);
                                         }
                                       }
-                                    });
+                                      });
+                                    if (value!) {
+                                      await db.addUserArmor(
+                                          displayedArmors[index].name,
+                                          Auth().currentUser!.uid);
+                                    } else {
+                                      await db.removeUserArmor(
+                                          displayedArmors[index].name,
+                                          Auth().currentUser!.uid);
+                                    }
                                   },
                                   title: SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
@@ -347,7 +333,10 @@ class _ArmorsPageState extends State<ArmorsPage> {
                       ),
                     );
                   } else {
-                    return const CircularProgressIndicator();
+                    return SpinKitSpinningLines(
+                      color: Theme.of(context).colorScheme.primary,
+                      size: 50.0,
+                    );
                   }
                 },
               ),
@@ -463,7 +452,7 @@ class armorsSearch extends SearchDelegate<Armor> {
         ? armors
         : armors
             .where((armor) =>
-                armor.name.toLowerCase().startsWith(query.toLowerCase()))
+                armor.name.toLowerCase().contains(query.toLowerCase()))
             .toList();
 
     return _buildSuggestionList(suggestionList);

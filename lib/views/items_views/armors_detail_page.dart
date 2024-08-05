@@ -55,27 +55,21 @@ class _ArmorDetailPageState extends State<ArmorDetailPage> {
     ));
     return PopScope(
       canPop: true,
-      onPopInvoked: (result) {
-        Navigator.pop(context);
-        Widget toPush = ArmorsPage(isDlc: armor.image.contains("dlc"));
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => toPush,
-          ),
-        );
-      },
       child: Scaffold(
-        endDrawer: const Drawer(
+        endDrawer: Drawer(
           child: SettingsView(),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: const Icon(Icons.arrow_back),
-        ),
         appBar: AppBar(
+          leading: Builder(builder: (context) {
+            return IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return ArmorsPage(isDlc: widget.armor.image.contains("dlc"));
+                }));
+              },
+            );
+          }),
           automaticallyImplyLeading: false,
           actions: [
             Builder(
@@ -96,6 +90,7 @@ class _ArmorDetailPageState extends State<ArmorDetailPage> {
           ),
         ),
         body: Stack(
+          fit: StackFit.expand,
           children: [
             SizedBox(
               height: MediaQuery.of(context).size.height,

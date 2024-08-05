@@ -47,7 +47,7 @@ class DatabaseMethods {
       await prefs.setStringList('mainGameWeapons', weaponStrings);
       _mainGameWeapons = weapons;
     }
-    else {
+    else if (_mainGameWeapons.isEmpty){
       List<String>? weaponStrings = prefs.getStringList('mainGameWeapons');
       for (String weaponStr in weaponStrings!){
         _mainGameWeapons.add(Weapon.fromMap(jsonDecode(weaponStr)));
@@ -63,7 +63,7 @@ class DatabaseMethods {
       await prefs.setStringList('mainGameTalismans', talismanStrings);
       _mainGameTalismans = talismans;
     }
-    else {
+    else if (_mainGameTalismans.isEmpty){
       List<String>? talismanStrings = prefs.getStringList('mainGameTalismans');
       for (String talismanStr in talismanStrings!){
         _mainGameTalismans.add(Talisman.fromMap(jsonDecode(talismanStr)));
@@ -79,7 +79,7 @@ class DatabaseMethods {
       await prefs.setStringList('mainGameArmors', armorStrings);
       _mainGameArmors = armors;
     }
-    else {
+    else if (_mainGameArmors.isEmpty){
       List<String>? armorStrings = prefs.getStringList('mainGameArmors');
       for (String armorStr in armorStrings!){
         _mainGameArmors.add(Armor.fromMap(jsonDecode(armorStr)));
@@ -95,7 +95,7 @@ class DatabaseMethods {
       await prefs.setStringList('mainGameIncantations', incantationStrings);
       _mainGameIncantations = incantations;
     }
-    else {
+    else if (_mainGameIncantations.isEmpty){
       List<String>? incantationStrings = prefs.getStringList('mainGameIncantations');
       for (String incantationStr in incantationStrings!){
         _mainGameIncantations.add(Incantation.fromMap(jsonDecode(incantationStr)));
@@ -111,7 +111,7 @@ class DatabaseMethods {
       await prefs.setStringList('mainGameSorceries', sorceryStrings);
       _mainGameSorceries = sorceries;
     }
-    else {
+    else if (_mainGameSorceries.isEmpty){
       List<String>? sorceryStrings = prefs.getStringList('mainGameSorceries');
       for (String sorceryStr in sorceryStrings!){
         _mainGameSorceries.add(Sorcery.fromMap(jsonDecode(sorceryStr)));
@@ -127,7 +127,7 @@ class DatabaseMethods {
       await prefs.setStringList('mainGameTears', tearStrings);
       _mainGameTears = tears;
     }
-    else {
+    else if (_mainGameTears.isEmpty){
       List<String>? tearStrings = prefs.getStringList('mainGameTears');
       for (String tearStr in tearStrings!){
         _mainGameTears.add(Tear.fromMap(jsonDecode(tearStr)));
@@ -143,7 +143,7 @@ class DatabaseMethods {
       await prefs.setStringList('mainGameAshesOfWar', ashStrings);
       _mainGameAshesOfWar = ashesOfWar;
     }
-    else {
+    else if (_mainGameAshesOfWar.isEmpty){
       List<String>? ashStrings = prefs.getStringList('mainGameAshesOfWar');
       for (String ashStr in ashStrings!){
         _mainGameAshesOfWar.add(AshOfWar.fromMap(jsonDecode(ashStr)));
@@ -159,7 +159,7 @@ class DatabaseMethods {
       await prefs.setStringList('soteWeapons', weaponStrings);
       _soteWeapons = weapons;
     }
-    else {
+    else if (_soteWeapons.isEmpty){
       List<String>? weaponStrings = prefs.getStringList('soteWeapons');
       for (String weaponStr in weaponStrings!){
         _soteWeapons.add(Weapon.fromMap(jsonDecode(weaponStr)));
@@ -175,7 +175,7 @@ class DatabaseMethods {
       await prefs.setStringList('soteTalismans', talismanStrings);
       _soteTalismans = talismans;
     }
-    else {
+    else if (_soteTalismans.isEmpty){
       List<String>? talismanStrings = prefs.getStringList('soteTalismans');
       for (String talismanStr in talismanStrings!){
         _soteTalismans.add(Talisman.fromMap(jsonDecode(talismanStr)));
@@ -191,7 +191,7 @@ class DatabaseMethods {
       await prefs.setStringList('soteArmors', armorStrings);
       _soteArmors = armors;
     }
-    else {
+    else if (_soteArmors.isEmpty){
       List<String>? armorStrings = prefs.getStringList('soteArmors');
       for (String armorStr in armorStrings!){
         _soteArmors.add(Armor.fromMap(jsonDecode(armorStr)));
@@ -207,7 +207,7 @@ class DatabaseMethods {
       await prefs.setStringList('soteIncantations', incantationStrings);
       _soteIncantations = incantations;
     }
-    else {
+    else if (_soteIncantations.isEmpty){
       List<String>? incantationStrings = prefs.getStringList('soteIncantations');
       for (String incantationStr in incantationStrings!){
         _soteIncantations.add(Incantation.fromMap(jsonDecode(incantationStr)));
@@ -223,7 +223,7 @@ class DatabaseMethods {
       await prefs.setStringList('soteSorceries', sorceryStrings);
       _soteSorceries = sorceries;
     }
-    else {
+    else if (_soteSorceries.isEmpty){
       List<String>? sorceryStrings = prefs.getStringList('soteSorceries');
       for (String sorceryStr in sorceryStrings!){
         _soteSorceries.add(Sorcery.fromMap(jsonDecode(sorceryStr)));
@@ -239,7 +239,7 @@ class DatabaseMethods {
       await prefs.setStringList('soteTears', tearStrings);
       _soteTears = tears;
     }
-    else {
+    else if (_soteTears.isEmpty){
       List<String>? tearStrings = prefs.getStringList('soteTears');
       for (String tearStr in tearStrings!){
         _soteTears.add(Tear.fromMap(jsonDecode(tearStr)));
@@ -255,7 +255,7 @@ class DatabaseMethods {
       await prefs.setStringList('soteAshesOfWar', ashStrings);
       _soteAshesOfWar = ashesOfWar;
     }
-    else {
+    else if (_soteAshesOfWar.isEmpty){
       List<String>? ashStrings = prefs.getStringList('soteAshesOfWar');
       for (String ashStr in ashStrings!){
         _soteAshesOfWar.add(AshOfWar.fromMap(jsonDecode(ashStr)));
@@ -293,9 +293,6 @@ class DatabaseMethods {
 
   Future<List<Talisman>?> getAllTalismans(bool isDlc) async {
     String tableName = isDlc ? 'allSOTETalismans' : 'allMainGameTalismans';
-    if (!isDlc) {
-      return allTalismans();
-    }
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection(tableName).get();
     List<Talisman> talismans = [];
@@ -658,7 +655,6 @@ class DatabaseMethods {
   // ONCE DATA ARE IN
   Future<void> storeAll() async {
     //await storeAllMainGameWeapons();
-    //await storeAllMainGameTalismans();
     //await storeAllMainGameArmors();
     //await storeAllSOTEArmors();
     //await storeAllSOTETears();
@@ -672,15 +668,6 @@ class DatabaseMethods {
       await FirebaseFirestore.instance
           .collection('allMainGameWeapons')
           .add(weapon.toMap());
-    }
-  }
-
-  Future<void> storeAllMainGameTalismans() async {
-    List<Talisman> tals = allTalismans();
-    for (Talisman tal in tals) {
-      await FirebaseFirestore.instance
-          .collection('allMainGameTalismans')
-          .add(tal.toMap());
     }
   }
 

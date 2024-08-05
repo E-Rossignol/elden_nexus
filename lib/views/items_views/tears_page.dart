@@ -8,10 +8,10 @@ import 'package:elden_nexus/views/loading_screen.dart';
 import 'package:elden_nexus/views/routing_view.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import '../../models/tear.dart';
 import '../home_page.dart';
-import '../welcome_page.dart';
 import 'tears_detail_page.dart';
 
 class TearsPage extends StatefulWidget {
@@ -30,7 +30,6 @@ class _TearsPageState extends State<TearsPage> {
   late Future<List<String>> futureFoundTears;
   SortOption? selectedSortOption;
   late Future<void> initTearsFuture;
-  Timer? saveTimer;
 
   @override
   void initState() {
@@ -43,7 +42,7 @@ class _TearsPageState extends State<TearsPage> {
   Future<void> initTals() async {
     futureFoundTears = db.getUserTears(Auth().currentUser!.uid);
     displayedTears = List.from(tears);
-    sortTals(SortOption.name);
+    sortTals(SortOption.defaultSort);
   }
 
   void setFoundtals() async {
@@ -76,63 +75,68 @@ class _TearsPageState extends State<TearsPage> {
             displayedTears = List.from(tears);
           });
         }
-        Navigator.pop(context);
-        Widget toPush = HomePage(isDlc: widget.isDlc);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => toPush,
-          ),
-        );
       },
       child: Scaffold(
         endDrawer: Drawer(
           backgroundColor: Theme.of(context).colorScheme.background,
-          child: const SettingsView(),
+          child: SettingsView(),
         ),
         drawer: Drawer(
           backgroundColor: Theme.of(context).colorScheme.background,
           child: const RoutingView(),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: Text('Sort by:'),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ListTile(
-                        title: Text('Name'),
-                        onTap: () {
-                          setState(() {
-                            selectedSortOption = SortOption.name;
-                            sortTals(SortOption.name);
-                          });
-                          Navigator.of(context).pop(); // Close the dialog
-                        },
-                      ),
-                      ListTile(
-                        title: Text('Not Found'),
-                        onTap: () {
-                          setState(() {
-                            selectedSortOption = SortOption.notFound;
-                            sortTals(SortOption.notFound);
-                          });
-                          Navigator.of(context).pop(); // Close the dialog
-                        },
-                      ),
-                    ],
-                  ),
-                );
-              },
-            );
-          },
-          child: const Icon(Icons.sort),
+        floatingActionButton: Opacity(
+          opacity: 0.8,
+          child: FloatingActionButton(
+            backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text('Sort by:'),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ListTile(
+                          title: Text('Default'),
+                          onTap: () {
+                            setState(() {
+                              selectedSortOption = SortOption.defaultSort;
+                              sortTals(SortOption.defaultSort);
+                            });
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                        ),
+                        ListTile(
+                          title: Text('Name'),
+                          onTap: () {
+                            setState(() {
+                              selectedSortOption = SortOption.name;
+                              sortTals(SortOption.name);
+                            });
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                        ),
+                        ListTile(
+                          title: Text('Not Found'),
+                          onTap: () {
+                            setState(() {
+                              selectedSortOption = SortOption.notFound;
+                              sortTals(SortOption.notFound);
+                            });
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            },
+            child: Icon(Icons.sort, color: Theme.of(context).colorScheme.secondaryContainer),
+          ),
         ),
         appBar: AppBar(
           leading: Builder(
@@ -156,7 +160,7 @@ class _TearsPageState extends State<TearsPage> {
                     ),
                   );
                 } else {
-                  return const CircularProgressIndicator();
+                  return const Text("");
                 }
               },
             ),
@@ -166,7 +170,7 @@ class _TearsPageState extends State<TearsPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const WelcomePage(),
+                    builder: (context) => HomePage(isDlc: widget.isDlc),
                   ),
                 );
               },
@@ -194,7 +198,11 @@ class _TearsPageState extends State<TearsPage> {
             ),
           ],
         ),
-        body: Center(
+        body: displayedTears.length == 0 ?
+        Center(
+          child: Text("Nothing to display".toUpperCase(), style: TextStyle(color: Theme.of(context).colorScheme.onBackground, fontSize: 20, fontFamily: 'Mantinia')
+        ))
+        :Center(
           child: Column(
             children: [
               FutureBuilder(
@@ -234,24 +242,7 @@ class _TearsPageState extends State<TearsPage> {
                                 child: CheckboxListTile(
                                   value: snapshot.data!
                                       .contains(displayedTears[index].name),
-                                  onChanged: (bool? value) {
-                                    if (saveTimer != null) {
-                                      saveTimer!
-                                          .cancel(); // Cancel the previous timer if it's still running
-                                    }
-                                    saveTimer =
-                                        Timer(const Duration(milliseconds: 500),
-                                            () async {
-                                      if (value!) {
-                                        await db.addUserTear(
-                                            displayedTears[index].name,
-                                            Auth().currentUser!.uid);
-                                      } else {
-                                        await db.removeUserTear(
-                                            displayedTears[index].name,
-                                            Auth().currentUser!.uid);
-                                      }
-                                    });
+                                  onChanged: (bool? value) async {
                                     setState(() {
                                       if (value == true) {
                                         if (!snapshot.data!.contains(
@@ -267,6 +258,15 @@ class _TearsPageState extends State<TearsPage> {
                                         }
                                       }
                                     });
+                                      if (value!) {
+                                        await db.addUserTear(
+                                            displayedTears[index].name,
+                                            Auth().currentUser!.uid);
+                                      } else {
+                                        await db.removeUserTear(
+                                            displayedTears[index].name,
+                                            Auth().currentUser!.uid);
+                                      }
                                   },
                                   title: SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
@@ -326,7 +326,10 @@ class _TearsPageState extends State<TearsPage> {
                       ),
                     );
                   } else {
-                    return const CircularProgressIndicator();
+                    return SpinKitSpinningLines(
+                      color: Theme.of(context).colorScheme.primary,
+                      size: 50.0,
+                    );
                   }
                 },
               ),
@@ -351,6 +354,51 @@ class _TearsPageState extends State<TearsPage> {
                 tears.where((tal) => !foundtals.contains(tal.name)).toList();
             displayedTears.sort((a, b) => a.name.compareTo(b.name));
           });
+        });
+      }
+      else if (option == SortOption.defaultSort){
+        List<String> defaultOrder = [
+          "Crimson Crystal Tear",
+          "Crimsonspill Crystal Tear",
+          "Crimsonburst Crystal Tear",
+          "Crimsonburst Dried Tear",
+          "Cerulean Crystal Tear",
+          "Greenspill Crystal Tear",
+          "Greenburst Crystal Tear",
+          "Strength-knot Crystal Tear",
+          "Dexterity-knot Crystal Tear",
+          "Intelligence-knot Crystal Tear",
+          "Faith-knot Crystal Tear",
+          "Opaline Hardtear",
+          "Speckled Hardtear",
+          "Leaden Hardtear",
+          "Deflecting Hardtear",
+          "Magic-shrouding Cracked Tear",
+          "Flame-shrouding Cracked Tear",
+          "Lightning-shrouding Cracked Tear",
+          "Holy-shrouding Cracked Tear",
+          "Stonebarb Cracked Tear",
+          "Spiked Cracked Tear",
+          "Thorny Cracked Tear",
+          "Crimson-Sapping Cracked Tear",
+          "Cerulean-Sapping Cracked Tear",
+          "Bloddsucking Cracked Tear",
+          "Twiggy Cracked Tear",
+          "Winged Crystal Tear",
+          "Windy Crystal Tear",
+          "Glovewort Crystal Tear",
+          "Crimson Bubbletear",
+          "Crimsonwhorl Bubbletear",
+          "Opaline Bubbletear",
+          "Cerulean Hidden Tear",
+          "Viridian Hidden Tear",
+          "Purifying Crystal Tear",
+          "Ruptured Crystal Tear",
+          "Oil-Soacked Tear",
+        ];
+        setState(() {
+          displayedTears = tears;
+          displayedTears.sort((a, b) => defaultOrder.indexOf(a.name).compareTo(defaultOrder.indexOf(b.name)));
         });
       }
     });
@@ -411,7 +459,7 @@ class talsSearch extends SearchDelegate<Tear> {
         ? tals
         : tals
             .where(
-                (tal) => tal.name.toLowerCase().startsWith(query.toLowerCase()))
+                (tal) => tal.name.toLowerCase().contains(query.toLowerCase()))
             .toList();
 
     return _buildSuggestionList(suggestionList);
@@ -433,4 +481,4 @@ class talsSearch extends SearchDelegate<Tear> {
   }
 }
 
-enum SortOption { name, notFound }
+enum SortOption { name, notFound, defaultSort }
