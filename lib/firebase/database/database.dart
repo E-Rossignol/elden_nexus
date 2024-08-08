@@ -50,7 +50,7 @@ class DatabaseMethods {
     }
     await Future.delayed(const Duration(seconds: 2));
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.getStringList('mainGameWeapons') == null) {
+    if (prefs.getStringList('mainGameWeapons') == null || prefs.getStringList('mainGameWeapons')!.isEmpty) {
       List<Weapon> weapons = await getAllWeapons(false) ?? [];
       List<String> weaponStrings = [];
       for (Weapon weapon in weapons){
@@ -66,7 +66,7 @@ class DatabaseMethods {
       }
     }
 
-    if (prefs.getStringList('mainGameTalismans') == null) {
+    if (prefs.getStringList('mainGameTalismans') == null|| prefs.getStringList('mainGameTalismans')!.isEmpty) {
       List<Talisman> talismans = await getAllTalismans(false) ?? [];
       List<String> talismanStrings = [];
       for (Talisman talisman in talismans){
@@ -82,7 +82,7 @@ class DatabaseMethods {
       }
     }
 
-    if (prefs.getStringList('mainGameArmors') == null) {
+    if (prefs.getStringList('mainGameArmors') == null|| prefs.getStringList('mainGameArmors')!.isEmpty) {
       List<Armor> armors = await getAllArmors(false) ?? [];
       List<String> armorStrings = [];
       for (Armor armor in armors){
@@ -98,7 +98,7 @@ class DatabaseMethods {
       }
     }
 
-    if (prefs.getStringList('mainGameIncantations') == null) {
+    if (prefs.getStringList('mainGameIncantations') == null || prefs.getStringList('mainGameIncantations')!.isEmpty) {
       List<Incantation> incantations = await getAllIncantations(false) ?? [];
       List<String> incantationStrings = [];
       for (Incantation incantation in incantations){
@@ -114,7 +114,7 @@ class DatabaseMethods {
       }
     }
 
-    if (prefs.getStringList('mainGameSorceries') == null) {
+    if (prefs.getStringList('mainGameSorceries') == null || prefs.getStringList('mainGameSorceries')!.isEmpty) {
       List<Sorcery> sorceries = await getAllSorceries(false) ?? [];
       List<String> sorceryStrings = [];
       for (Sorcery sorcery in sorceries){
@@ -130,7 +130,7 @@ class DatabaseMethods {
       }
     }
 
-    if (prefs.getStringList('mainGameTears') == null) {
+    if (prefs.getStringList('mainGameTears') == null || prefs.getStringList('mainGameTears')!.isEmpty) {
       List<Tear> tears = await getAllTears(false) ?? [];
       List<String> tearStrings = [];
       for (Tear tear in tears){
@@ -146,7 +146,7 @@ class DatabaseMethods {
       }
     }
 
-    if (prefs.getStringList('mainGameAshesOfWar') == null) {
+    if (prefs.getStringList('mainGameAshesOfWar') == null || prefs.getStringList('mainGameAshesOfWar')!.isEmpty) {
       List<AshOfWar> ashesOfWar = await getAllAow(false) ?? [];
       List<String> ashStrings = [];
       for (AshOfWar ash in ashesOfWar){
@@ -162,7 +162,7 @@ class DatabaseMethods {
       }
     }
 
-    if (prefs.getStringList('soteWeapons') == null) {
+    if (prefs.getStringList('soteWeapons') == null || prefs.getStringList('soteWeapons')!.isEmpty) {
       List<Weapon> weapons = await getAllWeapons(true) ?? [];
       List<String> weaponStrings = [];
       for (Weapon weapon in weapons){
@@ -178,7 +178,7 @@ class DatabaseMethods {
       }
     }
 
-    if (prefs.getStringList('soteTalismans') == null) {
+    if (prefs.getStringList('soteTalismans') == null || prefs.getStringList('soteTalismans')!.isEmpty) {
       List<Talisman> talismans = await getAllTalismans(true) ?? [];
       List<String> talismanStrings = [];
       for (Talisman talisman in talismans){
@@ -194,7 +194,7 @@ class DatabaseMethods {
       }
     }
 
-    if (prefs.getStringList('soteArmors') == null) {
+    if (prefs.getStringList('soteArmors') == null || prefs.getStringList('soteArmors')!.isEmpty) {
       List<Armor> armors = await getAllArmors(true) ?? [];
       List<String> armorStrings = [];
       for (Armor armor in armors){
@@ -210,7 +210,7 @@ class DatabaseMethods {
       }
     }
 
-    if (prefs.getStringList('soteIncantations') == null) {
+    if (prefs.getStringList('soteIncantations') == null || prefs.getStringList('soteIncantations')!.isEmpty) {
       List<Incantation> incantations = await getAllIncantations(true) ?? [];
       List<String> incantationStrings = [];
       for (Incantation incantation in incantations){
@@ -226,7 +226,7 @@ class DatabaseMethods {
       }
     }
 
-    if (prefs.getStringList('soteSorceries') == null) {
+    if (prefs.getStringList('soteSorceries') == null || prefs.getStringList('soteSorceries')!.isEmpty) {
       List<Sorcery> sorceries = await getAllSorceries(true) ?? [];
       List<String> sorceryStrings = [];
       for (Sorcery sorcery in sorceries){
@@ -242,7 +242,7 @@ class DatabaseMethods {
       }
     }
 
-    if (prefs.getStringList('soteTears') == null) {
+    if (prefs.getStringList('soteTears') == null || prefs.getStringList('soteTears')!.isEmpty) {
       List<Tear> tears = await getAllTears(true) ?? [];
       List<String> tearStrings = [];
       for (Tear tear in tears){
@@ -258,7 +258,7 @@ class DatabaseMethods {
       }
     }
 
-    if (prefs.getStringList('soteAshesOfWar') == null) {
+    if (prefs.getStringList('soteAshesOfWar') == null || prefs.getStringList('soteAshesOfWar')!.isEmpty) {
       List<AshOfWar> ashesOfWar = await getAllAow(true) ?? [];
       List<String> ashStrings = [];
       for (AshOfWar ash in ashesOfWar){
@@ -377,6 +377,12 @@ class DatabaseMethods {
 
   Future<List<AshOfWar>?> getAllAow(bool isDlc) async {
     String tableName = isDlc ? 'allSOTEAOW' : 'allMainGameAOW';
+    if (!isDlc) {
+      return allAshes();
+    }
+    if (isDlc){
+      return allDLCAshes();
+    }
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection(tableName).get();
     List<AshOfWar> ashesOfWar = [];

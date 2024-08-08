@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:elden_nexus/components/settings/change_language_component.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../components/settings/change_password_component.dart';
+import '../components/settings/leave_app_component.dart';
 
 /// The `SettingsView` class represents the settings view of the application.
 ///
@@ -182,10 +183,7 @@ class SettingsViewState extends State<SettingsView> {
   Widget build(BuildContext context) {
     List<Widget> widgets = [];
     widgets.add(const ChangeLanguageComponent());
-    if (!widget.isLogin) {
-      widgets.add(const ChangePasswordComponent());
-    }
-    widgets.add(const LogOutComponent());
+    widgets.add(const LeaveAppComponent());
     bool isErwan = prefs?.getBool('isErwan') ?? false;
     if (isErwan){
       widgets.add(storeButton());
