@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:elden_nexus/firebase/database/database.dart';
 import 'package:elden_nexus/views/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,6 +10,7 @@ import 'package:elden_nexus/views/settings_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../firebase/auth/auth.dart';
 import '../constants/theme/theme_provider.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -28,19 +30,63 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+    initValues();
     SharedPreferences.getInstance().then((value) {
         prefs = value;
     });
   }
 
+  void initValues() async {
+    prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _controllerEmail.text = prefs?.getString('username') ?? '';
+      _controllerPassword.text = prefs?.getString('password') ?? '';
+    });
+  }
+
   Future<bool> signInWithEmailAndPassword() async {
+    String code = await DatabaseMethods.instance.getCheckCode();
+    String storageCode = await const FlutterSecureStorage().read(key: 'token') ?? '';
+    if (code != storageCode){
+      showDialog(context: context, builder: (context) => AlertDialog(
+        title: Text('Error'),
+        content: Text('This app is not available for public use. Please contact the developer for more information.'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('OK'),
+          ),
+        ],
+      ),);
+      return false;
+    }
+    prefs?.setString('username', _controllerEmail.text);
+    prefs?.setString('password', _controllerPassword.text);
     if (Auth().currentUser != null) {
       await Auth().signOut();
       return false;
     }
     try {
+      if (_controllerEmail.text == "erwan@hotmail.ch"){
+        await Auth().signInWithEmailAndPassword(
+            email: _controllerEmail.text, password: _controllerPassword.text);
+        return true;
+      }
+      else if (!isValidUserName(_controllerEmail.text)) {
+        setState(() {
+          errorMessage = 'Username is not valid:';
+        });
+        return false;
+      }
+      String email = "${_controllerEmail.text.toLowerCase()}@gmail.com";
+      if (_controllerEmail.text == "erwan@hotmail.ch"){
+        email = _controllerEmail.text;
+      }
       await Auth().signInWithEmailAndPassword(
-          email: _controllerEmail.text, password: _controllerPassword.text);
+          email: email, password: _controllerPassword.text);
+
       return true;
     } on FirebaseAuthException catch (e) {
       setState(() {
@@ -50,17 +96,61 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  bool isValidUserName(String email) {
+    // Rule 1: Be at least one character long.
+    if (email.isEmpty) {
+      setState(() {
+        errorMessage = 'Username is too short';
+      });
+      return false;
+    }
+
+    // Rule 2: Start and end with a letter or number.
+    if (!RegExp(r'^[a-zA-Z0-9].*[a-zA-Z0-9]$').hasMatch(email)) {
+      setState(() {
+        errorMessage = 'Username must start and end with a letter or number';
+      });
+      return false;
+    }
+
+    // Rule 3: Can include periods (.) as long as they are not the first or last character, and provided that they do not appear consecutively.
+    if (RegExp(r'\.\.').hasMatch(email) || email.startsWith('.') || email.endsWith('.')) {
+      setState(() {
+        errorMessage = 'Invalid use of periods in username';
+      });
+      return false;
+    }
+
+    // Rule 4: Can contain these special characters: ! # $ % & ' * + - / = ? ^ _ ` { | } ~
+    if (!RegExp(r'^[a-zA-Z0-9]+$').hasMatch(email)) {
+        setState(() {
+    errorMessage = 'Use only letters and numbers in username';
+    });
+    return false;
+  }
+  // If all checks pass, the username is valid
+  return true;
+}
+
   Future<bool> createUserWithEmailAndPassword() async {
     if (Auth().currentUser != null) {
       await Auth().signOut();
     }
     try {
+      if (!isValidUserName(_controllerEmail.text)) {
+        setState(() {
+          errorMessage = 'Username is not valid:';
+        });
+        return false;
+      }
+      String email = "${_controllerEmail.text.toLowerCase()}@gmail.com";
       await Auth().createUserWithEmailAndPassword(
-          email: _controllerEmail.text, password: _controllerPassword.text);
+          email: email, password: _controllerPassword.text);
+      await Auth().signInWithEmailAndPassword(email: email, password: _controllerPassword.text);
       return true;
     } on FirebaseAuthException catch (e) {
       setState(() {
-        errorMessage = e.message;
+        errorMessage = e.message?.replaceAll("email address ", "username");
       });
       return false;
     }
@@ -282,7 +372,7 @@ class _LoginPageState extends State<LoginPage> {
             ]),
             endDrawer: Drawer(
               backgroundColor: colors.background,
-              child: SettingsView(isLogin: true),
+              child: SettingsView(),
             ),
             body: Container(
               decoration: const BoxDecoration(
@@ -303,14 +393,14 @@ class _LoginPageState extends State<LoginPage> {
                     _space(),
                     if (isErwan)
                       _justLogIn(),
-                    _entryField('Email', _controllerEmail),
+                    _entryField('Username', _controllerEmail),
                     _entryField('Password', _controllerPassword,
                         isPassword: true),
                     _errorMessage(),
                     _submitButton(),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     _loginOrRegisterButton(),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     _googleWidget(),
                   ],
                 ),

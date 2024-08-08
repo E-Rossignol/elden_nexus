@@ -1,13 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../firebase/auth/auth.dart';
 
 class ChangePasswordComponent extends StatefulWidget {
-  const ChangePasswordComponent({Key? key}) : super(key: key);
+  const ChangePasswordComponent({super.key});
 
   @override
   _ChangePasswordComponentState createState() => _ChangePasswordComponentState();
@@ -31,6 +30,8 @@ class _ChangePasswordComponentState extends State<ChangePasswordComponent> {
       await currentUser.reauthenticateWithCredential(credential);
       // Update the password
       await currentUser.updatePassword(_newPassword);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('password', _newPassword);
       Navigator.pop(context);
       Get.snackbar('Password Changed', 'Your password has been changed successfully');
     } catch (e) {

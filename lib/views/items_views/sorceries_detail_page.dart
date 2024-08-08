@@ -89,7 +89,7 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
     return PopScope(
       canPop: true,
       child: Scaffold(
-        endDrawer: Drawer(
+        endDrawer: const Drawer(
           child: SettingsView(),
         ),
         appBar: AppBar(

@@ -2,6 +2,7 @@
 import 'package:elden_nexus/models/sorcery.dart';
 import 'package:elden_nexus/models/tear.dart';
 import '../models/armor.dart';
+import '../models/ash_of_war.dart';
 import '../models/incantation.dart';
 import '../models/weapon.dart';
 
@@ -130,6 +131,1338 @@ class DamageNegation {
       this.fire = 0,
       this.lightning = 0,
       this.holy = 0});
+}
+
+List<AshOfWar> allAshes() {
+  List<AshOfWar> ashes = [
+    AshOfWar(
+        name: "Assassin's Gambit",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/assassins_gambit.png",
+        howToFind:
+            "Sold by Knight Bernahl in Volcano Manor for 6500 runes. Note that you will need to fulfill the first contract at Volcano Manor to have access to Knight Bernahl's shop.",
+        description:
+            "Skill that masks the user's presence at the cost of a self-inflicted wound. Grants near-invisibility and silences footsteps.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=3216&lat=-88.132813&lng=64.516373&code=mapA",
+        affinity: "Occult",
+        usableOn: "Usable on small and medium straight swords and thrusting swords."),
+    AshOfWar(
+        name: "Barbaric Roar",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/barbaric_roar.png",
+        howToFind:
+            "On a Teardrop Beetle in Ravine-Veiled Village, found by going as far northeast as possible in Lake of Liurnia (near but not accessible from Grand Lift of Dectus).",
+        description:
+            "Let loose a bestial roar to rally the spirit and increase attack power. While active, strong attacks change to savage combo attacks.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+map?id=5788&lat=-103.22656&lng=72.18422&code=mapA",
+        affinity: "Heavy",
+        usableOn: "Usable on melee armaments (daggers, thrusting swords, and whips excepted)."
+    ),
+    AshOfWar(
+        name: "Barrage",
+        image: "lib/constants/images/ash_of_war/main_game_aow/barrage.png",
+        howToFind:
+            "Mt. Gelmir: Dropped by a Teardrop Scarab in the narrow channel north of Seethewater River.",
+        description:
+            "Archery skill using a bow held horizontally. Ready the bow, then fire off a rapid succession of shots faster than the eye can see.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+map?id=2257&code=mapA",
+        affinity: "Standard",
+        usableOn: "Usable on light bows." ),
+    AshOfWar(
+        name: "Barricade Shield",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/barricade_shield.png",
+        howToFind: "Dropped by Night's Cavalry at Weeping Peninsula.",
+        description:
+            "Skill made famous by Sir Neidhardt. Focus your energy into the shield, temporarily hardening it to deflect greater blows.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=1758&code=mapA",
+        affinity: "Standard",
+        usableOn: "Usable on all shields." ),
+    AshOfWar(
+        name: "Beast's Roar",
+        image: "lib/constants/images/ash_of_war/main_game_aow/beasts_roar.png",
+        howToFind:
+            "Bestial Sanctum: Reward from Gurranq, Beast Clergyman after giving him the fourth Deathroot.",
+        description:
+            "Unleash a beastly roar, rending the air as a forward-travelling projectile.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=5931&code=mapA",
+        affinity: "Keen",
+        usableOn: "Usable on all melee armaments." ),
+    AshOfWar(
+        name: "Black Flame Tornado",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/black_flame_tornado.png",
+        howToFind:
+            "Crumbling Farum Azula: Dropped by the Godskin Duo Boss inside the Dragon Temple area.",
+        description:
+            "Spin armament overhead and then punge it into the ground to summon a raging vortex of black flames. Hold to create an initial flame tornado while spinning the armament.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+map?id=4279&lat=-122.81875&lng=217.119654&code=mapA",
+        affinity: "Flame Art",
+        usableOn: "Usable on polearms and twinblades."  ),
+    AshOfWar(
+        name: "Blood Blade",
+        image: "lib/constants/images/ash_of_war/main_game_aow/blood_blade.png",
+        howToFind:
+            "Dropped by a Teardrop Scarab in Altus Plateau, northeast of Erdtree-Gazing Hill, above a pond. ",
+        description:
+            "Wound self to coat the armament with blood, then unleash an airborne blood blade that causes hemorrhaging. Can be fired in rapid succession.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+map?id=5790&lat=-98.5&lng=79.15&code=mapA",
+        affinity: "Blood",
+        usableOn: "Usable on small and medium swords." ),
+    AshOfWar(
+        name: "Blood Tax",
+        image: "lib/constants/images/ash_of_war/main_game_aow/blood_tax.png",
+        howToFind:
+            "Found in the Mohgwyn Dynasty in a small cave, at the northern edge of the blood lake with four blood albinaurics.",
+        description:
+            "Blood Oath skill granted by the Lord of Blood. Twist to build power, then unleash a flurry of thrusts that rob the target of both their blood and their HP.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=4807&lat=-180.76562&lng=154.51983&code=mapB",
+        affinity: "Blood",
+        usableOn: "Usable on armaments capable of thrusting(colossal weapons excepted)."
+    ),
+    AshOfWar(
+        name: "Bloodhound's Step",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/bloodhounds_step.png",
+        howToFind:
+            "Dropped by a Night's Cavalry at the bridge in front of the Lenne's Rise tower, in Dragonbarrow.",
+        description:
+            "Skill that allows the user to become temporarily invisible while dodging at high speed. Moves faster and travels farther than a regular quickstep. This skill can be used to circle around lock-on targets.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=5930&lat=-160.15&lng=163.5928&code=mapA",
+        affinity: "Keen",
+        usableOn: "Usable on all melee armaments." ),
+    AshOfWar(
+        name: "Bloody Slash",
+        image: "lib/constants/images/ash_of_war/main_game_aow/bloody_slash.png",
+        howToFind:
+            "Dropped by a Beast Crest Heater Knight fought at the top of the ramparts of Fort Haight.",
+        description:
+            "Bloody Oath skill granted by the Lord of Blood. From a low stance, coat the blade in your own blood to unleash a rending blood slash in a wide arc.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=805&code=mapA",
+        affinity: "Blood",
+        usableOn: "Usable on swords (colossal weapons excepted)" ),
+    AshOfWar(
+        name: "Braggart's Roar",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/braggarts_roar.png",
+        howToFind:
+            "Found on Blackguard Big Boggart's weapon after killing him or continuing Dung Eater's questline and looting the body.",
+        description:
+            "Declare your presence with a boastful roar. Raises attack power, defense, and stamina recovery speed.",
+        mapLink: "",
+        affinity: "Heavy",
+        usableOn: "Usable on melee armaments (daggers, thrusting swords, and whips excepted )."
+    ),
+    AshOfWar(
+        name: "Carian Grandeur",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/carian_grandeur.png",
+        howToFind:
+            "Caria Manor: Found on the roof of a tall structure in the gardens, accessed by jumping down the cliffs from the Manor's Upper Level.",
+        description:
+            "Carian royal prestige embodied in a skill. Transform blade into a magical greatsword and swing it down. Can be charged to increase its power by up to two levels.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=1537&code=mapA",
+        affinity: "Magic",
+        usableOn: "Usable on swords (colossal weapons excepted)." ),
+    AshOfWar(
+        name: "Carian Greatsword",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/carian_greatsword.png",
+        howToFind:
+            "Can be purchased from Twin Maiden Husks at the Roundtable Hold after giving them Rogier's Bell Bearing.",
+        description:
+            "Carian royal prestige embodied in a skill. Transform blade into a magical greatsword and swing it down. Can be charged to increase its power.",
+        mapLink: "",
+        affinity: "Magic",
+        usableOn: "Usable on swords (colossal weapons excepted)." ),
+    AshOfWar(
+        name: "Carian Retaliation",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/carian_retaliation.png",
+        howToFind:
+            "Caria Manor: On a balcony above the Manor Lower Level bonfire. Only accessible by dropping down the cliffs from the southwestern side of the Three Sisters sub-area.",
+        description:
+            "Swing the shield to dispel incoming sorceries and incantations, transforming the magic into retaliatory glintblades. Can also be used in the same way as a regular parry.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=2920&lat=-107.4&lng=55.6&code=mapA",
+        affinity: "Magic",
+        usableOn: "Usable on small and medium shields." ),
+    AshOfWar(
+        name: "Charge Forth",
+        image: "lib/constants/images/ash_of_war/main_game_aow/charge_forth.png",
+        howToFind:
+            "Dropped by a Teardrop Scarab located in Liurnia of the Lakes. West of the Academy Gate Town site of grace, the scarab can be found hanging on the ceiling beneath the bridge.",
+        description:
+            "Quickly charge forward with the armament at the hip, carrying the momentum into a thrust. Hold to cover a greater distance.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=2135&code=mapA",
+        affinity: "Quality",
+        usableOn: "Usable on polearms capable of thrusting, heavy thrusting swords, and twinblades."
+    ),
+    AshOfWar(
+        name: "Chilling Mist",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/chilling_mist.png",
+        howToFind:
+            "Dropped by a Teardrop Scarab located in Three Sisters, Liurnia, in the ruins south of Renna's Rise.",
+        description:
+            "Coat armament in frost, and then slash, spreading frigid mist forwards. The armament retains its frost for a while.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+map?id=1767&code=mapA",
+        affinity: "Cold",
+        usableOn: "Usable on melee armaments (whips, fists, and claws excepted)."
+    ),
+    AshOfWar(
+        name: "Cragblade",
+        image: "lib/constants/images/ash_of_war/main_game_aow/cragblade.png",
+        howToFind: "Dropped by scarab west of Impassable Bridge.",
+        description:
+            "Skill that manipulates gravity. Bury the armament in the ground, pulling rocks from the earth to reinforce it. Increases attack power and makes it easier to break enemy stance.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=5205&lat=-195.8375&lng=148.35582&code=mapA",
+        affinity: "Heavy",
+        usableOn: "Usable on melee armaments (whips excepted)."
+    ),
+    AshOfWar(
+        name: "Determination",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/determination.png",
+        howToFind:
+            "Dropped by a Teardrop Scarab on the path at the bridge north of Agheel Lake.",
+        description:
+            "A knightly skill. Hold the flat of the armament to your face and pledge your resolve, powering up your next attack.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=602&code=mapA",
+        affinity: "Quality",
+        usableOn: "Usable on all melee armaments." ),
+    AshOfWar(
+        name: "Double Slash",
+        image: "lib/constants/images/ash_of_war/main_game_aow/double_slash.png",
+        howToFind:
+            "Sellia, Town of Sorcery: Dropped by a Teardrop Scarab found high above on a very large root in the western end of town.",
+        description:
+            "Skill of superior swordsmen. Perform a crossing slash attack from a low stance. Repeated inputs allow for up to two follow-up attacks.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+map?id=3204&lat=-176.732812&lng=147.208958&code=mapA",
+        affinity: "Keen",
+        usableOn: "Usable on swords and polearms capable of slashing (colossal weapons excepted)."
+    ),
+    AshOfWar(
+        name: "Earthshaker",
+        image: "lib/constants/images/ash_of_war/main_game_aow/earthshaker.png",
+        howToFind:
+            "Dropped by an invisible scarab on the road after Grand Lift of Dectus, near a statue at the first intersection. Strike the Scarab when the footsteps are near and you will acquire this Ash of War. Can only be found at night.",
+        description:
+            "Thrust armament into the ground, then gather strength to unleash an earth-shaking shockwave. Follow up with a strong attack to swing the armament in a sweeping strike.",
+        mapLink: "",
+        affinity: "Heavy",
+        usableOn: "Usable on greataxes, warhammers, and colossal weapons."
+    ),
+    AshOfWar(
+        name: "Enchanted Shot",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/enchanted_shot.png",
+        howToFind:
+            "Dropped by a Teardrop Beetle hiding behind a rock near a brazier in Nokron, Eternal City.",
+        description:
+            "Archery skill that enlivens the arrow with spiritual essence. The resulting shot will fly faster than regular shots and change its trajectory to follow the target.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=1573&lat=-174.390625&lng=128.410006&code=mapB",
+        affinity: "Standard",
+        usableOn: "Usable on light bows and longbows." ),
+    AshOfWar(
+        name: "Endure",
+        image: "lib/constants/images/ash_of_war/main_game_aow/endure.png",
+        howToFind:
+            "Can be purchased from Twin Maiden Husks at the Roundtable Hold after giving them Bernahl's Bell Bearing.",
+        description:
+            "Assume an anchored stance to brace for incoming attacks, briefly boosting poise. Damage taken while using this skill is reduced.",
+        mapLink: "",
+        affinity: "Heavy",
+        usableOn: "Usable on all melee armaments." ),
+    AshOfWar(
+        name: "Eruption",
+        image: "lib/constants/images/ash_of_war/main_game_aow/eruption.png",
+        howToFind: "Sold by Knight Bernahl in Volcano Manor for 8000 runes.",
+        description:
+            "Skill of the knights who serve at Volcano Manor. Slam armament into the ground, spawning roiling lava which spouts up upon release.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=3216&lat=-88.132813&lng=64.516373&code=mapA",
+        affinity: "Fire",
+        usableOn: "Usable on large and colossal swords, axes, and hammers."
+    ),
+    AshOfWar(
+        name: "Flame of the Redmanes",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/flame_of_the_redmanes.png",
+        howToFind:
+            "Dropped by an invisible Teardrop Scarab located in front of the Fort Gael North Site of Grace.",
+        description:
+            "Skill of the Redmanes, who fought alongside General Radahn. Produce a powerful burst of flames in a wide frontward arc.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=4668&lat=-176.83&lng=130.21&code=mapA",
+        affinity: "Fire",
+        usableOn: "Usable on all melee armaments." ),
+    AshOfWar(
+        name: "Flaming Strike",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/flaming_strike.png",
+        howToFind:
+            "Dropped by a Teardrop Scarab located in Redmane Castle. The scarab will be found in a small graveyard along the south cliffside, behind the castle. From the front gate, hug right along the cliff towards the ballista, going up and past the vampire bats. There will be a small gap in the cliff that must be jumped across to get to the graveyard.",
+        description:
+            "Skill that emits flame in a wide frontward arc. Follow up with a strong attack to perform a lunging, sweeping strike. This will also coat the armament in fire.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=5926&lat=-196.671&lng=158.2136&code=mapA",
+        affinity: "Fire",
+        usableOn: "Usable on melee armaments (colossal weapons and whips excepted)."
+    ),
+    AshOfWar(
+        name: "Giant Hunt",
+        image: "lib/constants/images/ash_of_war/main_game_aow/giant_hunt.png",
+        howToFind:
+            "Dropped by area boss Night's Cavalry in northern Liurnia. Only appears at night.",
+        description:
+            "Skill developed for confronting gigantic foes. Step forward from a low stance, carrying the momentum into a sudden upward thrust.",
+        mapLink: "",
+        affinity: "Quality",
+        usableOn: "Usable on large and colossal weapons capable of thrusting, spears and twinblades."
+    ),
+    AshOfWar(
+        name: "Glintblade Phalanx",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/glintblade_phalanx.png",
+        howToFind:
+            "After defeating Godrick the Grafted in Stormveil Castle, Rogier can be found in Roundtable Hold, by the balcony. After speaking to him, and receiving his rapier, the skill may be removed from the rapier in order to be applied to other armaments.",
+        description:
+            "Skill used by the enchanted knights who served the Carian royal family. Form an arch of magic glintblades overhead, which will attack Foes automatically. Follow up with a strong attack to chain this skill into a lunging thrust.",
+        mapLink: "",
+        affinity: "Magic",
+        usableOn: "Usable on swords as well as polearms capable of thrusting (colossal weapons excepted)."
+    ),
+    AshOfWar(
+        name: "Glintstone Pebble",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/glintstone_pebble.png",
+        howToFind:
+            "Can be purchased from Twin Maiden Husks at the Roundtable Hold after giving them Rogier's Bell Bearing.",
+        description:
+            "Skill that employs the glintstone sorcery of the same name. Follow up with a strong attack to chain this skill into a lunging thrust, performed while the armament is still imbued with glintstone.",
+        mapLink: "",
+        affinity: "Magic",
+        usableOn: "Usable on swords as well as polearms capable of thrusting (colossal weapons excepted)."
+    ),
+    AshOfWar(
+        name: "Golden Land",
+        image: "lib/constants/images/ash_of_war/main_game_aow/golden_land.png",
+        howToFind:
+            "Dropped by a Teardrop Scarab located in Deeproot Depths. From the Great Waterfall Crest site of grace, head straight ahead and to the left. Fittingly, it is behind the Erdtree Avatar who drops the Staff of the Avatar.",
+        description:
+            "Thrust armament into the ground, then gather strength to unleash a blast of sacred energy that coalesces into golden darts. Follow up with a strong attack to swing the armament in a sweeping strike",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=5107&lat=-103.820312&lng=123.707613&code=mapB",
+        affinity: "Sacred",
+        usableOn: "" ),
+    AshOfWar(
+        name: "Golden Parry",
+        image: "lib/constants/images/ash_of_war/main_game_aow/golden_parry.png",
+        howToFind: "Dropped by a Teardrop Scarab located in Capital Outskirts.",
+        description:
+            "Perform an Erdtree incantation and swing the shield to deflect enemy attacks and break their stance. Effective even at a slight distance.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=5432&lat=-95.72656&lng=105.48087&code=mapA",
+        affinity: "Sacred",
+        usableOn: "Usable on small and medium shields."
+    ),
+    AshOfWar(
+        name: "Golden Slam",
+        image: "lib/constants/images/ash_of_war/main_game_aow/golden_slam.png",
+        howToFind:
+            "Dropped by a Teardrop Scarab northwest of Woodfolk Ruins, near the Altus Plateau Erdtree.",
+        description:
+            "Skill of the avatars who protect Minor Erdtrees. Jump up high into the air and crash down on the ground ahead. The resulting pratfall sends golden shockwaves in all directions.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=4557&lat=-87.65&lng=95.90&code=mapA",
+        affinity: "Sacred",
+        usableOn: "Usable on all melee armaments."  ),
+    AshOfWar(
+        name: "Golden Vow",
+        image: "lib/constants/images/ash_of_war/main_game_aow/golden_vow.png",
+        howToFind: "Limgrave: dropped by Mounted Knight when defeated.",
+        description:
+            "Skill passed down from antiquity among the knights of the capital. Raise armament aloft and pledge to honor the Erdtree in battle, granting self and nearby allies increased attack power and defense.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=708&code=mapA",
+        affinity: "Sacred",
+        usableOn: "Usable on all melee armaments." ),
+    AshOfWar(
+        name: "Gravitas",
+        image: "lib/constants/images/ash_of_war/main_game_aow/gravitas.png",
+        howToFind:
+            "Obtained in Limgrave by accessing the back entrance of the Cave of Knowledge (Fringefolk Hero's Grave) from the beach side.",
+        description:
+            "This Ash of War grants an armament the Magic affinity and the following Skill:Gravitas A Skill from a great white king with stone skin.Pierce the ground with your armament to damage foes as a surge of gravity draws them in.It can be used on melee armaments that are not small.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=507&code=mapA",
+        affinity: "Magic",
+        usableOn: ""  ),
+    AshOfWar(
+        name: "Ground Slam",
+        image: "lib/constants/images/ash_of_war/main_game_aow/ground_slam.png",
+        howToFind:
+            "Dropped by a Teardrop Scarab found rolling down the hill west of the Minor Erdtree in Mistwood.",
+        description:
+            "Jump up high into the air and crash down on the ground ahead. The resulting pratfall sends a powerful shockwave in all directions.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=755&code=mapA",
+        affinity: "Heavy",
+        usableOn: "Usable on all melee armaments." ),
+    AshOfWar(
+        name: "Hoarah Loux's Earthshaker",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/hoarah_louxs_earthshaker.png",
+        howToFind:
+            "Trade Remembrance of Hoarah Loux with Enia at Roundtable Hold.",
+        description:
+            "Slam both hands onto the ground to violently shake the earth and unleash a shockwave. Follow up with an additional input to slam the ground again.",
+        mapLink: "",
+        affinity: "Heavy",
+        usableOn: "Usable on all melee armaments."),
+    AshOfWar(
+        name: "Hoarfrost Stomp",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/hoarfrost_stomp.png",
+        howToFind:
+            "Dropped by an invisible Teardrop Scarab roaming the shallow body of water southeast of Caria Manor in northernLiurnia of the Lakes.",
+        description:
+            "Stomp hard to spread a trail of freezing mist on the ground. The mist applies the frost status effect.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=1510&code=mapA",
+        affinity: "Cold",
+        usableOn: "Usable on all melee armaments." ),
+    AshOfWar(
+        name: "Holy Ground",
+        image: "lib/constants/images/ash_of_war/main_game_aow/holy_ground.png",
+        howToFind:
+            "Together with Tree Sentinel Armor set inside Auriza Hero's Grave.",
+        description:
+            "Raise shield to create an Erdtree-consecrated area that continuously restores HP and boosts defense for self and allies inside it.",
+        mapLink: "",
+        affinity: "Sacred",
+        usableOn: "Usable on all shields." ),
+    AshOfWar(
+        name: "Ice Spear",
+        image: "lib/constants/images/ash_of_war/main_game_aow/ice_spear.png",
+        howToFind:
+            "Liurnia of the Lakes: Dropped by a Night's Cavalry patrolling near the broken Gate Town Bridge. Only appears at night time.",
+        description:
+            "Skill of the warriors who served Lunar Princess Ranni. Spin armament to release cold magic, then channel it into a piercing spear of ice.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=3183&lat=-151.154687&lng=78.237202&code=mapA",
+        affinity: "Cold",
+        usableOn: "" ),
+    AshOfWar(
+        name: "Impaling Thrust",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/impaling_thrust.png",
+        howToFind:
+            "Can be purchased from Twin Maiden Husks at the Roundtable Hold after giving them Bernahl's Bell Bearing.",
+        description:
+            "Skill that lets piercing armaments overcome enemy shields. Build power, then lunge forward for a strong thrust that pierces an enemy's guard.",
+        mapLink: "",
+        affinity: "Keen",
+        usableOn: "Usable on armaments capable of thrusting (colossal weapons excepted)."
+    ),
+    AshOfWar(
+        name: "Kick",
+        image: "lib/constants/images/ash_of_war/main_game_aow/kick.png",
+        howToFind:
+            "Can be purchased from Twin Maiden Husks at the Roundtable Hold after giving them Bernahl's Bell Bearing.",
+        description:
+            "Push an enemy back with a high kick. Effective against enemies who are guarding, and can break a foe's stance. Sometimes a simple tool is the most effective.",
+        mapLink: "",
+        affinity: "Heavy",
+        usableOn: "Usable on all melee armaments." ),
+    AshOfWar(
+        name: "Lifesteal Fist",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/lifesteal_fist.png",
+        howToFind:
+            "Caelid: Dropped by a Teardrop Scarab along the Caelid Highway.",
+        description:
+            "Skill that demonstrates mastery of the art of controlling vital energies.A slow, controlled punch with an energy-infused fist that renders foes unconscious and steals their HP. Only effective against foes of human build.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=1153&code=mapA",
+        affinity: "Occult",
+        usableOn: "Usable on fists and claws." ),
+    AshOfWar(
+        name: "Lightning Ram",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/lightning_ram.png",
+        howToFind:
+            "It can be found at Altus Plateau, just south of Sainted Hero's Grave. It drops from a Teardrop Scarab in the area.",
+        description:
+            "Skill inspired by tumbling rams. Let out a bleat, then tumble forwards, clad in lightning. Tumbles can be repeated in rapid succession.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=3190&lat=-97.37188&lng=91.11442&code=mapA",
+        affinity: "Lightning",
+        usableOn: "Usable on all melee armaments." ),
+    AshOfWar(
+        name: "Lightning Slash",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/lightning_slash.png",
+        howToFind:
+            "Dropped by a Teardrop Beetle in the middle of an enclosed area just outside the Capital Outskirts.",
+        description:
+            "Call down a bolt of lightning into armament, then swing it down to create an explosive shock. The armament retains the lightning enchantment for a while.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=1147&code=mapA",
+        affinity: "Lightning",
+        usableOn: "Usable on swords, axes, and hammers." ),
+    AshOfWar(
+        name: "Lion's Claw",
+        image: "lib/constants/images/ash_of_war/main_game_aow/lions_claw.png",
+        howToFind: "Dropped by the Lion Guardian upon defeat in Fort Gael.",
+        description:
+            "Skill of the Redmanes, who fought alongside General Radahn. Somersault forwards, striking foes with armament.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=2946&lat=-182.585937&lng=129.314447&code=mapA",
+        affinity: "Heavy",
+        usableOn: "Usable on swords, axes, and hammers (small armaments and thrusting swords excepted)."
+    ),
+    AshOfWar(
+        name: "Loretta's Slash",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/lorettas_slash.png",
+        howToFind:
+            "Caria Manor: Dropped by Royal Knight Loretta upon her defeat.",
+        description:
+            "Skill of Loretta the Royal Knight. Leap forward, imbuing the blade with glintstone, then descend, accelerating into a sweeping slash.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=1537&code=mapA",
+        affinity: "Magic",
+        usableOn: "Usable on polearms and twinblades." ),
+    AshOfWar(
+        name: "Mighty Shot",
+        image: "lib/constants/images/ash_of_war/main_game_aow/mighty_shot.png",
+        howToFind:
+            "Dropped by a Teardrop Scarab located on the path from Limgrave towards Weeping Peninsula.",
+        description:
+            "Archery skill performed from an oblique stance. Ready the bow, then pull the bowstring to its limit to enhance the power of the shot, penetrating the enemy's guard.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=473&code=mapA",
+        affinity: "Standard",
+        usableOn: "Usable on light bows and longbows." ),
+    AshOfWar(
+        name: "No Skill",
+        image: "lib/constants/images/ash_of_war/main_game_aow/no_skill.png",
+        howToFind:
+            "Can be purchased from Twin Maiden Husks at the Roundtable Hold after giving them Bernahl's Bell Bearing.",
+        description:
+            "This armament has no skill. If the armament in the other hand has a skill, that skill will be used instead.",
+        mapLink: "",
+        affinity: "Standard",
+        usableOn: "Usable on shields and torches." ),
+    AshOfWar(
+        name: "Parry",
+        image: "lib/constants/images/ash_of_war/main_game_aow/parry.png",
+        howToFind:
+            "Can be purchased from Twin Maiden Husks at the Roundtable Hold after giving them Bernahl's Bell Bearing.",
+        description:
+            "Use this skill in time with a foe's melee attack to deflect it and break that foe's stance. This provides an opening to perform a critical hit.",
+        mapLink: "",
+        affinity: "Standard",
+        usableOn: "Usable on daggers, curved swords, thrusting swords, fists, claws, and small and medium shields."
+    ),
+    AshOfWar(
+        name: "Phantom Slash",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/phantom_slash.png",
+        howToFind:
+            "Dropped by a Night's Cavalry northeast the Forbidden Lands Grace in the Forbidden Lands. ",
+        description:
+            "Skill inspired by the fond remembrances of the Night's Cavalry. Creates an apparition of the knights' former instructor who guides a joint lunging upward swing. Additional input allows for a follow-up attack.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=6266&lat=-100.10&lng=135.05&code=mapA",
+        affinity: "Quality",
+        usableOn: "Usable on polearms and twinblades (great spears excepted)."
+    ),
+    AshOfWar(
+        name: "Piercing Fang",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/piercing_fang.png",
+        howToFind: "Can be acquired from Bloody Finger Hunter Yura",
+        description:
+            "Skill used by Yura, the Bloody Finger Hunter. Starting with the blade held horizontally, make a powerful thrust that cannot be blocked.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=5&lat=-198.039062&lng=108.340774&code=mapA",
+        affinity: "Keen",
+        usableOn: "Usable on medium and large armaments capable of thrusting."
+    ),
+    AshOfWar(
+        name: "Poison Moth Flight",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/poison_moth_flight.png",
+        howToFind: "Dropped by Night's Cavalry in Caelid.",
+        description:
+            "Slash with a poison-infused blade. If thefollow-up strike lands on a poisoned foe, it will deal significantdamage.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=1170&code=mapA",
+        affinity: "Poison",
+        usableOn: "Usable on small and medium swords (twinblades excepted)."
+    ),
+    AshOfWar(
+        name: "Poisonous Mist",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/poisonous_mist.png",
+        howToFind:
+            "Dropped by a Teardrop Scarab found in the Aeonian Swamps in Caelid.",
+        description:
+            "Bathe armament in poison, and then slash, spreading toxic mist forwards. The armament retains its poison for a while.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=3251&lat=-183.89062&lng=140.1906&code=mapA",
+        affinity: "Poison",
+        usableOn: "Usable on melee armaments (whips, fists, and claws excepted)."
+    ),
+    AshOfWar(
+        name: "Prayerful Strike",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/prayerful_strike.png",
+        howToFind:
+            "Dropped by an invisible Teardrop Scarab located in Altus Plateau, just outside of Lyndell Royal Capital. The scarab will be found in the lake north of the Sealed Tunnel, traveling through an opening in the rock.",
+        description:
+            "Raise armament aloft in prayer, then slam it into the ground. This inspired blow restores HP to the self and nearby allies if it successfully hits.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=2856&lat=-101.6&lng=105&code=mapA",
+        affinity: "Sacred",
+        usableOn: "Usable on axes and hammers." ),
+    AshOfWar(
+        name: "Prelate's Charge",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/prelates_charge.png",
+        howToFind:
+            "Dropped from a Teardrop Scarab located in The Mountaintops of the Giants, south of the Whiteridge Road site of grace. On the south end of a Fire Monk campsite, the scarab will be hanging on a tree.",
+        description:
+            "Slam armament into the ground to create a surge of flames, then charge in. Hold to continue the charge.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=7923&lat=-76.414062&lng=162.118367&code=mapA",
+        affinity: "Flame",
+        usableOn: "Usable on large and colossal axes and hammers." ),
+    AshOfWar(
+        name: "Quickstep",
+        image: "lib/constants/images/ash_of_war/main_game_aow/quickstep.png",
+        howToFind:
+            "Can be purchased from Twin Maiden Husks at the Roundtable Hold after giving them Bernahl's Bell Bearing.",
+        description:
+            "Skill prized by the crafty and fleet of foot.Perform a quickstep maneuver that allows for circling around lock-on targets.",
+        mapLink: "",
+        affinity: "Keen",
+        usableOn: "Usable on all melee armaments."),
+    AshOfWar(
+        name: "Rain of Arrows",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/rain_of_arrows.png",
+        howToFind:
+            "Caelid: Appears after finding the Redmane Painting location, down the cliffside behind the Minor Erdtree in Caelid.",
+        description:
+            "Archery skill performed from a low stance. Ready the bow, then fire a burst of arrows into the sky to shower the enemy with projectiles.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=5928&lat=-167.703&lng=159.029&code=mapA",
+        affinity: "Standard",
+        usableOn: "Usable on all bows."),
+    AshOfWar(
+        name: "Raptor of the Mists",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/raptor_of_the_mists.png",
+        howToFind:
+            "Found after aiding Bloody Finger Hunter Yura in defeating his target in Raya Lucaria.",
+        description:
+            "Duck into a low stance, momentarily vanishing. If an enemy attack connects, avian wings will allow for a quick escape into the air.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=5936&lat=-130.69531&lng=56.870444&code=mapA",
+        affinity: "Keen",
+        usableOn: "Usable on all melee armaments." ),
+    AshOfWar(
+        name: "Repeating Thrust",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/repeating_thrust.png",
+        howToFind:
+            "Can be found dropped by the Night's Cavalry that roams the bridge near Agheel Lake North.",
+        description:
+            "This Ash of War grants an armament the Keen affinity and the following Skill:Repeating Thrust Twist to build power, then unleash a flurry of thrusts.This Skill takes some time to build up, but it is very powerful.It can be used on all thrusting armaments.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=1759&code=mapA",
+        affinity: "Keen",
+        usableOn: "" ),
+    AshOfWar(
+        name: "Royal Knight's Resolve",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/royal_knights_resolve.png",
+        howToFind:
+            "Located in Altus Plateau, Volcano Manor. Continue on from the Temple of Eiglay site of grace to a chapel of Serpent-Men. Past the door on the second floor, then past an Imp Statue Door, you will reach a room with cages that need to be jumped down on. The ash of war will be on a corpse to the east side of the room.",
+        description:
+            "Skill of the knights who once served the Elden Lord. Hold the flat of the armament to your face and pledge your resolve, greatly powering up your next attack.",
+        mapLink: "",
+        affinity: "Quality",
+        usableOn: "Usable on all melee armaments." ),
+    AshOfWar(
+        name: "Sacred Blade",
+        image: "lib/constants/images/ash_of_war/main_game_aow/sacred_blade.png",
+        howToFind:
+            "Dropped by a Teardrop Scarab North of Third Church of Marika, next to a spirit spring.",
+        description:
+            "Grants armament's attacks holy essence and fires off a golden blade projectile. The armament retains its holy essence for awhile.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=791&code=mapA",
+        affinity: "Sacred",
+        usableOn: "Usable on all melee armaments (whips, fists, and claws excepted)."
+    ),
+    AshOfWar(
+        name: "Sacred Order",
+        image: "lib/constants/images/ash_of_war/main_game_aow/sacred_order.png",
+        howToFind:
+            "Dropped by a Teardrop Scarab in Altus Plateau, just north-west of the Abandoned Coffin Site Of Grace.",
+        description:
+            "Skill of the Golden Order fundamentalist knights. Perform a salute and grant the armament holy essence. Highly effective against Those Who Live in Death.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+map?id=5789&lat=-99.0625&lng=66.00918&code=mapA",
+        affinity: "Sacred",
+        usableOn: "Usable on all melee armaments." ),
+    AshOfWar(
+        name: "Sacred Ring of Light",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/sacred_ring_of_light.png",
+        howToFind:
+            "Dropped by a Teardrop Scarab located in the Aeonian Swamps in Caelid.",
+        description:
+            "Skill used by the commanders of the Cleanrot Knights. Gather a sacred ring of light in the armament, and then fire it forwards. Can be fired in rapid succession.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=3244&lat=-181.78125&lng=144.58705&code=mapA",
+        affinity: "Sacred",
+        usableOn: "Usable on polearms (great spears excepted)." ),
+    AshOfWar(
+        name: "Seppuku",
+        image: "lib/constants/images/ash_of_war/main_game_aow/seppuku.png",
+        howToFind:
+            "On the frozen lake next to the Freezing Lake site of grace, dropped by an invisible scarab. Scarab can be heard on the edge of the lake. Stand on his trail and wait for it to come back around and greet it with attacks.",
+        description:
+            "A forbidden technique used by swordsmen from the Land of Reeds. Plunge the blade into your stomach to stain it with blood. Increases attack power and improves ability to inflict blood loss.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=5939&code=mapA",
+        affinity: "Blood",
+        usableOn: "Usable on swords as well as polearms capable of thrusting (small and colossal weapons excepted)."
+    ),
+    AshOfWar(
+        name: "Shared Order",
+        image: "lib/constants/images/ash_of_war/main_game_aow/shared_order.png",
+        howToFind:
+            "Shared Order is dropped by a Night's Cavalry in Altus Plateau, next to the Altus Highway Junction Site Of Grace.",
+        description:
+            "Skill of the Golden Order fundamentalist knights. Grant the armament and those of nearby allies holy essence. Highly effective against Those Who Live in Death.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+map?id=5791&lat=-103.42&lng=83.4001&code=mapA",
+        affinity: "Sacred",
+    usableOn: ""),
+    AshOfWar(
+        name: "Shield Bash",
+        image: "lib/constants/images/ash_of_war/main_game_aow/shield_bash.png",
+        howToFind:
+            "Liurnia of the Lakes: Dropped by a Teardrop Scarab under a bridge very close to East Gate Bridge Trestle site of grace.",
+        description:
+            "Brace behind shield before using bodyweight to ram foes while maintaining guarding stance. Weaker enemies will be shoved backwards, and can even be staggered.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=5420&lat=-128&lng=58&code=mapA",
+        affinity: "Standard",
+        usableOn: "Usable on all shields." ),
+    AshOfWar(
+        name: "Shield Crash",
+        image: "lib/constants/images/ash_of_war/main_game_aow/shield_crash.png",
+        howToFind:
+            "Dropped by a Teardrop Scarab located in the upper section ofLux Ruins, Altus Plateau.",
+        description:
+            "Two-hand the shield and charge forwards while maintaining guard. Weaker enemies will be shoved backwards and can even be staggered. Hold to extend the duration of the charge forwards.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=4568&lat=-101.21&lng=75.92&code=mapA",
+        affinity: "Standard",
+        usableOn: "Usable on all shields." ),
+    AshOfWar(
+        name: "Sky Shot",
+        image: "lib/constants/images/ash_of_war/main_game_aow/sky_shot.png",
+        howToFind:
+            "Dropped by a Teardrop Scarab found on the cliffs northwest of the Isolated Merchant's Shack in Dragonbarrow.",
+        description:
+            "Archery skill performed from a low stance. Ready the bow, then fire an arrow high up into the air, arcing so as to strike the enemy from abose when it comes down.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=5431&lat=-164.320312&lng=135.432643&code=mapA",
+        affinity: "Standard",
+    usableOn: "Usable on light bows and bows."),
+    AshOfWar(
+        name: "Spectral Lance",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/spectral_lance.png",
+        howToFind: "Dropped by a Teardrop Scarab at Raya Lucaria Academy.",
+        description:
+            "Skill of the headless Mausoleum Knights. Hurl a phantasmic spear at foes.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=5932&lat=-135.28&lng=56.908&code=mapA",
+        affinity: "Occult",
+        usableOn: "Usable on polearms (reapers excepted)." ),
+    AshOfWar(
+        name: "Spinning Slash",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/spinning_slash.png",
+        howToFind:
+            "Can be purchased from Twin Maiden Husks at the Roundtable Hold after giving them Bernahl's Bell Bearing.",
+        description:
+            "Skill favored by dexterous warriors. Slash foes as your body spins. Additional input allows for a follow-up attack.",
+        mapLink: "",
+        affinity: "Keen",
+        usableOn: "Usable on swords, axes, and polearms (colossal weapons excepted)."
+    ),
+    AshOfWar(
+        name: "Spinning Strikes",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/spinning_strikes.png",
+        howToFind:
+            "Can be extracted from Banished Knight's Halberd +8. This can be obtained after completing Irina's questline, and defeating Edgar, who appears as an invader at Revenger's Shack.",
+        description:
+            "Polearm skill that performs continuous spinning attacks. Hold to continue the attack. Can be followed up with a normal or strong attack. Nullifies projectiles such as arrows while spinning.",
+        mapLink: "",
+        affinity: "Quality",
+        usableOn: "Usable on polearms (great spears excepted)." ),
+    AshOfWar(
+        name: "Spinning Weapon",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/spinning_weapon.png",
+        howToFind:
+            "Can be purchased from Twin Maiden Husks at the Roundtable Hold after giving them Rogier's Bell Bearing.",
+        description:
+            "Defensive skill employed by Carian princesses. Lifts armament into mid-air, then makes it spin violently. Those it touches will suffer successive attacks.",
+        mapLink: "",
+        affinity: "Magic",
+        usableOn: "Usable on small and medium swords, axes, and hammers, as well as polearms and staves (great spears excepted)"
+    ),
+    AshOfWar(
+        name: "Square Off",
+        image: "lib/constants/images/ash_of_war/main_game_aow/square_off.png",
+        howToFind:
+            "Ash of War: Square Off is dropped by a Teardrop Scarab found rolling around at the edge a the cliff in Siofra River.",
+        description:
+            "This skill starts with the sword held level. Follow up with a normal attack to slash upwards through enemy's guard, or a strong attack to perform a running thrust",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=1165&lat=-174.703125&lng=137.493336&code=mapB",
+        affinity: "Quality",
+        usableOn: "Usable on straight swords." ),
+    AshOfWar(
+        name: "Stamp (Sweep)",
+        image: "lib/constants/images/ash_of_war/main_game_aow/stamp_sweep.png",
+        howToFind:
+            "Dropped by an invisible Teardrop Scarab located at the beaches of Western Limgrave. From where the Giant Land Octopus and Land Octopus enemies are, check the east side of the shore and you'll see some pillars on the beach. You'll notice multiple glowing prints moving around the pillars. Attack it at the right time just when it's about to approach you to reveal the scarab.",
+        description:
+            "Brace armament and step into a low stance that prevents recoil from most enemy attacks. Follow up with a strong attack for a sweeping strike",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=369&code=mapA",
+        affinity: "Heavy",
+        usableOn: "Usable on swords, axes, and hammers (small and medium swords excepted)"
+    ),
+    AshOfWar(
+        name: "Stamp (Upward Cut)",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/stamp_upward_cut.png",
+        howToFind:
+            "Can be purchased from Twin Maiden Husks at the Roundtable Hold after giving them Bernahl's Bell Bearing.",
+        description:
+            "Brace armament and step into a low stance that prevents recoil from most enemy attacks. Follow up with a strong attack for an upward strike.",
+        mapLink: "",
+        affinity: "Heavy",
+        usableOn: "Usable on swords, axes, and hammers, (small and medium swords excepted)."
+    ),
+    AshOfWar(
+        name: "Storm Assault",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/storm_assault.png",
+        howToFind: "Dropped by a Teardrop Scarab in Stormveil Castle.",
+        description:
+            "One of the skills that channel the tempests of Stormveil. Leap forward through surrounding storm winds and thrust armament downward. The attack will produce more storm winds at the point of impact.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=5924&lat=-174.53&lng=84.0201&code=mapA",
+        affinity: "Quality",
+        usableOn: "Usable on polearms capable of thrusting, heavy thrusting swords, and twinblades."
+    ),
+    AshOfWar(
+        name: "Storm Blade",
+        image: "lib/constants/images/ash_of_war/main_game_aow/storm_blade.png",
+        howToFind:
+            "Can be purchased from Twin Maiden Husks at the Roundtable Hold after giving them Bernahl's Bell Bearing.",
+        description:
+            "Lost skill of Stormveil. Surround armament with shearing storm winds that can be fired forward. Can be fired in rapid succession.",
+        mapLink: "",
+        affinity: "Quality",
+        usableOn: "Usable on swords (colossal weapons and twinblades excepted)."
+    ),
+    AshOfWar(
+        name: "Storm Stomp",
+        image: "lib/constants/images/ash_of_war/main_game_aow/storm_stomp.png",
+        howToFind:
+            "Found in the southeastern area of Gatefront Ruins. There is a set of stairs that leads to a small room underground where a treasure chest can be found. Inside the chest is the Ash of War: Storm Stomp and Whetstone Knife key item.",
+        description:
+            "One of the skills that channel the tempests of Stormveil. Stomp hard on the ground to kick up a momentary storm.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=2011&code=mapA",
+        affinity: "Quality",
+        usableOn: "Usable on all melee armaments."
+    ),
+    AshOfWar(
+        name: "Storm Wall",
+        image: "lib/constants/images/ash_of_war/main_game_aow/storm_wall.png",
+        howToFind:
+            "Dropped by a Teardrop Scarab that can be found by falling down from the collapsed bridge north of Stormhill.",
+        description:
+            "Swing the shield to create a wall of storm winds in front of you, deflecting arrows and other such physical projectiles. Can also be used in the same way as a regular parry.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=795&code=mapA",
+        affinity: "Standard",
+        usableOn: "Usable on small and medium shields."
+    ),
+    AshOfWar(
+        name: "Stormcaller",
+        image: "lib/constants/images/ash_of_war/main_game_aow/stormcaller.png",
+        howToFind:
+            "Dropped by a Teardrop Scarab located Stormveil Castle. The scarab will be found in the northern section of the castle, past the courtyard and just before the Secluded Cell Site of Grace.",
+        description:
+            "One of the skills that channel the tempests of Stormveil. Spin armament to create surrounding storm winds. Repeated inputs allow for up to two follow-up attacks.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=929&code=mapA",
+        affinity: "Quality",
+        usableOn: "Usable on swords capable of slashing, axes, hammers, and polearms (small and colossal weapons excepted)."
+    ),
+    AshOfWar(
+        name: "Sword Dance",
+        image: "lib/constants/images/ash_of_war/main_game_aow/sword_dance.png",
+        howToFind:
+            "Dropped by a Teardrop Scarab found near the Minor Erdtree in southwest Liurnia.",
+        description:
+            "Quickly close in to perform a series of spinning upward slashes. Follow up with an additional input to finish with a downward slash.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=1069&code=mapA",
+        affinity: "Keen",
+        usableOn: "Usable on swords, axes, and polearms capable of slashing (colossal weapons and great spears excepted)."
+    ),
+    AshOfWar(
+        name: "Thops's Barrier",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/thopss_barrier.png",
+        howToFind:
+            "Raya Lucaria: (Post 1.03 patch): Dropped by a Teardrop Scarab that spawns in the Church of Irith after Thops leaves for the academy.",
+        description:
+            "Erect a magical forcefield while swinging the shield to deflect sorceries and incantations. Can also be used in the same way as a regular parry.",
+        mapLink: "",
+        affinity: "Magic",
+        usableOn: "Usable on small and medium shields."
+    ),
+    AshOfWar(
+        name: "Through and Through",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/through_and_through.png",
+        howToFind:
+            "Dropped by an Invisible Scarab just outside Volcano Manor in the Altus Plateau. Strike the Scarab when the footsteps are near and you will acquire this Ash of War. ",
+        description:
+            "Powerful archery skill using a greatbow held in an oblique stance. Ready the greatbow, then twist the bowstring to fire a mighty greatarrow that can penetrate through enemies.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+map?id=1335&lat=-82.44&lng=61.12&code=mapA",
+        affinity: "Standard",
+        usableOn: "Usable on greatbows." ),
+    AshOfWar(
+        name: "Thunderbolt",
+        image: "lib/constants/images/ash_of_war/main_game_aow/thunderbolt.png",
+        howToFind:
+            "Dropped by a Teardrop Beetle located in Lyndell, Royal Capital. Northwest of the Avenue Balcony site of grace.",
+        description:
+            "Skill used by the capital's ancient dragon cult. Raise armament aloft to call down a bolt of lightning. Can be fired in rapid succession.",
+        mapLink: "",
+        affinity: "Lightning",
+        usableOn: "Usable on all melee armaments." ),
+    AshOfWar(
+        name: "Troll's Roar",
+        image: "lib/constants/images/ash_of_war/main_game_aow/trolls_roar.png",
+        howToFind:
+            "Can be found on the top of the big rock just south east the Church of Repose (in Mountaintops of the Giants).",
+        description:
+            "Look into the distance and let out an intense roar, generating a powerful shockwave that blows back surrounding foes. Follow up with a strong attack to slam the armament down.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=5938&lat=-91.304&lng=156.7074&code=mapA",
+        affinity: "Heavy",
+        usableOn: "Usable on large and colossal swords, axes, and hammers."
+    ),
+    AshOfWar(
+        name: "Unsheathe",
+        image: "lib/constants/images/ash_of_war/main_game_aow/unsheathe.png",
+        howToFind:
+            "Dropped by a Teardrop Scarab in the water in the South East portion of Agheel Lake, North West of the Agheel Lake South Site of Grace.",
+        description:
+            "Skill of swordsmen from the Land of Reeds. Sheathe blade, holding it at the hip in a composed stance. Follow up with a normal or strong attack to perform a swift slash attack.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=528&code=mapA",
+        affinity: "Keen",
+        usableOn: "Usable on katana." ),
+    AshOfWar(
+        name: "Vacuum Slice",
+        image: "lib/constants/images/ash_of_war/main_game_aow/vacuum_slice.png",
+        howToFind:
+            "Inside the ruined temple surrounded by waterfalls in Deeproot Depths.",
+        description:
+            "Lost skill of ancient heroes. Hold the armament aloft to surround it with a shearing vacuum, then launch it forwards as a blade-like projectile.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=5203&lat=-96.65625&lng=115.770407&code=mapB",
+        affinity: "Quality",
+        usableOn: "Usable on swords and axes (small and colossal axes excepted)."
+    ),
+    AshOfWar(
+        name: "Vow of the Indomitable",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/vow_of_the_indomitable.png",
+        howToFind:
+            "Liurnia of the Lakes: Dropped by a Teardrop Scarab, in the southwestern swampy area of the map.",
+        description:
+            "Skill of the ancient warriors of the Erdtree. Hold shield aloft to imbue yourself with golden power, granting momentary invincibility.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=1055&code=mapA",
+        affinity: "Sacred",
+        usableOn: "Usable on all shields." ),
+    AshOfWar(
+        name: "War Cry",
+        image: "lib/constants/images/ash_of_war/main_game_aow/war_cry.png",
+        howToFind:
+            "Can be purchased from Twin Maiden Husks at the Roundtable Hold after giving them Bernahl's Bell Bearing.",
+        description:
+            "Give a war cry to rally the spirit and increase attack power. While active, strong attacks change to charging attacks.",
+        mapLink: "",
+        affinity: "Heavy",
+        usableOn: "Usable on melee armaments (daggers, thrusting swords, and whips excepted)."
+    ),
+    AshOfWar(
+        name: "Waves of Darkness",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/waves_of_darkness.png",
+        howToFind:
+            "Trade Remembrance of the Naturalborn with Enia at Roundtable Hold.",
+        description:
+            "Plunge armament into the ground to release three waves of darkness. Follow up with a strong attack to swing the armament in a sweeping strike.",
+        mapLink: "",
+        affinity: "Magic",
+        usableOn: "Usable on greataxes, warhammers, and colossal weapons."
+    ),
+    AshOfWar(
+        name: "White Shadow's Lure",
+        image:
+            "lib/constants/images/ash_of_war/main_game_aow/white_shadows_lure.png",
+        howToFind:
+            "Dropped by an invisible Teardrop Scarab in the Consecrated Snowfield, northwest of the Inner Consecrated Snowfield site of grace between the grace and Ordina, Liturgical Town. The scarab leaves glowing white tracks in the snow and is chased wherever it goes by a pack of five wolves.",
+        description:
+            "Hold armament in a brief, silent prayer to create a white shadow. The apparition lures in foes of human build who are not in combat, drawing their aggression. Effective on demi-humans even if they are already in a combat state.",
+        mapLink: "",
+        affinity: "Occult",
+        usableOn: "Usable on all melee armaments." ),
+    AshOfWar(
+        name: "Wild Strikes",
+        image: "lib/constants/images/ash_of_war/main_game_aow/wild_strikes.png",
+        howToFind:
+            "Dropped from a Teardrop Scarab located in the middle of the path leading from the Stormhill Shack Site of Grace to the Castleward Tunnel Site of Grace. This is the path to enter Stormveil Castle.",
+        description:
+            "Swing armaments with wild abandon. Hold to continue swinging. Can be followed up with a normal or strong attack.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=3022&lat=-179.90&lng=93.57&code=mapA",
+        affinity: "Heavy",
+        usableOn: "Usable on axes and hammers as well as curved swords and greatswords (colossal weapons excepted)."
+    ),
+  ];
+  return ashes;
+}
+
+List<AshOfWar> allDLCAshes() {
+  List<AshOfWar> ashes = [
+    AshOfWar(
+        name: "Aspects of the crucible: Wings",
+        image:
+            "lib/constants/images/ash_of_war/dlc/aspects_of_the_crucible_wings.png",
+        howToFind: "",
+        description:
+            "This skill originates from the lifeforms of the Crucible. Grow a golden pair of wings and take to the air before diving down at the foe, weapon first. A spinning attack is performed when wielding a twinblade",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655056&code=mapD",
+        affinity: "Sacred",
+    usableOn: "All Swords and Polearms capable of Thrusting (Except Colossal Weapons)"),
+    AshOfWar(
+        name: "Blind Spot",
+        image: "lib/constants/images/ash_of_war/dlc/blind_spot.png",
+        howToFind:
+            "Comes equipped to the Backhand blade found besides a coffin, in the Inquisitor enemies area of Gravesite Plain, not far from the first site of grace.",
+        description:
+            "Leap into close quarters to take advantage of the enemy's blind spot and gore them from the side. Inputs determine which side you strike from. This attack slips below the opponent's guard.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655035&code=mapD",
+        affinity: "Keen",
+        usableOn: "Usable on Backhand Blades" ),
+    AshOfWar(
+        name: "Blinkbolt",
+        image: "lib/constants/images/ash_of_war/dlc/blinkbolt.png",
+        howToFind:
+            "Found in a chest within the Fog Rift Catacombs. The room of the third spike dropper with a sorcerer sniping from the back, stand where the sorcerer you defeated was and bait the spike trap down to jump into a notch. Ride the notch up to a room with a chest that holds the ash of war.",
+        description:
+            "Skill used by the golden knights who served Godwyn. From a low stance, the body is transformed into a bolt of lightning and charges straight ahead at fulgurous speed.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=659334&code=mapD",
+        affinity: "Lightning",
+        usableOn: "Usable on all Melee Armaments	" ),
+    AshOfWar(
+        name: "Carian Sovereignty",
+        image: "lib/constants/images/ash_of_war/dlc/carian_sovereignty.png",
+        howToFind:
+            "Acquired from a teardrop scarab inside a cave south west from Cathedral of Manus Metyr filled with glintslab fireflies. The scarab is located on the ceiling of the cave. To find this cave go to the Church District Highroad Site of Grace. Head directly west until you reach the cliffline and then continue south. The cave is embedded in the east cliff wall at the end of this path.",
+        description:
+            "Skill passed down the Carian royal family. Transform blade into a magical greatsword and bring it down. Additional input follows up with a horizontal sweep. Charge either attack to enhance potency.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=659335&code=mapD",
+        affinity: "Magic",
+        usableOn: "Usable on swords (colossal weapons excepted)." ),
+    AshOfWar(
+        name: "Divine Beast Frost Stomp",
+        image:
+            "lib/constants/images/ash_of_war/dlc/divine_beast_frost_stomp.png",
+        howToFind:
+            "Obtained by trading Remembrance of the Dancing Lion with Enia at Roundtable Hold.",
+        description:
+            "A skill which imitates the wrath of the divine beast's dance. Lift a leg up high and stamp it down with great force. Sends a powerful wave of frost straight out along the ground. Can be charged to increase power and range.",
+        mapLink: "",
+        affinity: "Cold",
+        usableOn: "Usable on all melee weapons." ),
+    AshOfWar(
+        name: "Dryleaf Whirlwind",
+        image: "lib/constants/images/ash_of_war/dlc/dryleaf_whirlwind.png",
+        howToFind: "Found on the edge, besides a column and near a waterfall.",
+        description:
+            "This skill represents the pinnacle of Dane's footwork-based martial artistry. Rise into the air with a series of spinning kicks before crashing down with one final strike. Imbues kicking attacks with energy, increasing their range.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655652&code=mapD",
+        affinity: "Standard",
+        usableOn: "Usable on Hand-to-Hand Arts" ),
+    AshOfWar(
+        name: "Flame Skewer",
+        image: "lib/constants/images/ash_of_war/dlc/flame_skewer.png",
+        howToFind:
+            "Acquired as a drop upon defeating the NPC Invader Fire Knight Queelign a second time.",
+        description:
+            "Skill of Queelign of the Fire Knights. Enwreathe armament in flame and assume a low stance before skewering the enemy in a single motion. Strong attack unleashes a follow-up flame attack.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655202&code=mapD",
+        affinity: "Flame Art",
+        usableOn: "Usable on medium and large armaments capable of thrusting" ),
+    AshOfWar(
+        name: "Flame Spear",
+        image: "lib/constants/images/ash_of_war/dlc/flame_spear.png",
+        howToFind:
+            "Shadow Keep, Sixth Floor: Climb the statues once you've used the lever to move them. Head outside, turn right and head up the stairs, turn left to find a Fire Knight at the end of the bridge. Drops this item and Winged Serpent Helm.",
+        description:
+            "Skill of Kood, captain of the Fire Knights. Ready weapon for a thrusting attack and unleash a spear of flame straight ahead. Charge the attack to increase damage dealt and distance travelled.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655620&code=mapD",
+        affinity: "Flame Art",
+        usableOn: "Usable on armaments capable of thrusting (claws and backhand blades excepted)." ),
+    AshOfWar(
+        name: "Ghostflame Call",
+        image: "lib/constants/images/ash_of_war/dlc/ghostflame_call.png",
+        howToFind: "Dropped by the Death Rite Bird.",
+        description:
+            "Thrust out armament to summon ghostflame. Follow up with a normal attack to set the ground ablaze with ghostflame, or a strong attack to trigger a massive explosion.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655695&code=mapD",
+        affinity: "Cold",
+        usableOn: "Usable on swords and spears (small armaments, twinblades, and backhand blades excepted)." ),
+    AshOfWar(
+        name: "Igon's Drake Hunt",
+        image: "lib/constants/images/ash_of_war/dlc/igons_drake_hunt.png",
+        howToFind:
+            "Can be found by summoning Igon and then defeating Bayle The Dread, this will cause Igon to die at his previous location, just south-east of Foot of the Jagged Peak. His body will have both Igon's Greatbow and Igon's set.",
+        description:
+            "Skill of Igon, drake warrior. Ready the bow before unleashing a twisted shot with a great bellow that considerably enhances its power.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=658864&code=mapD",
+        affinity: "Standard",
+        usableOn: "Usable on Greatbows" ),
+    AshOfWar(
+        name: "Overhead Stance",
+        image: "lib/constants/images/ash_of_war/dlc/overhead_stance.png",
+        howToFind:
+            "Comes equipped to the Great Katana found next to the sleeping Ghostflame Dragon on the lake, west of the Abandoned Ailing Village site of grace.",
+        description:
+            "A skill that starts with the blade held high in a ready stance. Execute a normal attack from this stance to step forward and slash downwards, or a strong attack to deliver a series of downward slashes.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=654989&code=mapD",
+        affinity: "Keen",
+        usableOn: "Usable on Great Katanas" ),
+    AshOfWar(
+        name: "Palm Blast",
+        image: "lib/constants/images/ash_of_war/dlc/palm_blast.png",
+        howToFind:
+            "At the Moorth Ruins Site of Grace, use the \"May The Best Win\" emote in front of the DryLeaf Dane Monk, you will then begin a battle and winning will grant you the weapon and it's Ash of War",
+        description:
+            "Skill of the spiritual seekers known as the Dryleaf Sect. Imbues hand with energy before using a palm strike to unleash an explosive blast. The already formidable power and impact can be bolstered by charging the attack.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=659330&code=mapD",
+        affinity: "Standard",
+        usableOn: "Usable on Hand-to-Hand Arts" ),
+    AshOfWar(
+        name: "Piercing Throw",
+        image: "lib/constants/images/ash_of_war/dlc/piercing_throw.png",
+        howToFind:
+            "Found on a scarab juust east of the Ruined Forge of Starfall Past Site of Grace. You'll find it guarded by a small group of Demi-Humans between a crumbled column.",
+        description:
+            "Throw armament with a powerful spin, causing it to bore through foes. When using this skill, the armament can be thrown further than normal and also pierce through enemies.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655043&code=mapD",
+        affinity: "Keen",
+        usableOn: "Usable on Throwing Blades" ),
+    AshOfWar(
+        name: "Raging Beast",
+        image: "lib/constants/images/ash_of_war/dlc/raging_beast.png",
+        howToFind:
+            "From the Bridge Leading to the Village Grace follow the path heading North.  Once you get to the trees, keep looking east for a teleporting Teardrop Scarab that will have the Ash of War.",
+        description:
+            "Step with the swiftness of a beast, leap high, and slash foe from above. Initial step can be taken forward, backward, left, or right. Strong attack allows for a follow-up attack.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=659328&code=mapD",
+        affinity: "Keen",
+        usableOn: "Usable on Beast Claws" ),
+    AshOfWar(
+        name: "Rolling Sparks",
+        image: "lib/constants/images/ash_of_war/dlc/rolling_sparks.png",
+        howToFind:
+            "This can be looted from a flying scarab on the eastern side of the large camp south of Shadow Keep. Ascend the hill past some perfumers and you'll find it at the top in the air above.",
+        description:
+            " Scatter perfumed powder before you, triggering rolling explosions of deadly sparks. The properties of the sparks are determined by the perfume bottle used.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=658918&code=mapD",
+        affinity: "Standard",
+        usableOn: "Usable on Perfume Bottles" ),
+    AshOfWar(
+        name: "Savage Claws",
+        image: "lib/constants/images/ash_of_war/dlc/savage_claws.png",
+        howToFind: "Found on Beast Claw (Weapon).",
+        description:
+            "Pounce like a beast to viciously slash into foe with left and right claws.",
+        mapLink: "",
+        affinity: "Keen",
+        usableOn: "Usable on Beast Claws" ),
+    AshOfWar(
+        name: "Savage Lion's Claw",
+        image: "lib/constants/images/ash_of_war/dlc/savage_lions_claw.png",
+        howToFind:
+            "From the Three-Path Cross site of grace in Gravesite Plain, stick to the wall on the left side, and follow the path north. You will eventually come across a small camp where you can find the Ash of War.",
+        description:
+            "Skill of the particularly brave, even among the Redmanes. Somersault forwards, striking foes with armament. An additional strike may be performed with an additional input.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=654972&code=mapD",
+        affinity: "Heavy",
+        usableOn: "Usable on Swords, Axes, and Hammers. (small armaments and thrusting swords excepted)" ),
+    AshOfWar(
+        name: "Scattershot Throw",
+        image: "lib/constants/images/ash_of_war/dlc/scattershot_throw.png",
+        howToFind:
+            "Can be found by killing a scarab. Just south of Taylew's Ruined Forge entrance, near a bridge. It's hanging high on a pillar with some mobs underneath it.",
+        description:
+            "Employ smithing arts to conjure multiple copies of the armament in both hands and throw them all at once. Follow up with an additional input to throw again.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=659332&code=mapD",
+        affinity: "Keen",
+        usableOn: "Usable on Throwing Blades" ),
+    AshOfWar(
+        name: "Shield Strike",
+        image: "lib/constants/images/ash_of_war/dlc/shield_strike.png",
+        howToFind: "Found on Dueling Shield and Carian Thrusting Shield.",
+        description:
+            "A skill that uses the shield to attack. Repeated inputs allow for up to three follow-up attacks.",
+        mapLink: "",
+        affinity: "Standard",
+        usableOn: "Usable on all shields." ),
+    AshOfWar(
+        name: "Shriek of Sorrow",
+        image: "lib/constants/images/ash_of_war/dlc/shriek_of_sorrow.png",
+        howToFind:
+            "Can be found at Belurat Tower Settlement, in the main Plaza where Fire Knight Queelign invades you, behind the great tree located in the middle.",
+        description:
+            "Skill utilized by the downtrodden. Scream, causing nearby enemies to flinch, while also recalling deep-seated resentment, boosting attack power based on the amount of HP remaining. The lower the HP, the greater the effect.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=654910&code=mapD",
+        affinity: "Occult",
+        usableOn: "Usable on all melee armaments." ),
+    AshOfWar(
+        name: "Spinning Gravity Thrust",
+        image:
+            "lib/constants/images/ash_of_war/dlc/spinning_gravity_thrust.png",
+        howToFind:
+            "Comes equipped to the Sword Lance, one of the possible rewards when trading Remembrance of the Wild Boar Rider with Enia at the Roundtable Hold",
+        description:
+            "A gravity skill honed by the disciples of an Alabaster Lord. Uses gravitational power to hang in the air before rotating the body and charging forward. An additional input allows for a follow-up attack.",
+        mapLink: "",
+        affinity: "Heavy",
+        usableOn: "Usable on Large and Colossal Sword" ),
+    AshOfWar(
+        name: "Swift Slash",
+        image: "lib/constants/images/ash_of_war/dlc/swift_slash.png",
+        howToFind:
+            "Reward for siding with Hornsent during his fight with Leda at Shadowkeep.",
+        description:
+            "A skill passed down amongst hornsent swordsmen. Take a swift forward step to slice through foes. This sharp strike also fires off a shearing vacuum. Can be charged to increase the skill's power and the distance of the forward step.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=659333&code=mapD",
+        affinity: "Keen",
+        usableOn: "Usable on Backhand Blades	" ),
+    AshOfWar(
+        name: "The Poison Flower Blooms Twice",
+        image:
+            "lib/constants/images/ash_of_war/dlc/the_poison_flower_blooms_twice.png",
+        howToFind:
+            "Dropped by a Teardrop Scarab. From Ravine North Site of Grace in Rauh Base, head south to cross river and find it near a small pool of rot near some ruins.",
+        description:
+            " Conjures stingers of scarlet rot from below to stab the enemy. Landing a follow-up attack on a foe already inflicted with poison or rot deals massive damage in one fell swoop.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655401&code=mapD",
+        affinity: "Poison",
+        usableOn: "Usable on all Melee Armaments" ),
+    AshOfWar(
+        name: "Wall of Sparks",
+        image: "lib/constants/images/ash_of_war/dlc/wall_of_sparks.png",
+        howToFind:
+            "Shadow Keep: Take the left lift down from the Storehouse, first-floor site of grace. take the first exit to the right, and then the first one to the left. You will find this item on a corpse sitting on the rails.",
+        description:
+            "Scatter perfumed powder in vicinity, producing intense sparks after a brief delay. Can be charged to increase power and range. The properties of the sparks are determined by the perfume bottle used.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655526&code=mapD",
+        affinity: "Standard",
+        usableOn: "Usable on Perfume Bottles" ),
+    AshOfWar(
+        name: "Wing Stance",
+        image: "lib/constants/images/ash_of_war/dlc/wing_stance.png",
+        howToFind:
+            "Castle Ensis: Inside a chest in the tower that you can reach by jumping over the edge just outside Castle Lord's Chamber Site of Grace, and following the cliffside down to the tower before climbing up two ladders to reach it.",
+        description:
+            "Calmly assume a right-sided stance. Normal attack triggers a rapid three-slash combination. Strong attack triggers a leaping thrust.",
+        mapLink:
+            "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655632&code=mapD",
+        affinity: "Quality",
+        usableOn: "Usable on Light Greatswords" ),
+  ];
+  return ashes;
 }
 
 List<Weapon> allWeapons() {
@@ -10806,10 +12139,9 @@ List<Weapon> allSOTEWeapons() {
   ];
   return weapons;
 }
-List<Tear> allSOTETears() {
-  List<Tear> allTears = [
 
-  ];
+List<Tear> allSOTETears() {
+  List<Tear> allTears = [];
   return allTears;
 }
 
@@ -21527,9 +22859,9 @@ List<Incantation> allIncantations() {
     Incantation(
         name: "Flame, Grant me Strength",
         image:
-        'lib/constants/images/incantations/main_game_incantations/flame_grant_me_strength.png',
+            'lib/constants/images/incantations/main_game_incantations/flame_grant_me_strength.png',
         description:
-        "This incantation does not burn the caster, and so it is considered forbidden by the guardians of the Flame.",
+            "This incantation does not burn the caster, and so it is considered forbidden by the guardians of the Flame.",
         howToFind: "",
         mapLink: "",
         fPCost: 28,
@@ -21544,9 +22876,9 @@ List<Incantation> allIncantations() {
     Incantation(
         name: "Flame, Cleanse Me",
         image:
-        'lib/constants/images/incantations/main_game_incantations/flame_cleanse_me.png',
+            'lib/constants/images/incantations/main_game_incantations/flame_cleanse_me.png',
         description:
-        "Alleviates poison and scarlet rot buildup and cures these ailments. This incantation leaves the caster with subtle burns - a reminder that they must fear the flame.",
+            "Alleviates poison and scarlet rot buildup and cures these ailments. This incantation leaves the caster with subtle burns - a reminder that they must fear the flame.",
         howToFind: "",
         mapLink: "",
         fPCost: 14,
@@ -21561,9 +22893,9 @@ List<Incantation> allIncantations() {
     Incantation(
         name: "Flame Sling",
         image:
-        'lib/constants/images/incantations/main_game_incantations/flame_sling.png',
+            'lib/constants/images/incantations/main_game_incantations/flame_sling.png',
         description:
-        "The flame of ruin is anathema to the Erdtree. But prophets sometimes glimpse it within the faith all the same. Sadly when this occurs their sole reward is banishment.",
+            "The flame of ruin is anathema to the Erdtree. But prophets sometimes glimpse it within the faith all the same. Sadly when this occurs their sole reward is banishment.",
         howToFind: "",
         mapLink: "",
         fPCost: 11,
@@ -21578,9 +22910,9 @@ List<Incantation> allIncantations() {
     Incantation(
         name: "Catch flame",
         image:
-        'lib/constants/images/incantations/main_game_incantations/catch_flame.png',
+            'lib/constants/images/incantations/main_game_incantations/catch_flame.png',
         description:
-        "The flame of ruin is anathema to the Erdtree. But prophets sometimes glimpse it within the faith all the same. Sadly when this occurs their sole reward is banishment.",
+            "The flame of ruin is anathema to the Erdtree. But prophets sometimes glimpse it within the faith all the same. Sadly when this occurs their sole reward is banishment.",
         howToFind: "",
         mapLink: "",
         fPCost: 10,
@@ -21595,9 +22927,9 @@ List<Incantation> allIncantations() {
     Incantation(
         name: "Assassin's Approach",
         image:
-        'lib/constants/images/incantations/main_game_incantations/assassins_approach.png',
+            'lib/constants/images/incantations/main_game_incantations/assassins_approach.png',
         description:
-        "The assassins were charged with eliminating Tarnished who had strayed from guidance.",
+            "The assassins were charged with eliminating Tarnished who had strayed from guidance.",
         howToFind: "",
         mapLink: "",
         fPCost: 15,
@@ -24366,3 +25698,5 @@ List<Sorcery> allSorceries() {
   ];
   return allSorceries;
 }
+
+String token = "gvQ7V5umkVzEXwRfq8Law0IqWyeQsq";

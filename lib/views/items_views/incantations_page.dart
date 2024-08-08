@@ -1,14 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:async';
-
-import 'package:elden_nexus/firebase/auth/auth.dart';
 import 'package:elden_nexus/firebase/database/database.dart';
 import 'package:elden_nexus/models/incantation.dart';
 import 'package:elden_nexus/views/loading_screen.dart';
 import 'package:elden_nexus/views/routing_view.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import '../../constants/constant.dart';
@@ -17,7 +16,6 @@ import 'incantations_detail_page.dart';
 
 class IncantationsPage extends StatefulWidget {
   final bool isDlc;
-
   const IncantationsPage({super.key, required this.isDlc});
 
   @override
@@ -31,25 +29,23 @@ class _IncantationsPageState extends State<IncantationsPage> {
   late Future<List<String>> futureFoundIncants;
   SortOption? selectedSortOption;
   late Future<void> initIncantsFuture;
+  late String id = '';
 
   @override
   void initState() {
     super.initState();
     incants = widget.isDlc ? db.allDBSOTEIncantations : db.allDBIncantations;
     initIncantsFuture = initIncants();
-    futureFoundIncants = db.getUserIncantations(Auth().currentUser!.uid);
+    futureFoundIncants = Future.value([]);
   }
 
   Future<void> initIncants() async {
-    futureFoundIncants = db.getUserIncantations(Auth().currentUser!.uid);
+    id = await FlutterSecureStorage().read(key: 'id') ?? '';
+    futureFoundIncants = db.getUserIncantations(id);
     displayedIncants = List.from(incants);
     sortIncants(SortOption.type);
   }
 
-  void setFoundIncants() async {
-    futureFoundIncants = db.getUserIncantations(Auth().currentUser!.uid);
-    displayedIncants = List.from(incants);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -239,7 +235,7 @@ class _IncantationsPageState extends State<IncantationsPage> {
                                 child: CheckboxListTile(
                                   value: snapshot.data!
                                       .contains(displayedIncants[index].name),
-                                  onChanged: (bool? value) async {
+                                  onChanged:(bool? value) async {
                                     setState(() {
                                       if (value == true) {
                                         if (!snapshot.data!.contains(
@@ -258,11 +254,11 @@ class _IncantationsPageState extends State<IncantationsPage> {
                                       if (value!) {
                                         await db.addUserIncantation(
                                             displayedIncants[index].name,
-                                            Auth().currentUser!.uid);
+                                            id);
                                       } else {
                                         await db.removeUserIncantation(
                                             displayedIncants[index].name,
-                                            Auth().currentUser!.uid);
+                                            id);
                                       }
                                   },
                                   title: SingleChildScrollView(

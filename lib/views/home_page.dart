@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
   final bool isDlc;
-
   const HomePage({super.key, required this.isDlc});
 
   @override
@@ -66,7 +65,7 @@ class _HomePageState extends State<HomePage>
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const WelcomePage(),
+                      builder: (context) => WelcomePage(),
                     ),
                   );
                 },
@@ -82,37 +81,43 @@ class _HomePageState extends State<HomePage>
             ),
           ],
           title: widget.isDlc
-              ? AnimatedBuilder(
-            animation: _controller,
-            builder: (BuildContext context, Widget? child) {
-              return ShaderMask(
-                shaderCallback: (Rect bounds) {
-                  return LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: const <Color>[
-                      Colors.orangeAccent,
-                      Colors.yellow,
-                      Colors.red
-                    ],
-                    stops: [
-                      _controller.value - 1,
-                      _controller.value,
-                      _controller.value + 1,
-                    ],
-                  ).createShader(bounds);
-                },
-                child: Text(
-                  _title.toUpperCase(),
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onPrimaryContainer,
-                    fontFamily: "Mantinia",
-                    fontSize: 18,
+              ? SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+                child: AnimatedBuilder(
+                            animation: _controller,
+                            builder: (BuildContext context, Widget? child) {
+                return ShaderMask(
+                  shaderCallback: (Rect bounds) {
+                    return LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: const <Color>[
+                        Colors.orangeAccent,
+                        Colors.yellow,
+                        Colors.red
+                      ],
+                      stops: [
+                        _controller.value - 1,
+                        _controller.value,
+                        _controller.value + 1,
+                      ],
+                    ).createShader(bounds);
+                  },
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Text(
+                      _title.toUpperCase(),
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                        fontFamily: "Mantinia",
+                        fontSize: 18,
+                      ),
+                    ),
                   ),
-                ),
-              );
-            },
-          )
+                );
+                            },
+                          ),
+              )
               : Text(_title.toUpperCase(), style: TextStyle(
             color: Theme.of(context).colorScheme.onPrimaryContainer,
             fontFamily: "Mantinia",

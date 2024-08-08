@@ -1,92 +1,170 @@
-import 'constant.dart';
+import 'dart:math';
+import 'package:encrypt/encrypt.dart' as encrypt;
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'constant.dart' as cons;
 
 class Helper {
-  static String strCat(WeaponCategory category) {
+
+  static String generateRandomAlphanumeric(int length) {
+    const chars =
+        'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    Random rnd = Random();
+    return String.fromCharCodes(Iterable.generate(
+        length, (_) => chars.codeUnitAt(rnd.nextInt(chars.length))));
+  }
+
+  static String strCat(cons.WeaponCategory category) {
     switch (category) {
-      case WeaponCategory.axe:
+      case cons.WeaponCategory.axe:
         return 'Axe';
-      case WeaponCategory.backhand_blade:
+      case cons.WeaponCategory.backhand_blade:
         return 'Backhand Blade';
-      case WeaponCategory.ballista:
+      case cons.WeaponCategory.ballista:
         return 'Ballista';
-      case WeaponCategory.beast_claw:
+      case cons.WeaponCategory.beast_claw:
         return 'Beast Claw';
-      case WeaponCategory.bow:
+      case cons.WeaponCategory.bow:
         return 'Bow';
-      case WeaponCategory.crossbow:
+      case cons.WeaponCategory.crossbow:
         return 'Crossbow';
-      case WeaponCategory.claw:
+      case cons.WeaponCategory.claw:
         return 'Claw';
-      case WeaponCategory.colossal_sword:
+      case cons.WeaponCategory.colossal_sword:
         return 'Colossal Sword';
-      case WeaponCategory.colossal_weapon:
+      case cons.WeaponCategory.colossal_weapon:
         return 'Colossal Weapon';
-      case WeaponCategory.curved_greatsword:
+      case cons.WeaponCategory.curved_greatsword:
         return 'Curved Greatsword';
-      case WeaponCategory.curved_sword:
+      case cons.WeaponCategory.curved_sword:
         return 'Curved Sword';
-      case WeaponCategory.dagger:
+      case cons.WeaponCategory.dagger:
         return 'Dagger';
-      case WeaponCategory.fist:
+      case cons.WeaponCategory.fist:
         return 'Fist';
-      case WeaponCategory.flail:
+      case cons.WeaponCategory.flail:
         return 'Flail';
-      case WeaponCategory.glintstone_staff:
+      case cons.WeaponCategory.glintstone_staff:
         return 'Glintstone Staff';
-      case WeaponCategory.greataxe:
+      case cons.WeaponCategory.greataxe:
         return 'Great Axe';
-      case WeaponCategory.great_bow:
+      case cons.WeaponCategory.great_bow:
         return 'Great Bow';
-      case WeaponCategory.great_hammer:
+      case cons.WeaponCategory.great_hammer:
         return 'Great Hammer';
-      case WeaponCategory.great_katana:
+      case cons.WeaponCategory.great_katana:
         return 'Great Katana';
-      case WeaponCategory.great_spear:
+      case cons.WeaponCategory.great_spear:
         return 'Great Spear';
-      case WeaponCategory.greatshield:
+      case cons.WeaponCategory.greatshield:
         return 'Greatshield';
-      case WeaponCategory.greatsword:
+      case cons.WeaponCategory.greatsword:
         return 'Greatsword';
-      case WeaponCategory.halberd:
+      case cons.WeaponCategory.halberd:
         return 'Hallberd';
-      case WeaponCategory.hammer:
+      case cons.WeaponCategory.hammer:
         return 'Hammer';
-      case WeaponCategory.hand_to_hand_art:
+      case cons.WeaponCategory.hand_to_hand_art:
         return 'Hand to Hand Art';
-      case WeaponCategory.heavy_thrusting_sword:
+      case cons.WeaponCategory.heavy_thrusting_sword:
         return 'Heavy Thrusting Sword';
-      case WeaponCategory.katana:
+      case cons.WeaponCategory.katana:
         return 'Katana';
-      case WeaponCategory.light_bow:
+      case cons.WeaponCategory.light_bow:
         return 'Light Bow';
-      case WeaponCategory.light_greatsword:
+      case cons.WeaponCategory.light_greatsword:
         return 'Light Greatsword';
-      case WeaponCategory.medium_shield:
+      case cons.WeaponCategory.medium_shield:
         return 'Medium Shield';
-      case WeaponCategory.perfume_bottle:
+      case cons.WeaponCategory.perfume_bottle:
         return 'Perfume Bottle';
-      case WeaponCategory.reaper:
+      case cons.WeaponCategory.reaper:
         return 'Reaper';
-      case WeaponCategory.sacred_seal:
+      case cons.WeaponCategory.sacred_seal:
         return 'Sacred Seal';
-      case WeaponCategory.small_shield:
+      case cons.WeaponCategory.small_shield:
         return 'Small Shield';
-      case WeaponCategory.spear:
+      case cons.WeaponCategory.spear:
         return 'Spear';
-      case WeaponCategory.straight_sword:
+      case cons.WeaponCategory.straight_sword:
         return 'Straight Sword';
-      case WeaponCategory.throwing_blade:
+      case cons.WeaponCategory.throwing_blade:
         return 'Throwing Blade';
-      case WeaponCategory.thrusting_shield:
+      case cons.WeaponCategory.thrusting_shield:
         return 'Thrusting Shield';
-      case WeaponCategory.thrusting_sword:
+      case cons.WeaponCategory.thrusting_sword:
         return 'Thrusting Sword';
-      case WeaponCategory.torch:
+      case cons.WeaponCategory.torch:
         return 'Torch';
-      case WeaponCategory.twinblade:
+      case cons.WeaponCategory.twinblade:
         return 'Twinblade';
-      case WeaponCategory.whip:
+      case cons.WeaponCategory.whip:
         return 'Whip';
     }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  static Future<void> init() async {
+    await setId();
+    await setToken();
+  }
+  static Future<void> setId() async {
+    const storage = FlutterSecureStorage();
+    String id = await storage.read(key: 'id') ?? '';
+    if (id.isNotEmpty) {
+      return Future.value();
+    }
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    await storage.write(
+        key: 'id',
+        value: encrypt.Encrypter(
+                encrypt.AES(encrypt.Key.fromUtf8('thisIsASecretKey')))
+            .encrypt(androidInfo.id,
+                iv: encrypt.IV.fromUtf8('thisIsAnIVForAES'))
+            .base64);
+  }
+  static Future<void> setToken() async {
+    const storage = FlutterSecureStorage();
+    String token = await storage.read(key: 'token') ?? '';
+    if (token.isNotEmpty) {
+      return Future.value();
+    }
+    await storage.write(key: 'token', value: cons.token);
   }
 }

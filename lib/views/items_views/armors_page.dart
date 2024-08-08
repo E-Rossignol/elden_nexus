@@ -1,14 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:async';
-
 import 'package:elden_nexus/constants/constant.dart';
-import 'package:elden_nexus/firebase/auth/auth.dart';
 import 'package:elden_nexus/firebase/database/database.dart';
 import 'package:elden_nexus/views/loading_screen.dart';
 import 'package:elden_nexus/views/routing_view.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import '../../models/armor.dart';
@@ -31,24 +30,21 @@ class _ArmorsPageState extends State<ArmorsPage> {
   late Future<List<String>> futureFoundArmors;
   SortOption? selectedSortOption;
   late Future<void> initArmorsFuture;
+  late String id = '';
 
   @override
   void initState() {
     super.initState();
     armors = widget.isDlc ? db.allDBSOTEArmors : db.allDBArmors;
     initArmorsFuture = initArmors();
-    futureFoundArmors = db.getUserArmors(Auth().currentUser!.uid);
+    futureFoundArmors = Future.value([]);
   }
 
   Future<void> initArmors() async {
-    futureFoundArmors = db.getUserArmors(Auth().currentUser!.uid);
+    id = await FlutterSecureStorage().read(key: 'id') ?? '';
+    futureFoundArmors = db.getUserArmors(id);
     displayedArmors = List.from(armors);
     sortArmors(SortOption.name);
-  }
-
-  void setFoundArmors() async {
-    futureFoundArmors = db.getUserArmors(Auth().currentUser!.uid);
-    displayedArmors = List.from(armors);
   }
 
   @override
@@ -249,7 +245,7 @@ class _ArmorsPageState extends State<ArmorsPage> {
                                 child: CheckboxListTile(
                                   value: snapshot.data!
                                       .contains(displayedArmors[index].name),
-                                  onChanged: (bool? value) async {
+                                  onChanged:(bool? value) async {
                                     setState(() {
                                       if (value == true) {
                                         if (!snapshot.data!.contains(
@@ -268,11 +264,11 @@ class _ArmorsPageState extends State<ArmorsPage> {
                                     if (value!) {
                                       await db.addUserArmor(
                                           displayedArmors[index].name,
-                                          Auth().currentUser!.uid);
+                                          id);
                                     } else {
                                       await db.removeUserArmor(
                                           displayedArmors[index].name,
-                                          Auth().currentUser!.uid);
+                                          id);
                                     }
                                   },
                                   title: SingleChildScrollView(

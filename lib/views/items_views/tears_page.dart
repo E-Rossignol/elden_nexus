@@ -1,13 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:async';
-
-import 'package:elden_nexus/firebase/auth/auth.dart';
 import 'package:elden_nexus/firebase/database/database.dart';
 import 'package:elden_nexus/views/loading_screen.dart';
 import 'package:elden_nexus/views/routing_view.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import '../../models/tear.dart';
@@ -16,7 +15,6 @@ import 'tears_detail_page.dart';
 
 class TearsPage extends StatefulWidget {
   final bool isDlc;
-
   const TearsPage({super.key, required this.isDlc});
 
   @override
@@ -30,24 +28,21 @@ class _TearsPageState extends State<TearsPage> {
   late Future<List<String>> futureFoundTears;
   SortOption? selectedSortOption;
   late Future<void> initTearsFuture;
+  late String id = '';
 
   @override
   void initState() {
     super.initState();
     tears = widget.isDlc ? db.allDBSOTETears : db.allDBTears;
     initTearsFuture = initTals();
-    futureFoundTears = db.getUserTears(Auth().currentUser!.uid);
+    futureFoundTears = Future.value([]);
   }
 
   Future<void> initTals() async {
-    futureFoundTears = db.getUserTears(Auth().currentUser!.uid);
+    id = await FlutterSecureStorage().read(key: 'id') ?? '';
+    futureFoundTears = db.getUserTears(id);
     displayedTears = List.from(tears);
     sortTals(SortOption.defaultSort);
-  }
-
-  void setFoundtals() async {
-    futureFoundTears = db.getUserTears(Auth().currentUser!.uid);
-    displayedTears = List.from(tears);
   }
 
   @override
@@ -198,7 +193,7 @@ class _TearsPageState extends State<TearsPage> {
             ),
           ],
         ),
-        body: displayedTears.length == 0 ?
+        body: displayedTears.isEmpty ?
         Center(
           child: Text("Nothing to display".toUpperCase(), style: TextStyle(color: Theme.of(context).colorScheme.onBackground, fontSize: 20, fontFamily: 'Mantinia')
         ))
@@ -261,11 +256,11 @@ class _TearsPageState extends State<TearsPage> {
                                       if (value!) {
                                         await db.addUserTear(
                                             displayedTears[index].name,
-                                            Auth().currentUser!.uid);
+                                            id);
                                       } else {
                                         await db.removeUserTear(
                                             displayedTears[index].name,
-                                            Auth().currentUser!.uid);
+                                            id);
                                       }
                                   },
                                   title: SingleChildScrollView(

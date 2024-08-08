@@ -9,7 +9,6 @@ import '../../constants/helper.dart';
 
 class WeaponDetailPage extends StatefulWidget {
   final Weapon weapon;
-
   const WeaponDetailPage({super.key, required this.weapon});
 
   @override
@@ -492,7 +491,7 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
     return PopScope(
       canPop: true,
       child: Scaffold(
-        endDrawer: Drawer(
+        endDrawer: const Drawer(
           child: SettingsView(),
         ),
         appBar: AppBar(

@@ -8,7 +8,6 @@ import 'armors_page.dart';
 
 class ArmorDetailPage extends StatefulWidget {
   final Armor armor;
-
   const ArmorDetailPage({super.key, required this.armor});
 
   @override
@@ -56,7 +55,7 @@ class _ArmorDetailPageState extends State<ArmorDetailPage> {
     return PopScope(
       canPop: true,
       child: Scaffold(
-        endDrawer: Drawer(
+        endDrawer: const Drawer(
           child: SettingsView(),
         ),
         appBar: AppBar(

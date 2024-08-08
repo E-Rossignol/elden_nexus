@@ -7,7 +7,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 class TalismanDetailPage extends StatefulWidget {
   final Talisman tal;
-
   const TalismanDetailPage({super.key, required this.tal});
 
   @override
@@ -83,7 +82,7 @@ class _TalismanDetailPageState extends State<TalismanDetailPage> {
     return PopScope(
       canPop: true,
       child: Scaffold(
-        endDrawer: Drawer(
+        endDrawer: const Drawer(
           child: SettingsView(),
         ),
         appBar: AppBar(

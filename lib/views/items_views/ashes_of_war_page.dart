@@ -1,14 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:async';
-
-import 'package:elden_nexus/firebase/auth/auth.dart';
 import 'package:elden_nexus/firebase/database/database.dart';
 import 'package:elden_nexus/models/ash_of_war.dart';
 import 'package:elden_nexus/views/loading_screen.dart';
 import 'package:elden_nexus/views/routing_view.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import '../home_page.dart';
@@ -16,7 +15,6 @@ import 'ashes_of_war_detail_page.dart';
 
 class AshesOfWarPage extends StatefulWidget {
   final bool isDlc;
-
   const AshesOfWarPage({super.key, required this.isDlc});
 
   @override
@@ -30,24 +28,21 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
   late Future<List<String>> futureFoundAshes;
   SortOption? selectedSortOption;
   late Future<void> initAshesFuture;
+  late String id = '';
 
   @override
   void initState() {
     super.initState();
     ashes = widget.isDlc ? db.allDBSOTEAshesOfWar : db.allDBAshesOfWar;
     initAshesFuture = initAshes();
-    futureFoundAshes = db.getUserAshes(Auth().currentUser!.uid);
+    futureFoundAshes = Future.value([]);
   }
 
   Future<void> initAshes() async {
-    futureFoundAshes = db.getUserAshes(Auth().currentUser!.uid);
+    id = await FlutterSecureStorage().read(key: 'id') ?? '';
+    futureFoundAshes = db.getUserAshes(id);
     displayedAshes = List.from(ashes);
-    sortAshes(SortOption.name);
-  }
-
-  void setFoundAshes() async {
-    futureFoundAshes = db.getUserAshes(Auth().currentUser!.uid);
-    displayedAshes = List.from(ashes);
+    sortAshes(SortOption.affinity);
   }
 
   @override
@@ -99,6 +94,16 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        ListTile(
+                          title: Text('Affinity'),
+                          onTap: () {
+                            setState(() {
+                              selectedSortOption = SortOption.affinity;
+                              sortAshes(SortOption.affinity);
+                            });
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                        ),
                         ListTile(
                           title: Text('Name'),
                           onTap: () {
@@ -247,11 +252,11 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
                                       if (value!) {
                                         await db.addUserAsh(
                                             displayedAshes[index].name,
-                                            Auth().currentUser!.uid);
+                                            id);
                                       } else {
                                         await db.removeUserAsh(
                                             displayedAshes[index].name,
-                                            Auth().currentUser!.uid);
+                                            id);
                                       }
                                   },
                                   title: SingleChildScrollView(
@@ -341,6 +346,28 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
             displayedAshes.sort((a, b) => a.name.compareTo(b.name));
           });
         });
+      } else if (option == SortOption.affinity) {
+        List<String> affinities = [
+          "Heavy",
+          "Keen",
+          "Quality",
+          "Magic",
+          "Fire",
+          "Flame Art",
+          "Lightning",
+          "Sacred",
+          "Poison",
+          "Blood",
+          "Cold",
+          "Occult",
+          "Standard"
+        ];
+        displayedAshes = ashes;
+        displayedAshes.sort((a, b) => a.name.compareTo(b.name));
+        displayedAshes.sort((a, b) {
+          return affinities.indexOf(a.affinity)
+              .compareTo(affinities.indexOf(b.affinity));
+        });
       }
     });
   }
@@ -376,7 +403,9 @@ class AshesSearch extends SearchDelegate<AshOfWar> {
                 image: '',
                 description: '',
                 howToFind: '',
-                mapLink: ''));
+                mapLink: '',
+                usableOn: '',
+                affinity: ''));
       },
     );
   }
@@ -421,4 +450,4 @@ class AshesSearch extends SearchDelegate<AshOfWar> {
   }
 }
 
-enum SortOption { name, notFound }
+enum SortOption { name, notFound, affinity }

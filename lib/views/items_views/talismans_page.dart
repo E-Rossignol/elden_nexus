@@ -1,13 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:async';
-
-import 'package:elden_nexus/firebase/auth/auth.dart';
 import 'package:elden_nexus/firebase/database/database.dart';
 import 'package:elden_nexus/views/loading_screen.dart';
 import 'package:elden_nexus/views/routing_view.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import '../../models/talisman.dart';
@@ -16,7 +15,6 @@ import 'talismans_detail_page.dart';
 
 class TalismansPage extends StatefulWidget {
   final bool isDlc;
-
   const TalismansPage({super.key, required this.isDlc});
 
   @override
@@ -30,24 +28,21 @@ class _TalismansPageState extends State<TalismansPage> {
   late Future<List<String>> futureFoundTals;
   SortOption? selectedSortOption;
   late Future<void> initTalsFuture;
+  late String id = '';
 
   @override
   void initState() {
     super.initState();
     tals = widget.isDlc ? db.allDBSOTETalismans : db.allDBTalismans;
     initTalsFuture = initTals();
-    futureFoundTals = db.getUserTalismans(Auth().currentUser!.uid);
+    futureFoundTals = Future.value([]);
   }
 
   Future<void> initTals() async {
-    futureFoundTals = db.getUserTalismans(Auth().currentUser!.uid);
+    id = await FlutterSecureStorage().read(key: 'id') ?? '';
+    futureFoundTals = db.getUserTalismans(id);
     displayedTals = List.from(tals);
     sortTals(SortOption.defaultSort);
-  }
-
-  void setFoundtals() async {
-    futureFoundTals = db.getUserTalismans(Auth().currentUser!.uid);
-    displayedTals = List.from(tals);
   }
 
   @override
@@ -239,31 +234,31 @@ class _TalismansPageState extends State<TalismansPage> {
                                 child: CheckboxListTile(
                                   value: snapshot.data!
                                       .contains(displayedTals[index].name),
-                                  onChanged: (bool? value) {
-                                    if (value == true) {
-                                      if (!snapshot.data!.contains(
-                                          displayedTals[index].name)) {
-                                        snapshot.data!
-                                            .add(displayedTals[index].name);
+                                  onChanged: (bool? value) async {
+                                    setState(() {
+                                      if (value == true) {
+                                        if (!snapshot.data!.contains(
+                                            displayedTals[index].name)) {
+                                          snapshot.data!
+                                              .add(displayedTals[index].name);
+                                        }
+                                      } else {
+                                        if (snapshot.data!.contains(
+                                            displayedTals[index].name)) {
+                                          snapshot.data!.remove(
+                                              displayedTals[index].name);
+                                        }
                                       }
-                                    } else {
-                                      if (snapshot.data!.contains(
-                                          displayedTals[index].name)) {
-                                        snapshot.data!.remove(
-                                            displayedTals[index].name);
-                                      }
-                                    }
-                                    setState(() async {
+                                    });
                                         if (value!) {
                                           await db.addUserTalisman(
                                               displayedTals[index].name,
-                                              Auth().currentUser!.uid);
+                                              id);
                                         } else {
                                           await db.removeUserTalisman(
                                               displayedTals[index].name,
-                                              Auth().currentUser!.uid);
+                                              id);
                                         }
-                                      });
                                   },
                                   title: SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,

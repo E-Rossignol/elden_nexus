@@ -7,7 +7,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 class TearDetailPage extends StatefulWidget {
   final Tear tear;
-
   const TearDetailPage({super.key, required this.tear});
 
   @override
@@ -83,7 +82,7 @@ class _TearDetailPageState extends State<TearDetailPage> {
     return PopScope(
       canPop: true,
       child: Scaffold(
-        endDrawer: Drawer(
+        endDrawer: const Drawer(
           child: SettingsView(),
         ),
         appBar: AppBar(

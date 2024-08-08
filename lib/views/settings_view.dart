@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:elden_nexus/components/settings/change_language_component.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../components/settings/change_password_component.dart';
 
 /// The `SettingsView` class represents the settings view of the application.
@@ -18,7 +17,7 @@ import '../components/settings/change_password_component.dart';
 /// The body of the `Scaffold` is a `Padding` widget that contains a `ListView` with `DarkModeSwitchComponent`, `ChangeLanguageComponent`, and `LogOutComponent` components.
 class SettingsView extends StatefulWidget {
   final bool isLogin;
-  SettingsView({this.isLogin = false, super.key});
+  const SettingsView({this.isLogin = false, super.key});
 
 
   @override
@@ -63,8 +62,10 @@ class SettingsViewState extends State<SettingsView> {
                       ),
                       TextButton(
                         onPressed: () async {
+                          Navigator.of(context).pop();
                           DatabaseMethods db = DatabaseMethods.instance;
                           await db.storeAll();
+                          Get.snackbar('STORE', 'Data stored !');
                         },
                         child: Text('YES'),
                       ),
@@ -95,11 +96,11 @@ class SettingsViewState extends State<SettingsView> {
                       ),
                       TextButton(
                         onPressed: () async {
+                          Navigator.of(context).pop();
                           SharedPreferences prefs =
                               await SharedPreferences.getInstance();
                           await prefs.clear();
                           Get.snackbar('RESET', 'Data reseted !');
-                          Navigator.of(context).pop();
                         },
                         child: Text('Yes'),
                       ),
@@ -130,9 +131,9 @@ class SettingsViewState extends State<SettingsView> {
                       ),
                       TextButton(
                         onPressed: () async {
+                          Navigator.of(context).pop();
                           await DatabaseMethods.instance.initDatas();
                           Get.snackbar('RESET', 'Data re-wrote !');
-                          Navigator.of(context).pop();
                         },
                         child: Text('Yes'),
                       ),
@@ -144,18 +145,53 @@ class SettingsViewState extends State<SettingsView> {
     );
   }
 
+  Widget erwanIDButton() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ElevatedButton(
+        onPressed: () async {
+          showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text('erwan ID update'),
+                content: Text('Rewrite erwan\'s ID?'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('No'),
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      Navigator.of(context).pop();
+                      await DatabaseMethods.instance.erwanChangeId();
+                      Get.snackbar('update', 'Data re-wrote !');
+                    },
+                    child: Text('Yes'),
+                  ),
+                ],
+              ));
+        },
+        child: Text('Rewrite erwan\'s data'),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     List<Widget> widgets = [];
     widgets.add(const ChangeLanguageComponent());
-    if (!widget.isLogin)
+    if (!widget.isLogin) {
       widgets.add(const ChangePasswordComponent());
+    }
     widgets.add(const LogOutComponent());
     bool isErwan = prefs?.getBool('isErwan') ?? false;
     if (isErwan){
       widgets.add(storeButton());
       widgets.add(resetSharedPreferencesButton());
       widgets.add(rewriteSharedPreferencesButton());
+      widgets.add(erwanIDButton());
     }
     return Scaffold(
       appBar: AppBar(

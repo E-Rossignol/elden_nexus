@@ -5,6 +5,7 @@ import 'package:elden_nexus/models/ash_of_war.dart';
 import 'package:elden_nexus/models/incantation.dart';
 import 'package:elden_nexus/models/sorcery.dart';
 import 'package:elden_nexus/models/talisman.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../../models/armor.dart';
 import '../../models/tear.dart';
 import '../../models/weapon.dart';
@@ -36,7 +37,18 @@ class DatabaseMethods {
   List<Tear> _soteTears = [];
   List<AshOfWar> _soteAshesOfWar = [];
 
-  Future<void> initDatas() async {
+  Future<String> getCheckCode() async {
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('codeCheck').get();
+    return querySnapshot.docs.first['value'];
+  }
+
+  Future<bool> initDatas() async {
+    String code = await getCheckCode();
+    if (code != token){
+      return false;
+    }
+    await Future.delayed(const Duration(seconds: 2));
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getStringList('mainGameWeapons') == null) {
       List<Weapon> weapons = await getAllWeapons(false) ?? [];
@@ -261,6 +273,7 @@ class DatabaseMethods {
         _soteAshesOfWar.add(AshOfWar.fromMap(jsonDecode(ashStr)));
       }
     }
+    return true;
   }
 
   get allDBWeapons => _mainGameWeapons;
@@ -375,6 +388,13 @@ class DatabaseMethods {
         ashesOfWar.add(ash);
       }
     }
+    ashesOfWar.sort((a,b) => a.name.compareTo(b.name));
+    String str = "";
+    for(AshOfWar ash in ashesOfWar){
+      str += ash.toStr();
+    }
+
+    print(str);
     return ashesOfWar;
   }
 
@@ -660,6 +680,8 @@ class DatabaseMethods {
     //await storeAllSOTETears();
     //await storeAllMainGameIncantations();
     //await storeAllMainGameSorceries();
+    await storeAllSOTEAOW();
+    await storeAllMainGameAOW();
   }
 
   Future<void> storeAllMainGameWeapons() async {
@@ -677,6 +699,24 @@ class DatabaseMethods {
       await FirebaseFirestore.instance
           .collection('allMainGameArmors')
           .add(arm.toMap());
+    }
+  }
+
+  Future<void> storeAllSOTEAOW() async {
+    List<AshOfWar> ashesOfWar = allDLCAshes();
+    for (AshOfWar ash in ashesOfWar) {
+      await FirebaseFirestore.instance
+          .collection('allSOTEAOW')
+          .add(ash.toMap());
+    }
+  }
+
+  Future<void> storeAllMainGameAOW() async {
+    List<AshOfWar> ashesOfWar = allAshes();
+    for (AshOfWar ash in ashesOfWar) {
+      await FirebaseFirestore.instance
+          .collection('allMainGameAOW')
+          .add(ash.toMap());
     }
   }
 
@@ -713,6 +753,99 @@ class DatabaseMethods {
       await FirebaseFirestore.instance
           .collection('allMainGameSorceries')
           .add(sorc.toMap());
+    }
+  }
+
+  Future<void> erwanChangeId() async {
+    String id = await const FlutterSecureStorage().read(key: 'id') ?? '';
+    String oldID = "";
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('usersWeapons')
+        .where('userID', isEqualTo: oldID)
+        .get();
+
+    for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+      await FirebaseFirestore.instance
+          .collection('usersWeapons')
+          .doc(doc.id)
+          .update({'userID': id});
+    }
+
+    querySnapshot = await FirebaseFirestore.instance
+        .collection('usersArmors')
+        .where('userID', isEqualTo: oldID)
+        .get();
+
+    for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+      await FirebaseFirestore.instance
+          .collection('usersArmors')
+          .doc(doc.id)
+          .update({'userID': id});
+    }
+
+    querySnapshot = await FirebaseFirestore.instance
+        .collection('usersTalismans')
+        .where('userID', isEqualTo: oldID)
+        .get();
+
+    for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+      await FirebaseFirestore.instance
+          .collection('usersTalismans')
+          .doc(doc.id)
+          .update({'userID': id
+          });
+    }
+
+    querySnapshot = await FirebaseFirestore.instance
+        .collection('usersIncantations')
+        .where('userID', isEqualTo: oldID)
+        .get();
+
+    for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+      await FirebaseFirestore.instance
+          .collection('usersIncantations')
+          .doc(doc.id)
+          .update({'userID': id
+          });
+    }
+
+    querySnapshot = await FirebaseFirestore.instance
+        .collection('usersSorceries')
+        .where('userID', isEqualTo: oldID)
+        .get();
+
+    for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+      await FirebaseFirestore.instance
+          .collection('usersSorceries')
+          .doc(doc.id)
+          .update({'userID': id
+          });
+    }
+
+    querySnapshot = await FirebaseFirestore.instance
+        .collection('usersTears')
+        .where('userID', isEqualTo: oldID)
+        .get();
+
+    for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+      await FirebaseFirestore.instance
+          .collection('usersTears')
+          .doc(doc.id)
+          .update({'userID': id
+          });
+    }
+
+    querySnapshot = await FirebaseFirestore.instance
+        .collection('usersAshesOfWar')
+        .where('userID', isEqualTo: oldID)
+        .get();
+
+    for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+      await FirebaseFirestore.instance
+          .collection('usersAshesOfWar')
+          .doc(doc.id)
+          .update({'userID': id
+          });
     }
   }
 }

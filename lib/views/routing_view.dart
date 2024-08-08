@@ -1,5 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'items_views/armors_page.dart';
 import 'items_views/incantations_page.dart';
 import 'items_views/sorceries_page.dart';
@@ -263,6 +266,22 @@ class _RoutingViewState extends State<RoutingView>
                   }).toList();
                 },
               ),
+              onLongPress: () async {
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                bool isErwan = prefs.getBool('isErwan') ?? false;
+                if (!isErwan){
+                  await prefs.setBool('isErwan', true);
+                  setState(() {
+                    Get.snackbar('Erwan', 'Erwan is now unlocked');
+                  });
+                } else {
+                  await prefs.setBool('isErwan', false);
+                  setState(() {
+                    Get.snackbar('Erwan', 'Erwan is now locked');
+                  });
+                }
+
+              },
               onTap: () {
                 setState(() {
                   Navigator.push(

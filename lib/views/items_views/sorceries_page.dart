@@ -1,14 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:async';
-
-import 'package:elden_nexus/firebase/auth/auth.dart';
 import 'package:elden_nexus/firebase/database/database.dart';
 import 'package:elden_nexus/models/sorcery.dart';
 import 'package:elden_nexus/views/loading_screen.dart';
 import 'package:elden_nexus/views/routing_view.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import '../../constants/constant.dart';
@@ -17,7 +16,6 @@ import 'sorceries_detail_page.dart';
 
 class SorceriesPage extends StatefulWidget {
   final bool isDlc;
-
   const SorceriesPage({super.key, required this.isDlc});
 
   @override
@@ -31,25 +29,23 @@ class _SorceriesPageState extends State<SorceriesPage> {
   late Future<List<String>> futureFoundSorceries;
   SortOption? selectedSortOption;
   late Future<void> initSorceriesFuture;
+  late String id = '';
 
   @override
   void initState() {
     super.initState();
     sorceries = widget.isDlc ? db.allDBSOTESorceries : db.allDBSorceries;
     initSorceriesFuture = initSorceries();
-    futureFoundSorceries = db.getUserSorceries(Auth().currentUser!.uid);
+    futureFoundSorceries = Future.value([]);
   }
 
   Future<void> initSorceries() async {
-    futureFoundSorceries = db.getUserSorceries(Auth().currentUser!.uid);
+    id = await FlutterSecureStorage().read(key: 'id') ?? '';
+    futureFoundSorceries = db.getUserSorceries(id);
     displayedSorceries = List.from(sorceries);
     sortSorceries(SortOption.type);
   }
 
-  void setFoundSorceries() async {
-    futureFoundSorceries = db.getUserSorceries(Auth().currentUser!.uid);
-    displayedSorceries = List.from(sorceries);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -258,11 +254,11 @@ class _SorceriesPageState extends State<SorceriesPage> {
                                       if (value!) {
                                         await db.addUserSorcery(
                                             displayedSorceries[index].name,
-                                            Auth().currentUser!.uid);
+                                            id);
                                       } else {
                                         await db.removeUserSorcery(
                                             displayedSorceries[index].name,
-                                            Auth().currentUser!.uid);
+                                            id);
                                       }
                                   },
                                   title: SingleChildScrollView(

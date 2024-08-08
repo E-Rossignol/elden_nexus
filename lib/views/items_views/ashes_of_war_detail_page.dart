@@ -7,7 +7,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 class AshOfWarDetailPage extends StatefulWidget {
   final AshOfWar ash;
-
   const AshOfWarDetailPage({super.key, required this.ash});
 
   @override
@@ -52,7 +51,7 @@ class _AshOfWarDetailPageState extends State<AshOfWarDetailPage> {
     return PopScope(
       canPop: true,
       child: Scaffold(
-        endDrawer: Drawer(
+        endDrawer: const Drawer(
           child: SettingsView(),
         ),
         appBar: AppBar(
@@ -104,13 +103,48 @@ class _AshOfWarDetailPageState extends State<AshOfWarDetailPage> {
                 _space(),
                 Container(
                     padding: const EdgeInsets.all(20),
-                    height: MediaQuery.of(context).size.height * 0.45,
+                    height: MediaQuery.of(context).size.height * 0.2,
                     child: SingleChildScrollView(
-                      child: Text(
-                        ash.description,
-                        style: const TextStyle(
-                            fontSize: 18, fontStyle: FontStyle.italic),
-                        textAlign: TextAlign.justify,
+                      child: Column(
+                        children: [
+                          Text(
+                            ash.description,
+                            style: const TextStyle(
+                                fontSize: 18, fontStyle: FontStyle.italic),
+                            textAlign: TextAlign.justify,
+                          ),
+                          _space(),
+                          Text(
+                            ash.usableOn,
+                            style: const TextStyle(
+                                fontSize: 18, fontStyle: FontStyle.italic),
+                          ),
+                        ],
+                      ),
+                    )),
+                Container(
+                    padding: const EdgeInsets.all(20),
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                            const TextSpan(
+                            text: 'Affinity: ',
+                              style: TextStyle(
+                                  fontSize: 18)),
+                                TextSpan(
+                                  text: ash.affinity,
+                                  style: const TextStyle(
+                                      fontSize: 18, fontWeight: FontWeight.bold, color: Colors.redAccent),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     )),
                 ElevatedButton(

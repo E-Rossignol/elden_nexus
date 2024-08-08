@@ -8,7 +8,6 @@ import 'incantations_page.dart';
 
 class IncantationDetailPage extends StatefulWidget {
   final Incantation incant;
-
   const IncantationDetailPage({super.key, required this.incant});
 
   @override
@@ -89,7 +88,7 @@ class _IncantationDetailPageState extends State<IncantationDetailPage> {
     return PopScope(
       canPop: true,
       child: Scaffold(
-        endDrawer: Drawer(
+        endDrawer: const Drawer(
           child: SettingsView(),
         ),
         appBar: AppBar(

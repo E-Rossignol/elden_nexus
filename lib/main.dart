@@ -1,9 +1,8 @@
-import 'package:elden_nexus/firebase/auth/auth.dart';
-import 'package:elden_nexus/views/login_register_page.dart';
+import 'package:elden_nexus/constants/helper.dart';
+import 'package:elden_nexus/views/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:elden_nexus/views/widget_tree.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'constants/locale/locale_string.dart';
 import 'constants/theme/theme_provider.dart';
@@ -14,13 +13,19 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await Helper.init();
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => ThemeProvider()),
     ],
     child: const MyApp(),
+
   ));
 }
+
+
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -29,9 +34,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
         translations: LocaleString(),
         locale: const Locale('fr', 'FR'),
-        home: Auth().currentUser != null ? const WidgetTree(): const LoginPage(),
+        home: const WelcomePage(),
         theme: Provider.of<ThemeProvider>(context).themeData,);
   }
 }

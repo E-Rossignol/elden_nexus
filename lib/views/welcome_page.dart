@@ -3,11 +3,9 @@ import 'package:elden_nexus/views/home_page.dart';
 import 'package:elden_nexus/views/loading_screen.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../firebase/auth/auth.dart';
-
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
 
@@ -28,18 +26,16 @@ class _WelcomePageState extends State<WelcomePage>
   @override
   void initState() {
     super.initState();
-    setIsErwan();
+    initGodMod();
     _controller = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
     )..repeat(reverse: true);
   }
 
-  Future<void> setIsErwan() async {
-    final String? mail = Auth().currentUser?.email;
-    bool isErwan = mail == "erwan@hotmail.ch";
+  Future<void> initGodMod() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('isErwan', isErwan);
+    prefs.remove('isErwan');
   }
 
   @override
@@ -48,22 +44,22 @@ class _WelcomePageState extends State<WelcomePage>
     super.dispose();
   }
 
-  Widget _buildWelcomePage(BuildContext context){
+  Widget _buildWelcomePage(BuildContext context, bool tokenOk){
     return PopScope(
       canPop: false,
       child: Scaffold(
         endDrawer: Drawer(
           backgroundColor: Theme.of(context).colorScheme.background,
-          child: SettingsView(),
+          child: const SettingsView(),
         ),
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: const Text("ELDEN NEXUS", style: TextStyle(fontFamily: "Mantinia")),
         ),
-        body: Container(
-          decoration: BoxDecoration(
+        body: tokenOk ? Container(
+          decoration: const BoxDecoration(
             image: DecorationImage(
-              image: const AssetImage('lib/constants/images/app/app_background.jpeg'),
+              image: AssetImage('lib/constants/images/app/app_background.jpeg'),
               fit: BoxFit.cover,
             ),
           ),
@@ -163,6 +159,17 @@ class _WelcomePageState extends State<WelcomePage>
             ),
                       ),
           ),
+        ) : AlertDialog(
+          title: Text("Error"),
+          content: Text("You have a bad version of the app, please update it to continue."),
+          actions: [
+            TextButton(
+              onPressed: () {
+                SystemNavigator.pop();
+              },
+              child: const Text("OK"),
+            ),
+          ],
         ),
         ),
       );
@@ -187,7 +194,7 @@ class _WelcomePageState extends State<WelcomePage>
               ),
             );
           } else {
-            return _buildWelcomePage(context);
+              return _buildWelcomePage(context, snapshot.data!);
           }
         });
   }

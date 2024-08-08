@@ -30,7 +30,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                 color: Theme.of(context).colorScheme.primary,
                 size: 50.0,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Text(
                 "Loading".toUpperCase(),
                 style: TextStyle(
