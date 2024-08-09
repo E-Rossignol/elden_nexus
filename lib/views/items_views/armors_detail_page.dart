@@ -4,25 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../constants/constant.dart';
+import '../../models/armor_set.dart';
 import 'armors_page.dart';
 
 class ArmorDetailPage extends StatefulWidget {
-  final Armor armor;
-  const ArmorDetailPage({super.key, required this.armor});
+  final ArmorSet armor;
+  final List<Armor> armorPieces;
+  const ArmorDetailPage({super.key, required this.armor, required this.armorPieces});
 
   @override
   State<ArmorDetailPage> createState() => _ArmorDetailPageState();
 }
 
 class _ArmorDetailPageState extends State<ArmorDetailPage> {
-
-  void _launchURL(String url) async {
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
 
   String resString(double input) {
     if (input == 0) {
@@ -31,27 +26,81 @@ class _ArmorDetailPageState extends State<ArmorDetailPage> {
     return input.toString();
   }
 
+  Widget _armorPieces(){
+    Armor helm = widget.armorPieces.firstWhere((element) => element.armorPiece == ArmorPiece.helm) ?? Armor(name: "No helm", image: "", armorPiece: ArmorPiece.helm, howToFind: "", mapLink: "", weight: 0, damageNegation: DamageNegation(physical: 0, strike: 0, slash: 0, pierce: 0, magic: 0, fire: 0, lightning: 0, holy: 0), set: "", passive: "");
+    Armor chest = widget.armorPieces.firstWhere((element) => element.armorPiece == ArmorPiece.chest) ?? Armor(name: "No chest", image: "", armorPiece: ArmorPiece.chest, howToFind: "", mapLink: "", weight: 0, damageNegation: DamageNegation(physical: 0, strike: 0, slash: 0, pierce: 0, magic: 0, fire: 0, lightning: 0, holy: 0), set: "", passive: "");
+    Armor gauntlet = widget.armorPieces.firstWhere((element) => element.armorPiece == ArmorPiece.gauntlets) ?? Armor(name: "No gauntlet", image: "", armorPiece: ArmorPiece.gauntlets, howToFind: "", mapLink: "", weight: 0, damageNegation: DamageNegation(physical: 0, strike: 0, slash: 0, pierce: 0, magic: 0, fire: 0, lightning: 0, holy: 0), set: "", passive: "");
+    Armor leg = widget.armorPieces.firstWhere((element) => element.armorPiece == ArmorPiece.leg) ?? Armor(name: "No leg", image: "", armorPiece: ArmorPiece.leg, howToFind: "", mapLink: "", weight: 0, damageNegation: DamageNegation(physical: 0, strike: 0, slash: 0, pierce: 0, magic: 0, fire: 0, lightning: 0, holy: 0), set: "", passive: "");
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.9,
+      height: MediaQuery.of(context).size.height * 0.5,
+      child: Table(
+        children: [
+          TableRow(
+            children: [
+              Row(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    child: Transform.scale(
+                      scale: 0.8,
+                      child: Image.asset(helm.image),
+                    ),
+                  ),
+                  Text(helm.name),
+                ],
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    child: Transform.scale(
+                      scale: 0.8,
+                      child: Image.asset(chest.image),
+                    ),
+                  ),
+                  Text(chest.name),
+                ],
+              ),
+            ]
+          ),
+          TableRow(
+            children: [
+              Row(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    child: Transform.scale(
+                      scale: 0.8,
+                      child: Image.asset(gauntlet.image),
+                    ),
+                  ),
+                  Text(gauntlet.name),
+                ],
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    child: Transform.scale(
+                      scale: 0.8,
+                      child: Image.asset(leg.image),
+                    ),
+                  ),
+                  Text(leg.name),
+                ],
+              ),
+            ]
+          ),
+        ],
+      )
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double defaultHeight = 45;
-    Armor armor = widget.armor;
-    String url = armor.mapLink;
-    bool isLinkable = url.isNotEmpty;
-    List<Widget> linkWidgets = [];
-    if (isLinkable) {
-      linkWidgets.add(ElevatedButton(
-        onPressed: () {
-          _launchURL(url);
-        },
-        child: const Text('Open Link'),
-      ));
-    }
-    linkWidgets.add(TextButton(
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-      child: const Text('Close'),
-    ));
+    ArmorSet armorSet = widget.armor;
     return PopScope(
       canPop: true,
       child: Scaffold(
@@ -82,7 +131,7 @@ class _ArmorDetailPageState extends State<ArmorDetailPage> {
           ],
           title: Center(
             child: Text(
-              armor.name.toUpperCase(),
+              armorSet.name.toUpperCase(),
               style: const TextStyle(fontFamily: 'Mantinia', fontSize: 16),
               maxLines: 1,
             ),
@@ -100,33 +149,9 @@ class _ArmorDetailPageState extends State<ArmorDetailPage> {
                     height: MediaQuery.of(context).size.height * 0.3,
                     child: Transform.scale(
                       scale: 0.8,
-                      child: Image.asset(armor.image),
+                      child: Image.asset(armorSet.image),
                     ),
                   ),
-                  SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.05,
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      child: Center(
-                        child: Column(
-                          children: [
-                            Text(
-                              "Weight: ${armor.weight}",
-                              style: const TextStyle(
-                                  fontSize: 15,
-                                  fontStyle: FontStyle.italic,
-                                  fontFamily: 'Chiralla'),
-                            ),
-                            if (armor.passive.isNotEmpty)
-                              Text(
-                                "Passive: ${armor.passive}",
-                                style: const TextStyle(
-                                    fontSize: 15,
-                                    fontStyle: FontStyle.italic,
-                                    fontFamily: 'Chiralla'),
-                              ),
-                          ],
-                        ),
-                      )),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.5,
                     width: MediaQuery.of(context).size.width * 0.6,
@@ -534,21 +559,11 @@ class _ArmorDetailPageState extends State<ArmorDetailPage> {
                     showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                              title: Text('How to get ${armor.name}:'),
-                              content: SingleChildScrollView(
-                                child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(armor.howToFind)),
-                              ),
-                              actions: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: linkWidgets,
-                                ),
-                              ],
+                              title: Text(armorSet.name),
+                          content: _armorPieces(),
                             ));
                   },
-                  child: const Text('How to get it'),
+                  child: const Text('Armor pieces'),
                 ),
               ),
             ),

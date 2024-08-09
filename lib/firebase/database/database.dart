@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:elden_nexus/constants/constant.dart';
+import 'package:elden_nexus/models/armor_set.dart';
 import 'package:elden_nexus/models/ash_of_war.dart';
 import 'package:elden_nexus/models/incantation.dart';
 import 'package:elden_nexus/models/sorcery.dart';
@@ -36,6 +37,8 @@ class DatabaseMethods {
   List<Sorcery> _soteSorceries = [];
   List<Tear> _soteTears = [];
   List<AshOfWar> _soteAshesOfWar = [];
+  List<ArmorSet> _mainGameArmorSets = [];
+  List<ArmorSet> _soteArmorSets = [];
 
   Future<String> getCheckCode() async {
     QuerySnapshot querySnapshot =
@@ -97,6 +100,23 @@ class DatabaseMethods {
         _mainGameArmors.add(Armor.fromMap(jsonDecode(armorStr)));
       }
     }
+
+    if (prefs.getStringList('mainGameArmorSets') == null|| prefs.getStringList('mainGameArmorSets')!.isEmpty) {
+      List<ArmorSet> armors = await getAllArmorSets(false) ?? [];
+      List<String> armorStrings = [];
+      for (ArmorSet armor in armors){
+        armorStrings.add(jsonEncode(armor.toMap()));
+      }
+      await prefs.setStringList('mainGameArmorSets', armorStrings);
+      _mainGameArmorSets = armors;
+    }
+    else if (_mainGameArmorSets.isEmpty){
+      List<String>? armorStrings = prefs.getStringList('mainGameArmorSets');
+      for (String armorStr in armorStrings!){
+        _mainGameArmorSets.add(ArmorSet.fromMap(jsonDecode(armorStr)));
+      }
+    }
+
 
     if (prefs.getStringList('mainGameIncantations') == null || prefs.getStringList('mainGameIncantations')!.isEmpty) {
       List<Incantation> incantations = await getAllIncantations(false) ?? [];
@@ -210,6 +230,22 @@ class DatabaseMethods {
       }
     }
 
+    if (prefs.getStringList('soteArmorSets') == null || prefs.getStringList('soteArmorSets')!.isEmpty) {
+      List<ArmorSet> armors = await getAllArmorSets(true) ?? [];
+      List<String> armorStrings = [];
+      for (ArmorSet armor in armors){
+        armorStrings.add(jsonEncode(armor.toMap()));
+      }
+      await prefs.setStringList('soteArmorSets', armorStrings);
+      _soteArmorSets = armors;
+    }
+    else if (_soteArmorSets.isEmpty){
+      List<String>? armorStrings = prefs.getStringList('soteArmors');
+      for (String armorStr in armorStrings!){
+        _soteArmorSets.add(ArmorSet.fromMap(jsonDecode(armorStr)));
+      }
+    }
+
     if (prefs.getStringList('soteIncantations') == null || prefs.getStringList('soteIncantations')!.isEmpty) {
       List<Incantation> incantations = await getAllIncantations(true) ?? [];
       List<String> incantationStrings = [];
@@ -282,6 +318,8 @@ class DatabaseMethods {
 
   get allDBArmors => _mainGameArmors;
 
+  get allDBArmorSets => _mainGameArmorSets;
+
   get allDBIncantations => _mainGameIncantations;
 
   get allDBSorceries => _mainGameSorceries;
@@ -295,6 +333,8 @@ class DatabaseMethods {
   get allDBSOTETalismans => _soteTalismans;
 
   get allDBSOTEArmors => _soteArmors;
+
+  get allDBSOTEArmorSets => _soteArmorSets;
 
   get allDBSOTEIncantations => _soteIncantations;
 
@@ -535,6 +575,27 @@ class DatabaseMethods {
     } else {
       for (QueryDocumentSnapshot doc in querySnapshot.docs) {
         Armor armor = Armor.fromMap(doc.data() as Map<String, dynamic>?);
+        armors.add(armor);
+      }
+    }
+    return armors;
+  }
+
+  Future<List<ArmorSet>?> getAllArmorSets(bool isDlc) async {
+    String tableName = isDlc ? 'allSOTEArmorSets' : 'allMainGameArmorSets';
+    if (!isDlc) {
+      return allSets();
+    } else if (isDlc) {
+      return allSOTESets();
+    }
+    QuerySnapshot querySnapshot =
+    await FirebaseFirestore.instance.collection(tableName).get();
+    List<ArmorSet> armors = [];
+    if (querySnapshot.docs.isEmpty) {
+      return null;
+    } else {
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+        ArmorSet armor = ArmorSet.fromMap(doc.data() as Map<String, dynamic>?);
         armors.add(armor);
       }
     }

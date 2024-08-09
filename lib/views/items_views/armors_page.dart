@@ -11,6 +11,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import '../../models/armor.dart';
+import '../../models/armor_set.dart';
 import '../home_page.dart';
 import 'armors_detail_page.dart';
 
@@ -25,8 +26,9 @@ class ArmorsPage extends StatefulWidget {
 
 class _ArmorsPageState extends State<ArmorsPage> {
   DatabaseMethods db = DatabaseMethods.instance;
-  late List<Armor> armors;
-  List<Armor> displayedArmors = [];
+  late List<ArmorSet> armors;
+  late List<Armor> armorPieces;
+  List<ArmorSet> displayedArmors = [];
   late Future<List<String>> futureFoundArmors;
   SortOption? selectedSortOption;
   late Future<void> initArmorsFuture;
@@ -36,6 +38,7 @@ class _ArmorsPageState extends State<ArmorsPage> {
   void initState() {
     super.initState();
     armors = widget.isDlc ? db.allDBSOTEArmors : db.allDBArmors;
+    armorPieces = widget.isDlc ? db.allDBSOTEArmorSets : db.allDBArmorSets;
     initArmorsFuture = initArmors();
     futureFoundArmors = Future.value([]);
   }
@@ -44,6 +47,7 @@ class _ArmorsPageState extends State<ArmorsPage> {
     id = await FlutterSecureStorage().read(key: 'id') ?? '';
     futureFoundArmors = db.getUserArmors(id);
     displayedArmors = List.from(armors);
+
     sortArmors(SortOption.name);
   }
 
@@ -97,31 +101,21 @@ class _ArmorsPageState extends State<ArmorsPage> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         ListTile(
-                          title: Text('Set'),
-                          onTap: () {
-                            setState(() {
-                              selectedSortOption = SortOption.set;
-                              sortArmors(SortOption.set);
-                            });
-                            Navigator.of(context).pop(); // Close the dialog
-                          },
-                        ),
-                        ListTile(
-                          title: Text('Armor Piece'),
-                          onTap: () {
-                            setState(() {
-                              selectedSortOption = SortOption.type;
-                              sortArmors(SortOption.type);
-                            });
-                            Navigator.of(context).pop(); // Close the dialog
-                          },
-                        ),
-                        ListTile(
                           title: Text('Name'),
                           onTap: () {
                             setState(() {
                               selectedSortOption = SortOption.name;
                               sortArmors(SortOption.name);
+                            });
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                        ),
+                        ListTile(
+                          title: Text('Weight'),
+                          onTap: () {
+                            setState(() {
+                              selectedSortOption = SortOption.weight;
+                              sortArmors(SortOption.weight);
                             });
                             Navigator.of(context).pop(); // Close the dialog
                           },
@@ -283,13 +277,18 @@ class _ArmorsPageState extends State<ArmorsPage> {
                                                 .onSecondaryContainer,
                                           ),
                                           onPressed: () {
+                                            List<Armor> setArmor = armorPieces.where((element) =>
+                                                element.name == displayedArmors[index].helmName ||
+                                                element.name == displayedArmors[index].chestName ||
+                                                element.name == displayedArmors[index].gauntletName ||
+                                                element.name == displayedArmors[index].legName).toList();
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
                                                     ArmorDetailPage(
                                                         armor: displayedArmors[
-                                                            index]),
+                                                            index], armorPieces: setArmor),
                                               ),
                                             );
                                           },
@@ -350,32 +349,10 @@ class _ArmorsPageState extends State<ArmorsPage> {
           displayedArmors = armors;
           displayedArmors.sort((a, b) => a.name.compareTo(b.name));
         });
-      } else if (option == SortOption.set) {
-        List<ArmorPiece> pieces = [
-          ArmorPiece.helm,
-          ArmorPiece.chest,
-          ArmorPiece.gauntlets,
-          ArmorPiece.leg,
-        ];
-        displayedArmors = armors.where((element) => !element.name.contains("(altered)")).toList();
-        displayedArmors.sort((a,b) {
-          int compare = a.set.compareTo(b.set);
-          if (compare != 0) return compare;
-          return pieces.indexOf(a.armorPiece).compareTo(pieces.indexOf(b.armorPiece));
-        });
-      }
-      else if (option == SortOption.type) {
-        List<ArmorPiece> pieces = [
-          ArmorPiece.helm,
-          ArmorPiece.chest,
-          ArmorPiece.gauntlets,
-          ArmorPiece.leg,
-        ];
-        displayedArmors = armors.where((element) => !element.name.contains("(altered)")).toList();
-        displayedArmors.sort((a, b) {
-          int indexA = pieces.indexOf(a.armorPiece);
-          int indexB = pieces.indexOf(b.armorPiece);
-          return indexA.compareTo(indexB);
+      } else if (option == SortOption.weight) {
+        setState(() {
+          displayedArmors = armors;
+          displayedArmors.sort((a, b) => a.weight.compareTo(b.weight));
         });
       }
       else if (option == SortOption.notFound) {
@@ -392,9 +369,9 @@ class _ArmorsPageState extends State<ArmorsPage> {
   }
 }
 
-class armorsSearch extends SearchDelegate<Armor> {
-  final List<Armor> armors;
-  final Function(List<Armor>) onArmorsSelected;
+class armorsSearch extends SearchDelegate<ArmorSet> {
+  final List<ArmorSet> armors;
+  final Function(List<ArmorSet>) onArmorsSelected;
 
   armorsSearch(this.armors, this.onArmorsSelected);
 
@@ -417,13 +394,10 @@ class armorsSearch extends SearchDelegate<Armor> {
       onPressed: () {
         close(
             context,
-            Armor(
+            ArmorSet(
                 name: "",
                 image: '',
                 damageNegation: DamageNegation(),
-                armorPiece: ArmorPiece.gauntlets,
-                howToFind: '',
-                mapLink: '',
                 weight: -1));
       },
     );
@@ -454,7 +428,7 @@ class armorsSearch extends SearchDelegate<Armor> {
     return _buildSuggestionList(suggestionList);
   }
 
-  Widget _buildSuggestionList(List<Armor> suggestionList) {
+  Widget _buildSuggestionList(List<ArmorSet> suggestionList) {
     return ListView.builder(
       itemCount: suggestionList.length,
       itemBuilder: (context, index) {
@@ -470,4 +444,4 @@ class armorsSearch extends SearchDelegate<Armor> {
   }
 }
 
-enum SortOption { name, notFound, set, type }
+enum SortOption { name, notFound, weight }

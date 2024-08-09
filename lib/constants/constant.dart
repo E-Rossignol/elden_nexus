@@ -1,4 +1,5 @@
 // ignore_for_file: ant_identifier_names, non_ant_identifier_names, constant_identifier_names
+import 'package:elden_nexus/models/armor_set.dart';
 import 'package:elden_nexus/models/sorcery.dart';
 import 'package:elden_nexus/models/tear.dart';
 import '../models/armor.dart';
@@ -12143,6 +12144,72 @@ List<Weapon> allSOTEWeapons() {
 List<Tear> allSOTETears() {
   List<Tear> allTears = [];
   return allTears;
+}
+
+List<ArmorSet> allSets() {
+  List<ArmorSet> sets = [
+    ArmorSet(
+      name: "Alberich",
+      image: 'lib/constants/images/armor_sets/main_game_armor_sets/alberich_set.png',
+      chestName: "Alberich's Robe",
+      helmName: "Alberich's Pointed Hat",
+      gauntletName: "Alberich's Bracers",
+      legName: "Alberich's Trousers",
+      damageNegation: DamageNegation(
+        physical: 10.9,
+        strike: 8.6,
+        slash: 10.9,
+        pierce: 10.9,
+        magic: 25.3,
+        fire: 23.6,
+        lightning: 24.6,
+        holy: 25.3,
+      ),
+      weight: 9.7,
+      ),
+    ArmorSet(
+      name: "All-knowing",
+      image: 'lib/constants/images/armor_sets/main_game_armor_sets/all-knowing_set.png',
+      chestName: "All-knowing Armor",
+      helmName: "All-knowing Helm",
+      gauntletName: "All-knowing Gauntlets",
+      legName: "All-knowing Greaves",
+      damageNegation: DamageNegation(
+        physical: 25.5,
+        strike: 23.6,
+        slash: 26.5,
+        pierce: 23.6,
+        magic: 24.6,
+        fire: 19.1,
+        lightning: 20.4,
+        holy: 17.8,
+      ),
+      weight: 25.4,
+    ),
+    ArmorSet(
+      name: 'Albinauric Set',
+      image: 'lib/constants/images/armor_sets/main_game_armor_sets/albinauric_set.png',
+      chestName: 'Dirty Chainmail',
+      helmName: 'Albinauric Mask',
+damageNegation: DamageNegation(
+        physical: 14.9,
+        strike: 11.6,
+        slash: 15.4,
+        pierce: 14.7,
+        magic: 10.3,
+        fire: 11.6,
+        lightning: 8,
+        holy: 10.3,
+      ),
+      weight: 12.6,
+    ),
+  ];
+  return sets;
+}
+
+List<ArmorSet> allSOTESets(){
+  List<ArmorSet> sets = [];
+  return sets;
 }
 
 List<Armor> allArmors() {

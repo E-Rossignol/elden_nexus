@@ -98,6 +98,8 @@ flutter:
     - lib/constants/images/incantations/dlc_incantations/
     - lib/constants/images/sorceries/main_game_sorceries/
     - lib/constants/images/sorceries/dlc_sorceries/
+    - lib/constants/images/armor_sets/main_game_armor_sets/
+    - lib/constants/images/armor_sets/dlc_armor_sets/
     - lib/constants/images/app/
   fonts:
     - family: Mantinia
