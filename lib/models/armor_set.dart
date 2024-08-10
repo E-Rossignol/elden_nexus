@@ -4,20 +4,12 @@ import 'item.dart';
 class ArmorSet extends Item {
   late double weight;
   late DamageNegation damageNegation;
-  late String helmName;
-  late String chestName;
-  late String gauntletName;
-  late String legName;
 
   ArmorSet({
     required super.name,
     required super.image,
     required this.weight,
     required this.damageNegation,
-    this.helmName = '',
-    this.chestName = '',
-    this.gauntletName = '',
-    this.legName = '',
   }) : super(
     cat: ItemCategory.armor, // Set the category directly here
   );
@@ -37,10 +29,6 @@ class ArmorSet extends Item {
         'holy': damageNegation.holy,
       },
       'weight': weight,
-      'helmName': helmName,
-      'chestName': chestName,
-      'gauntletName': gauntletName,
-      'legName': legName,
     };
   }
 
@@ -59,10 +47,6 @@ class ArmorSet extends Item {
         lightning: data['damageNegation']['lightning'] ?? 0,
         holy: data['damageNegation']['holy'] ?? 0,
       ),
-      helmName: data['helmName'],
-      chestName: data['chestName'],
-      gauntletName: data['gauntletName'],
-      legName: data['legName'],
     );
   }
 }

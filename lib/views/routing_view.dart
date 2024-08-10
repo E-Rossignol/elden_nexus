@@ -269,18 +269,39 @@ class _RoutingViewState extends State<RoutingView>
               onLongPress: () async {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 bool isErwan = prefs.getBool('isErwan') ?? false;
-                if (!isErwan){
-                  await prefs.setBool('isErwan', true);
-                  setState(() {
-                    Get.snackbar('Erwan', 'Erwan is now unlocked');
-                  });
-                } else {
-                  await prefs.setBool('isErwan', false);
-                  setState(() {
-                    Get.snackbar('Erwan', 'Erwan is now locked');
-                  });
-                }
 
+                final TextEditingController controller = TextEditingController();
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Enter Code'),
+                      content: TextField(
+                        controller: controller,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(hintText: "Enter numeric code"),
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text('Submit'),
+                          onPressed: () async {
+                            if (controller.text == "2563") {
+                              isErwan = !isErwan;
+                              await prefs.setBool('isErwan', isErwan);
+                              Navigator.of(context).pop();
+                              setState(() {
+                                Get.snackbar('Erwan', 'Erwan is now ${isErwan ? "unlocked" : "locked"}');
+                              });
+                            } else {
+                              Navigator.of(context).pop();
+                              Get.snackbar('Error', 'Incorrect code');
+                            }
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
               },
               onTap: () {
                 setState(() {

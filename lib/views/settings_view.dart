@@ -102,37 +102,6 @@ class SettingsViewState extends State<SettingsView> {
                               await SharedPreferences.getInstance();
                           await prefs.clear();
                           Get.snackbar('RESET', 'Data reseted !');
-                        },
-                        child: Text('Yes'),
-                      ),
-                    ],
-                  ));
-        },
-        child: Text('Reset internal datas'),
-      ),
-    );
-  }
-
-  Widget rewriteSharedPreferencesButton() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ElevatedButton(
-        onPressed: () async {
-          showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                    title: Text('Rewrite'),
-                    content: Text('Rewrite datas ?'),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text('No'),
-                      ),
-                      TextButton(
-                        onPressed: () async {
-                          Navigator.of(context).pop();
                           await DatabaseMethods.instance.initDatas();
                           Get.snackbar('RESET', 'Data re-wrote !');
                         },
@@ -141,7 +110,7 @@ class SettingsViewState extends State<SettingsView> {
                     ],
                   ));
         },
-        child: Text('Rewrite internal datas'),
+        child: Text('Reset internal datas'),
       ),
     );
   }
@@ -188,7 +157,6 @@ class SettingsViewState extends State<SettingsView> {
     if (isErwan){
       widgets.add(storeButton());
       widgets.add(resetSharedPreferencesButton());
-      widgets.add(rewriteSharedPreferencesButton());
       widgets.add(erwanIDButton());
     }
     return Scaffold(

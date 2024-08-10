@@ -13,7 +13,7 @@ import 'package:get/get.dart';
 import '../../models/armor.dart';
 import '../../models/armor_set.dart';
 import '../home_page.dart';
-import 'armors_detail_page.dart';
+import 'armors_set_detail_page.dart';
 
 class ArmorsPage extends StatefulWidget {
   final bool isDlc;
@@ -37,8 +37,8 @@ class _ArmorsPageState extends State<ArmorsPage> {
   @override
   void initState() {
     super.initState();
-    armors = widget.isDlc ? db.allDBSOTEArmors : db.allDBArmors;
-    armorPieces = widget.isDlc ? db.allDBSOTEArmorSets : db.allDBArmorSets;
+    armors = widget.isDlc ? db.allDBSOTEArmorSets : db.allDBArmorSets;
+    armorPieces = widget.isDlc ? db.allDBSOTEArmors : db.allDBArmors;
     initArmorsFuture = initArmors();
     futureFoundArmors = Future.value([]);
   }
@@ -277,16 +277,13 @@ class _ArmorsPageState extends State<ArmorsPage> {
                                                 .onSecondaryContainer,
                                           ),
                                           onPressed: () {
-                                            List<Armor> setArmor = armorPieces.where((element) =>
-                                                element.name == displayedArmors[index].helmName ||
-                                                element.name == displayedArmors[index].chestName ||
-                                                element.name == displayedArmors[index].gauntletName ||
-                                                element.name == displayedArmors[index].legName).toList();
+                                            ArmorSet arm = displayedArmors[index];
+                                            List<Armor> setArmor = armorPieces.where((element) => element.set == arm.name).toList();
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                    ArmorDetailPage(
+                                                    ArmorSetDetailPage(
                                                         armor: displayedArmors[
                                                             index], armorPieces: setArmor),
                                               ),

@@ -6,19 +6,21 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants/constant.dart';
 import '../../models/armor_set.dart';
+import 'armor_detail_page.dart';
 import 'armors_page.dart';
 
-class ArmorDetailPage extends StatefulWidget {
+class ArmorSetDetailPage extends StatefulWidget {
   final ArmorSet armor;
   final List<Armor> armorPieces;
-  const ArmorDetailPage({super.key, required this.armor, required this.armorPieces});
+
+  const ArmorSetDetailPage(
+      {super.key, required this.armor, required this.armorPieces});
 
   @override
-  State<ArmorDetailPage> createState() => _ArmorDetailPageState();
+  State<ArmorSetDetailPage> createState() => _ArmorSetDetailPageState();
 }
 
-class _ArmorDetailPageState extends State<ArmorDetailPage> {
-
+class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
   String resString(double input) {
     if (input == 0) {
       return "-";
@@ -26,75 +28,238 @@ class _ArmorDetailPageState extends State<ArmorDetailPage> {
     return input.toString();
   }
 
-  Widget _armorPieces(){
-    Armor helm = widget.armorPieces.firstWhere((element) => element.armorPiece == ArmorPiece.helm) ?? Armor(name: "No helm", image: "", armorPiece: ArmorPiece.helm, howToFind: "", mapLink: "", weight: 0, damageNegation: DamageNegation(physical: 0, strike: 0, slash: 0, pierce: 0, magic: 0, fire: 0, lightning: 0, holy: 0), set: "", passive: "");
-    Armor chest = widget.armorPieces.firstWhere((element) => element.armorPiece == ArmorPiece.chest) ?? Armor(name: "No chest", image: "", armorPiece: ArmorPiece.chest, howToFind: "", mapLink: "", weight: 0, damageNegation: DamageNegation(physical: 0, strike: 0, slash: 0, pierce: 0, magic: 0, fire: 0, lightning: 0, holy: 0), set: "", passive: "");
-    Armor gauntlet = widget.armorPieces.firstWhere((element) => element.armorPiece == ArmorPiece.gauntlets) ?? Armor(name: "No gauntlet", image: "", armorPiece: ArmorPiece.gauntlets, howToFind: "", mapLink: "", weight: 0, damageNegation: DamageNegation(physical: 0, strike: 0, slash: 0, pierce: 0, magic: 0, fire: 0, lightning: 0, holy: 0), set: "", passive: "");
-    Armor leg = widget.armorPieces.firstWhere((element) => element.armorPiece == ArmorPiece.leg) ?? Armor(name: "No leg", image: "", armorPiece: ArmorPiece.leg, howToFind: "", mapLink: "", weight: 0, damageNegation: DamageNegation(physical: 0, strike: 0, slash: 0, pierce: 0, magic: 0, fire: 0, lightning: 0, holy: 0), set: "", passive: "");
+  Widget _armorPieces() {
+    Armor helm = Armor(
+        name: "",
+        image: "",
+        armorPiece: ArmorPiece.helm,
+        howToFind: "",
+        mapLink: "",
+        weight: 0,
+        damageNegation: DamageNegation());
+    Armor chest = Armor(
+        name: "",
+        image: "",
+        armorPiece: ArmorPiece.chest,
+        howToFind: "",
+        mapLink: "",
+        weight: 0,
+        damageNegation: DamageNegation());
+    Armor gauntlet = Armor(
+        name: "",
+        image: "",
+        armorPiece: ArmorPiece.gauntlets,
+        howToFind: "",
+        mapLink: "",
+        weight: 0,
+        damageNegation: DamageNegation());
+    Armor leg = Armor(
+        name: "",
+        image: "",
+        armorPiece: ArmorPiece.leg,
+        howToFind: "",
+        mapLink: "",
+        weight: 0,
+        damageNegation: DamageNegation());
+
+    List<Armor> helmList = widget.armorPieces.where((arm) => arm.armorPiece == ArmorPiece.helm).toList();
+    List<Armor> chestList = widget.armorPieces.where((arm) => arm.armorPiece == ArmorPiece.chest).toList();
+    List<Armor> gauntletList = widget.armorPieces.where((arm) => arm.armorPiece == ArmorPiece.gauntlets).toList();
+    List<Armor> legList = widget.armorPieces.where((arm) => arm.armorPiece == ArmorPiece.leg).toList();
+
+    if (helmList.length <= 2) {
+      helm = helmList.firstWhere((element) => !element.name.toLowerCase().contains("(altered)".toLowerCase()));
+    }
+    else if (helmList.length == 1){
+      helm = helmList.first;
+    }
+    if (chestList.length <= 2) {
+      chest = chestList.firstWhere((element) => !element.name.toLowerCase().contains("(altered)".toLowerCase()));
+    }
+    else if (chestList.length == 1){
+      chest = chestList.first;
+    }
+    if (gauntletList.length <= 2) {
+      gauntlet = gauntletList.firstWhere((element) => !element.name.toLowerCase().contains("(altered)".toLowerCase()));
+    }
+    else if (gauntletList.length == 1){
+      gauntlet = gauntletList.first;
+    }
+    if (legList.length <= 2) {
+      leg = legList.firstWhere((element) => !element.name.toLowerCase().contains("(altered)".toLowerCase()));
+    }
+    else if (legList.length == 1){
+      leg = legList.first;
+    }
+    double size = 0.15;
     return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.9,
-      height: MediaQuery.of(context).size.height * 0.5,
-      child: Table(
-        children: [
-          TableRow(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Row(
-                children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    child: Transform.scale(
-                      scale: 0.8,
-                      child: Image.asset(helm.image),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * size,
+            child: helm.name != ""
+                ? SingleChildScrollView(
+                  child: Row(
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * size,
+                          child: Transform.scale(
+                            scale: 0.8,
+                            child: Image.asset(helm.image),
+                          ),
+                        ),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.25,
+                            child: SingleChildScrollView(child: Text(helm.name))),
+                        IconButton(
+                          icon: Icon(
+                            Icons.info_outline,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ArmorDetailPage(armor: helm),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                     ),
+                )
+                : Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(child: Text("No helm.")),
+                    ],
                   ),
-                  Text(helm.name),
-                ],
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    child: Transform.scale(
-                      scale: 0.8,
-                      child: Image.asset(chest.image),
-                    ),
-                  ),
-                  Text(chest.name),
-                ],
-              ),
-            ]
           ),
-          TableRow(
-            children: [
-              Row(
-                children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    child: Transform.scale(
-                      scale: 0.8,
-                      child: Image.asset(gauntlet.image),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * size,
+            child: chest.name != ""
+                ? SingleChildScrollView(
+                  child: Row(
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * size,
+                          child: Transform.scale(
+                            scale: 0.8,
+                            child: Image.asset(chest.image),
+                          ),
+                        ),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.25,
+                            child: SingleChildScrollView(child: Text(chest.name))),
+                        IconButton(
+                          icon: Icon(
+                            Icons.info_outline,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ArmorDetailPage(armor: chest),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                     ),
+                )
+                : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(child: Text("No chest")),
+                    ],
                   ),
-                  Text(gauntlet.name),
-                ],
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    child: Transform.scale(
-                      scale: 0.8,
-                      child: Image.asset(leg.image),
-                    ),
-                  ),
-                  Text(leg.name),
-                ],
-              ),
-            ]
           ),
-        ],
-      )
-    );
+          SizedBox(
+            height: MediaQuery.of(context).size.height * size,
+            child: gauntlet.name != ""
+                ? SingleChildScrollView(
+                  child: Row(
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * size,
+                          child: Transform.scale(
+                            scale: 0.8,
+                            child: Image.asset(gauntlet.image),
+                          ),
+                        ),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.25,
+                            child: SingleChildScrollView(child: Text(gauntlet.name))),
+                        IconButton(
+                          icon: Icon(
+                            Icons.info_outline,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ArmorDetailPage(armor: gauntlet),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                )
+                : Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+                children: [Center(child: Text("No gauntlets"))]),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * size,
+                child: leg.name != ""
+                    ? SingleChildScrollView(
+                      child: Row(
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * size,
+                          child: Transform.scale(
+                            scale: 0.8,
+                            child: Image.asset(leg.image),
+                          ),
+                        ),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.25,
+                            child: SingleChildScrollView(child: Text(leg.name))),
+                        IconButton(
+                          icon: Icon(
+                            Icons.info_outline,
+                            color:
+                                Theme.of(context).colorScheme.onSecondaryContainer,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ArmorDetailPage(armor: leg),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                                        ),
+                    ) : Row(mainAxisAlignment: MainAxisAlignment.center, children: [Center(child: Text("No leg", textAlign: TextAlign.center,))]),
+              ),
+        ]));
   }
 
   @override
@@ -165,7 +330,8 @@ class _ArmorDetailPageState extends State<ArmorDetailPage> {
                           children: [
                             DecoratedBox(
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   border: Border.all(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -211,7 +377,8 @@ class _ArmorDetailPageState extends State<ArmorDetailPage> {
                           children: [
                             DecoratedBox(
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   border: Border.all(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -257,7 +424,8 @@ class _ArmorDetailPageState extends State<ArmorDetailPage> {
                           children: [
                             DecoratedBox(
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   border: Border.all(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -303,7 +471,8 @@ class _ArmorDetailPageState extends State<ArmorDetailPage> {
                           children: [
                             DecoratedBox(
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   border: Border.all(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -349,7 +518,8 @@ class _ArmorDetailPageState extends State<ArmorDetailPage> {
                           children: [
                             DecoratedBox(
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   border: Border.all(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -383,7 +553,9 @@ class _ArmorDetailPageState extends State<ArmorDetailPage> {
                                                 .armor.damageNegation.magic),
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                color: widget.armor.damageNegation
+                                                color: widget
+                                                            .armor
+                                                            .damageNegation
                                                             .magic !=
                                                         0
                                                     ? const Color.fromRGBO(
@@ -399,7 +571,8 @@ class _ArmorDetailPageState extends State<ArmorDetailPage> {
                           children: [
                             DecoratedBox(
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   border: Border.all(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -429,14 +602,17 @@ class _ArmorDetailPageState extends State<ArmorDetailPage> {
                                     height: defaultHeight,
                                     child: Center(
                                         child: Text(
-                                            resString(
-                                                widget.armor.damageNegation.fire),
+                                            resString(widget
+                                                .armor.damageNegation.fire),
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                color: widget.armor.damageNegation
+                                                color: widget
+                                                            .armor
+                                                            .damageNegation
                                                             .fire !=
                                                         0
-                                                    ? const Color.fromRGBO(239, 0, 0, 1)
+                                                    ? const Color.fromRGBO(
+                                                        239, 0, 0, 1)
                                                     : Theme.of(context)
                                                         .colorScheme
                                                         .onSecondaryContainer)))),
@@ -448,7 +624,8 @@ class _ArmorDetailPageState extends State<ArmorDetailPage> {
                           children: [
                             DecoratedBox(
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   border: Border.all(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -478,11 +655,13 @@ class _ArmorDetailPageState extends State<ArmorDetailPage> {
                                     height: defaultHeight,
                                     child: Center(
                                         child: Text(
-                                            resString(
-                                                widget.armor.damageNegation.holy),
+                                            resString(widget
+                                                .armor.damageNegation.holy),
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                color: widget.armor.damageNegation
+                                                color: widget
+                                                            .armor
+                                                            .damageNegation
                                                             .holy !=
                                                         0
                                                     ? const Color.fromRGBO(
@@ -498,7 +677,8 @@ class _ArmorDetailPageState extends State<ArmorDetailPage> {
                           children: [
                             DecoratedBox(
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   border: Border.all(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -528,11 +708,13 @@ class _ArmorDetailPageState extends State<ArmorDetailPage> {
                                     height: defaultHeight,
                                     child: Center(
                                         child: Text(
-                                            resString(widget
-                                                .armor.damageNegation.lightning),
+                                            resString(widget.armor
+                                                .damageNegation.lightning),
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                color: widget.armor.damageNegation
+                                                color: widget
+                                                            .armor
+                                                            .damageNegation
                                                             .lightning !=
                                                         0
                                                     ? const Color.fromRGBO(
@@ -559,8 +741,16 @@ class _ArmorDetailPageState extends State<ArmorDetailPage> {
                     showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                              title: Text(armorSet.name),
-                          content: _armorPieces(),
+                              title: Center(child: Text(armorSet.name.toUpperCase(), style: TextStyle(fontFamily: 'Mantinia', fontSize: 18, fontWeight: FontWeight.bold))),
+                              content: _armorPieces(),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('Close'),
+                            ),
+                          ],
                             ));
                   },
                   child: const Text('Armor pieces'),

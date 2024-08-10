@@ -103,28 +103,28 @@ class _AshOfWarDetailPageState extends State<AshOfWarDetailPage> {
                 _space(),
                 Container(
                     padding: const EdgeInsets.all(20),
-                    height: MediaQuery.of(context).size.height * 0.2,
+                    height: MediaQuery.of(context).size.height * 0.3,
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
                           Text(
                             ash.description,
                             style: const TextStyle(
-                                fontSize: 18, fontStyle: FontStyle.italic),
+                                fontSize: 16, fontStyle: FontStyle.italic),
                             textAlign: TextAlign.justify,
                           ),
                           _space(),
                           Text(
                             ash.usableOn,
                             style: const TextStyle(
-                                fontSize: 18, fontStyle: FontStyle.italic),
+                                fontSize: 18, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
                     )),
                 Container(
                     padding: const EdgeInsets.all(20),
-                    height: MediaQuery.of(context).size.height * 0.3,
+                    height: MediaQuery.of(context).size.height * 0.1,
                     child: SingleChildScrollView(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,

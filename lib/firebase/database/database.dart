@@ -417,12 +417,6 @@ class DatabaseMethods {
 
   Future<List<AshOfWar>?> getAllAow(bool isDlc) async {
     String tableName = isDlc ? 'allSOTEAOW' : 'allMainGameAOW';
-    if (!isDlc) {
-      return allAshes();
-    }
-    if (isDlc){
-      return allDLCAshes();
-    }
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection(tableName).get();
     List<AshOfWar> ashesOfWar = [];
@@ -742,13 +736,11 @@ class DatabaseMethods {
   // ONCE DATA ARE IN
   Future<void> storeAll() async {
     //await storeAllMainGameWeapons();
-    //await storeAllMainGameArmors();
+    await storeAllMainGameArmors();
     //await storeAllSOTEArmors();
     //await storeAllSOTETears();
     //await storeAllMainGameIncantations();
     //await storeAllMainGameSorceries();
-    await storeAllSOTEAOW();
-    await storeAllMainGameAOW();
   }
 
   Future<void> storeAllMainGameWeapons() async {
@@ -766,24 +758,6 @@ class DatabaseMethods {
       await FirebaseFirestore.instance
           .collection('allMainGameArmors')
           .add(arm.toMap());
-    }
-  }
-
-  Future<void> storeAllSOTEAOW() async {
-    List<AshOfWar> ashesOfWar = allDLCAshes();
-    for (AshOfWar ash in ashesOfWar) {
-      await FirebaseFirestore.instance
-          .collection('allSOTEAOW')
-          .add(ash.toMap());
-    }
-  }
-
-  Future<void> storeAllMainGameAOW() async {
-    List<AshOfWar> ashesOfWar = allAshes();
-    for (AshOfWar ash in ashesOfWar) {
-      await FirebaseFirestore.instance
-          .collection('allMainGameAOW')
-          .add(ash.toMap());
     }
   }
 

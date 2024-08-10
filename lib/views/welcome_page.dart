@@ -159,17 +159,20 @@ class _WelcomePageState extends State<WelcomePage>
             ),
                       ),
           ),
-        ) : AlertDialog(
-          title: Text("Error"),
-          content: Text("You have a bad version of the app, please update it to continue."),
-          actions: [
-            TextButton(
-              onPressed: () {
-                SystemNavigator.pop();
-              },
-              child: const Text("OK"),
-            ),
-          ],
+        ) : PopScope(
+          canPop: false,
+          child: AlertDialog(
+            title: Text("Error"),
+            content: Text("You have a bad version of the app, please update it to continue."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  SystemNavigator.pop();
+                },
+                child: const Text("OK"),
+              ),
+            ],
+          ),
         ),
         ),
       );
