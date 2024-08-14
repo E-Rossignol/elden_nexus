@@ -1,3 +1,4 @@
+import 'package:elden_nexus/constants/helper.dart';
 import 'package:elden_nexus/firebase/database/database.dart';
 import 'package:elden_nexus/views/home_page.dart';
 import 'package:elden_nexus/views/loading_screen.dart';
@@ -182,23 +183,56 @@ class _WelcomePageState extends State<WelcomePage>
   Widget build(BuildContext context) {
     DatabaseMethods db = DatabaseMethods.instance;
     return FutureBuilder(
-        future: db.initDatas(),
-        builder: (context, snapshot){
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Scaffold(
-              body: Center(
-                child: LoadingScreen(),
-              ),
-            );
-          } else if (snapshot.hasError) {
-            return Scaffold(
-              body: Center(
-                child: Text("Error: ${snapshot.error}"),
-              ),
-            );
-          } else {
-              return _buildWelcomePage(context, snapshot.data!);
-          }
-        });
+      future: Helper.isInternetAvailable(),
+      builder: (context, snapshot){
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Scaffold(
+            body: Center(
+              child: LoadingScreen(),
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return Scaffold(
+            body: Center(
+              child: Text("Error: ${snapshot.error}"),
+            ),
+          );
+        } else {
+          return  snapshot.data! ? FutureBuilder(
+              future: db.initDatas(),
+              builder: (context, snapshot){
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Scaffold(
+                    body: Center(
+                      child: LoadingScreen(),
+                    ),
+                  );
+                } else if (snapshot.hasError) {
+                  return Scaffold(
+                    body: Center(
+                      child: Text("Error: ${snapshot.error}"),
+                    ),
+                  );
+                } else {
+                  return _buildWelcomePage(context, snapshot.data!);
+                }
+              }) : PopScope(
+            canPop: false,
+            child: AlertDialog(
+              title: Text("Error"),
+              content: Text("You need an internet connection to access the app."),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    setState(() {});
+                  },
+                  child: const Text("Retry"),
+                ),
+              ],
+            ),
+          );
+        }
+      }
+    );
   }
 }

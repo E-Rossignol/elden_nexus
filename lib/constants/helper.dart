@@ -3,6 +3,7 @@ import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'constant.dart' as cons;
+import 'package:connectivity/connectivity.dart';
 
 class Helper {
 
@@ -166,5 +167,16 @@ class Helper {
       return Future.value();
     }
     await storage.write(key: 'token', value: cons.token);
+  }
+
+  static Future<bool> isInternetAvailable() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile) {
+      return true;
+    } else if (connectivityResult == ConnectivityResult.wifi) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

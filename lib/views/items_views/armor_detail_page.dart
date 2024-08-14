@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../models/armor_set.dart';
 import 'armors_page.dart';
 
 class ArmorDetailPage extends StatefulWidget {
   final Armor armor;
-  const ArmorDetailPage({super.key, required this.armor});
+  final ArmorSet armorSet;
+  const ArmorDetailPage({super.key, required this.armor, required this.armorSet});
 
   @override
   State<ArmorDetailPage> createState() => _ArmorDetailPageState();
@@ -63,9 +65,7 @@ class _ArmorDetailPageState extends State<ArmorDetailPage> {
             return IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return ArmorsPage(isDlc: widget.armor.image.contains("dlc"));
-                }));
+                Navigator.pop(context);
               },
             );
           }),

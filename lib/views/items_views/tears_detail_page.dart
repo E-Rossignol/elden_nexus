@@ -148,28 +148,34 @@ class _TearDetailPageState extends State<TearDetailPage> {
                           child:
                               buildRichText("Lasts ${tear.duration} seconds"),
                         )),
-                  ElevatedButton(
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                                title: Text('How to get ${tear.name}:'),
-                                content: SingleChildScrollView(
-                                  child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(tear.howToFind)),
-                                ),
-                                actions: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: linkWidgets,
-                                  ),
-                                ],
-                              ));
-                    },
-                    child: const Text('How to get it'),
-                  ),
                 ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                child: ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: Text('How to get ${tear.name}:'),
+                          content: SingleChildScrollView(
+                            child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(tear.howToFind)),
+                          ),
+                          actions: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: linkWidgets,
+                            ),
+                          ],
+                        ));
+                  },
+                  child: const Text('How to get it'),
+                ),
               ),
             ),
           ],
