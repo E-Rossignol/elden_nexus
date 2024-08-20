@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:elden_nexus/firebase/database/database.dart';
-import 'package:elden_nexus/views/items_views/armors_page.dart';
+import 'package:elden_nexus/views/items_views/armor_sets_page.dart';
 import 'package:elden_nexus/views/items_views/ashes_of_war_page.dart';
 import 'package:elden_nexus/views/items_views/incantations_page.dart';
 import 'package:elden_nexus/views/items_views/sorceries_page.dart';
@@ -51,10 +51,7 @@ class _HomePageState extends State<HomePage>
 
   Widget _buildHomePageContent(BuildContext context){
     return PopScope(
-        canPop: true,
-        onPopInvoked: (result) {
-          _controller.dispose();
-        },
+        canPop: false,
         child: Scaffold(
           endDrawer: Drawer(
             backgroundColor: Theme.of(context).colorScheme.background,
@@ -71,7 +68,8 @@ class _HomePageState extends State<HomePage>
                 child: IconButton(
                   icon: const Icon(Icons.home),
                   onPressed: () {
-                    Navigator.push(
+                    _controller.dispose();
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) => WelcomePage(),
@@ -183,9 +181,9 @@ class _HomePageState extends State<HomePage>
                                         TextButton(
                                           child: Center(child: Text('Go anyway')),
                                           onPressed: () {
-                                            Navigator.of(context).pop();
+                                            _controller.dispose();
                                             Widget toPush = WeaponsPage(isDlc: widget.isDlc);
-                                            Navigator.push(
+                                            Navigator.pushReplacement(
                                               context,
                                               MaterialPageRoute(builder: (context) => toPush),
                                             );
@@ -207,9 +205,9 @@ class _HomePageState extends State<HomePage>
                                         TextButton(
                                           child: Center(child: Text('Go anyway')),
                                           onPressed: () {
-                                            Navigator.of(context).pop();
+                                            _controller.dispose();
                                             Widget toPush = WeaponsPage(isDlc: widget.isDlc);
-                                            Navigator.push(
+                                            Navigator.pushReplacement(
                                               context,
                                               MaterialPageRoute(builder: (context) => toPush),
                                             );
@@ -249,8 +247,9 @@ class _HomePageState extends State<HomePage>
                               ),
                             ),
                             onTap: () {
+                              _controller.dispose();
                               Widget toPush = TalismansPage(isDlc: widget.isDlc);
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(builder: (context) => toPush),
                               );
@@ -294,9 +293,9 @@ class _HomePageState extends State<HomePage>
                                         TextButton(
                                           child: Center(child: Text('Go anyway')),
                                           onPressed: () {
-                                            Navigator.of(context).pop();
-                                            Widget toPush = ArmorsPage(isDlc: widget.isDlc);
-                                            Navigator.push(
+                                            _controller.dispose();
+                                            Widget toPush = ArmorSetsPage(isDlc: widget.isDlc);
+                                            Navigator.pushReplacement(
                                               context,
                                               MaterialPageRoute(builder: (context) => toPush),
                                             );
@@ -313,12 +312,17 @@ class _HomePageState extends State<HomePage>
                                   builder: (BuildContext context) {
                                     return AlertDialog(
                                       title: Text('Warning'),
-                                      content: Text('DLC Armors are not implemented yet.'),
+                                      content: Text('The armors sets and way to find them are not implemented yet.'),
                                       actions: <Widget>[
                                         TextButton(
-                                          child: Center(child: Text('Back')),
+                                          child: Center(child: Text('Go anyway')),
                                           onPressed: () {
-                                            Navigator.of(context).pop();
+                                            _controller.dispose();
+                                            Widget toPush = ArmorSetsPage(isDlc: widget.isDlc);
+                                            Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(builder: (context) => toPush),
+                                            );
                                           },
                                         ),
                                       ],
@@ -356,8 +360,9 @@ class _HomePageState extends State<HomePage>
                               ),
                             ),
                             onTap: () {
+                              _controller.dispose();
                               Widget toPush = AshesOfWarPage(isDlc: widget.isDlc);
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(builder: (context) => toPush),
                               );
@@ -391,8 +396,9 @@ class _HomePageState extends State<HomePage>
                               ),
                             ),
                             onTap: () {
+                              _controller.dispose();
                               Widget toPush = SorceriesPage(isDlc: widget.isDlc);
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(builder: (context) => toPush),
                               );
@@ -426,8 +432,9 @@ class _HomePageState extends State<HomePage>
                               ),
                             ),
                             onTap: () {
+                              _controller.dispose();
                               Widget toPush = IncantationsPage(isDlc: widget.isDlc);
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(builder: (context) => toPush),
                               );
@@ -482,8 +489,9 @@ class _HomePageState extends State<HomePage>
                                 );
                               }
                               else {
+                                _controller.dispose();
                                 Widget toPush = TearsPage(isDlc: widget.isDlc);
-                                Navigator.push(
+                                Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(builder: (context) => toPush),
                                 );

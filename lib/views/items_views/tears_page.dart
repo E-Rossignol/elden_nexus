@@ -63,14 +63,7 @@ class _TearsPageState extends State<TearsPage> {
 
   Widget buildMainWidget(BuildContext context) {
     return PopScope(
-      canPop: true,
-      onPopInvoked: (result) {
-        if (displayedTears != tears) {
-          setState(() {
-            displayedTears = List.from(tears);
-          });
-        }
-      },
+      canPop: false,
       child: Scaffold(
         endDrawer: Drawer(
           backgroundColor: Theme.of(context).colorScheme.background,
@@ -136,9 +129,14 @@ class _TearsPageState extends State<TearsPage> {
         appBar: AppBar(
           leading: Builder(
             builder: (context) => IconButton(
-              icon: const Icon(Icons.menu_rounded),
+              icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
               onPressed: () {
-                Scaffold.of(context).openDrawer();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomePage(isDlc: widget.isDlc),
+                  ),
+                );
               },
             ),
           ),
@@ -157,17 +155,6 @@ class _TearsPageState extends State<TearsPage> {
                 } else {
                   return const Text("");
                 }
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.home),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HomePage(isDlc: widget.isDlc),
-                  ),
-                );
               },
             ),
             IconButton(
@@ -275,7 +262,7 @@ class _TearsPageState extends State<TearsPage> {
                                                 .onSecondaryContainer,
                                           ),
                                           onPressed: () {
-                                            Navigator.push(
+                                            Navigator.pushReplacement(
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
@@ -421,7 +408,7 @@ class talsSearch extends SearchDelegate<Tear> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: const Icon(Icons.arrow_back),
+      icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
       onPressed: () {
         close(
             context,

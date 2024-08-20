@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:elden_nexus/constants/helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:elden_nexus/constants/constant.dart';
 import 'package:elden_nexus/models/armor_set.dart';
@@ -53,8 +52,6 @@ class DatabaseMethods {
     if (code != token){
       return false;
     }
-
-    await Future.delayed(const Duration(seconds: 2));
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getStringList('mainGameWeapons') == null || prefs.getStringList('mainGameWeapons')!.isEmpty) {
 
@@ -252,7 +249,7 @@ class DatabaseMethods {
       _soteArmorSets = armors;
     }
     else if (_soteArmorSets.isEmpty){
-      List<String>? armorStrings = prefs.getStringList('soteArmors');
+      List<String>? armorStrings = prefs.getStringList('soteArmorSets');
       for (String armorStr in armorStrings!){
         _soteArmorSets.add(ArmorSet.fromMap(jsonDecode(armorStr)));
       }
@@ -441,12 +438,6 @@ class DatabaseMethods {
       }
     }
     ashesOfWar.sort((a,b) => a.name.compareTo(b.name));
-    String str = "";
-    for(AshOfWar ash in ashesOfWar){
-      str += ash.toStr();
-    }
-
-    print(str);
     return ashesOfWar;
   }
 

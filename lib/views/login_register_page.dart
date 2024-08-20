@@ -287,7 +287,7 @@ class _LoginPageState extends State<LoginPage> {
         );
         await Auth().signInWithCredentials(credential);
         Widget toPush = const WelcomePage();
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => toPush),
         );

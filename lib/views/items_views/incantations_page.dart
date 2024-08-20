@@ -65,14 +65,7 @@ class _IncantationsPageState extends State<IncantationsPage> {
 
   Widget buildMainWidget(BuildContext context) {
     return PopScope(
-      canPop: true,
-      onPopInvoked: (result) {
-        if (displayedIncants != incants) {
-          setState(() {
-            displayedIncants = List.from(incants);
-          });
-        }
-      },
+      canPop: false,
       child: Scaffold(
         endDrawer: Drawer(
           backgroundColor: Theme.of(context).colorScheme.background,
@@ -138,9 +131,14 @@ class _IncantationsPageState extends State<IncantationsPage> {
         appBar: AppBar(
           leading: Builder(
             builder: (context) => IconButton(
-              icon: const Icon(Icons.menu_rounded),
+              icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
               onPressed: () {
-                Scaffold.of(context).openDrawer();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomePage(isDlc: widget.isDlc),
+                  ),
+                );
               },
             ),
           ),
@@ -159,17 +157,6 @@ class _IncantationsPageState extends State<IncantationsPage> {
                 } else {
                   return const Text("");
                 }
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.home),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HomePage(isDlc: widget.isDlc),
-                  ),
-                );
               },
             ),
             IconButton(
@@ -273,7 +260,7 @@ class _IncantationsPageState extends State<IncantationsPage> {
                                                 .onSecondaryContainer,
                                           ),
                                           onPressed: () {
-                                            Navigator.push(
+                                            Navigator.pushReplacement(
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
@@ -395,7 +382,7 @@ class IncantsSearch extends SearchDelegate<Incantation> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: const Icon(Icons.arrow_back),
+      icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
       onPressed: () {
         close(
             context,

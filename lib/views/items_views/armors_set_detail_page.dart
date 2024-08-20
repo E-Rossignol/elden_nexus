@@ -1,5 +1,6 @@
+import 'package:elden_nexus/firebase/database/database.dart';
 import 'package:elden_nexus/models/armor.dart';
-import 'package:elden_nexus/views/items_views/armor_pieces_detail_page.dart';
+import 'package:elden_nexus/views/items_views/armor_pieces_page.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,15 +8,14 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants/constant.dart';
 import '../../models/armor_set.dart';
-import 'armor_detail_page.dart';
-import 'armors_page.dart';
+import 'armor_pieces_detail_page.dart';
+import 'armor_sets_page.dart';
 
 class ArmorSetDetailPage extends StatefulWidget {
-  final ArmorSet armor;
-  final List<Armor> armorPieces;
+  final ArmorSet armorSet;
 
   const ArmorSetDetailPage(
-      {super.key, required this.armor, required this.armorPieces});
+      {super.key, required this.armorSet});
 
   @override
   State<ArmorSetDetailPage> createState() => _ArmorSetDetailPageState();
@@ -32,9 +32,9 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
   @override
   Widget build(BuildContext context) {
     double defaultHeight = 45;
-    ArmorSet armorSet = widget.armor;
+    ArmorSet armorSet = widget.armorSet;
     return PopScope(
-      canPop: true,
+      canPop: false,
       child: Scaffold(
         endDrawer: const Drawer(
           child: SettingsView(),
@@ -42,10 +42,10 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
         appBar: AppBar(
           leading: Builder(builder: (context) {
             return IconButton(
-              icon: const Icon(Icons.arrow_back),
+              icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return ArmorsPage(isDlc: widget.armor.image.contains("dlc"));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+                  return ArmorSetsPage(isDlc: widget.armorSet.image.contains("dlc"));
                 }));
               },
             );
@@ -130,7 +130,7 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                                     child: Center(
                                         child: Text(
                                             resString(widget
-                                                .armor.damageNegation.physical),
+                                                .armorSet.damageNegation.physical),
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Theme.of(context)
@@ -177,7 +177,7 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                                     child: Center(
                                         child: Text(
                                             resString(widget
-                                                .armor.damageNegation.strike),
+                                                .armorSet.damageNegation.strike),
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Theme.of(context)
@@ -224,7 +224,7 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                                     child: Center(
                                         child: Text(
                                             resString(widget
-                                                .armor.damageNegation.slash),
+                                                .armorSet.damageNegation.slash),
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Theme.of(context)
@@ -271,7 +271,7 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                                     child: Center(
                                         child: Text(
                                             resString(widget
-                                                .armor.damageNegation.pierce),
+                                                .armorSet.damageNegation.pierce),
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Theme.of(context)
@@ -317,11 +317,11 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                                     child: Center(
                                         child: Text(
                                             resString(widget
-                                                .armor.damageNegation.magic),
+                                                .armorSet.damageNegation.magic),
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: widget
-                                                            .armor
+                                                            .armorSet
                                                             .damageNegation
                                                             .magic !=
                                                         0
@@ -370,11 +370,11 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                                     child: Center(
                                         child: Text(
                                             resString(widget
-                                                .armor.damageNegation.fire),
+                                                .armorSet.damageNegation.fire),
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: widget
-                                                            .armor
+                                                            .armorSet
                                                             .damageNegation
                                                             .fire !=
                                                         0
@@ -423,11 +423,11 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                                     child: Center(
                                         child: Text(
                                             resString(widget
-                                                .armor.damageNegation.holy),
+                                                .armorSet.damageNegation.holy),
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: widget
-                                                            .armor
+                                                            .armorSet
                                                             .damageNegation
                                                             .holy !=
                                                         0
@@ -475,12 +475,12 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                                     height: defaultHeight,
                                     child: Center(
                                         child: Text(
-                                            resString(widget.armor
+                                            resString(widget.armorSet
                                                 .damageNegation.lightning),
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: widget
-                                                            .armor
+                                                            .armorSet
                                                             .damageNegation
                                                             .lightning !=
                                                         0
@@ -505,10 +505,13 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
+                    bool isDlc = widget.armorSet.image.contains("dlc");
+                    List<Armor> allArmors = isDlc ? DatabaseMethods.instance.allDBSOTEArmors : DatabaseMethods.instance.allDBArmors;
+                    List<Armor> armorPieces = allArmors.where((element) => element.set == widget.armorSet.name).toList();
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ArmorPiecesDetailPage(armorPieces: widget.armorPieces, set: widget.armor),
+                        builder: (context) => ArmorPiecesPage(armorPieces: armorPieces, set: widget.armorSet),
                       ),
                     );
                   },

@@ -3,7 +3,7 @@
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'items_views/armors_page.dart';
+import 'items_views/armor_sets_page.dart';
 import 'items_views/incantations_page.dart';
 import 'items_views/sorceries_page.dart';
 import 'items_views/tears_page.dart';
@@ -69,7 +69,7 @@ class _RoutingViewState extends State<RoutingView>
                   });
                   switch (selectedRoute) {
                     case 'Weapons':
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
@@ -77,7 +77,7 @@ class _RoutingViewState extends State<RoutingView>
                       );
                       break;
                     case 'Talismans':
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
@@ -85,15 +85,15 @@ class _RoutingViewState extends State<RoutingView>
                       );
                       break;
                     case 'Armor':
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                const ArmorsPage(isDlc: false)),
+                                const ArmorSetsPage(isDlc: false)),
                       );
                       break;
                     case 'Ashes of War':
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
@@ -101,7 +101,7 @@ class _RoutingViewState extends State<RoutingView>
                       );
                       break;
                     case 'Cracked Tears':
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
@@ -109,7 +109,7 @@ class _RoutingViewState extends State<RoutingView>
                       );
                       break;
                     case 'Sorceries':
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
@@ -117,7 +117,7 @@ class _RoutingViewState extends State<RoutingView>
                       );
                       break;
                     case 'Incantations':
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
@@ -145,7 +145,7 @@ class _RoutingViewState extends State<RoutingView>
               ),
               onTap: () {
                 setState(() {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                         builder: (context) => const HomePage(isDlc: false)),
@@ -192,7 +192,7 @@ class _RoutingViewState extends State<RoutingView>
                   });
                   switch (selectedRouteDlc) {
                     case 'Weapons':
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
@@ -200,15 +200,15 @@ class _RoutingViewState extends State<RoutingView>
                       );
                       break;
                     case 'Armor':
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                const ArmorsPage(isDlc: true)),
+                                const ArmorSetsPage(isDlc: true)),
                       );
                       break;
                     case 'Talismans':
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
@@ -216,7 +216,7 @@ class _RoutingViewState extends State<RoutingView>
                       );
                       break;
                     case 'Ashes of War':
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const AshesOfWarPage(
@@ -225,14 +225,14 @@ class _RoutingViewState extends State<RoutingView>
                       );
                       break;
                     case 'Cracked Tears':
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const TearsPage(isDlc: true)),
                       );
                       break;
                     case 'Sorceries':
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
@@ -240,7 +240,7 @@ class _RoutingViewState extends State<RoutingView>
                       );
                       break;
                     case 'Incantations':
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
@@ -305,7 +305,7 @@ class _RoutingViewState extends State<RoutingView>
               },
               onTap: () {
                 setState(() {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                         builder: (context) => const HomePage(isDlc: true)),

@@ -47,7 +47,7 @@ class LogOutComponentState extends State<LogOutComponent> {
                 ElevatedButton(
                     onPressed: () async {
                       await Auth().signOut();
-                        Navigator.push(
+                        Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const LoginPage()));

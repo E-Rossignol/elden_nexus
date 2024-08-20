@@ -63,14 +63,7 @@ class _TalismansPageState extends State<TalismansPage> {
 
   Widget buildMainWidget(BuildContext context) {
     return PopScope(
-      canPop: true,
-      onPopInvoked: (result) {
-        if (displayedTals != tals) {
-          setState(() {
-            displayedTals = List.from(tals);
-          });
-        }
-      },
+      canPop: false,
       child: Scaffold(
         endDrawer: Drawer(
           backgroundColor: Theme.of(context).colorScheme.background,
@@ -137,9 +130,14 @@ class _TalismansPageState extends State<TalismansPage> {
         appBar: AppBar(
           leading: Builder(
             builder: (context) => IconButton(
-              icon: const Icon(Icons.menu_rounded),
+              icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
               onPressed: () {
-                Scaffold.of(context).openDrawer();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomePage(isDlc: widget.isDlc),
+                  ),
+                );
               },
             ),
           ),
@@ -158,17 +156,6 @@ class _TalismansPageState extends State<TalismansPage> {
                 } else {
                   return const Text("");
                 }
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.home),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HomePage(isDlc: widget.isDlc),
-                  ),
-                );
               },
             ),
             IconButton(
@@ -272,7 +259,7 @@ class _TalismansPageState extends State<TalismansPage> {
                                                 .onSecondaryContainer,
                                           ),
                                           onPressed: () {
-                                            Navigator.push(
+                                            Navigator.pushReplacement(
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
@@ -538,7 +525,7 @@ class talsSearch extends SearchDelegate<Talisman> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: const Icon(Icons.arrow_back),
+      icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
       onPressed: () {
         close(
             context,

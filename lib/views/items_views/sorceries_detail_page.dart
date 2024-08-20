@@ -87,7 +87,7 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
       child: const Text('Close'),
     ));
     return PopScope(
-      canPop: true,
+      canPop: false,
       child: Scaffold(
         endDrawer: const Drawer(
           child: SettingsView(),
@@ -95,9 +95,9 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
         appBar: AppBar(
           leading: Builder(builder: (context) {
             return IconButton(
-              icon: const Icon(Icons.arrow_back),
+              icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
                   return SorceriesPage(isDlc: widget.sorc.image.contains("dlc"));
                 }));
               },

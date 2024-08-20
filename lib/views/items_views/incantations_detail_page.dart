@@ -86,7 +86,7 @@ class _IncantationDetailPageState extends State<IncantationDetailPage> {
       child: const Text('Close'),
     ));
     return PopScope(
-      canPop: true,
+      canPop: false,
       child: Scaffold(
         endDrawer: const Drawer(
           child: SettingsView(),
@@ -94,9 +94,9 @@ class _IncantationDetailPageState extends State<IncantationDetailPage> {
         appBar: AppBar(
           leading: Builder(builder: (context) {
             return IconButton(
-              icon: const Icon(Icons.arrow_back),
+              icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
                   return IncantationsPage(isDlc: widget.incant.image.contains("dlc"));
                 }));
               },

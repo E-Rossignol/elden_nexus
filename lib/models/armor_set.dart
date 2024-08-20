@@ -4,12 +4,14 @@ import 'item.dart';
 class ArmorSet extends Item {
   late double weight;
   late DamageNegation damageNegation;
+  late String passive;
 
   ArmorSet({
     required super.name,
     required super.image,
     required this.weight,
     required this.damageNegation,
+    this.passive = "",
   }) : super(
     cat: ItemCategory.armor, // Set the category directly here
   );
@@ -29,6 +31,7 @@ class ArmorSet extends Item {
         'holy': damageNegation.holy,
       },
       'weight': weight,
+      'passive': passive,
     };
   }
 
@@ -47,6 +50,7 @@ class ArmorSet extends Item {
         lightning: data['damageNegation']['lightning'] ?? 0,
         holy: data['damageNegation']['holy'] ?? 0,
       ),
+      passive: data['passive'] ?? "",
     );
   }
 }
