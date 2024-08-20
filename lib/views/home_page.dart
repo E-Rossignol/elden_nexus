@@ -48,6 +48,11 @@ class _HomePageState extends State<HomePage>
     )..repeat(reverse: true);
   }
 
+  @override
+  void dispose() {
+    _controller.dispose(); // Dispose of the AnimationController
+    super.dispose();
+  }
 
   Widget _buildHomePageContent(BuildContext context){
     return PopScope(
@@ -68,7 +73,7 @@ class _HomePageState extends State<HomePage>
                 child: IconButton(
                   icon: const Icon(Icons.home),
                   onPressed: () {
-                    _controller.dispose();
+
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
@@ -181,7 +186,7 @@ class _HomePageState extends State<HomePage>
                                         TextButton(
                                           child: Center(child: Text('Go anyway')),
                                           onPressed: () {
-                                            _controller.dispose();
+
                                             Widget toPush = WeaponsPage(isDlc: widget.isDlc);
                                             Navigator.pushReplacement(
                                               context,
@@ -205,7 +210,7 @@ class _HomePageState extends State<HomePage>
                                         TextButton(
                                           child: Center(child: Text('Go anyway')),
                                           onPressed: () {
-                                            _controller.dispose();
+
                                             Widget toPush = WeaponsPage(isDlc: widget.isDlc);
                                             Navigator.pushReplacement(
                                               context,
@@ -247,7 +252,7 @@ class _HomePageState extends State<HomePage>
                               ),
                             ),
                             onTap: () {
-                              _controller.dispose();
+
                               Widget toPush = TalismansPage(isDlc: widget.isDlc);
                               Navigator.pushReplacement(
                                 context,
@@ -293,7 +298,7 @@ class _HomePageState extends State<HomePage>
                                         TextButton(
                                           child: Center(child: Text('Go anyway')),
                                           onPressed: () {
-                                            _controller.dispose();
+
                                             Widget toPush = ArmorSetsPage(isDlc: widget.isDlc);
                                             Navigator.pushReplacement(
                                               context,
@@ -317,7 +322,7 @@ class _HomePageState extends State<HomePage>
                                         TextButton(
                                           child: Center(child: Text('Go anyway')),
                                           onPressed: () {
-                                            _controller.dispose();
+
                                             Widget toPush = ArmorSetsPage(isDlc: widget.isDlc);
                                             Navigator.pushReplacement(
                                               context,
@@ -360,7 +365,7 @@ class _HomePageState extends State<HomePage>
                               ),
                             ),
                             onTap: () {
-                              _controller.dispose();
+
                               Widget toPush = AshesOfWarPage(isDlc: widget.isDlc);
                               Navigator.pushReplacement(
                                 context,
@@ -396,7 +401,7 @@ class _HomePageState extends State<HomePage>
                               ),
                             ),
                             onTap: () {
-                              _controller.dispose();
+
                               Widget toPush = SorceriesPage(isDlc: widget.isDlc);
                               Navigator.pushReplacement(
                                 context,
@@ -432,7 +437,7 @@ class _HomePageState extends State<HomePage>
                               ),
                             ),
                             onTap: () {
-                              _controller.dispose();
+
                               Widget toPush = IncantationsPage(isDlc: widget.isDlc);
                               Navigator.pushReplacement(
                                 context,
@@ -489,7 +494,7 @@ class _HomePageState extends State<HomePage>
                                 );
                               }
                               else {
-                                _controller.dispose();
+
                                 Widget toPush = TearsPage(isDlc: widget.isDlc);
                                 Navigator.pushReplacement(
                                   context,
