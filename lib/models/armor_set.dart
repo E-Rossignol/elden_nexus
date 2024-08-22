@@ -13,8 +13,8 @@ class ArmorSet extends Item {
     required this.damageNegation,
     this.passive = "",
   }) : super(
-    cat: ItemCategory.armor, // Set the category directly here
-  );
+          cat: ItemCategory.armor, // Set the category directly here
+        );
 
   Map<String, dynamic> toMap() {
     return {

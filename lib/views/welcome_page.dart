@@ -88,7 +88,7 @@ class _WelcomePageState extends State<WelcomePage>
                               child: ListTile(
                                 title: Center(
                                   child: Text(
-                                    'BASE GAME',
+                                    'Base Game'.tr.toUpperCase(),
                                     style: TextStyle(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -174,15 +174,16 @@ class _WelcomePageState extends State<WelcomePage>
             : PopScope(
                 canPop: false,
                 child: AlertDialog(
-                  title: Text("Error"),
+                  title: Text("error".tr),
                   content: Text(
-                      "You have a bad version of the app, please update it to continue."),
+                      'You have a bad version of the app, please contact developer for new version.'
+                          .tr),
                   actions: [
                     TextButton(
                       onPressed: () {
                         SystemNavigator.pop();
                       },
-                      child: const Text("OK"),
+                      child: Text("OK".tr),
                     ),
                   ],
                 ),
@@ -237,13 +238,14 @@ class _WelcomePageState extends State<WelcomePage>
                           child: Text("Internet connection required".tr)),
                       content: Center(
                           child: Text(
-                              "You need an internet connection to access the app.")),
+                              "You need an internet connection to access the app."
+                                  .tr)),
                       actions: [
                         TextButton(
                           onPressed: () {
                             setState(() {});
                           },
-                          child: const Text("Retry"),
+                          child: Text("Retry".tr),
                         ),
                       ],
                     ),

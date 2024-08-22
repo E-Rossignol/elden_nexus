@@ -130,7 +130,8 @@ class _TalismansPageState extends State<TalismansPage> {
         appBar: AppBar(
           leading: Builder(
             builder: (context) => IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
+              icon: Icon(Icons.arrow_circle_left_outlined,
+                  color: Theme.of(context).colorScheme.onSurface),
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
@@ -237,15 +238,13 @@ class _TalismansPageState extends State<TalismansPage> {
                                         }
                                       }
                                     });
-                                        if (value!) {
-                                          await db.addUserTalisman(
-                                              displayedTals[index].name,
-                                              id);
-                                        } else {
-                                          await db.removeUserTalisman(
-                                              displayedTals[index].name,
-                                              id);
-                                        }
+                                    if (value!) {
+                                      await db.addUserTalisman(
+                                          displayedTals[index].name, id);
+                                    } else {
+                                      await db.removeUserTalisman(
+                                          displayedTals[index].name, id);
+                                    }
                                   },
                                   title: SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
@@ -452,7 +451,6 @@ class _TalismansPageState extends State<TalismansPage> {
           "Daedicar's Woe",
           "Sacrificial Twig",
           "Entwining Umbilical Cord",
-
           "Crimson Amber Medallion +3",
           "Cerulean Amber Medallion +3",
           "Viridian Amber Medallion +3",
@@ -525,7 +523,8 @@ class talsSearch extends SearchDelegate<Talisman> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
+      icon: Icon(Icons.arrow_circle_left_outlined,
+          color: Theme.of(context).colorScheme.onSurface),
       onPressed: () {
         close(
             context,

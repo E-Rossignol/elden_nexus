@@ -4,18 +4,13 @@ import 'package:elden_nexus/views/items_views/armor_pieces_page.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-import '../../constants/constant.dart';
 import '../../models/armor_set.dart';
-import 'armor_pieces_detail_page.dart';
 import 'armor_sets_page.dart';
 
 class ArmorSetDetailPage extends StatefulWidget {
   final ArmorSet armorSet;
 
-  const ArmorSetDetailPage(
-      {super.key, required this.armorSet});
+  const ArmorSetDetailPage({super.key, required this.armorSet});
 
   @override
   State<ArmorSetDetailPage> createState() => _ArmorSetDetailPageState();
@@ -42,10 +37,13 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
         appBar: AppBar(
           leading: Builder(builder: (context) {
             return IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
+              icon: Icon(Icons.arrow_circle_left_outlined,
+                  color: Theme.of(context).colorScheme.onSurface),
               onPressed: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-                  return ArmorSetsPage(isDlc: widget.armorSet.image.contains("dlc"));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) {
+                  return ArmorSetsPage(
+                      isDlc: widget.armorSet.image.contains("dlc"));
                 }));
               },
             );
@@ -129,8 +127,8 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                                     height: defaultHeight,
                                     child: Center(
                                         child: Text(
-                                            resString(widget
-                                                .armorSet.damageNegation.physical),
+                                            resString(widget.armorSet
+                                                .damageNegation.physical),
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Theme.of(context)
@@ -176,8 +174,8 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                                     height: defaultHeight,
                                     child: Center(
                                         child: Text(
-                                            resString(widget
-                                                .armorSet.damageNegation.strike),
+                                            resString(widget.armorSet
+                                                .damageNegation.strike),
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Theme.of(context)
@@ -270,8 +268,8 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                                     height: defaultHeight,
                                     child: Center(
                                         child: Text(
-                                            resString(widget
-                                                .armorSet.damageNegation.pierce),
+                                            resString(widget.armorSet
+                                                .damageNegation.pierce),
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Theme.of(context)
@@ -506,12 +504,17 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                 child: ElevatedButton(
                   onPressed: () {
                     bool isDlc = widget.armorSet.image.contains("dlc");
-                    List<Armor> allArmors = isDlc ? DatabaseMethods.instance.allDBSOTEArmors : DatabaseMethods.instance.allDBArmors;
-                    List<Armor> armorPieces = allArmors.where((element) => element.set == widget.armorSet.name).toList();
+                    List<Armor> allArmors = isDlc
+                        ? DatabaseMethods.instance.allDBSOTEArmors
+                        : DatabaseMethods.instance.allDBArmors;
+                    List<Armor> armorPieces = allArmors
+                        .where((element) => element.set == widget.armorSet.name)
+                        .toList();
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ArmorPiecesPage(armorPieces: armorPieces, set: widget.armorSet),
+                        builder: (context) => ArmorPiecesPage(
+                            armorPieces: armorPieces, set: widget.armorSet),
                       ),
                     );
                   },

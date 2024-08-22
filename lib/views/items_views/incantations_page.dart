@@ -46,7 +46,6 @@ class _IncantationsPageState extends State<IncantationsPage> {
     sortIncants(SortOption.type);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -125,13 +124,15 @@ class _IncantationsPageState extends State<IncantationsPage> {
                 },
               );
             },
-            child: Icon(Icons.sort, color: Theme.of(context).colorScheme.secondary),
+            child: Icon(Icons.sort,
+                color: Theme.of(context).colorScheme.secondary),
           ),
         ),
         appBar: AppBar(
           leading: Builder(
             builder: (context) => IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
+              icon: Icon(Icons.arrow_circle_left_outlined,
+                  color: Theme.of(context).colorScheme.onSurface),
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
@@ -222,7 +223,7 @@ class _IncantationsPageState extends State<IncantationsPage> {
                                 child: CheckboxListTile(
                                   value: snapshot.data!
                                       .contains(displayedIncants[index].name),
-                                  onChanged:(bool? value) async {
+                                  onChanged: (bool? value) async {
                                     setState(() {
                                       if (value == true) {
                                         if (!snapshot.data!.contains(
@@ -238,15 +239,13 @@ class _IncantationsPageState extends State<IncantationsPage> {
                                         }
                                       }
                                     });
-                                      if (value!) {
-                                        await db.addUserIncantation(
-                                            displayedIncants[index].name,
-                                            id);
-                                      } else {
-                                        await db.removeUserIncantation(
-                                            displayedIncants[index].name,
-                                            id);
-                                      }
+                                    if (value!) {
+                                      await db.addUserIncantation(
+                                          displayedIncants[index].name, id);
+                                    } else {
+                                      await db.removeUserIncantation(
+                                          displayedIncants[index].name, id);
+                                    }
                                   },
                                   title: SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
@@ -382,7 +381,8 @@ class IncantsSearch extends SearchDelegate<Incantation> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
+      icon: Icon(Icons.arrow_circle_left_outlined,
+          color: Theme.of(context).colorScheme.onSurface),
       onPressed: () {
         close(
             context,

@@ -19,13 +19,8 @@ Future<void> main() async {
       ChangeNotifierProvider(create: (context) => ThemeProvider()),
     ],
     child: const MyApp(),
-
   ));
 }
-
-
-
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -35,9 +30,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-        translations: LocaleString(),
-        locale: const Locale('fr', 'FR'),
-        home: const WelcomePage(),
-        theme: Provider.of<ThemeProvider>(context).themeData,);
+      translations: LocaleString(),
+      locale: const Locale('fr', 'FR'),
+      home: const WelcomePage(),
+      theme: Provider.of<ThemeProvider>(context).themeData,
+    );
   }
 }

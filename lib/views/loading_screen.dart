@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});
@@ -33,7 +34,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  "Loading".toUpperCase(),
+                  "Loading".tr.toUpperCase(),
                   style: TextStyle(
                     fontFamily: 'Mantinia',
                     color: Theme.of(context).colorScheme.onBackground,

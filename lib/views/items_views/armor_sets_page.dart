@@ -124,7 +124,8 @@ class _ArmorSetsPageState extends State<ArmorSetsPage> {
         appBar: AppBar(
           leading: Builder(
             builder: (context) => IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
+              icon: Icon(Icons.arrow_circle_left_outlined,
+                  color: Theme.of(context).colorScheme.onSurface),
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
@@ -148,7 +149,10 @@ class _ArmorSetsPageState extends State<ArmorSetsPage> {
                     ),
                   );
                 } else {
-                  return Text("", style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 20));
+                  return Text("",
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface,
+                          fontSize: 20));
                 }
               },
             ),
@@ -308,7 +312,8 @@ class armorsSearch extends SearchDelegate<ArmorSet> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
+      icon: Icon(Icons.arrow_circle_left_outlined,
+          color: Theme.of(context).colorScheme.onSurface),
       onPressed: () {
         close(
             context,

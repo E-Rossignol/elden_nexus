@@ -55,7 +55,7 @@ class _RoutingViewState extends State<RoutingView>
           children: [
             ListTile(
               title: Text(
-                'Base Game'.toUpperCase(),
+                'Base Game'.tr.toUpperCase(),
                 style: TextStyle(
                   fontFamily: "Mantinia",
                   color: Theme.of(context).colorScheme.onPrimaryContainer,
@@ -138,7 +138,7 @@ class _RoutingViewState extends State<RoutingView>
                   ].map((String value) {
                     return PopupMenuItem<String>(
                       value: value,
-                      child: Text(value),
+                      child: Text(value.tr),
                     );
                   }).toList();
                 },
@@ -261,7 +261,7 @@ class _RoutingViewState extends State<RoutingView>
                   ].map((String value) {
                     return PopupMenuItem<String>(
                       value: value,
-                      child: Text(value),
+                      child: Text(value.tr),
                     );
                   }).toList();
                 },
@@ -270,16 +270,18 @@ class _RoutingViewState extends State<RoutingView>
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 bool isErwan = prefs.getBool('isErwan') ?? false;
 
-                final TextEditingController controller = TextEditingController();
+                final TextEditingController controller =
+                    TextEditingController();
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text('Enter Code'),
+                      title: Text('Enter code'),
                       content: TextField(
                         controller: controller,
                         keyboardType: TextInputType.number,
-                        decoration: InputDecoration(hintText: "Enter numeric code"),
+                        decoration:
+                            InputDecoration(hintText: "Enter numeric code"),
                       ),
                       actions: <Widget>[
                         TextButton(
@@ -290,7 +292,8 @@ class _RoutingViewState extends State<RoutingView>
                               await prefs.setBool('isErwan', isErwan);
                               Navigator.of(context).pop();
                               setState(() {
-                                Get.snackbar('Erwan', 'Erwan is now ${isErwan ? "unlocked" : "locked"}');
+                                Get.snackbar('Erwan',
+                                    'Erwan is now ${isErwan ? "unlocked" : "locked"}');
                               });
                             } else {
                               Navigator.of(context).pop();

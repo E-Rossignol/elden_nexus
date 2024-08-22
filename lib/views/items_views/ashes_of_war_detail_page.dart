@@ -57,10 +57,13 @@ class _AshOfWarDetailPageState extends State<AshOfWarDetailPage> {
         appBar: AppBar(
           leading: Builder(builder: (context) {
             return IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
+              icon: Icon(Icons.arrow_circle_left_outlined,
+                  color: Theme.of(context).colorScheme.onSurface),
               onPressed: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-                  return AshesOfWarPage(isDlc: widget.ash.image.contains("dlc"));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) {
+                  return AshesOfWarPage(
+                      isDlc: widget.ash.image.contains("dlc"));
                 }));
               },
             );
@@ -88,90 +91,93 @@ class _AshOfWarDetailPageState extends State<AshOfWarDetailPage> {
           fit: StackFit.expand,
           children: [
             SizedBox(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              children: [
-                _space(),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  child: Transform.scale(
-                    scale: 0.8,
-                    child: Image.asset(ash.image),
-                  ),
-                ),
-                _space(),
-                Container(
-                    padding: const EdgeInsets.all(20),
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                children: [
+                  _space(),
+                  SizedBox(
                     height: MediaQuery.of(context).size.height * 0.3,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Text(
-                            ash.description,
-                            style: const TextStyle(
-                                fontSize: 16, fontStyle: FontStyle.italic),
-                            textAlign: TextAlign.justify,
-                          ),
-                          _space(),
-                          Text(
-                            ash.usableOn,
-                            style: const TextStyle(
-                                fontSize: 18, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    )),
-                Container(
-                    padding: const EdgeInsets.all(20),
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                            const TextSpan(
-                            text: 'Affinity: ',
-                              style: TextStyle(
-                                  fontSize: 18)),
-                                TextSpan(
-                                  text: ash.affinity,
-                                  style: const TextStyle(
-                                      fontSize: 18, fontWeight: FontWeight.bold, color: Colors.redAccent),
-                                ),
-                              ],
+                    child: Transform.scale(
+                      scale: 0.8,
+                      child: Image.asset(ash.image),
+                    ),
+                  ),
+                  _space(),
+                  Container(
+                      padding: const EdgeInsets.all(20),
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Text(
+                              ash.description,
+                              style: const TextStyle(
+                                  fontSize: 16, fontStyle: FontStyle.italic),
+                              textAlign: TextAlign.justify,
                             ),
-                          ),
-                        ],
-                      ),
-                    )),
-                ElevatedButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                              title: Text('How to get ${ash.name}:'),
-                              content: SingleChildScrollView(
-                                child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(ash.howToFind)),
+                            _space(),
+                            Text(
+                              ash.usableOn,
+                              style: const TextStyle(
+                                  fontSize: 18,
+                                  fontStyle: FontStyle.italic,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      )),
+                  Container(
+                      padding: const EdgeInsets.all(20),
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  const TextSpan(
+                                      text: 'Affinity: ',
+                                      style: TextStyle(fontSize: 18)),
+                                  TextSpan(
+                                    text: ash.affinity,
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.redAccent),
+                                  ),
+                                ],
                               ),
-                              actions: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: linkWidgets,
+                            ),
+                          ],
+                        ),
+                      )),
+                  ElevatedButton(
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                title: Text('How to get ${ash.name}:'),
+                                content: SingleChildScrollView(
+                                  child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(ash.howToFind)),
                                 ),
-                              ],
-                            ));
-                  },
-                  child: const Text('How to get it'),
-                ),
-              ],
+                                actions: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: linkWidgets,
+                                  ),
+                                ],
+                              ));
+                    },
+                    child: const Text('How to get it'),
+                  ),
+                ],
+              ),
             ),
-          ),
-      ],
+          ],
         ),
       ),
     );

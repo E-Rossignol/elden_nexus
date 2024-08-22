@@ -94,10 +94,13 @@ class _IncantationDetailPageState extends State<IncantationDetailPage> {
         appBar: AppBar(
           leading: Builder(builder: (context) {
             return IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
+              icon: Icon(Icons.arrow_circle_left_outlined,
+                  color: Theme.of(context).colorScheme.onSurface),
               onPressed: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-                  return IncantationsPage(isDlc: widget.incant.image.contains("dlc"));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) {
+                  return IncantationsPage(
+                      isDlc: widget.incant.image.contains("dlc"));
                 }));
               },
             );
@@ -165,13 +168,12 @@ class _IncantationDetailPageState extends State<IncantationDetailPage> {
                           ),
                           Align(
                             alignment: Alignment.centerLeft,
-                            child: Text(
-                              spellType(inc.element),
-                              style: const TextStyle(
+                            child: Text(spellType(inc.element),
+                                style: const TextStyle(
                                   fontSize: 17,
-                                  fontFamily: 'Chiralla',),
-                              textAlign: TextAlign.left
-                            ),
+                                  fontFamily: 'Chiralla',
+                                ),
+                                textAlign: TextAlign.left),
                           ),
                           _space(),
                           Align(
@@ -179,7 +181,9 @@ class _IncantationDetailPageState extends State<IncantationDetailPage> {
                             child: Text(
                               inc.effect,
                               style: const TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold, fontFamily: "Chiralla"),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "Chiralla"),
                               textAlign: TextAlign.left,
                             ),
                           ),
@@ -259,7 +263,8 @@ class _IncantationDetailPageState extends State<IncantationDetailPage> {
                                           child: Text(
                                               requirement(inc.requirement.int),
                                               style: TextStyle(
-                                                  color: inc.requirement.int != 0
+                                                  color: inc.requirement.int !=
+                                                          0
                                                       ? Colors.redAccent
                                                       : Theme.of(context)
                                                           .colorScheme
@@ -303,9 +308,11 @@ class _IncantationDetailPageState extends State<IncantationDetailPage> {
                                         height: defaultHeight,
                                         child: Center(
                                             child: Text(
-                                                requirement(inc.requirement.fai),
+                                                requirement(
+                                                    inc.requirement.fai),
                                                 style: TextStyle(
-                                                    color: inc.requirement.fai !=
+                                                    color: inc.requirement
+                                                                .fai !=
                                                             0
                                                         ? Colors.redAccent
                                                         : Theme.of(context)
@@ -349,9 +356,11 @@ class _IncantationDetailPageState extends State<IncantationDetailPage> {
                                         height: defaultHeight,
                                         child: Center(
                                             child: Text(
-                                                requirement(inc.requirement.arc),
+                                                requirement(
+                                                    inc.requirement.arc),
                                                 style: TextStyle(
-                                                    color: inc.requirement.arc !=
+                                                    color: inc.requirement
+                                                                .arc !=
                                                             0
                                                         ? Colors.redAccent
                                                         : Theme.of(context)

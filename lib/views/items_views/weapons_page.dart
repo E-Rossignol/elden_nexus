@@ -13,6 +13,7 @@ import '../../models/weapon.dart';
 import '../home_page.dart';
 import '../loading_screen.dart';
 import 'weapons_detail_page.dart';
+import 'package:get/get.dart';
 
 class WeaponsPage extends StatefulWidget {
   final bool isDlc;
@@ -36,7 +37,7 @@ class _WeaponsPageState extends State<WeaponsPage> {
   @override
   void initState() {
     super.initState();
-    weapons= widget.isDlc ? db.allDBSOTEWeapons : db.allDBWeapons;
+    weapons = widget.isDlc ? db.allDBSOTEWeapons : db.allDBWeapons;
     initWeaponsFuture = initWeapons();
     futureFoundWeapons = Future.value([]);
   }
@@ -86,12 +87,12 @@ class _WeaponsPageState extends State<WeaponsPage> {
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    title: Text('Sort by:'),
+                    title: Text('Sort by:'.tr),
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         ListTile(
-                          title: Text('Default'),
+                          title: Text('Default'.tr),
                           onTap: () {
                             setState(() {
                               selectedSortOption = SortOption.defaultSort;
@@ -101,7 +102,7 @@ class _WeaponsPageState extends State<WeaponsPage> {
                           },
                         ),
                         ListTile(
-                          title: Text('Not Found'),
+                          title: Text('Not Found'.tr),
                           onTap: () {
                             setState(() {
                               selectedSortOption = SortOption.notFound;
@@ -111,7 +112,7 @@ class _WeaponsPageState extends State<WeaponsPage> {
                           },
                         ),
                         ListTile(
-                          title: Text('Name'),
+                          title: Text('Name'.tr),
                           onTap: () {
                             setState(() {
                               selectedSortOption = SortOption.name;
@@ -121,16 +122,16 @@ class _WeaponsPageState extends State<WeaponsPage> {
                           },
                         ),
                         ListTile(
-                          title: Text('Weapon Category'),
+                          title: Text('Weapon Category'.tr),
                           onTap: () {
                             Navigator.of(context).pop();
                             showDialog(
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
-                                  title: Text('Weapon Category'),
+                                  title: Text('Weapon Category'.tr),
                                   content: DropdownButton<WeaponCategory>(
-                                    hint: Text('Category'),
+                                    hint: Text('Category'.tr),
                                     value: selectedWeaponCategory,
                                     items: WeaponCategory.values.map((option) {
                                       return DropdownMenuItem<WeaponCategory>(
@@ -160,13 +161,15 @@ class _WeaponsPageState extends State<WeaponsPage> {
                 },
               );
             },
-            child: Icon(Icons.sort, color: Theme.of(context).colorScheme.secondaryContainer),
+            child: Icon(Icons.sort,
+                color: Theme.of(context).colorScheme.secondaryContainer),
           ),
         ),
         appBar: AppBar(
           leading: Builder(
             builder: (context) => IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
+              icon: Icon(Icons.arrow_circle_left_outlined,
+                  color: Theme.of(context).colorScheme.onSurface),
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
@@ -257,7 +260,7 @@ class _WeaponsPageState extends State<WeaponsPage> {
                                 child: CheckboxListTile(
                                   value: snapshot.data!
                                       .contains(displayedWeapons[index].name),
-                                  onChanged:(bool? value) async {
+                                  onChanged: (bool? value) async {
                                     setState(() {
                                       if (value == true) {
                                         if (!snapshot.data!.contains(
@@ -273,15 +276,13 @@ class _WeaponsPageState extends State<WeaponsPage> {
                                         }
                                       }
                                     });
-                                      if (value!) {
-                                        await db.addUserWeapon(
-                                            displayedWeapons[index].name,
-                                            id);
-                                      } else {
-                                        await db.removeUserWeapon(
-                                            displayedWeapons[index].name,
-                                            id);
-                                      }
+                                    if (value!) {
+                                      await db.addUserWeapon(
+                                          displayedWeapons[index].name, id);
+                                    } else {
+                                      await db.removeUserWeapon(
+                                          displayedWeapons[index].name, id);
+                                    }
                                   },
                                   title: SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
@@ -475,7 +476,8 @@ class WeaponSearch extends SearchDelegate<Weapon> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
+      icon: Icon(Icons.arrow_circle_left_outlined,
+          color: Theme.of(context).colorScheme.onSurface),
       onPressed: () {
         close(
             context,

@@ -95,10 +95,13 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
         appBar: AppBar(
           leading: Builder(builder: (context) {
             return IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
+              icon: Icon(Icons.arrow_circle_left_outlined,
+                  color: Theme.of(context).colorScheme.onSurface),
               onPressed: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-                  return SorceriesPage(isDlc: widget.sorc.image.contains("dlc"));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) {
+                  return SorceriesPage(
+                      isDlc: widget.sorc.image.contains("dlc"));
                 }));
               },
             );
@@ -166,13 +169,12 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
                           ),
                           Align(
                             alignment: Alignment.centerLeft,
-                            child: Text(
-                                spellType(sorc.element),
+                            child: Text(spellType(sorc.element),
                                 style: const TextStyle(
                                   fontSize: 17,
-                                  fontFamily: 'Chiralla',),
-                                textAlign: TextAlign.left
-                            ),
+                                  fontFamily: 'Chiralla',
+                                ),
+                                textAlign: TextAlign.left),
                           ),
                           _space(),
                           Align(
@@ -180,7 +182,9 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
                             child: Text(
                               sorc.effect,
                               style: const TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold, fontFamily: "Chiralla"),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "Chiralla"),
                               textAlign: TextAlign.left,
                             ),
                           ),
@@ -205,7 +209,7 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
                               DecoratedBox(
                                 decoration: BoxDecoration(
                                     color:
-                                    Theme.of(context).colorScheme.secondary,
+                                        Theme.of(context).colorScheme.secondary,
                                     border: Border.all(
                                         color: Theme.of(context)
                                             .colorScheme
@@ -228,7 +232,7 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
                               DecoratedBox(
                                 decoration: BoxDecoration(
                                     color:
-                                    Theme.of(context).colorScheme.secondary,
+                                        Theme.of(context).colorScheme.secondary,
                                     border: Border.all(
                                         color: Theme.of(context)
                                             .colorScheme
@@ -260,11 +264,12 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
                                           child: Text(
                                               requirement(sorc.requirement.int),
                                               style: TextStyle(
-                                                  color: sorc.requirement.int != 0
+                                                  color: sorc.requirement.int !=
+                                                          0
                                                       ? Colors.redAccent
                                                       : Theme.of(context)
-                                                      .colorScheme
-                                                      .onSecondaryContainer)))),
+                                                          .colorScheme
+                                                          .onSecondaryContainer)))),
                                 ),
                               ),
                             ],
@@ -274,7 +279,7 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
                               DecoratedBox(
                                 decoration: BoxDecoration(
                                     color:
-                                    Theme.of(context).colorScheme.secondary,
+                                        Theme.of(context).colorScheme.secondary,
                                     border: Border.all(
                                         color: Theme.of(context)
                                             .colorScheme
@@ -304,14 +309,16 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
                                         height: defaultHeight,
                                         child: Center(
                                             child: Text(
-                                                requirement(sorc.requirement.fai),
+                                                requirement(
+                                                    sorc.requirement.fai),
                                                 style: TextStyle(
-                                                    color: sorc.requirement.fai !=
-                                                        0
+                                                    color: sorc.requirement
+                                                                .fai !=
+                                                            0
                                                         ? Colors.redAccent
                                                         : Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondaryContainer))))),
+                                                            .colorScheme
+                                                            .onSecondaryContainer))))),
                               ),
                             ],
                           ),
@@ -320,7 +327,7 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
                               DecoratedBox(
                                 decoration: BoxDecoration(
                                     color:
-                                    Theme.of(context).colorScheme.secondary,
+                                        Theme.of(context).colorScheme.secondary,
                                     border: Border.all(
                                         color: Theme.of(context)
                                             .colorScheme
@@ -350,14 +357,16 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
                                         height: defaultHeight,
                                         child: Center(
                                             child: Text(
-                                                requirement(sorc.requirement.arc),
+                                                requirement(
+                                                    sorc.requirement.arc),
                                                 style: TextStyle(
-                                                    color: sorc.requirement.arc !=
-                                                        0
+                                                    color: sorc.requirement
+                                                                .arc !=
+                                                            0
                                                         ? Colors.redAccent
                                                         : Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondaryContainer))))),
+                                                            .colorScheme
+                                                            .onSecondaryContainer))))),
                               ),
                             ],
                           ),
@@ -375,19 +384,19 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
                     showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          title: Text('How to get ${sorc.name}:'),
-                          content: SingleChildScrollView(
-                            child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(sorc.howToFind)),
-                          ),
-                          actions: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: linkWidgets,
-                            ),
-                          ],
-                        ));
+                              title: Text('How to get ${sorc.name}:'),
+                              content: SingleChildScrollView(
+                                child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(sorc.howToFind)),
+                              ),
+                              actions: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: linkWidgets,
+                                ),
+                              ],
+                            ));
                   },
                   child: const Text('How to get it'),
                 ),

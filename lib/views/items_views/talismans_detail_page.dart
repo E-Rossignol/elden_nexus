@@ -88,9 +88,11 @@ class _TalismanDetailPageState extends State<TalismanDetailPage> {
         appBar: AppBar(
           leading: Builder(builder: (context) {
             return IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
+              icon: Icon(Icons.arrow_circle_left_outlined,
+                  color: Theme.of(context).colorScheme.onSurface),
               onPressed: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) {
                   return TalismansPage(isDlc: widget.tal.image.contains("dlc"));
                 }));
               },
@@ -111,7 +113,10 @@ class _TalismanDetailPageState extends State<TalismanDetailPage> {
             child: Center(
               child: Text(
                 tal.name.replaceAll("+", "plus ").toUpperCase(),
-                style: const TextStyle(fontFamily: 'Mantinia', fontSize: 16, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                    fontFamily: 'Mantinia',
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
                 maxLines: 1,
               ),
             ),

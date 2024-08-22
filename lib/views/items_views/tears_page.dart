@@ -123,13 +123,15 @@ class _TearsPageState extends State<TearsPage> {
                 },
               );
             },
-            child: Icon(Icons.sort, color: Theme.of(context).colorScheme.secondaryContainer),
+            child: Icon(Icons.sort,
+                color: Theme.of(context).colorScheme.secondaryContainer),
           ),
         ),
         appBar: AppBar(
           leading: Builder(
             builder: (context) => IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
+              icon: Icon(Icons.arrow_circle_left_outlined,
+                  color: Theme.of(context).colorScheme.onSurface),
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
@@ -180,144 +182,148 @@ class _TearsPageState extends State<TearsPage> {
             ),
           ],
         ),
-        body: displayedTears.isEmpty ?
-        Center(
-          child: Text("Nothing to display".toUpperCase(), style: TextStyle(color: Theme.of(context).colorScheme.onBackground, fontSize: 20, fontFamily: 'Mantinia')
-        ))
-        :Center(
-          child: Column(
-            children: [
-              FutureBuilder(
-                future: futureFoundTears,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    return Expanded(
-                      child: Scrollbar(
-                        thickness: 10,
-                        interactive: true,
-                        thumbVisibility: true,
-                        child: ListView.builder(
-                          itemCount: displayedTears.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                                margin: const EdgeInsets.all(10),
-                                // Add some margin around each ListTile
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .secondaryContainer,
-                                  // Change the color of the ListTile
-                                  borderRadius: BorderRadius.circular(10),
-                                  // Add some border radius to the ListTile
-                                  boxShadow: [
-                                    // Add some shadow to the ListTile
-                                    BoxShadow(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondaryContainer,
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
-                                      offset: const Offset(1, 1),
-                                    ),
-                                  ],
-                                ),
-                                child: CheckboxListTile(
-                                  value: snapshot.data!
-                                      .contains(displayedTears[index].name),
-                                  onChanged: (bool? value) async {
-                                    setState(() {
-                                      if (value == true) {
-                                        if (!snapshot.data!.contains(
-                                            displayedTears[index].name)) {
-                                          snapshot.data!
-                                              .add(displayedTears[index].name);
-                                        }
-                                      } else {
-                                        if (snapshot.data!.contains(
-                                            displayedTears[index].name)) {
-                                          snapshot.data!.remove(
-                                              displayedTears[index].name);
-                                        }
-                                      }
-                                    });
-                                      if (value!) {
-                                        await db.addUserTear(
-                                            displayedTears[index].name,
-                                            id);
-                                      } else {
-                                        await db.removeUserTear(
-                                            displayedTears[index].name,
-                                            id);
-                                      }
-                                  },
-                                  title: SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      children: [
-                                        IconButton(
-                                          icon: Icon(
-                                            Icons.info_outline,
+        body: displayedTears.isEmpty
+            ? Center(
+                child: Text("Nothing to display".toUpperCase(),
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.onBackground,
+                        fontSize: 20,
+                        fontFamily: 'Mantinia')))
+            : Center(
+                child: Column(
+                  children: [
+                    FutureBuilder(
+                      future: futureFoundTears,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return Expanded(
+                            child: Scrollbar(
+                              thickness: 10,
+                              interactive: true,
+                              thumbVisibility: true,
+                              child: ListView.builder(
+                                itemCount: displayedTears.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                      margin: const EdgeInsets.all(10),
+                                      // Add some margin around each ListTile
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondaryContainer,
+                                        // Change the color of the ListTile
+                                        borderRadius: BorderRadius.circular(10),
+                                        // Add some border radius to the ListTile
+                                        boxShadow: [
+                                          // Add some shadow to the ListTile
+                                          BoxShadow(
                                             color: Theme.of(context)
                                                 .colorScheme
-                                                .onSecondaryContainer,
+                                                .secondaryContainer,
+                                            spreadRadius: 5,
+                                            blurRadius: 7,
+                                            offset: const Offset(1, 1),
                                           ),
-                                          onPressed: () {
-                                            Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    TearDetailPage(
-                                                        tear: displayedTears[
-                                                            index]),
+                                        ],
+                                      ),
+                                      child: CheckboxListTile(
+                                        value: snapshot.data!.contains(
+                                            displayedTears[index].name),
+                                        onChanged: (bool? value) async {
+                                          setState(() {
+                                            if (value == true) {
+                                              if (!snapshot.data!.contains(
+                                                  displayedTears[index].name)) {
+                                                snapshot.data!.add(
+                                                    displayedTears[index].name);
+                                              }
+                                            } else {
+                                              if (snapshot.data!.contains(
+                                                  displayedTears[index].name)) {
+                                                snapshot.data!.remove(
+                                                    displayedTears[index].name);
+                                              }
+                                            }
+                                          });
+                                          if (value!) {
+                                            await db.addUserTear(
+                                                displayedTears[index].name, id);
+                                          } else {
+                                            await db.removeUserTear(
+                                                displayedTears[index].name, id);
+                                          }
+                                        },
+                                        title: SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Row(
+                                            children: [
+                                              IconButton(
+                                                icon: Icon(
+                                                  Icons.info_outline,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSecondaryContainer,
+                                                ),
+                                                onPressed: () {
+                                                  Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          TearDetailPage(
+                                                              tear:
+                                                                  displayedTears[
+                                                                      index]),
+                                                    ),
+                                                  );
+                                                },
                                               ),
-                                            );
-                                          },
-                                        ),
-                                        SizedBox(
-                                          height: 50,
-                                          width: 50,
-                                          child: ClipRRect(
-                                            // Clip the image to make it circular
-                                            borderRadius:
-                                                BorderRadius.circular(25),
-                                            child: Image.asset(
-                                                displayedTears[index].image),
+                                              SizedBox(
+                                                height: 50,
+                                                width: 50,
+                                                child: ClipRRect(
+                                                  // Clip the image to make it circular
+                                                  borderRadius:
+                                                      BorderRadius.circular(25),
+                                                  child: Image.asset(
+                                                      displayedTears[index]
+                                                          .image),
+                                                ),
+                                              ),
+                                              const SizedBox(width: 10),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    displayedTears[index].name,
+                                                    style: const TextStyle(
+                                                      // Add some style to the text
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                        const SizedBox(width: 10),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              displayedTears[index].name,
-                                              style: const TextStyle(
-                                                // Add some style to the text
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ));
-                          },
-                        ),
-                      ),
-                    );
-                  } else {
-                    return SpinKitSpinningLines(
-                      color: Theme.of(context).colorScheme.primary,
-                      size: 50.0,
-                    );
-                  }
-                },
+                                      ));
+                                },
+                              ),
+                            ),
+                          );
+                        } else {
+                          return SpinKitSpinningLines(
+                            color: Theme.of(context).colorScheme.primary,
+                            size: 50.0,
+                          );
+                        }
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
       ),
     );
   }
@@ -337,8 +343,7 @@ class _TearsPageState extends State<TearsPage> {
             displayedTears.sort((a, b) => a.name.compareTo(b.name));
           });
         });
-      }
-      else if (option == SortOption.defaultSort){
+      } else if (option == SortOption.defaultSort) {
         List<String> defaultOrder = [
           "Crimson Crystal Tear",
           "Crimsonspill Crystal Tear",
@@ -380,7 +385,9 @@ class _TearsPageState extends State<TearsPage> {
         ];
         setState(() {
           displayedTears = tears;
-          displayedTears.sort((a, b) => defaultOrder.indexOf(a.name).compareTo(defaultOrder.indexOf(b.name)));
+          displayedTears.sort((a, b) => defaultOrder
+              .indexOf(a.name)
+              .compareTo(defaultOrder.indexOf(b.name)));
         });
       }
     });
@@ -408,7 +415,8 @@ class talsSearch extends SearchDelegate<Tear> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
+      icon: Icon(Icons.arrow_circle_left_outlined,
+          color: Theme.of(context).colorScheme.onSurface),
       onPressed: () {
         close(
             context,

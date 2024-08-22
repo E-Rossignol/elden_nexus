@@ -9,7 +9,8 @@ class ChangePasswordComponent extends StatefulWidget {
   const ChangePasswordComponent({super.key});
 
   @override
-  _ChangePasswordComponentState createState() => _ChangePasswordComponentState();
+  _ChangePasswordComponentState createState() =>
+      _ChangePasswordComponentState();
 }
 
 class _ChangePasswordComponentState extends State<ChangePasswordComponent> {
@@ -33,7 +34,8 @@ class _ChangePasswordComponentState extends State<ChangePasswordComponent> {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('password', _newPassword);
       Navigator.pop(context);
-      Get.snackbar('Password Changed', 'Your password has been changed successfully');
+      Get.snackbar(
+          'Password Changed', 'Your password has been changed successfully');
     } catch (e) {
       // Handle the error
       if (e is FirebaseAuthException && e.code == 'wrong-password') {
@@ -48,75 +50,72 @@ class _ChangePasswordComponentState extends State<ChangePasswordComponent> {
   Widget build(BuildContext context) {
     return ListTile(
         leading: Icon(
-            color: Theme
-                .of(context)
-                .colorScheme
-                .onPrimaryContainer,
+            color: Theme.of(context).colorScheme.onPrimaryContainer,
             Icons.password),
         title: Text(
           'Change Password',
           style: TextStyle(
-            color: Theme
-                .of(context)
-                .colorScheme
-                .onPrimaryContainer,
+            color: Theme.of(context).colorScheme.onPrimaryContainer,
           ),
         ),
         onTap: () {
-          showDialog(context: context, builder: (context) {
-            return AlertDialog(
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
                 title: Text('Change Password'),
                 content: Container(
                   height: MediaQuery.of(context).size.height * 0.3,
                   child: SingleChildScrollView(
                     child: Form(
-                        key: _formKey,
-                        child: Column(
-                          children: <Widget>[
-                            TextFormField(
-                              decoration: const InputDecoration(labelText: 'Old Password'),
-                              obscureText: true,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter your old password';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) {
-                                _oldPassword = value!;
-                              },
-                            ),
-                            TextFormField(
-                              decoration: const InputDecoration(labelText: 'New Password'),
-                              obscureText: true,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter your new password';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) {
-                                _newPassword = value!;
-                              },
-                            ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          _formKey.currentState!.save();
-                          _changePassword();
-                        }
-                      },
-                      child: const Text('Change Password'),
-                    ),
-                          ],
-                        ),
+                      key: _formKey,
+                      child: Column(
+                        children: <Widget>[
+                          TextFormField(
+                            decoration: const InputDecoration(
+                                labelText: 'Old Password'),
+                            obscureText: true,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your old password';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              _oldPassword = value!;
+                            },
+                          ),
+                          TextFormField(
+                            decoration: const InputDecoration(
+                                labelText: 'New Password'),
+                            obscureText: true,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your new password';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              _newPassword = value!;
+                            },
+                          ),
+                          ElevatedButton(
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                _formKey.currentState!.save();
+                                _changePassword();
+                              }
+                            },
+                            child: const Text('Change Password'),
+                          ),
+                        ],
                       ),
+                    ),
                   ),
                 ),
-                );
-          },
+              );
+            },
           );
-        }
-    );
+        });
   }
 }

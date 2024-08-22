@@ -1,12 +1,9 @@
 // ignore_for_file: prefer_const_constructors
-
-import 'package:elden_nexus/components/settings/log_out_component.dart';
 import 'package:elden_nexus/firebase/database/database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:elden_nexus/components/settings/change_language_component.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../components/settings/change_password_component.dart';
 import '../components/settings/leave_app_component.dart';
 
 /// The `SettingsView` class represents the settings view of the application.
@@ -19,7 +16,6 @@ import '../components/settings/leave_app_component.dart';
 class SettingsView extends StatefulWidget {
   final bool isLogin;
   const SettingsView({this.isLogin = false, super.key});
-
 
   @override
   SettingsViewState createState() => SettingsViewState();
@@ -73,7 +69,7 @@ class SettingsViewState extends State<SettingsView> {
                     ],
                   ));
         },
-        child: Text('store'.tr),
+        child: Text('STORE'),
       ),
     );
   }
@@ -123,25 +119,25 @@ class SettingsViewState extends State<SettingsView> {
           showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                title: Text('erwan ID update'),
-                content: Text('Rewrite erwan\'s ID?'),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text('No'),
-                  ),
-                  TextButton(
-                    onPressed: () async {
-                      Navigator.of(context).pop();
-                      await DatabaseMethods.instance.erwanChangeId();
-                      Get.snackbar('update', 'Data re-wrote !');
-                    },
-                    child: Text('Yes'),
-                  ),
-                ],
-              ));
+                    title: Text('erwan ID update'),
+                    content: Text('Rewrite erwan\'s ID?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('No'),
+                      ),
+                      TextButton(
+                        onPressed: () async {
+                          Navigator.of(context).pop();
+                          await DatabaseMethods.instance.erwanChangeId();
+                          Get.snackbar('update', 'Data re-wrote !');
+                        },
+                        child: Text('Yes'),
+                      ),
+                    ],
+                  ));
         },
         child: Text('Rewrite erwan\'s data'),
       ),
@@ -154,7 +150,7 @@ class SettingsViewState extends State<SettingsView> {
     widgets.add(const ChangeLanguageComponent());
     widgets.add(const LeaveAppComponent());
     bool isErwan = prefs?.getBool('isErwan') ?? false;
-    if (isErwan){
+    if (isErwan) {
       widgets.add(storeButton());
       widgets.add(resetSharedPreferencesButton());
       widgets.add(erwanIDButton());
@@ -164,7 +160,7 @@ class SettingsViewState extends State<SettingsView> {
         automaticallyImplyLeading: false,
         foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
         backgroundColor: Theme.of(context).colorScheme.background,
-        title: Text('Settings'),
+        title: Text('Settings'.tr),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

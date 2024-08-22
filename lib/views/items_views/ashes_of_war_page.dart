@@ -123,13 +123,15 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
                 },
               );
             },
-            child: Icon(Icons.sort, color: Theme.of(context).colorScheme.secondaryContainer),
+            child: Icon(Icons.sort,
+                color: Theme.of(context).colorScheme.secondaryContainer),
           ),
         ),
         appBar: AppBar(
           leading: Builder(
             builder: (context) => IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
+              icon: Icon(Icons.arrow_circle_left_outlined,
+                  color: Theme.of(context).colorScheme.onSurface),
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
@@ -236,15 +238,13 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
                                         }
                                       }
                                     });
-                                      if (value!) {
-                                        await db.addUserAsh(
-                                            displayedAshes[index].name,
-                                            id);
-                                      } else {
-                                        await db.removeUserAsh(
-                                            displayedAshes[index].name,
-                                            id);
-                                      }
+                                    if (value!) {
+                                      await db.addUserAsh(
+                                          displayedAshes[index].name, id);
+                                    } else {
+                                      await db.removeUserAsh(
+                                          displayedAshes[index].name, id);
+                                    }
                                   },
                                   title: SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
@@ -352,7 +352,8 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
         displayedAshes = ashes;
         displayedAshes.sort((a, b) => a.name.compareTo(b.name));
         displayedAshes.sort((a, b) {
-          return affinities.indexOf(a.affinity)
+          return affinities
+              .indexOf(a.affinity)
               .compareTo(affinities.indexOf(b.affinity));
         });
       }
@@ -381,7 +382,8 @@ class AshesSearch extends SearchDelegate<AshOfWar> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
+      icon: Icon(Icons.arrow_circle_left_outlined,
+          color: Theme.of(context).colorScheme.onSurface),
       onPressed: () {
         close(
             context,

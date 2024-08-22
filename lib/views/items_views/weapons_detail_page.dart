@@ -497,10 +497,13 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
         appBar: AppBar(
           leading: Builder(builder: (context) {
             return IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
+              icon: Icon(Icons.arrow_circle_left_outlined,
+                  color: Theme.of(context).colorScheme.onSurface),
               onPressed: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-                  return WeaponsPage(isDlc: widget.weapon.image.contains("dlc"));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) {
+                  return WeaponsPage(
+                      isDlc: widget.weapon.image.contains("dlc"));
                 }));
               },
             );
@@ -524,9 +527,7 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
             ),
           ),
         ),
-        body: Stack(
-          fit: StackFit.expand,
-            children: [
+        body: Stack(fit: StackFit.expand, children: [
           SizedBox(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
@@ -591,7 +592,8 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                                     child: const Text(""))),
                             DecoratedBox(
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   border: Border.all(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -609,7 +611,8 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                             ),
                             DecoratedBox(
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   border: Border.all(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -631,7 +634,8 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                           children: [
                             DecoratedBox(
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   border: Border.all(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -682,14 +686,16 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                                     height: defaultHeight,
                                     child: Center(
                                         child: Text(
-                                            requirement(weapon.requirements.str),
+                                            requirement(
+                                                weapon.requirements.str),
                                             style: TextStyle(
-                                                color:
-                                                    weapon.requirements.str != 0
-                                                        ? Colors.redAccent
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .onSecondaryContainer,
+                                                color: weapon
+                                                            .requirements.str !=
+                                                        0
+                                                    ? Colors.redAccent
+                                                    : Theme.of(context)
+                                                        .colorScheme
+                                                        .onSecondaryContainer,
                                                 fontWeight: FontWeight.bold)))),
                               ),
                             ),
@@ -699,7 +705,8 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                           children: [
                             DecoratedBox(
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   border: Border.all(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -753,8 +760,8 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                                               requirement(
                                                   weapon.requirements.dex),
                                               style: TextStyle(
-                                                  color: weapon
-                                                              .requirements.dex !=
+                                                  color: weapon.requirements
+                                                              .dex !=
                                                           0
                                                       ? Colors.redAccent
                                                       : Theme.of(context)
@@ -769,7 +776,8 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                           children: [
                             DecoratedBox(
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   border: Border.all(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -823,8 +831,8 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                                               requirement(
                                                   weapon.requirements.int),
                                               style: TextStyle(
-                                                  color: weapon
-                                                              .requirements.int !=
+                                                  color: weapon.requirements
+                                                              .int !=
                                                           0
                                                       ? Colors.redAccent
                                                       : Theme.of(context)
@@ -839,7 +847,8 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                           children: [
                             DecoratedBox(
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   border: Border.all(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -893,8 +902,8 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                                               requirement(
                                                   weapon.requirements.fai),
                                               style: TextStyle(
-                                                  color: weapon
-                                                              .requirements.fai !=
+                                                  color: weapon.requirements
+                                                              .fai !=
                                                           0
                                                       ? Colors.redAccent
                                                       : Theme.of(context)
@@ -909,7 +918,8 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                           children: [
                             DecoratedBox(
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   border: Border.all(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -963,8 +973,8 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                                               requirement(
                                                   weapon.requirements.arc),
                                               style: TextStyle(
-                                                  color: weapon
-                                                              .requirements.arc !=
+                                                  color: weapon.requirements
+                                                              .arc !=
                                                           0
                                                       ? Colors.redAccent
                                                       : Theme.of(context)

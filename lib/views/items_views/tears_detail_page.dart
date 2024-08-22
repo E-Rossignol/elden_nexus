@@ -88,9 +88,11 @@ class _TearDetailPageState extends State<TearDetailPage> {
         appBar: AppBar(
           leading: Builder(builder: (context) {
             return IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
+              icon: Icon(Icons.arrow_circle_left_outlined,
+                  color: Theme.of(context).colorScheme.onSurface),
               onPressed: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) {
                   return TearsPage(isDlc: widget.tear.image.contains("dlc"));
                 }));
               },
@@ -160,19 +162,19 @@ class _TearDetailPageState extends State<TearDetailPage> {
                     showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          title: Text('How to get ${tear.name}:'),
-                          content: SingleChildScrollView(
-                            child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(tear.howToFind)),
-                          ),
-                          actions: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: linkWidgets,
-                            ),
-                          ],
-                        ));
+                              title: Text('How to get ${tear.name}:'),
+                              content: SingleChildScrollView(
+                                child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(tear.howToFind)),
+                              ),
+                              actions: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: linkWidgets,
+                                ),
+                              ],
+                            ));
                   },
                   child: const Text('How to get it'),
                 ),

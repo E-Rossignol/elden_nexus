@@ -46,7 +46,6 @@ class _SorceriesPageState extends State<SorceriesPage> {
     sortSorceries(SortOption.type);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -125,13 +124,15 @@ class _SorceriesPageState extends State<SorceriesPage> {
                 },
               );
             },
-            child: Icon(Icons.sort, color: Theme.of(context).colorScheme.secondaryContainer),
+            child: Icon(Icons.sort,
+                color: Theme.of(context).colorScheme.secondaryContainer),
           ),
         ),
         appBar: AppBar(
           leading: Builder(
             builder: (context) => IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
+              icon: Icon(Icons.arrow_circle_left_outlined,
+                  color: Theme.of(context).colorScheme.onSurface),
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
@@ -238,15 +239,13 @@ class _SorceriesPageState extends State<SorceriesPage> {
                                         }
                                       }
                                     });
-                                      if (value!) {
-                                        await db.addUserSorcery(
-                                            displayedSorceries[index].name,
-                                            id);
-                                      } else {
-                                        await db.removeUserSorcery(
-                                            displayedSorceries[index].name,
-                                            id);
-                                      }
+                                    if (value!) {
+                                      await db.addUserSorcery(
+                                          displayedSorceries[index].name, id);
+                                    } else {
+                                      await db.removeUserSorcery(
+                                          displayedSorceries[index].name, id);
+                                    }
                                   },
                                   title: SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
@@ -348,8 +347,7 @@ class _SorceriesPageState extends State<SorceriesPage> {
           int indexB = types.indexOf(b.element);
           return indexA.compareTo(indexB);
         });
-      }
-      else if (option == SortOption.notFound) {
+      } else if (option == SortOption.notFound) {
         futureFoundSorceries.then((foundSorceries) {
           setState(() {
             displayedSorceries = sorceries
@@ -384,7 +382,8 @@ class SorceriesSearch extends SearchDelegate<Sorcery> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_circle_left_outlined, color: Theme.of(context).colorScheme.onSurface),
+      icon: Icon(Icons.arrow_circle_left_outlined,
+          color: Theme.of(context).colorScheme.onSurface),
       onPressed: () {
         close(
             context,
@@ -420,8 +419,8 @@ class SorceriesSearch extends SearchDelegate<Sorcery> {
     final suggestionList = query.isEmpty
         ? sorceries
         : sorceries
-            .where((sorc) =>
-                sorc.name.toLowerCase().contains(query.toLowerCase()))
+            .where(
+                (sorc) => sorc.name.toLowerCase().contains(query.toLowerCase()))
             .toList();
 
     return _buildSuggestionList(suggestionList);

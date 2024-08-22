@@ -44,7 +44,7 @@ class AshOfWar extends Item {
     };
   }
 
-  String toStr(){
+  String toStr() {
     return 'AshOfWar(name: "$name", image: "$image", howToFind: "$howToFind", description: "$description", mapLink: "$mapLink", affinity: "", usableOn: ""),';
   }
 }

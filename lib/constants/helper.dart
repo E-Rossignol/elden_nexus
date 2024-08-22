@@ -2,11 +2,11 @@ import 'dart:math';
 import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:get/get.dart';
 import 'constant.dart' as cons;
 import 'package:connectivity/connectivity.dart';
 
 class Helper {
-
   static String generateRandomAlphanumeric(int length) {
     const chars =
         'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -18,132 +18,97 @@ class Helper {
   static String strCat(cons.WeaponCategory category) {
     switch (category) {
       case cons.WeaponCategory.axe:
-        return 'Axe';
+        return 'Axe'.tr;
       case cons.WeaponCategory.backhand_blade:
-        return 'Backhand Blade';
+        return 'Backhand Blade'.tr;
       case cons.WeaponCategory.ballista:
-        return 'Ballista';
+        return 'Ballista'.tr;
       case cons.WeaponCategory.beast_claw:
-        return 'Beast Claw';
+        return 'Beast Claw'.tr;
       case cons.WeaponCategory.bow:
-        return 'Bow';
+        return 'Bow'.tr;
       case cons.WeaponCategory.crossbow:
-        return 'Crossbow';
+        return 'Crossbow'.tr;
       case cons.WeaponCategory.claw:
-        return 'Claw';
+        return 'Claw'.tr;
       case cons.WeaponCategory.colossal_sword:
-        return 'Colossal Sword';
+        return 'Colossal Sword'.tr;
       case cons.WeaponCategory.colossal_weapon:
-        return 'Colossal Weapon';
+        return 'Colossal Weapon'.tr;
       case cons.WeaponCategory.curved_greatsword:
-        return 'Curved Greatsword';
+        return 'Curved Greatsword'.tr;
       case cons.WeaponCategory.curved_sword:
-        return 'Curved Sword';
+        return 'Curved Sword'.tr;
       case cons.WeaponCategory.dagger:
-        return 'Dagger';
+        return 'Dagger'.tr;
       case cons.WeaponCategory.fist:
-        return 'Fist';
+        return 'Fist'.tr;
       case cons.WeaponCategory.flail:
-        return 'Flail';
+        return 'Flail'.tr;
       case cons.WeaponCategory.glintstone_staff:
-        return 'Glintstone Staff';
+        return 'Glintstone Staff'.tr;
       case cons.WeaponCategory.greataxe:
-        return 'Great Axe';
+        return 'Great Axe'.tr;
       case cons.WeaponCategory.great_bow:
-        return 'Great Bow';
+        return 'Great Bow'.tr;
       case cons.WeaponCategory.great_hammer:
-        return 'Great Hammer';
+        return 'Great Hammer'.tr;
       case cons.WeaponCategory.great_katana:
-        return 'Great Katana';
+        return 'Great Katana'.tr;
       case cons.WeaponCategory.great_spear:
-        return 'Great Spear';
+        return 'Great Spear'.tr;
       case cons.WeaponCategory.greatshield:
-        return 'Greatshield';
+        return 'Greatshield'.tr;
       case cons.WeaponCategory.greatsword:
-        return 'Greatsword';
+        return 'Greatsword'.tr;
       case cons.WeaponCategory.halberd:
-        return 'Hallberd';
+        return 'Halberd'.tr;
       case cons.WeaponCategory.hammer:
-        return 'Hammer';
+        return 'Hammer'.tr;
       case cons.WeaponCategory.hand_to_hand_art:
-        return 'Hand to Hand Art';
+        return 'Hand to Hand Art'.tr;
       case cons.WeaponCategory.heavy_thrusting_sword:
-        return 'Heavy Thrusting Sword';
+        return 'Heavy Thrusting Sword'.tr;
       case cons.WeaponCategory.katana:
-        return 'Katana';
+        return 'Katana'.tr;
       case cons.WeaponCategory.light_bow:
-        return 'Light Bow';
+        return 'Light Bow'.tr;
       case cons.WeaponCategory.light_greatsword:
-        return 'Light Greatsword';
+        return 'Light Greatsword'.tr;
       case cons.WeaponCategory.medium_shield:
-        return 'Medium Shield';
+        return 'Medium Shield'.tr;
       case cons.WeaponCategory.perfume_bottle:
-        return 'Perfume Bottle';
+        return 'Perfume Bottle'.tr;
       case cons.WeaponCategory.reaper:
-        return 'Reaper';
+        return 'Reaper'.tr;
       case cons.WeaponCategory.sacred_seal:
-        return 'Sacred Seal';
+        return 'Sacred Seal'.tr;
       case cons.WeaponCategory.small_shield:
-        return 'Small Shield';
+        return 'Small Shield'.tr;
       case cons.WeaponCategory.spear:
-        return 'Spear';
+        return 'Spear'.tr;
       case cons.WeaponCategory.straight_sword:
-        return 'Straight Sword';
+        return 'Straight Sword'.tr;
       case cons.WeaponCategory.throwing_blade:
-        return 'Throwing Blade';
+        return 'Throwing Blade'.tr;
       case cons.WeaponCategory.thrusting_shield:
-        return 'Thrusting Shield';
+        return 'Thrusting Shield'.tr;
       case cons.WeaponCategory.thrusting_sword:
-        return 'Thrusting Sword';
+        return 'Thrusting Sword'.tr;
       case cons.WeaponCategory.torch:
-        return 'Torch';
+        return 'Torch'.tr;
       case cons.WeaponCategory.twinblade:
-        return 'Twinblade';
+        return 'Twinblade'.tr;
       case cons.WeaponCategory.whip:
-        return 'Whip';
+        return 'Whip'.tr;
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   static Future<void> init() async {
     await setId();
     await setToken();
   }
+
   static Future<void> setId() async {
     const storage = FlutterSecureStorage();
     String id = await storage.read(key: 'id') ?? '';
@@ -160,6 +125,7 @@ class Helper {
                 iv: encrypt.IV.fromUtf8('thisIsAnIVForAES'))
             .base64);
   }
+
   static Future<void> setToken() async {
     const storage = FlutterSecureStorage();
     String token = await storage.read(key: 'token') ?? '';

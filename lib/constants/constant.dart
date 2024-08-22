@@ -10817,7 +10817,8 @@ List<ArmorSet> allSets() {
   List<ArmorSet> sets = [
     ArmorSet(
       name: "Alberich Set",
-      image: 'lib/constants/images/armor_sets/main_game_armor_sets/alberich_set.png',
+      image:
+          'lib/constants/images/armor_sets/main_game_armor_sets/alberich_set.png',
       damageNegation: DamageNegation(
         physical: 10.9,
         strike: 8.6,
@@ -10829,10 +10830,11 @@ List<ArmorSet> allSets() {
         holy: 25.3,
       ),
       weight: 9.7,
-      ),
+    ),
     ArmorSet(
       name: "All-knowing Set",
-      image: 'lib/constants/images/armor_sets/main_game_armor_sets/all-knowing_set.png',
+      image:
+          'lib/constants/images/armor_sets/main_game_armor_sets/all-knowing_set.png',
       damageNegation: DamageNegation(
         physical: 25.5,
         strike: 23.6,
@@ -10847,8 +10849,9 @@ List<ArmorSet> allSets() {
     ),
     ArmorSet(
       name: 'Albinauric Set',
-      image: 'lib/constants/images/armor_sets/main_game_armor_sets/albinauric_set.png',
-damageNegation: DamageNegation(
+      image:
+          'lib/constants/images/armor_sets/main_game_armor_sets/albinauric_set.png',
+      damageNegation: DamageNegation(
         physical: 14.9,
         strike: 11.6,
         slash: 15.4,
@@ -10864,7 +10867,7 @@ damageNegation: DamageNegation(
   return sets;
 }
 
-List<ArmorSet> allSOTESets(){
+List<ArmorSet> allSOTESets() {
   List<ArmorSet> sets = [
     ArmorSet(
       name: "Ansbach's Set",
@@ -10880,7 +10883,8 @@ List<ArmorSet> allSOTESets(){
         holy: 24.4,
       ),
       weight: 13.9,
-      passive: "The set increases the power of Blood Oath and dynastic skills by 14%.",
+      passive:
+          "The set increases the power of Blood Oath and dynastic skills by 14%.",
     ),
     ArmorSet(
       name: "Ascetic's Set",
@@ -10899,7 +10903,8 @@ List<ArmorSet> allSOTESets(){
     ),
     ArmorSet(
       name: "Black Knight Set",
-      image: 'lib/constants/images/armor_sets/dlc_armor_sets/black_knight_set.png',
+      image:
+          'lib/constants/images/armor_sets/dlc_armor_sets/black_knight_set.png',
       damageNegation: DamageNegation(
         physical: 31.8,
         strike: 27.0,
@@ -21638,8 +21643,10 @@ List<Armor> allSOTEArmors() {
       ),
       weight: 4.0,
       set: "Ansbach's Set",
-      howToFind: "Complete Sir Ansbach's questline all the way through the end, and side with him when facing Leda, and then Promised Consort Radahn/ Radahn, Consort of Miquella. After the fight is over, Sir Ansbach's body will be near the site of grace, alongside with his equipment and his Incantation.",
-      mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=659367&code=mapD",
+      howToFind:
+          "Complete Sir Ansbach's questline all the way through the end, and side with him when facing Leda, and then Promised Consort Radahn/ Radahn, Consort of Miquella. After the fight is over, Sir Ansbach's body will be near the site of grace, alongside with his equipment and his Incantation.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=659367&code=mapD",
     ),
     Armor(
       name: "Ansbach's Attire",
@@ -21657,8 +21664,10 @@ List<Armor> allSOTEArmors() {
       ),
       weight: 5.1,
       set: "Ansbach's Set",
-      howToFind: "Complete Sir Ansbach's questline all the way through the end, and side with him when facing Leda, and then Promised Consort Radahn/ Radahn, Consort of Miquella. After the fight is over, Sir Ansbach's body will be near the site of grace, alongside with his equipment and his Incantation.",
-      mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=659367&code=mapD",
+      howToFind:
+          "Complete Sir Ansbach's questline all the way through the end, and side with him when facing Leda, and then Promised Consort Radahn/ Radahn, Consort of Miquella. After the fight is over, Sir Ansbach's body will be near the site of grace, alongside with his equipment and his Incantation.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=659367&code=mapD",
     ),
     Armor(
       name: "Ansbach's Manchettes",
@@ -21676,8 +21685,10 @@ List<Armor> allSOTEArmors() {
       ),
       weight: 1.7,
       set: "Ansbach's Set",
-      howToFind: "Complete Sir Ansbach's questline all the way through the end, and side with him when facing Leda, and then Promised Consort Radahn/ Radahn, Consort of Miquella. After the fight is over, Sir Ansbach's body will be near the site of grace, alongside with his equipment and his Incantation.",
-      mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=659367&code=mapD",
+      howToFind:
+          "Complete Sir Ansbach's questline all the way through the end, and side with him when facing Leda, and then Promised Consort Radahn/ Radahn, Consort of Miquella. After the fight is over, Sir Ansbach's body will be near the site of grace, alongside with his equipment and his Incantation.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=659367&code=mapD",
     ),
     Armor(
       name: "Ansbach's boots",
@@ -21695,8 +21706,10 @@ List<Armor> allSOTEArmors() {
       ),
       weight: 3.1,
       set: "Ansbach's Set",
-      howToFind: "Complete Sir Ansbach's questline all the way through the end, and side with him when facing Leda, and then Promised Consort Radahn/ Radahn, Consort of Miquella. After the fight is over, Sir Ansbach's body will be near the site of grace, alongside with his equipment and his Incantation.",
-      mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=659367&code=mapD",
+      howToFind:
+          "Complete Sir Ansbach's questline all the way through the end, and side with him when facing Leda, and then Promised Consort Radahn/ Radahn, Consort of Miquella. After the fight is over, Sir Ansbach's body will be near the site of grace, alongside with his equipment and his Incantation.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=659367&code=mapD",
     ),
     Armor(
       name: "Curseblade Mask",
@@ -21714,7 +21727,8 @@ List<Armor> allSOTEArmors() {
       ),
       weight: 2.2,
       set: "Ascetic's Set",
-      howToFind: "3.00% chance to drop by Curseblade enemies. One is right in front of the first site of grace of the DLC.",
+      howToFind:
+          "3.00% chance to drop by Curseblade enemies. One is right in front of the first site of grace of the DLC.",
       mapLink: "",
     ),
     Armor(
@@ -21733,7 +21747,8 @@ List<Armor> allSOTEArmors() {
       ),
       weight: 3.2,
       set: "Ascetic's Set",
-      howToFind: "3.00% chance to drop by Curseblade enemies. One is right in front of the first site of grace of the DLC.",
+      howToFind:
+          "3.00% chance to drop by Curseblade enemies. One is right in front of the first site of grace of the DLC.",
       mapLink: "",
     ),
     Armor(
@@ -21752,7 +21767,8 @@ List<Armor> allSOTEArmors() {
       ),
       weight: 1.1,
       set: "Ascetic's Set",
-      howToFind: "3.00% chance to drop by Curseblade enemies. One is right in front of the first site of grace of the DLC.",
+      howToFind:
+          "3.00% chance to drop by Curseblade enemies. One is right in front of the first site of grace of the DLC.",
       mapLink: "",
     ),
     Armor(
@@ -21771,7 +21787,8 @@ List<Armor> allSOTEArmors() {
       ),
       weight: 2,
       set: "Ascetic's Set",
-      howToFind: "3.00% chance to drop by Curseblade enemies. One is right in front of the first site of grace of the DLC.",
+      howToFind:
+          "3.00% chance to drop by Curseblade enemies. One is right in front of the first site of grace of the DLC.",
       mapLink: "",
     ),
     Armor(
@@ -21790,8 +21807,10 @@ List<Armor> allSOTEArmors() {
       ),
       weight: 5.9,
       set: "Black Knight Set",
-      howToFind: "Black Knight Set pieces are dropped from Black Knights, found throughout the Lands of Shadow. A Black Knight can be found down the elevator next to the Castle-Lord's Chamber site of grace in Castle Ensis. This Black Knight is particularly easy to farm, as he can be backstabbed after sending the elevator back up, and it takes less than a minute to kill him and warp back to the grace.",
-      mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655151&code=mapD",
+      howToFind:
+          "Black Knight Set pieces are dropped from Black Knights, found throughout the Lands of Shadow. A Black Knight can be found down the elevator next to the Castle-Lord's Chamber site of grace in Castle Ensis. This Black Knight is particularly easy to farm, as he can be backstabbed after sending the elevator back up, and it takes less than a minute to kill him and warp back to the grace.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655151&code=mapD",
     ),
     Armor(
       name: "Black Knight Armor",
@@ -21809,12 +21828,15 @@ List<Armor> allSOTEArmors() {
       ),
       weight: 13.7,
       set: "Black Knight Set",
-      howToFind: "Black Knight Set pieces are dropped from Black Knights, found throughout the Lands of Shadow. A Black Knight can be found down the elevator next to the Castle-Lord's Chamber site of grace in Castle Ensis. This Black Knight is particularly easy to farm, as he can be backstabbed after sending the elevator back up, and it takes less than a minute to kill him and warp back to the grace.",
-      mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655151&code=mapD",
+      howToFind:
+          "Black Knight Set pieces are dropped from Black Knights, found throughout the Lands of Shadow. A Black Knight can be found down the elevator next to the Castle-Lord's Chamber site of grace in Castle Ensis. This Black Knight is particularly easy to farm, as he can be backstabbed after sending the elevator back up, and it takes less than a minute to kill him and warp back to the grace.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655151&code=mapD",
     ),
     Armor(
       name: "Black Knight Gauntlets",
-      image: 'lib/constants/images/armors/dlc_armors/black_knight_gauntlets.png',
+      image:
+          'lib/constants/images/armors/dlc_armors/black_knight_gauntlets.png',
       armorPiece: ArmorPiece.gauntlets,
       damageNegation: DamageNegation(
         physical: 3.6,
@@ -21828,8 +21850,10 @@ List<Armor> allSOTEArmors() {
       ),
       weight: 4.6,
       set: "Black Knight Set",
-      howToFind: "Black Knight Set pieces are dropped from Black Knights, found throughout the Lands of Shadow. A Black Knight can be found down the elevator next to the Castle-Lord's Chamber site of grace in Castle Ensis. This Black Knight is particularly easy to farm, as he can be backstabbed after sending the elevator back up, and it takes less than a minute to kill him and warp back to the grace.",
-      mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655151&code=mapD",
+      howToFind:
+          "Black Knight Set pieces are dropped from Black Knights, found throughout the Lands of Shadow. A Black Knight can be found down the elevator next to the Castle-Lord's Chamber site of grace in Castle Ensis. This Black Knight is particularly easy to farm, as he can be backstabbed after sending the elevator back up, and it takes less than a minute to kill him and warp back to the grace.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655151&code=mapD",
     ),
     Armor(
       name: "Black Knight Greaves",
@@ -21847,8 +21871,10 @@ List<Armor> allSOTEArmors() {
       ),
       weight: 8.5,
       set: "Black Knight Set",
-      howToFind: "Black Knight Set pieces are dropped from Black Knights, found throughout the Lands of Shadow. A Black Knight can be found down the elevator next to the Castle-Lord's Chamber site of grace in Castle Ensis. This Black Knight is particularly easy to farm, as he can be backstabbed after sending the elevator back up, and it takes less than a minute to kill him and warp back to the grace.",
-      mapLink: "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655151&code=mapD",
+      howToFind:
+          "Black Knight Set pieces are dropped from Black Knights, found throughout the Lands of Shadow. A Black Knight can be found down the elevator next to the Castle-Lord's Chamber site of grace in Castle Ensis. This Black Knight is particularly easy to farm, as he can be backstabbed after sending the elevator back up, and it takes less than a minute to kill him and warp back to the grace.",
+      mapLink:
+          "https://eldenring.wiki.fextralife.com/Interactive+Map?id=655151&code=mapD",
     ),
   ];
   return allArmors;
