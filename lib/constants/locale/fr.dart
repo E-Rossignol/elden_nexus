@@ -75,4 +75,7 @@ const Map<String, String> frLocale = {
   'Throwing Blade': 'Lame de lancer',
   'Hand to Hand Art': 'Art du combat à mains nues',
   'Open Link': 'Ouvrir le lien',
+  'Armor Pieces': 'Pièces d\'armure',
+  'Weight': 'Poids',
+  'Affinity': 'Affinité',
 };

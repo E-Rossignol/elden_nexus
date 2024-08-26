@@ -109,7 +109,7 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                           ),
                         );
                       },
-                      child: Text('Armor pieces'.toUpperCase(), style: TextStyle(fontFamily: 'Mantinia', fontSize: 17, color: Theme.of(context).colorScheme.primary)),
+                      child: Text('Armor pieces'.tr.toUpperCase(), style: TextStyle(fontFamily: 'Mantinia', fontSize: 17, color: Theme.of(context).colorScheme.primary)),
                     ),
                   ),
                   armorSet.passive != "" ? Padding(

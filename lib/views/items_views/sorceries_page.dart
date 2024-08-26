@@ -98,12 +98,12 @@ class _SorceriesPageState extends State<SorceriesPage> {
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    title: Text('Sort by:'),
+                    title: Text('Sort by:'.tr),
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         ListTile(
-                          title: Text('Type'),
+                          title: Text('Affinity'.tr),
                           onTap: () {
                             setState(() {
                               selectedSortOption = SortOption.type;
@@ -113,7 +113,7 @@ class _SorceriesPageState extends State<SorceriesPage> {
                           },
                         ),
                         ListTile(
-                          title: Text('Name'),
+                          title: Text('Name'.tr),
                           onTap: () {
                             setState(() {
                               selectedSortOption = SortOption.name;
@@ -123,7 +123,7 @@ class _SorceriesPageState extends State<SorceriesPage> {
                           },
                         ),
                         ListTile(
-                          title: Text('Not Found'),
+                          title: Text('Not Found'.tr),
                           onTap: () {
                             setState(() {
                               selectedSortOption = SortOption.notFound;

@@ -73,4 +73,7 @@ const Map<String, String> enLocale = {
   'Throwing Blade': 'Throwing Blade',
   'Hand to Hand Art': 'Hand to Hand Art',
   'Open Link': 'Open Link',
+  'Armor pieces': 'Armor pieces',
+  'Weight': 'Weight',
+  'Affinity': 'Affinity',
 };

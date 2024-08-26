@@ -97,12 +97,12 @@ class _TalismansPageState extends State<TalismansPage> {
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    title: Text('Sort by:'),
+                    title: Text('Sort by:'.tr),
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         ListTile(
-                          title: Text('Default'),
+                          title: Text('Default'.tr),
                           onTap: () {
                             setState(() {
                               selectedSortOption = SortOption.defaultSort;
@@ -112,7 +112,7 @@ class _TalismansPageState extends State<TalismansPage> {
                           },
                         ),
                         ListTile(
-                          title: Text('Name'),
+                          title: Text('Name'.tr),
                           onTap: () {
                             setState(() {
                               selectedSortOption = SortOption.name;
@@ -122,7 +122,7 @@ class _TalismansPageState extends State<TalismansPage> {
                           },
                         ),
                         ListTile(
-                          title: Text('Not Found'),
+                          title: Text('Not Found'.tr),
                           onTap: () {
                             setState(() {
                               selectedSortOption = SortOption.notFound;

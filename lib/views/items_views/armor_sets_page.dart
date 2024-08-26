@@ -101,12 +101,12 @@ class _ArmorSetsPageState extends State<ArmorSetsPage> {
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    title: Text('Sort by:'),
+                    title: Text('Sort by:'.tr),
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         ListTile(
-                          title: Text('Name'),
+                          title: Text('Name'.tr),
                           onTap: () {
                             setState(() {
                               selectedSortOption = SortOption.name;
@@ -116,7 +116,7 @@ class _ArmorSetsPageState extends State<ArmorSetsPage> {
                           },
                         ),
                         ListTile(
-                          title: Text('Weight'),
+                          title: Text('Weight'.tr),
                           onTap: () {
                             setState(() {
                               selectedSortOption = SortOption.weight;

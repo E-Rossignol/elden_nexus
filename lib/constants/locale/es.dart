@@ -77,4 +77,7 @@ const Map<String, String> esLocale = {
   'Throwing Blade': 'Hoja Arrojadiza',
   'Hand to Hand Art': 'Arte de Combate de Mano a Mano',
   'Open Link': 'Abrir Enlace',
+  'Armor Pieces': 'Piezas de Armadura',
+  'Weight': 'Peso',
+  'Affinity': 'Afinidad',
 };

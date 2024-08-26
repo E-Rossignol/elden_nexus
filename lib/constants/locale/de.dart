@@ -74,4 +74,7 @@ const Map<String, String> deLocale = {
   'Throwing Blade': 'Wurfklinge',
   'Hand to Hand Art': 'Hand zu Hand Kunst',
   'Open Link': 'Link öffnen',
+  'Armor Pieces': 'Rüstungsteile',
+  'Weight': 'Gewicht',
+  'Affinity': 'Affinität',
 };
