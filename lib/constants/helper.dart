@@ -150,7 +150,8 @@ class Helper {
 
   static Color darkenColor(Color color, [double amount = .08]) {
     final hsl = HSLColor.fromColor(color);
-    final hslDark = hsl.withLightness((hsl.lightness <= amount) ? 0.0 : hsl.lightness - amount);
+    final hslDark = hsl.withLightness(
+        (hsl.lightness <= amount) ? 0.0 : hsl.lightness - amount);
 
     return hslDark.toColor();
   }

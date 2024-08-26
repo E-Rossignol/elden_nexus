@@ -72,52 +72,62 @@ void buildDialog(BuildContext context, List locale) {
                       padding: const EdgeInsets.all(8.0),
                       child: GestureDetector(
                           onTap: () {
-                            if (locale[index]['name'] != "English"){
-                              showDialog(context: context, builder: (context) {
-                                return AlertDialog(
-                                  title: Text(
-                                    'languageChange'.tr,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Theme.of(context).colorScheme.onPrimaryContainer,
-                                    ),
-                                  ),
-                                  content: Text(
-                                    'Be careful, other languages than English are not fully implemented yet. Do you want to continue?',
-                                    style: TextStyle(
-                                      color: Theme.of(context).colorScheme.onPrimaryContainer,
-                                    ),
-                                  ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                        _updateLanguage(locale[index]['locale']);
-                                      },
-                                      child: Text(
-                                        'Yes',
+                            if (locale[index]['name'] != "English") {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text(
+                                        'languageChange'.tr,
+                                        textAlign: TextAlign.center,
                                         style: TextStyle(
-                                          color: Theme.of(context).colorScheme.onPrimaryContainer,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimaryContainer,
                                         ),
                                       ),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Text(
-                                        'close'.tr,
+                                      content: Text(
+                                        'Be careful, other languages than English are not fully implemented yet. Do you want to continue?',
                                         style: TextStyle(
-                                          color: Theme.of(context).colorScheme.error,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimaryContainer,
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                  actionsAlignment: MainAxisAlignment.end,
-                                );
-                              });
-                            }
-                            else {
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                            _updateLanguage(
+                                                locale[index]['locale']);
+                                          },
+                                          child: Text(
+                                            'Yes',
+                                            style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onPrimaryContainer,
+                                            ),
+                                          ),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Text(
+                                            'close'.tr,
+                                            style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .error,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                      actionsAlignment: MainAxisAlignment.end,
+                                    );
+                                  });
+                            } else {
                               _updateLanguage(locale[index]['locale']);
                             }
                           },

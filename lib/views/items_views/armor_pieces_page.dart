@@ -52,7 +52,13 @@ class _ArmorPiecesPageState extends State<ArmorPiecesPage> {
       },
       child: Scaffold(
           appBar: AppBar(
-            title: Center(child: Text(widget.set.name.toUpperCase(), textAlign: TextAlign.center, style: TextStyle(fontSize: 18, fontFamily: 'Mantinia', color: Theme.of(context).colorScheme.onSurface))),
+            title: Center(
+                child: Text(widget.set.name.toUpperCase(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'Mantinia',
+                        color: Theme.of(context).colorScheme.onSurface))),
             automaticallyImplyLeading: false,
             leading: IconButton(
               icon: Icon(Icons.arrow_circle_left_outlined,
@@ -230,7 +236,11 @@ class _ArmorPiecesPageState extends State<ArmorPiecesPage> {
                       margin: const EdgeInsets.all(10),
                       // Add some margin around each ListTile
                       decoration: BoxDecoration(
-                        color: displayedArmors[index].name.contains('altered') ? Helper.darkenColor(Theme.of(context).colorScheme.secondaryContainer) : Theme.of(context).colorScheme.secondaryContainer,
+                        color: displayedArmors[index].name.contains('altered')
+                            ? Helper.darkenColor(Theme.of(context)
+                                .colorScheme
+                                .secondaryContainer)
+                            : Theme.of(context).colorScheme.secondaryContainer,
                         // Change the color of the ListTile
                         borderRadius: BorderRadius.circular(10),
                         // Add some border radius to the ListTile

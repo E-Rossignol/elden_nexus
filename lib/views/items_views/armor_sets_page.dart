@@ -239,7 +239,8 @@ class _ArmorSetsPageState extends State<ArmorSetsPage> {
                                 );
                               },
                               child: SizedBox(
-                                height: MediaQuery.of(context).size.height * 0.08,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.08,
                                 child: Row(
                                   children: [
                                     IconButton(
@@ -263,10 +264,12 @@ class _ArmorSetsPageState extends State<ArmorSetsPage> {
                                     ),
                                     const SizedBox(width: 30),
                                     SizedBox(
-                                      height: MediaQuery.of(context).size.height *
-                                          0.08,
-                                      width: MediaQuery.of(context).size.height *
-                                          0.08,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.08,
+                                      width:
+                                          MediaQuery.of(context).size.height *
+                                              0.08,
                                       child: ClipRRect(
                                         // Clip the image to make it circular
                                         borderRadius: BorderRadius.circular(25),

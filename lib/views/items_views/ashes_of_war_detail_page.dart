@@ -51,12 +51,13 @@ class _AshOfWarDetailPageState extends State<AshOfWarDetailPage> {
     return PopScope(
       canPop: false,
       onPopInvoked: (result) {
-        Navigator.pushReplacement(context, MaterialPageRoute(
-          builder: (context) => AshesOfWarPage(
-            isDlc: widget.ash.image.contains("dlc"),
-          ),
-        ));
-
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AshesOfWarPage(
+                isDlc: widget.ash.image.contains("dlc"),
+              ),
+            ));
       },
       child: Scaffold(
         endDrawer: const Drawer(

@@ -89,12 +89,13 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
     return PopScope(
       canPop: false,
       onPopInvoked: (result) {
-        Navigator.pushReplacement(context, MaterialPageRoute(
-          builder: (context) => SorceriesPage(
-            isDlc: widget.sorc.image.contains("dlc"),
-          ),
-        ));
-
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SorceriesPage(
+                isDlc: widget.sorc.image.contains("dlc"),
+              ),
+            ));
       },
       child: Scaffold(
         endDrawer: const Drawer(

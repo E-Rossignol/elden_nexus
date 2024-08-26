@@ -21,8 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
-  String get _title =>
-      widget.isDlc ? 'Shadow of the Erdtree': 'Base Game'.tr;
+  String get _title => widget.isDlc ? 'Shadow of the Erdtree' : 'Base Game'.tr;
 
   Widget _space() {
     return const SizedBox(
@@ -57,7 +56,8 @@ class _HomePageState extends State<HomePage>
               MaterialPageRoute(
                 builder: (context) => WelcomePage(),
               ),
-                  (route) => false, // This will remove all previous routes from the stack
+              (route) =>
+                  false, // This will remove all previous routes from the stack
             );
           });
         },

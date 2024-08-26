@@ -82,12 +82,13 @@ class _TalismanDetailPageState extends State<TalismanDetailPage> {
     return PopScope(
       canPop: false,
       onPopInvoked: (result) {
-        Navigator.pushReplacement(context, MaterialPageRoute(
-          builder: (context) => TalismansPage(
-            isDlc: widget.tal.image.contains("dlc"),
-          ),
-        ));
-
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => TalismansPage(
+                isDlc: widget.tal.image.contains("dlc"),
+              ),
+            ));
       },
       child: Scaffold(
         endDrawer: const Drawer(

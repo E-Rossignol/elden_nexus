@@ -56,25 +56,24 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
     return PopScope(
       canPop: false,
       onPopInvoked: (result) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ArmorPiecesPage(
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ArmorPiecesPage(
                 set: armor.image.contains("dlc")
                     ? DatabaseMethods.instance.allDBSOTEArmorSets
-                    .firstWhere(
-                        (element) => element.name == armor.set)
-                    : DatabaseMethods.instance.allDBArmorSets.firstWhere(
-                        (element) => element.name == armor.set),
+                        .firstWhere((element) => element.name == armor.set)
+                    : DatabaseMethods.instance.allDBArmorSets
+                        .firstWhere((element) => element.name == armor.set),
                 armorPieces: armor.image.contains("dlc")
                     ? DatabaseMethods.instance.allDBSOTEArmors
-                    .where((element) => element.set == armor.set)
-                    .toList()
+                        .where((element) => element.set == armor.set)
+                        .toList()
                     : DatabaseMethods.instance.allDBArmors
-                    .where((element) => element.set == armor.set)
-                    .toList()),
-            ),
-          );
+                        .where((element) => element.set == armor.set)
+                        .toList()),
+          ),
+        );
       },
       child: Scaffold(
         endDrawer: const Drawer(
@@ -164,7 +163,16 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: Center(
                         child: Text(
-                          armor.armorPiece.toString().split('.').last[0].toUpperCase() + armor.armorPiece.toString().split('.').last.substring(1),
+                          armor.armorPiece
+                                  .toString()
+                                  .split('.')
+                                  .last[0]
+                                  .toUpperCase() +
+                              armor.armorPiece
+                                  .toString()
+                                  .split('.')
+                                  .last
+                                  .substring(1),
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.onSurface,
                               fontWeight: FontWeight.bold,
@@ -180,7 +188,8 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                       width: MediaQuery.of(context).size.width * 0.6,
                       child: Table(
                         columnWidths: const {
-                          0: FlexColumnWidth(1), // First column is half the size
+                          0: FlexColumnWidth(
+                              1), // First column is half the size
                           1: FlexColumnWidth(0.5),
                         },
                         children: [
@@ -190,8 +199,9 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                 height: defaultTableHeight,
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                      color:
-                                      Theme.of(context).colorScheme.secondary,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
                                       border: Border.all(
                                           color: Theme.of(context)
                                               .colorScheme
@@ -202,9 +212,11 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                           child: Center(
                                               child: Text("Physical",
                                                   style: TextStyle(
-                                                      fontStyle: FontStyle.italic,
+                                                      fontStyle:
+                                                          FontStyle.italic,
                                                       fontSize: 18,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       color: Theme.of(context)
                                                           .colorScheme
                                                           .onSecondary))))),
@@ -244,8 +256,9 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                 height: defaultTableHeight,
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                      color:
-                                      Theme.of(context).colorScheme.secondary,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
                                       border: Border.all(
                                           color: Theme.of(context)
                                               .colorScheme
@@ -256,9 +269,11 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                           child: Center(
                                               child: Text("Strike",
                                                   style: TextStyle(
-                                                      fontStyle: FontStyle.italic,
+                                                      fontStyle:
+                                                          FontStyle.italic,
                                                       fontSize: 18,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       color: Theme.of(context)
                                                           .colorScheme
                                                           .onSecondary))))),
@@ -298,8 +313,9 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                 height: defaultTableHeight,
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                      color:
-                                      Theme.of(context).colorScheme.secondary,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
                                       border: Border.all(
                                           color: Theme.of(context)
                                               .colorScheme
@@ -310,9 +326,11 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                           child: Center(
                                               child: Text("Slash",
                                                   style: TextStyle(
-                                                      fontStyle: FontStyle.italic,
+                                                      fontStyle:
+                                                          FontStyle.italic,
                                                       fontSize: 18,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       color: Theme.of(context)
                                                           .colorScheme
                                                           .onSecondary))))),
@@ -334,8 +352,8 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                         height: defaultHeight,
                                         child: Center(
                                             child: Text(
-                                                resString(widget
-                                                    .armor.damageNegation.slash),
+                                                resString(widget.armor
+                                                    .damageNegation.slash),
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     color: Theme.of(context)
@@ -352,8 +370,9 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                 height: defaultTableHeight,
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                      color:
-                                      Theme.of(context).colorScheme.secondary,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
                                       border: Border.all(
                                           color: Theme.of(context)
                                               .colorScheme
@@ -364,9 +383,11 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                           child: Center(
                                               child: Text("Pierce",
                                                   style: TextStyle(
-                                                      fontStyle: FontStyle.italic,
+                                                      fontStyle:
+                                                          FontStyle.italic,
                                                       fontSize: 18,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       color: Theme.of(context)
                                                           .colorScheme
                                                           .onSecondary))))),
@@ -406,8 +427,9 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                 height: defaultTableHeight,
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                      color:
-                                      Theme.of(context).colorScheme.secondary,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
                                       border: Border.all(
                                           color: Theme.of(context)
                                               .colorScheme
@@ -418,9 +440,11 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                           child: const Center(
                                               child: Text("Magic",
                                                   style: TextStyle(
-                                                      fontStyle: FontStyle.italic,
+                                                      fontStyle:
+                                                          FontStyle.italic,
                                                       fontSize: 18,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       color: Color.fromRGBO(
                                                           25, 25, 112, 1)))))),
                                 ),
@@ -441,20 +465,20 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                         height: defaultHeight,
                                         child: Center(
                                             child: Text(
-                                                resString(widget
-                                                    .armor.damageNegation.magic),
+                                                resString(widget.armor
+                                                    .damageNegation.magic),
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     color: widget
-                                                        .armor
-                                                        .damageNegation
-                                                        .magic !=
-                                                        0
+                                                                .armor
+                                                                .damageNegation
+                                                                .magic !=
+                                                            0
                                                         ? const Color.fromRGBO(
-                                                        125, 125, 212, 1)
+                                                            125, 125, 212, 1)
                                                         : Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondaryContainer)))),
+                                                            .colorScheme
+                                                            .onSecondaryContainer)))),
                                   ),
                                 ),
                               ),
@@ -466,8 +490,9 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                 height: defaultTableHeight,
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                      color:
-                                      Theme.of(context).colorScheme.secondary,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
                                       border: Border.all(
                                           color: Theme.of(context)
                                               .colorScheme
@@ -478,9 +503,11 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                           child: const Center(
                                               child: Text("Fire",
                                                   style: TextStyle(
-                                                      fontStyle: FontStyle.italic,
+                                                      fontStyle:
+                                                          FontStyle.italic,
                                                       fontSize: 18,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       color: Color.fromRGBO(
                                                           139, 0, 0, 1)))))),
                                 ),
@@ -506,15 +533,15 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     color: widget
-                                                        .armor
-                                                        .damageNegation
-                                                        .fire !=
-                                                        0
+                                                                .armor
+                                                                .damageNegation
+                                                                .fire !=
+                                                            0
                                                         ? const Color.fromRGBO(
-                                                        239, 0, 0, 1)
+                                                            239, 0, 0, 1)
                                                         : Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondaryContainer)))),
+                                                            .colorScheme
+                                                            .onSecondaryContainer)))),
                                   ),
                                 ),
                               ),
@@ -526,8 +553,9 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                 height: defaultTableHeight,
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                      color:
-                                      Theme.of(context).colorScheme.secondary,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
                                       border: Border.all(
                                           color: Theme.of(context)
                                               .colorScheme
@@ -538,9 +566,11 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                           child: const Center(
                                               child: Text("Holy",
                                                   style: TextStyle(
-                                                      fontStyle: FontStyle.italic,
+                                                      fontStyle:
+                                                          FontStyle.italic,
                                                       fontSize: 18,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       color: Color.fromRGBO(
                                                           184, 134, 11, 1)))))),
                                 ),
@@ -566,15 +596,15 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     color: widget
-                                                        .armor
-                                                        .damageNegation
-                                                        .holy !=
-                                                        0
+                                                                .armor
+                                                                .damageNegation
+                                                                .holy !=
+                                                            0
                                                         ? const Color.fromRGBO(
-                                                        234, 184, 61, 1)
+                                                            234, 184, 61, 1)
                                                         : Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondaryContainer)))),
+                                                            .colorScheme
+                                                            .onSecondaryContainer)))),
                                   ),
                                 ),
                               ),
@@ -586,8 +616,9 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                 height: defaultTableHeight,
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                      color:
-                                      Theme.of(context).colorScheme.secondary,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
                                       border: Border.all(
                                           color: Theme.of(context)
                                               .colorScheme
@@ -598,9 +629,11 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                           child: const Center(
                                               child: Text("Lightning",
                                                   style: TextStyle(
-                                                      fontStyle: FontStyle.italic,
+                                                      fontStyle:
+                                                          FontStyle.italic,
                                                       fontSize: 18,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       color: Color.fromRGBO(
                                                           173, 173, 0, 1)))))),
                                 ),
@@ -626,15 +659,15 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     color: widget
-                                                        .armor
-                                                        .damageNegation
-                                                        .lightning !=
-                                                        0
+                                                                .armor
+                                                                .damageNegation
+                                                                .lightning !=
+                                                            0
                                                         ? const Color.fromRGBO(
-                                                        223, 223, 0, 1)
+                                                            223, 223, 0, 1)
                                                         : Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondaryContainer)))),
+                                                            .colorScheme
+                                                            .onSecondaryContainer)))),
                                   ),
                                 ),
                               ),

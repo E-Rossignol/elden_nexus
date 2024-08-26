@@ -88,12 +88,13 @@ class _IncantationDetailPageState extends State<IncantationDetailPage> {
     return PopScope(
       canPop: false,
       onPopInvoked: (result) {
-        Navigator.pushReplacement(context, MaterialPageRoute(
-          builder: (context) => IncantationsPage(
-            isDlc: widget.incant.image.contains("dlc"),
-          ),
-        ));
-
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => IncantationsPage(
+                isDlc: widget.incant.image.contains("dlc"),
+              ),
+            ));
       },
       child: Scaffold(
         endDrawer: const Drawer(
