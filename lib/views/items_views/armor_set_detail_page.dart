@@ -1,29 +1,22 @@
+import 'package:elden_nexus/firebase/database/database.dart';
 import 'package:elden_nexus/models/armor.dart';
 import 'package:elden_nexus/views/items_views/armor_pieces_page.dart';
 import 'package:elden_nexus/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
-import '../../firebase/database/database.dart';
+import '../../models/armor_set.dart';
+import 'armor_sets_page.dart';
 
-class ArmorPiecesDetailPage extends StatefulWidget {
-  final Armor armor;
+class ArmorSetDetailPage extends StatefulWidget {
+  final ArmorSet armorSet;
 
-  const ArmorPiecesDetailPage({super.key, required this.armor});
+  const ArmorSetDetailPage({super.key, required this.armorSet});
 
   @override
-  State<ArmorPiecesDetailPage> createState() => _ArmorPiecesDetailPageState();
+  State<ArmorSetDetailPage> createState() => _ArmorSetDetailPageState();
 }
 
-class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
-  void _launchURL(String url) async {
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
+class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
   String resString(double input) {
     if (input == 0) {
       return "-";
@@ -34,47 +27,16 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
   @override
   Widget build(BuildContext context) {
     double defaultHeight = 45;
+    ArmorSet armorSet = widget.armorSet;
     double defaultTableHeight = MediaQuery.of(context).size.height * 0.048;
-    Armor armor = widget.armor;
-    String url = armor.mapLink;
-    bool isLinkable = url.isNotEmpty;
-    List<Widget> linkWidgets = [];
-    if (isLinkable) {
-      linkWidgets.add(ElevatedButton(
-        onPressed: () {
-          _launchURL(url);
-        },
-        child: Text('Open Link'.tr),
-      ));
-    }
-    linkWidgets.add(TextButton(
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-      child: const Text('Close'),
-    ));
     return PopScope(
       canPop: false,
       onPopInvoked: (result) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ArmorPiecesPage(
-                set: armor.image.contains("dlc")
-                    ? DatabaseMethods.instance.allDBSOTEArmorSets
-                    .firstWhere(
-                        (element) => element.name == armor.set)
-                    : DatabaseMethods.instance.allDBArmorSets.firstWhere(
-                        (element) => element.name == armor.set),
-                armorPieces: armor.image.contains("dlc")
-                    ? DatabaseMethods.instance.allDBSOTEArmors
-                    .where((element) => element.set == armor.set)
-                    .toList()
-                    : DatabaseMethods.instance.allDBArmors
-                    .where((element) => element.set == armor.set)
-                    .toList()),
-            ),
-          );
+        Navigator.pushReplacement(context, MaterialPageRoute(
+          builder: (context) => ArmorSetsPage(
+            isDlc: widget.armorSet.image.contains("dlc"),
+          ),
+        ));
       },
       child: Scaffold(
         endDrawer: const Drawer(
@@ -86,23 +48,10 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
               icon: Icon(Icons.arrow_circle_left_outlined,
                   color: Theme.of(context).colorScheme.onSurface),
               onPressed: () {
-                bool isDlc = armor.image.contains("dlc");
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) {
-                  return ArmorPiecesPage(
-                      set: isDlc
-                          ? DatabaseMethods.instance.allDBSOTEArmorSets
-                              .firstWhere(
-                                  (element) => element.name == armor.set)
-                          : DatabaseMethods.instance.allDBArmorSets.firstWhere(
-                              (element) => element.name == armor.set),
-                      armorPieces: isDlc
-                          ? DatabaseMethods.instance.allDBSOTEArmors
-                              .where((element) => element.set == armor.set)
-                              .toList()
-                          : DatabaseMethods.instance.allDBArmors
-                              .where((element) => element.set == armor.set)
-                              .toList());
+                  return ArmorSetsPage(
+                      isDlc: widget.armorSet.image.contains("dlc"));
                 }));
               },
             );
@@ -120,7 +69,7 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
           ],
           title: Center(
             child: Text(
-              armor.name.toUpperCase(),
+              armorSet.name.toUpperCase(),
               style: const TextStyle(fontFamily: 'Mantinia', fontSize: 18),
               maxLines: 1,
             ),
@@ -138,9 +87,44 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                     height: MediaQuery.of(context).size.height * 0.24,
                     child: Transform.scale(
                       scale: 0.8,
-                      child: Image.asset(armor.image),
+                      child: Image.asset(armorSet.image),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 0, 15),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        bool isDlc = widget.armorSet.image.contains("dlc");
+                        List<Armor> allArmors = isDlc
+                            ? DatabaseMethods.instance.allDBSOTEArmors
+                            : DatabaseMethods.instance.allDBArmors;
+                        List<Armor> armorPieces = allArmors
+                            .where((element) => element.set == widget.armorSet.name)
+                            .toList();
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ArmorPiecesPage(
+                                armorPieces: armorPieces, set: widget.armorSet),
+                          ),
+                        );
+                      },
+                      child: Text('Armor pieces'.toUpperCase(), style: TextStyle(fontFamily: 'Mantinia', fontSize: 17, color: Theme.of(context).colorScheme.primary)),
+                    ),
+                  ),
+                  armorSet.passive != "" ? Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 0, 15),
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.08,
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: Text(
+                        armorSet.passive,
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
+                            fontSize: 18),
+                      ),
+                    ),
+                  ) : const SizedBox(),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 0, 0, 15),
                     child: SizedBox(
@@ -148,27 +132,11 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: Center(
                         child: Text(
-                          'Weight: ${armor.weight}',
+                          'Weight: ${armorSet.weight}',
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.onSurface,
                               fontWeight: FontWeight.bold,
                               fontSize: 18),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 10),
-                    child: SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.04,
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      child: Center(
-                        child: Text(
-                          armor.armorPiece.toString().split('.').last[0].toUpperCase() + armor.armorPiece.toString().split('.').last.substring(1),
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSurface,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15),
                         ),
                       ),
                     ),
@@ -191,7 +159,7 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
                                       color:
-                                      Theme.of(context).colorScheme.secondary,
+                                          Theme.of(context).colorScheme.secondary,
                                       border: Border.all(
                                           color: Theme.of(context)
                                               .colorScheme
@@ -226,7 +194,7 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                         height: defaultHeight,
                                         child: Center(
                                             child: Text(
-                                                resString(widget.armor
+                                                resString(widget.armorSet
                                                     .damageNegation.physical),
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
@@ -245,7 +213,7 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
                                       color:
-                                      Theme.of(context).colorScheme.secondary,
+                                          Theme.of(context).colorScheme.secondary,
                                       border: Border.all(
                                           color: Theme.of(context)
                                               .colorScheme
@@ -280,7 +248,7 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                         height: defaultHeight,
                                         child: Center(
                                             child: Text(
-                                                resString(widget.armor
+                                                resString(widget.armorSet
                                                     .damageNegation.strike),
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
@@ -299,7 +267,7 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
                                       color:
-                                      Theme.of(context).colorScheme.secondary,
+                                          Theme.of(context).colorScheme.secondary,
                                       border: Border.all(
                                           color: Theme.of(context)
                                               .colorScheme
@@ -335,7 +303,7 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                         child: Center(
                                             child: Text(
                                                 resString(widget
-                                                    .armor.damageNegation.slash),
+                                                    .armorSet.damageNegation.slash),
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     color: Theme.of(context)
@@ -353,7 +321,7 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
                                       color:
-                                      Theme.of(context).colorScheme.secondary,
+                                          Theme.of(context).colorScheme.secondary,
                                       border: Border.all(
                                           color: Theme.of(context)
                                               .colorScheme
@@ -388,7 +356,7 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                         height: defaultHeight,
                                         child: Center(
                                             child: Text(
-                                                resString(widget.armor
+                                                resString(widget.armorSet
                                                     .damageNegation.pierce),
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
@@ -407,7 +375,7 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
                                       color:
-                                      Theme.of(context).colorScheme.secondary,
+                                          Theme.of(context).colorScheme.secondary,
                                       border: Border.all(
                                           color: Theme.of(context)
                                               .colorScheme
@@ -442,19 +410,19 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                         child: Center(
                                             child: Text(
                                                 resString(widget
-                                                    .armor.damageNegation.magic),
+                                                    .armorSet.damageNegation.magic),
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     color: widget
-                                                        .armor
-                                                        .damageNegation
-                                                        .magic !=
-                                                        0
+                                                                .armorSet
+                                                                .damageNegation
+                                                                .magic !=
+                                                            0
                                                         ? const Color.fromRGBO(
-                                                        125, 125, 212, 1)
+                                                            125, 125, 212, 1)
                                                         : Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondaryContainer)))),
+                                                            .colorScheme
+                                                            .onSecondaryContainer)))),
                                   ),
                                 ),
                               ),
@@ -467,7 +435,7 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
                                       color:
-                                      Theme.of(context).colorScheme.secondary,
+                                          Theme.of(context).colorScheme.secondary,
                                       border: Border.all(
                                           color: Theme.of(context)
                                               .colorScheme
@@ -502,19 +470,19 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                         child: Center(
                                             child: Text(
                                                 resString(widget
-                                                    .armor.damageNegation.fire),
+                                                    .armorSet.damageNegation.fire),
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     color: widget
-                                                        .armor
-                                                        .damageNegation
-                                                        .fire !=
-                                                        0
+                                                                .armorSet
+                                                                .damageNegation
+                                                                .fire !=
+                                                            0
                                                         ? const Color.fromRGBO(
-                                                        239, 0, 0, 1)
+                                                            239, 0, 0, 1)
                                                         : Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondaryContainer)))),
+                                                            .colorScheme
+                                                            .onSecondaryContainer)))),
                                   ),
                                 ),
                               ),
@@ -527,7 +495,7 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
                                       color:
-                                      Theme.of(context).colorScheme.secondary,
+                                          Theme.of(context).colorScheme.secondary,
                                       border: Border.all(
                                           color: Theme.of(context)
                                               .colorScheme
@@ -562,19 +530,19 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                         child: Center(
                                             child: Text(
                                                 resString(widget
-                                                    .armor.damageNegation.holy),
+                                                    .armorSet.damageNegation.holy),
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     color: widget
-                                                        .armor
-                                                        .damageNegation
-                                                        .holy !=
-                                                        0
+                                                                .armorSet
+                                                                .damageNegation
+                                                                .holy !=
+                                                            0
                                                         ? const Color.fromRGBO(
-                                                        234, 184, 61, 1)
+                                                            234, 184, 61, 1)
                                                         : Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondaryContainer)))),
+                                                            .colorScheme
+                                                            .onSecondaryContainer)))),
                                   ),
                                 ),
                               ),
@@ -587,7 +555,7 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
                                       color:
-                                      Theme.of(context).colorScheme.secondary,
+                                          Theme.of(context).colorScheme.secondary,
                                       border: Border.all(
                                           color: Theme.of(context)
                                               .colorScheme
@@ -621,20 +589,20 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                                         height: defaultHeight,
                                         child: Center(
                                             child: Text(
-                                                resString(widget.armor
+                                                resString(widget.armorSet
                                                     .damageNegation.lightning),
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     color: widget
-                                                        .armor
-                                                        .damageNegation
-                                                        .lightning !=
-                                                        0
+                                                                .armorSet
+                                                                .damageNegation
+                                                                .lightning !=
+                                                            0
                                                         ? const Color.fromRGBO(
-                                                        223, 223, 0, 1)
+                                                            223, 223, 0, 1)
                                                         : Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondaryContainer)))),
+                                                            .colorScheme
+                                                            .onSecondaryContainer)))),
                                   ),
                                 ),
                               ),
@@ -645,33 +613,6 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                     ),
                   ),
                 ],
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-                child: ElevatedButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                              title: Text('How to get ${armor.name}:'),
-                              content: SingleChildScrollView(
-                                child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(armor.howToFind)),
-                              ),
-                              actions: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: linkWidgets,
-                                ),
-                              ],
-                            ));
-                  },
-                  child: const Text('How to get it'),
-                ),
               ),
             ),
           ],

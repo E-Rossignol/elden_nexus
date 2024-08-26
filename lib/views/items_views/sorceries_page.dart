@@ -65,6 +65,20 @@ class _SorceriesPageState extends State<SorceriesPage> {
   Widget buildMainWidget(BuildContext context) {
     return PopScope(
       canPop: false,
+      onPopInvoked: (result) {
+        if (displayedSorceries.length == sorceries.length) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomePage(isDlc: widget.isDlc),
+            ),
+          );
+        } else {
+          setState(() {
+            displayedSorceries = sorceries;
+          });
+        }
+      },
       child: Scaffold(
         endDrawer: Drawer(
           backgroundColor: Theme.of(context).colorScheme.background,

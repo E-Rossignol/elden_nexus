@@ -20,7 +20,7 @@ enum ArmorPiece {
   helm,
   chest,
   gauntlets,
-  leg,
+  greaves,
 }
 
 enum SpellType {
@@ -11025,7 +11025,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/alberichs_trousers.png',
         set: "Alberich Set",
         weight: 2.5,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 2,
@@ -11101,7 +11101,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/all-knowing_greaves.png',
         set: "All-knowing Set",
         weight: 6.6,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 7,
           strike: 6,
@@ -11139,7 +11139,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/aristocrat_boots.png',
         set: "",
         weight: 2.9,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 4,
           strike: 4,
@@ -11348,7 +11348,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/astrologer_trousers.png',
         set: "",
         weight: 3.9,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 3,
@@ -11423,7 +11423,7 @@ List<Armor> allArmors() {
         image: 'lib/constants/images/armors/main_game_armors/bandit_boots.png',
         set: "",
         weight: 4.4,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 4,
           strike: 4,
@@ -11554,7 +11554,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/banished_knight_greaves.png',
         set: "",
         weight: 10.8,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 10,
           strike: 8,
@@ -11611,7 +11611,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/battlemage_legwraps.png',
         set: "",
         weight: 2.5,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 3,
@@ -11725,7 +11725,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/beast_champion_greaves.png',
         set: "",
         weight: 10.8,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 10,
           strike: 9,
@@ -11857,7 +11857,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/black_knife_greaves.png',
         set: "",
         weight: 5.7,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 6,
           strike: 6,
@@ -11952,7 +11952,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/blackflame_monk_greave.png',
         set: "",
         weight: 7.3,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 7,
           strike: 6,
@@ -12064,7 +12064,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/blaidds_greaves.png',
         set: "",
         weight: 8.5,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 8,
           strike: 7,
@@ -12140,7 +12140,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/bloodhound_knight_greaves.png',
         set: "",
         weight: 6.6,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 7,
           strike: 6,
@@ -12387,7 +12387,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/blue_silver_mail_skirt.png',
         set: "",
         weight: 5.5,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 6,
           strike: 5,
@@ -12500,7 +12500,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/braves_legwraps.png',
         set: "",
         weight: 3.1,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 3,
@@ -12574,7 +12574,7 @@ List<Armor> allArmors() {
         image: 'lib/constants/images/armors/main_game_armors/briar_greaves.png',
         set: "",
         weight: 7.3,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 7,
           strike: 6,
@@ -12649,7 +12649,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/bull-goat_greaves.png',
         set: "",
         weight: 16.4,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 11,
           strike: 11,
@@ -12744,7 +12744,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/carian_knight_greaves.png',
         set: "",
         weight: 6.6,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 6,
           strike: 6,
@@ -12856,7 +12856,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/chain_leggings.png',
         set: "",
         weight: 5.5,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 6,
           strike: 5,
@@ -13027,7 +13027,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/cleanrot_greaves.png',
         set: "",
         weight: 9.3,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 8,
           strike: 7,
@@ -13101,7 +13101,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/cloth_trousers.png',
         set: "",
         weight: 2.0,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 2,
@@ -13196,7 +13196,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/commoners_shoes.png',
         set: "",
         weight: 2.0,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 1,
           strike: 3,
@@ -13291,7 +13291,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/confessor_boots.png',
         set: "",
         weight: 4.8,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 4,
           strike: 5,
@@ -13403,7 +13403,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/consorts_trousers.png',
         set: "",
         weight: 2.5,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 2,
@@ -13553,7 +13553,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/crucible_greaves.png',
         set: "",
         weight: 9.6,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 10,
           strike: 8,
@@ -13686,7 +13686,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/cuckoo_knight_greaves.png',
         set: "",
         weight: 7.3,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 7,
           strike: 6,
@@ -13762,7 +13762,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/deathbed_smalls.png',
         set: "",
         weight: 2.0,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 1,
           strike: 2,
@@ -13857,7 +13857,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/depraved_perfumer_trousers.png',
         set: "",
         weight: 4.3,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 3,
@@ -13888,6 +13888,25 @@ List<Armor> allArmors() {
         ),
         howToFind: "",
         mapLink: ""),
+    Armor(
+      name: 'Albinauric Mask',
+      image: 'lib/constants/images/armors/main_game_armors/albinauric_mask.png',
+      set: 'Albinauric Set',
+      weight: 3.8,
+      armorPiece: ArmorPiece.helm,
+      damageNegation: DamageNegation(
+        physical: 4,
+        strike: 3.1,
+        slash: 4,
+        pierce: 3.8,
+        magic: 2.5,
+        fire: 3.1,
+        lightning: 2.1,
+        holy: 2.5,
+      ),
+      howToFind: '',
+      mapLink: '',
+    ),
     Armor(
         name: "Dirty Chainmail",
         image:
@@ -13970,7 +13989,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/drake_knight_greaves.png',
         set: "",
         weight: 5.7,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 6,
           strike: 5,
@@ -14027,7 +14046,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/duelist_greaves.png',
         set: "",
         weight: 7.3,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 8,
           strike: 7,
@@ -14083,7 +14102,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/eccentrics_breeches.png',
         set: "",
         weight: 5.1,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 6,
           strike: 4,
@@ -14235,7 +14254,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/elden_lord_greaves.png',
         set: "",
         weight: 5.5,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 6,
           strike: 5,
@@ -14291,7 +14310,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/errant_sorcerer_boots.png',
         set: "",
         weight: 3.1,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 3,
@@ -14403,7 +14422,7 @@ List<Armor> allArmors() {
         image: 'lib/constants/images/armors/main_game_armors/exile_greaves.png',
         set: "",
         weight: 5.7,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 7,
           strike: 5,
@@ -14644,7 +14663,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/finger_maiden_shoes.png',
         set: "",
         weight: 2.5,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 2,
@@ -14720,7 +14739,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/fingerprint_greaves.png',
         set: "",
         weight: 6.6,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 7,
           strike: 6,
@@ -14796,7 +14815,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/fire_monk_greaves.png',
         set: "",
         weight: 3.9,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 3,
@@ -14891,7 +14910,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/fire_prelate_greaves.png',
         set: "",
         weight: 15.3,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 11,
           strike: 9,
@@ -14967,7 +14986,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/foot_soldier_greaves.png',
         set: "",
         weight: 5.1,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 5,
           strike: 5,
@@ -15042,7 +15061,7 @@ List<Armor> allArmors() {
         image: 'lib/constants/images/armors/main_game_armors/fur_leggings.png',
         set: "",
         weight: 3.1,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 3,
@@ -15136,7 +15155,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/gelmir_knight_greaves.png',
         set: "",
         weight: 7.3,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 7,
           strike: 6,
@@ -15288,7 +15307,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/godrick_knight_greaves.png',
         set: "",
         weight: 7.3,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 7,
           strike: 6,
@@ -15345,7 +15364,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/godrick_soldier_greaves.png',
         set: "",
         weight: 6.6,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 7,
           strike: 6,
@@ -15440,7 +15459,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/godskin_apostle_trousers.png',
         set: "",
         weight: 2.5,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 3,
@@ -15497,7 +15516,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/godskin_noble_trousers.png',
         set: "",
         weight: 2.5,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 2.3,
           strike: 4.5,
@@ -15535,7 +15554,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/gold_waistwrap.png',
         set: "",
         weight: 4.4,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 4,
           strike: 3,
@@ -15760,7 +15779,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/guardian_greaves.png',
         set: "",
         weight: 5.5,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 6,
           strike: 5,
@@ -15872,7 +15891,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/haligtree_greaves.png',
         set: "",
         weight: 6.6,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 7,
           strike: 6,
@@ -15967,7 +15986,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/haligtree_knight_greaves.png',
         set: "",
         weight: 7.3,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 7,
           strike: 7,
@@ -16194,7 +16213,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/hoslows_greaves.png',
         set: "",
         weight: 7.3,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 8,
           strike: 6,
@@ -16568,7 +16587,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/kaiden_trousers.png',
         set: "",
         weight: 5.1,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 6,
           strike: 4,
@@ -16624,7 +16643,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/knight_greaves.png',
         set: "",
         weight: 6.6,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 7,
           strike: 6,
@@ -16699,7 +16718,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/land_of_reeds_greaves.png',
         set: "",
         weight: 5.1,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 5,
           strike: 5,
@@ -16791,7 +16810,7 @@ List<Armor> allArmors() {
         image: 'lib/constants/images/armors/main_game_armors/leather_boots.png',
         set: "",
         weight: 4.4,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 4,
           strike: 5,
@@ -16829,7 +16848,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/leather_trousers.png',
         set: "",
         weight: 5.5,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 6,
           strike: 5,
@@ -16924,7 +16943,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/leyndell_knight_greaves.png',
         set: "",
         weight: 7.3,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 7,
           strike: 7,
@@ -16981,7 +17000,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/leyndell_soldier_greaves.png',
         set: "",
         weight: 6.6,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 7,
           strike: 6,
@@ -17075,7 +17094,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/lionels_greaves.png',
         set: "",
         weight: 13.1,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 10,
           strike: 9,
@@ -17263,7 +17282,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/malenias_greaves.png',
         set: "",
         weight: 5.7,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 7,
           strike: 5,
@@ -17339,7 +17358,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/malformed_dragon_greaves.png',
         set: "",
         weight: 9.9,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 9,
           strike: 8,
@@ -17434,7 +17453,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/malikeths_greaves.png',
         set: "",
         weight: 7.9,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 7,
           strike: 6,
@@ -17622,7 +17641,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/mausoleum_greaves.png',
         set: "",
         weight: 6.6,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 7,
           strike: 6,
@@ -17698,7 +17717,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/mausoleum_knight_greaves.png',
         set: "",
         weight: 7.3,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 7,
           strike: 6,
@@ -17827,7 +17846,7 @@ List<Armor> allArmors() {
         image: 'lib/constants/images/armors/main_game_armors/mushroom_legs.png',
         set: "",
         weight: 3.1,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 4,
@@ -17959,7 +17978,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/nights_cavalry_greaves.png',
         set: "",
         weight: 7.9,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 8,
           strike: 7,
@@ -18053,7 +18072,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/nobles_trousers.png',
         set: "",
         weight: 3.9,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 3,
@@ -18129,7 +18148,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/nomadic_merchants_trousers.png',
         set: "",
         weight: 4.4,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 4,
           strike: 5,
@@ -18224,7 +18243,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/nox_monk_greaves.png',
         set: "",
         weight: 5.1,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 5.4,
           strike: 5.8,
@@ -18449,7 +18468,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/old_aristocrat_shoes.png',
         set: "",
         weight: 2.0,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 3,
@@ -18468,7 +18487,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/old_sorcerer_legwraps.png',
         set: "",
         weight: 2.5,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 1,
@@ -18542,7 +18561,7 @@ List<Armor> allArmors() {
         image: 'lib/constants/images/armors/main_game_armors/omen_greaves.png',
         set: "",
         weight: 14.3,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 10,
           strike: 8,
@@ -18579,7 +18598,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/omenkiller_boots.png',
         set: "",
         weight: 4.4,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 5,
           strike: 4,
@@ -18709,7 +18728,7 @@ List<Armor> allArmors() {
         image: 'lib/constants/images/armors/main_game_armors/page_trousers.png',
         set: "",
         weight: 2.5,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 3,
@@ -18802,7 +18821,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/perfumer_sarong.png',
         set: "",
         weight: 2.5,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 2,
           strike: 3,
@@ -18935,7 +18954,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/preceptors_trousers.png',
         set: "",
         weight: 3.9,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 3,
@@ -18992,7 +19011,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/prisoner_trousers.png',
         set: "",
         weight: 2.0,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 2,
           strike: 3,
@@ -19067,7 +19086,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/prophet_trousers.png',
         set: "",
         weight: 3.1,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 3,
@@ -19142,7 +19161,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/queens_leggings.png',
         set: "",
         weight: 2.0,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 2,
           strike: 1,
@@ -19198,7 +19217,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/radahn_soldier_greaves.png',
         set: "",
         weight: 6.6,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 7,
           strike: 6,
@@ -19255,7 +19274,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/radahns_greaves.png',
         set: "",
         weight: 10.8,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 10,
           strike: 8,
@@ -19442,7 +19461,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/ragged_loincloth.png',
         set: "",
         weight: 3.1,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 4,
           strike: 4,
@@ -19537,7 +19556,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/raya_lucarian_greaves.png',
         set: "",
         weight: 6.6,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 7,
           strike: 6,
@@ -19632,7 +19651,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/redmane_knight_greaves.png',
         set: "",
         weight: 7.3,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 7,
           strike: 6,
@@ -19764,7 +19783,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/ronins_greaves.png',
         set: "",
         weight: 5.7,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 6,
           strike: 6,
@@ -19783,7 +19802,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/rotten_duelist_greaves.png',
         set: "",
         weight: 7.3,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 7,
           strike: 6,
@@ -19916,7 +19935,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/royal_knight_greaves.png',
         set: "",
         weight: 9.6,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 9,
           strike: 8,
@@ -19992,7 +20011,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/royal_remains_greaves.png',
         set: "",
         weight: 6.6,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 6,
           strike: 6,
@@ -20120,7 +20139,7 @@ List<Armor> allArmors() {
         image: 'lib/constants/images/armors/main_game_armors/sage_trousers.png',
         set: "",
         weight: 2.5,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 3,
@@ -20251,7 +20270,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/scaled_greaves.png',
         set: "",
         weight: 9.9,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 9,
           strike: 8,
@@ -20325,7 +20344,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/shaman_leggings.png',
         set: "",
         weight: 3.1,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 3,
@@ -20457,7 +20476,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/snow_witch_skirt.png',
         set: "",
         weight: 3.1,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 3,
@@ -20476,7 +20495,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/sorcerer_leggings.png',
         set: "",
         weight: 2.0,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 1,
           strike: 1,
@@ -20590,7 +20609,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/spellblades_trousers.png',
         set: "",
         weight: 2.6,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 2,
           strike: 2,
@@ -20609,7 +20628,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/travelers_boots.png',
         set: "",
         weight: 3.1,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 3,
@@ -20703,7 +20722,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/travelers_slops.png',
         set: "",
         weight: 2.5,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 3,
@@ -20722,7 +20741,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/traveling_maiden_boots.png',
         set: "",
         weight: 3.1,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 3,
@@ -20874,7 +20893,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/tree_sentinel_greaves.png',
         set: "",
         weight: 11.7,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 10,
           strike: 8,
@@ -21005,7 +21024,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/twinned_greaves.png',
         set: "",
         weight: 7.3,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 7,
           strike: 7,
@@ -21137,7 +21156,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/vagabond_knight_greaves.png',
         set: "",
         weight: 5.7,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 7,
           strike: 5,
@@ -21232,7 +21251,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/veterans_greaves.png',
         set: "",
         weight: 11.7,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 10,
           strike: 9,
@@ -21307,7 +21326,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/vulgar_militia_greaves.png',
         set: "",
         weight: 5.1,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 5,
           strike: 6,
@@ -21402,7 +21421,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/war_surgeon_trousers.png',
         set: "",
         weight: 4.2,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 3,
           strike: 4,
@@ -21440,7 +21459,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/warrior_greaves.png',
         set: "",
         weight: 4.8,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 5,
           strike: 5,
@@ -21515,7 +21534,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/white_reed_greaves.png',
         set: "",
         weight: 5.1,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 5,
           strike: 5,
@@ -21590,7 +21609,7 @@ List<Armor> allArmors() {
             'lib/constants/images/armors/main_game_armors/zamor_legwraps.png',
         set: "",
         weight: 5.1,
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         damageNegation: DamageNegation(
           physical: 6,
           strike: 5,
@@ -21693,7 +21712,7 @@ List<Armor> allSOTEArmors() {
     Armor(
       name: "Ansbach's boots",
       image: 'lib/constants/images/armors/dlc_armors/ansbachs_boots.png',
-      armorPiece: ArmorPiece.leg,
+      armorPiece: ArmorPiece.greaves,
       damageNegation: DamageNegation(
         physical: 3,
         strike: 3.4,
@@ -21774,7 +21793,7 @@ List<Armor> allSOTEArmors() {
     Armor(
       name: "Ascetic's Ankle Guards",
       image: 'lib/constants/images/armors/dlc_armors/ascetics_ankle_guards.png',
-      armorPiece: ArmorPiece.leg,
+      armorPiece: ArmorPiece.greaves,
       damageNegation: DamageNegation(
         physical: 3.4,
         strike: 0.3,
@@ -21858,7 +21877,7 @@ List<Armor> allSOTEArmors() {
     Armor(
       name: "Black Knight Greaves",
       image: 'lib/constants/images/armors/dlc_armors/black_knight_greaves.png',
-      armorPiece: ArmorPiece.leg,
+      armorPiece: ArmorPiece.greaves,
       damageNegation: DamageNegation(
         physical: 8.4,
         strike: 7.1,

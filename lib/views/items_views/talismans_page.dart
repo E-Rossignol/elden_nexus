@@ -64,6 +64,20 @@ class _TalismansPageState extends State<TalismansPage> {
   Widget buildMainWidget(BuildContext context) {
     return PopScope(
       canPop: false,
+      onPopInvoked: (result) {
+        if (displayedTals.length == tals.length) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomePage(isDlc: widget.isDlc),
+            ),
+          );
+        } else {
+          setState(() {
+            displayedTals = tals;
+          });
+        }
+      },
       child: Scaffold(
         endDrawer: Drawer(
           backgroundColor: Theme.of(context).colorScheme.background,

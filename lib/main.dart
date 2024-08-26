@@ -31,9 +31,12 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       translations: LocaleString(),
-      locale: const Locale('fr', 'FR'),
+      locale: const Locale('en', 'EN'),
       home: const WelcomePage(),
       theme: Provider.of<ThemeProvider>(context).themeData,
+      routes: {
+        '/welcome': (context) => const WelcomePage(),
+      },
     );
   }
 }

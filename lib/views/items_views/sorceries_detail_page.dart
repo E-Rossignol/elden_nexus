@@ -77,7 +77,7 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
         onPressed: () {
           _launchURL(url);
         },
-        child: const Text('Open Link'),
+        child: Text('Open Link'.tr),
       ));
     }
     linkWidgets.add(TextButton(
@@ -88,6 +88,14 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
     ));
     return PopScope(
       canPop: false,
+      onPopInvoked: (result) {
+        Navigator.pushReplacement(context, MaterialPageRoute(
+          builder: (context) => SorceriesPage(
+            isDlc: widget.sorc.image.contains("dlc"),
+          ),
+        ));
+
+      },
       child: Scaffold(
         endDrawer: const Drawer(
           child: SettingsView(),

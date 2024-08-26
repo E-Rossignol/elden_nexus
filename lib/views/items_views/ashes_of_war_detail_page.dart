@@ -39,7 +39,7 @@ class _AshOfWarDetailPageState extends State<AshOfWarDetailPage> {
         onPressed: () {
           _launchURL(url);
         },
-        child: const Text('Open Link'),
+        child: Text('Open Link'.tr),
       ));
     }
     linkWidgets.add(TextButton(
@@ -50,6 +50,14 @@ class _AshOfWarDetailPageState extends State<AshOfWarDetailPage> {
     ));
     return PopScope(
       canPop: false,
+      onPopInvoked: (result) {
+        Navigator.pushReplacement(context, MaterialPageRoute(
+          builder: (context) => AshesOfWarPage(
+            isDlc: widget.ash.image.contains("dlc"),
+          ),
+        ));
+
+      },
       child: Scaffold(
         endDrawer: const Drawer(
           child: SettingsView(),

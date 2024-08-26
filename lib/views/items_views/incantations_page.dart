@@ -65,6 +65,20 @@ class _IncantationsPageState extends State<IncantationsPage> {
   Widget buildMainWidget(BuildContext context) {
     return PopScope(
       canPop: false,
+      onPopInvoked: (result) {
+        if (displayedIncants.length == incants.length) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomePage(isDlc: widget.isDlc),
+            ),
+          );
+        } else {
+          setState(() {
+            displayedIncants = incants;
+          });
+        }
+      },
       child: Scaffold(
         endDrawer: Drawer(
           backgroundColor: Theme.of(context).colorScheme.background,

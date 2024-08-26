@@ -22,7 +22,6 @@ const Map<String, String> frLocale = {
   "Submit": "Soumettre",
   "Loading": "Chargement",
   'Base Game': 'Jeu de base',
-  'Shadow of the Erdtree': 'Shadow of the Erdtree',
   'Sort by:': 'Trier par:',
   'Default': 'Défaut',
   'Not Found': 'Pas encore découvert',
@@ -56,7 +55,6 @@ const Map<String, String> frLocale = {
   'Hand Axe': 'Hache à main',
   'Heavy Crossbow': 'Arbalète lourde',
   'Heavy Thrusting Sword': 'Épée d\'estoc lourde',
-  'Katar': 'Katar',
   'Katana': 'Katana',
   'Lance': 'Lance',
   'Light Bow': 'Arc léger',
@@ -76,4 +74,5 @@ const Map<String, String> frLocale = {
   'Thrusting Shield': 'Bouclier d\'estoc',
   'Throwing Blade': 'Lame de lancer',
   'Hand to Hand Art': 'Art du combat à mains nues',
+  'Open Link': 'Ouvrir le lien',
 };

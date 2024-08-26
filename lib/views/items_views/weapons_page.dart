@@ -68,6 +68,20 @@ class _WeaponsPageState extends State<WeaponsPage> {
   Widget buildMainWidget(BuildContext context) {
     return PopScope(
       canPop: false,
+      onPopInvoked: (result) {
+        if (displayedWeapons.length == weapons.length) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomePage(isDlc: widget.isDlc),
+            ),
+          );
+        } else {
+          setState(() {
+            displayedWeapons = weapons;
+          });
+        }
+      },
       child: Scaffold(
         endDrawer: Drawer(
           backgroundColor: Theme.of(context).colorScheme.background,

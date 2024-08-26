@@ -7,7 +7,6 @@ import 'package:elden_nexus/models/incantation.dart';
 import 'package:elden_nexus/models/sorcery.dart';
 import 'package:elden_nexus/models/talisman.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:get/get.dart';
 import '../../models/armor.dart';
 import '../../models/tear.dart';
 import '../../models/weapon.dart';

@@ -5,9 +5,10 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import '../../constants/constant.dart';
+import '../../constants/helper.dart';
 import '../../models/armor.dart';
 import 'armor_pieces_detail_page.dart';
-import 'armors_set_detail_page.dart';
+import 'armor_set_detail_page.dart';
 
 class ArmorPiecesPage extends StatefulWidget {
   final ArmorSet set;
@@ -39,9 +40,19 @@ class _ArmorPiecesPageState extends State<ArmorPiecesPage> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
+      onPopInvoked: (result) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ArmorSetDetailPage(
+              armorSet: widget.set,
+            ),
+          ),
+        );
+      },
       child: Scaffold(
           appBar: AppBar(
-            title: Center(child: Text(widget.set.name)),
+            title: Center(child: Text(widget.set.name.toUpperCase(), textAlign: TextAlign.center, style: TextStyle(fontSize: 18, fontFamily: 'Mantinia', color: Theme.of(context).colorScheme.onSurface))),
             automaticallyImplyLeading: false,
             leading: IconButton(
               icon: Icon(Icons.arrow_circle_left_outlined,
@@ -70,7 +81,7 @@ class _ArmorPiecesPageState extends State<ArmorPiecesPage> {
         return "lib/constants/images/app/default_chest.png";
       case ArmorPiece.gauntlets:
         return "lib/constants/images/app/default_gauntlet.png";
-      case ArmorPiece.leg:
+      case ArmorPiece.greaves:
         return "lib/constants/images/app/default_leg.png";
     }
   }
@@ -124,18 +135,18 @@ class _ArmorPiecesPageState extends State<ArmorPiecesPage> {
         mapLink: "",
         weight: 0,
         damageNegation: DamageNegation());
-    Armor leg = Armor(
-        name: "No leg",
+    Armor greaves = Armor(
+        name: "No greaves",
         image: "",
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         howToFind: "",
         mapLink: "",
         weight: 0,
         damageNegation: DamageNegation());
-    Armor legAltered = Armor(
+    Armor greavesAltered = Armor(
         name: "",
         image: "",
-        armorPiece: ArmorPiece.leg,
+        armorPiece: ArmorPiece.greaves,
         howToFind: "",
         mapLink: "",
         weight: 0,
@@ -150,8 +161,8 @@ class _ArmorPiecesPageState extends State<ArmorPiecesPage> {
     List<Armor> gauntletList = widget.armorPieces
         .where((arm) => arm.armorPiece == ArmorPiece.gauntlets)
         .toList();
-    List<Armor> legList = widget.armorPieces
-        .where((arm) => arm.armorPiece == ArmorPiece.leg)
+    List<Armor> greavesList = widget.armorPieces
+        .where((arm) => arm.armorPiece == ArmorPiece.greaves)
         .toList();
 
     if (helmList.length >= 2) {
@@ -175,12 +186,12 @@ class _ArmorPiecesPageState extends State<ArmorPiecesPage> {
     } else if (gauntletList.length == 1) {
       gauntlet = gauntletList.first;
     }
-    if (legList.length >= 2) {
-      leg = legList.firstWhere((element) =>
+    if (greavesList.length >= 2) {
+      greaves = greavesList.firstWhere((element) =>
           !element.name.toLowerCase().contains("(altered)".toLowerCase()));
-      legAltered = legList.elementAt(1);
-    } else if (legList.length == 1) {
-      leg = legList.first;
+      greavesAltered = greavesList.elementAt(1);
+    } else if (greavesList.length == 1) {
+      greaves = greavesList.first;
     }
 
     List<Armor> displayedArmors = [];
@@ -190,14 +201,24 @@ class _ArmorPiecesPageState extends State<ArmorPiecesPage> {
     displayedArmors.addIf(chestAltered.name != "", chestAltered);
     displayedArmors.add(gauntlet);
     displayedArmors.addIf(gauntletAltered.name != "", gauntletAltered);
-    displayedArmors.add(leg);
-    displayedArmors.addIf(legAltered.name != "", legAltered);
+    displayedArmors.add(greaves);
+    displayedArmors.addIf(greavesAltered.name != "", greavesAltered);
+    displayedArmors.sort((a, b) {
+      if (a.name.contains('altered') && !b.name.contains('altered')) {
+        return 1;
+      } else if (!a.name.contains('altered') && b.name.contains('altered')) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
     return FutureBuilder(
       future: futureArmors,
       builder: (context, snapshot) {
         {
           if (snapshot.connectionState == ConnectionState.done) {
             DatabaseMethods db = DatabaseMethods.instance;
+
             return Scrollbar(
               thickness: 10,
               interactive: true,
@@ -209,7 +230,7 @@ class _ArmorPiecesPageState extends State<ArmorPiecesPage> {
                       margin: const EdgeInsets.all(10),
                       // Add some margin around each ListTile
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.secondaryContainer,
+                        color: displayedArmors[index].name.contains('altered') ? Helper.darkenColor(Theme.of(context).colorScheme.secondaryContainer) : Theme.of(context).colorScheme.secondaryContainer,
                         // Change the color of the ListTile
                         borderRadius: BorderRadius.circular(10),
                         // Add some border radius to the ListTile

@@ -9,6 +9,7 @@ import '../../constants/helper.dart';
 
 class WeaponDetailPage extends StatefulWidget {
   final Weapon weapon;
+
   const WeaponDetailPage({super.key, required this.weapon});
 
   @override
@@ -479,7 +480,7 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
         onPressed: () {
           _launchURL(url);
         },
-        child: const Text('Open Link'),
+        child: Text('Open Link'.tr),
       ));
     }
     linkWidgets.add(TextButton(
@@ -490,6 +491,15 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
     ));
     return PopScope(
       canPop: false,
+      onPopInvoked: (result) {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => WeaponsPage(
+                isDlc: widget.weapon.image.contains("dlc"),
+              ),
+            ));
+      },
       child: Scaffold(
         endDrawer: const Drawer(
           child: SettingsView(),

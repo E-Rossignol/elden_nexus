@@ -64,6 +64,20 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
   Widget buildMainWidget(BuildContext context) {
     return PopScope(
       canPop: false,
+      onPopInvoked: (result) {
+        if (displayedAshes.length == ashes.length) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomePage(isDlc: widget.isDlc),
+            ),
+          );
+        } else {
+          setState(() {
+            displayedAshes = ashes;
+          });
+        }
+      },
       child: Scaffold(
         endDrawer: Drawer(
           backgroundColor: Theme.of(context).colorScheme.background,

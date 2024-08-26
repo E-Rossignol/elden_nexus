@@ -1,5 +1,3 @@
-import 'package:elden_nexus/constants/constant.dart';
-
 /// The `deLocale` constant represents a map of English translations for various keys.
 ///
 /// It is a `Map<String, String>` where each key is a string representing the English term and the corresponding value is the German translation of that term.
@@ -24,7 +22,6 @@ const Map<String, String> enLocale = {
   "Submit": "Submit",
   "Loading": "Loading",
   'Base Game': 'Base Game',
-  'Shadow of the Erdtree': 'Shadow of the Erdtree',
   'Sort by:': 'Sort by:',
   'Default': 'Default',
   'Not Found': 'Not Found',
@@ -58,7 +55,6 @@ const Map<String, String> enLocale = {
   'Hand Axe': 'Hand Axe',
   'Heavy Crossbow': 'Heavy Crossbow',
   'Heavy Thrusting Sword': 'Heavy Thrusting Sword',
-  'Katar': 'Katar',
   'Katana': 'Katana',
   'Light Bow': 'Light Bow',
   'Light Greatsword': 'Light Greatsword',
@@ -76,4 +72,5 @@ const Map<String, String> enLocale = {
   'Thrusting Shield': 'Thrusting Shield',
   'Throwing Blade': 'Throwing Blade',
   'Hand to Hand Art': 'Hand to Hand Art',
+  'Open Link': 'Open Link',
 };

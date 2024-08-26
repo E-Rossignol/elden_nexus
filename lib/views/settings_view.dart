@@ -111,39 +111,6 @@ class SettingsViewState extends State<SettingsView> {
     );
   }
 
-  Widget erwanIDButton() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ElevatedButton(
-        onPressed: () async {
-          showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                    title: Text('erwan ID update'),
-                    content: Text('Rewrite erwan\'s ID?'),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text('No'),
-                      ),
-                      TextButton(
-                        onPressed: () async {
-                          Navigator.of(context).pop();
-                          await DatabaseMethods.instance.erwanChangeId();
-                          Get.snackbar('update', 'Data re-wrote !');
-                        },
-                        child: Text('Yes'),
-                      ),
-                    ],
-                  ));
-        },
-        child: Text('Rewrite erwan\'s data'),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     List<Widget> widgets = [];
@@ -153,7 +120,6 @@ class SettingsViewState extends State<SettingsView> {
     if (isErwan) {
       widgets.add(storeButton());
       widgets.add(resetSharedPreferencesButton());
-      widgets.add(erwanIDButton());
     }
     return Scaffold(
       appBar: AppBar(

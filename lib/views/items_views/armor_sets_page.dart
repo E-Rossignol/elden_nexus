@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 import '../../models/armor.dart';
 import '../../models/armor_set.dart';
 import '../home_page.dart';
-import 'armors_set_detail_page.dart';
+import 'armor_set_detail_page.dart';
 
 class ArmorSetsPage extends StatefulWidget {
   final bool isDlc;
@@ -68,6 +68,20 @@ class _ArmorSetsPageState extends State<ArmorSetsPage> {
   Widget buildMainWidget(BuildContext context) {
     return PopScope(
       canPop: false,
+      onPopInvoked: (result) {
+        if (displayedArmors.length == armors.length) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomePage(isDlc: widget.isDlc),
+            ),
+          );
+        } else {
+          setState(() {
+            displayedArmors = armors;
+          });
+        }
+      },
       child: Scaffold(
         endDrawer: Drawer(
           backgroundColor: Theme.of(context).colorScheme.background,
@@ -214,52 +228,63 @@ class _ArmorSetsPageState extends State<ArmorSetsPage> {
                           ),
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
-                            child: SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.08,
-                              child: Row(
-                                children: [
-                                  IconButton(
-                                    icon: Icon(
-                                      Icons.info_outline,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSecondaryContainer,
-                                    ),
-                                    onPressed: () {
-                                      Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              ArmorSetDetailPage(
-                                                  armorSet:
-                                                      displayedArmors[index]),
-                                        ),
-                                      );
-                                    },
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ArmorSetDetailPage(
+                                        armorSet: displayedArmors[index]),
                                   ),
-                                  const SizedBox(width: 30),
-                                  SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.08,
-                                    width: MediaQuery.of(context).size.height *
-                                        0.08,
-                                    child: ClipRRect(
-                                      // Clip the image to make it circular
-                                      borderRadius: BorderRadius.circular(25),
-                                      child: Image.asset(
-                                          displayedArmors[index].image),
+                                );
+                              },
+                              child: SizedBox(
+                                height: MediaQuery.of(context).size.height * 0.08,
+                                child: Row(
+                                  children: [
+                                    IconButton(
+                                      icon: Icon(
+                                        Icons.info_outline,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSecondaryContainer,
+                                      ),
+                                      onPressed: () {
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ArmorSetDetailPage(
+                                                    armorSet:
+                                                        displayedArmors[index]),
+                                          ),
+                                        );
+                                      },
                                     ),
-                                  ),
-                                  const SizedBox(width: 30),
-                                  Text(
-                                    displayedArmors[index].name,
-                                    style: const TextStyle(
-                                      // Add some style to the text
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
+                                    const SizedBox(width: 30),
+                                    SizedBox(
+                                      height: MediaQuery.of(context).size.height *
+                                          0.08,
+                                      width: MediaQuery.of(context).size.height *
+                                          0.08,
+                                      child: ClipRRect(
+                                        // Clip the image to make it circular
+                                        borderRadius: BorderRadius.circular(25),
+                                        child: Image.asset(
+                                            displayedArmors[index].image),
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                    const SizedBox(width: 30),
+                                    Text(
+                                      displayedArmors[index].name,
+                                      style: const TextStyle(
+                                        // Add some style to the text
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ));

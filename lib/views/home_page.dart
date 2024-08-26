@@ -22,7 +22,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   String get _title =>
-      widget.isDlc ? 'Shadow of the Erdtree'.tr : 'Base Game'.tr;
+      widget.isDlc ? 'Shadow of the Erdtree': 'Base Game'.tr;
 
   Widget _space() {
     return const SizedBox(
@@ -49,7 +49,18 @@ class _HomePageState extends State<HomePage>
 
   Widget _buildHomePageContent(BuildContext context) {
     return PopScope(
-        canPop: false,
+        canPop: true,
+        onPopInvoked: (result) {
+          Future.delayed(Duration.zero, () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => WelcomePage(),
+              ),
+                  (route) => false, // This will remove all previous routes from the stack
+            );
+          });
+        },
         child: Scaffold(
             endDrawer: Drawer(
               backgroundColor: Theme.of(context).colorScheme.background,

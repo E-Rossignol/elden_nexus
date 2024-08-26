@@ -1,6 +1,8 @@
 import 'dart:math';
+import 'dart:ui';
 import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'constant.dart' as cons;
@@ -144,5 +146,12 @@ class Helper {
     } else {
       return false;
     }
+  }
+
+  static Color darkenColor(Color color, [double amount = .08]) {
+    final hsl = HSLColor.fromColor(color);
+    final hslDark = hsl.withLightness((hsl.lightness <= amount) ? 0.0 : hsl.lightness - amount);
+
+    return hslDark.toColor();
   }
 }
