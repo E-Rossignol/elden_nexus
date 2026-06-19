@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'dart:async';
 import 'package:elden_nexus/constants/constant.dart';
 import 'package:elden_nexus/firebase/database/database.dart';
@@ -14,6 +12,9 @@ import '../../models/armor_set.dart';
 import '../home_page.dart';
 import 'armor_set_detail_page.dart';
 
+/// Page that lists ArmorSets and supports sorting/searching.
+///
+/// @param isDlc Whether to show DLC sets (SOTE) or main game sets.
 class ArmorSetsPage extends StatefulWidget {
   final bool isDlc;
 
@@ -23,6 +24,7 @@ class ArmorSetsPage extends StatefulWidget {
   State<ArmorSetsPage> createState() => _ArmorSetsPageState();
 }
 
+/// State for ArmorSetsPage.
 class _ArmorSetsPageState extends State<ArmorSetsPage> {
   DatabaseMethods db = DatabaseMethods.instance;
   late List<ArmorSet> armors;
@@ -42,6 +44,8 @@ class _ArmorSetsPageState extends State<ArmorSetsPage> {
     futureFoundArmors = Future.value([]);
   }
 
+  /// Initialize id and user-found armors, set default sort.
+  /// @return Future<void>
   Future<void> initArmors() async {
     id = await FlutterSecureStorage().read(key: 'id') ?? '';
     futureFoundArmors = db.getUserArmors(id);
@@ -55,16 +59,17 @@ class _ArmorSetsPageState extends State<ArmorSetsPage> {
       future: initArmorsFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          // The Future is complete, return the main widget
           return buildMainWidget(context);
         } else {
-          // The Future is not complete, return a loading indicator
           return const LoadingScreen();
         }
       },
     );
   }
 
+  /// Build the main scaffold; handles back behavior via PopScope.
+  /// @param context BuildContext
+  /// @return Widget
   Widget buildMainWidget(BuildContext context) {
     return PopScope(
       canPop: false,
@@ -95,7 +100,8 @@ class _ArmorSetsPageState extends State<ArmorSetsPage> {
         floatingActionButton: Opacity(
           opacity: 0.8,
           child: FloatingActionButton(
-            backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+            backgroundColor:
+                Theme.of(context).colorScheme.onSecondaryContainer,
             onPressed: () {
               showDialog(
                 context: context,
@@ -112,7 +118,7 @@ class _ArmorSetsPageState extends State<ArmorSetsPage> {
                               selectedSortOption = SortOption.name;
                               sortArmors(SortOption.name);
                             });
-                            Navigator.of(context).pop(); // Close the dialog
+                            Navigator.of(context).pop();
                           },
                         ),
                         ListTile(
@@ -122,7 +128,7 @@ class _ArmorSetsPageState extends State<ArmorSetsPage> {
                               selectedSortOption = SortOption.weight;
                               sortArmors(SortOption.weight);
                             });
-                            Navigator.of(context).pop(); // Close the dialog
+                            Navigator.of(context).pop();
                           },
                         ),
                       ],
@@ -206,16 +212,12 @@ class _ArmorSetsPageState extends State<ArmorSetsPage> {
                     itemBuilder: (context, index) {
                       return Container(
                           margin: const EdgeInsets.all(15),
-                          // Add some margin around each ListTile
                           decoration: BoxDecoration(
                             color: Theme.of(context)
                                 .colorScheme
                                 .secondaryContainer,
-                            // Change the color of the ListTile
                             borderRadius: BorderRadius.circular(10),
-                            // Add some border radius to the ListTile
                             boxShadow: [
-                              // Add some shadow to the ListTile
                               BoxShadow(
                                 color: Theme.of(context)
                                     .colorScheme
@@ -271,7 +273,6 @@ class _ArmorSetsPageState extends State<ArmorSetsPage> {
                                           MediaQuery.of(context).size.height *
                                               0.08,
                                       child: ClipRRect(
-                                        // Clip the image to make it circular
                                         borderRadius: BorderRadius.circular(25),
                                         child: Image.asset(
                                             displayedArmors[index].image),
@@ -281,7 +282,6 @@ class _ArmorSetsPageState extends State<ArmorSetsPage> {
                                     Text(
                                       displayedArmors[index].name,
                                       style: const TextStyle(
-                                        // Add some style to the text
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -302,6 +302,8 @@ class _ArmorSetsPageState extends State<ArmorSetsPage> {
     );
   }
 
+  /// Sort armors by the provided option.
+  /// @param option SortOption? chosen option
   void sortArmors(SortOption? option) async {
     setState(() {
       if (option == SortOption.name) {

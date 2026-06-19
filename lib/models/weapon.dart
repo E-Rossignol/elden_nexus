@@ -1,6 +1,22 @@
 import 'package:elden_nexus/constants/constant.dart';
 import 'item.dart';
 
+/// Weapon item representation.
+///
+/// Holds stats, scaling and damage values.
+/// @param name Weapon name.
+/// @param image Image path or URL.
+/// @param weaponCategory WeaponCategory enum.
+/// @param howToFind Acquisition description.
+/// @param scaling Scaling object for attributes.
+/// @param isSomber Whether the weapon is somber infused.
+/// @param ashOfWar Associated ash of war name.
+/// @param mapLink Map link reference.
+/// @param weight Weapon weight.
+/// @param requirements Stat requirements.
+/// @param damages Damage breakdown.
+/// @param status Optional status effect mapping.
+/// @param passive Optional passive description.
 class Weapon extends Item {
   late WeaponCategory weaponCategory;
   late String howToFind;
@@ -14,6 +30,7 @@ class Weapon extends Item {
   late Requirement requirements;
   late Damage damages;
 
+  /// Create a Weapon instance.
   Weapon({
     required super.name,
     required super.image,
@@ -29,9 +46,11 @@ class Weapon extends Item {
     this.status = const {},
     this.passive = '',
   }) : super(
-          cat: ItemCategory.weapon, // Set the category directly here
+          cat: ItemCategory.weapon,
         );
 
+  /// Serialise to Map for storage.
+  /// @return Map<String, dynamic> serialised representation.
   Map<String, dynamic> toMap() {
     return {
       'name': name,
@@ -72,14 +91,19 @@ class Weapon extends Item {
     };
   }
 
+  /// Create a Weapon from a Map (e.g. Firestore).
+  /// @param data Map<String, dynamic>? source data.
+  /// @return Weapon instance.
   static Weapon fromMap(Map<String, dynamic>? data) {
     String statusStr = data!['status'];
     Map<StatusEffect, double> mapStatus = {};
     if (statusStr.isNotEmpty) {
+      // status string format: "<StatusEffectName> <value>" e.g. "poison 10"
+      final parts = statusStr.split(' ');
       mapStatus = {
-        StatusEffect.values.firstWhere((e) =>
-                e.toString() == 'StatusEffect.${statusStr.split(' ')[0]}'):
-            double.parse(statusStr.split(' ')[1])
+        StatusEffect.values.firstWhere(
+                (e) => e.toString() == 'StatusEffect.${parts[0]}'):
+            double.parse(parts[1])
       };
     }
     return Weapon(
@@ -121,6 +145,7 @@ class Weapon extends Item {
   }
 }
 
+/// Scaling grades for weapon attributes.
 class Scaling {
   String str;
   String dex;
@@ -128,6 +153,7 @@ class Scaling {
   String fai;
   String arc;
 
+  /// Create a Scaling instance.
   Scaling(
       {this.str = '-',
       this.dex = '-',
@@ -136,6 +162,7 @@ class Scaling {
       this.arc = '-'});
 }
 
+/// Damage breakdown for a weapon.
 class Damage {
   double physical;
   double magic;
@@ -145,6 +172,7 @@ class Damage {
   double critical;
   double sorc;
 
+  /// Create a Damage instance.
   Damage({
     this.physical = 0,
     this.magic = 0,

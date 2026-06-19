@@ -8,7 +8,12 @@ import 'package:get/get.dart';
 import 'constant.dart' as cons;
 import 'package:connectivity_plus/connectivity_plus.dart';
 
+/// General helper utilities used across the app.
 class Helper {
+  /// Generate a random alphanumeric string of given length.
+  ///
+  /// @param length Number of characters to generate.
+  /// @return String random alphanumeric string.
   static String generateRandomAlphanumeric(int length) {
     const chars =
         'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -17,6 +22,10 @@ class Helper {
         length, (_) => chars.codeUnitAt(rnd.nextInt(chars.length))));
   }
 
+  /// Convert WeaponCategory enum to localized display string.
+  ///
+  /// @param category WeaponCategory enum.
+  /// @return String localized category name.
   static String strCat(cons.WeaponCategory category) {
     switch (category) {
       case cons.WeaponCategory.axe:
@@ -106,11 +115,19 @@ class Helper {
     }
   }
 
+  /// Initialize helper persistent values (id, token).
+  ///
+  /// @return Future<void>
   static Future<void> init() async {
     await setId();
     await setToken();
   }
 
+  /// Create a stored id if one does not exist.
+  ///
+  /// This function reads device id and encrypts it before storing.
+  ///
+  /// @return Future<void>
   static Future<void> setId() async {
     const storage = FlutterSecureStorage();
     String id = await storage.read(key: 'id') ?? '';
@@ -119,6 +136,7 @@ class Helper {
     }
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    // Encrypt the device id using AES with fixed key/iv from original code.
     await storage.write(
         key: 'id',
         value: encrypt.Encrypter(
@@ -128,6 +146,9 @@ class Helper {
             .base64);
   }
 
+  /// Ensure a token is stored in secure storage.
+  ///
+  /// @return Future<void>
   static Future<void> setToken() async {
     const storage = FlutterSecureStorage();
     String token = await storage.read(key: 'token') ?? '';
@@ -137,6 +158,9 @@ class Helper {
     await storage.write(key: 'token', value: cons.token);
   }
 
+  /// Check if internet is available via connectivity_plus.
+  ///
+  /// @return Future<bool> true if connected via wifi or mobile.
   static Future<bool> isInternetAvailable() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.mobile) {
@@ -148,6 +172,11 @@ class Helper {
     }
   }
 
+  /// Darken a color by reducing lightness in HSL space.
+  ///
+  /// @param color Color to darken.
+  /// @param amount Amount to decrease lightness (0.0 - 1.0).
+  /// @return Color darkened color.
   static Color darkenColor(Color color, [double amount = .08]) {
     final hsl = HSLColor.fromColor(color);
     final hslDark = hsl.withLightness(

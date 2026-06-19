@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'dart:async';
 import 'package:elden_nexus/constants/constant.dart';
 import 'package:elden_nexus/firebase/database/database.dart';
@@ -15,6 +13,9 @@ import '../loading_screen.dart';
 import 'weapons_detail_page.dart';
 import 'package:get/get.dart';
 
+/// Page listing Weapons with filtering by category, sorting and search.
+///
+/// @param isDlc Whether to show DLC weapons.
 class WeaponsPage extends StatefulWidget {
   final bool isDlc;
 
@@ -24,6 +25,7 @@ class WeaponsPage extends StatefulWidget {
   State<WeaponsPage> createState() => _WeaponsPageState();
 }
 
+/// State for WeaponsPage.
 class _WeaponsPageState extends State<WeaponsPage> {
   DatabaseMethods db = DatabaseMethods.instance;
   late List<Weapon> weapons;
@@ -42,6 +44,8 @@ class _WeaponsPageState extends State<WeaponsPage> {
     futureFoundWeapons = Future.value([]);
   }
 
+  /// Initialize stored id and user's found weapons.
+  /// @return Future<void>
   Future<void> initWeapons() async {
     id = await FlutterSecureStorage().read(key: 'id') ?? '';
     futureFoundWeapons = db.getUserWeapons(id);
@@ -55,16 +59,17 @@ class _WeaponsPageState extends State<WeaponsPage> {
       future: initWeaponsFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          // The Future is complete, return the main widget
           return buildMainWidget(context);
         } else {
-          // The Future is not complete, return a loading indicator
           return const LoadingScreen();
         }
       },
     );
   }
 
+  /// Build main scaffold and manage back behavior.
+  /// @param context BuildContext
+  /// @return Widget
   Widget buildMainWidget(BuildContext context) {
     return PopScope(
       canPop: false,
@@ -112,7 +117,7 @@ class _WeaponsPageState extends State<WeaponsPage> {
                               selectedSortOption = SortOption.defaultSort;
                               sortWeapons(SortOption.defaultSort);
                             });
-                            Navigator.of(context).pop(); // Close the dialog
+                            Navigator.of(context).pop();
                           },
                         ),
                         ListTile(
@@ -122,7 +127,7 @@ class _WeaponsPageState extends State<WeaponsPage> {
                               selectedSortOption = SortOption.notFound;
                               sortWeapons(SortOption.notFound);
                             });
-                            Navigator.of(context).pop(); // Close the dialog
+                            Navigator.of(context).pop();
                           },
                         ),
                         ListTile(
@@ -132,7 +137,7 @@ class _WeaponsPageState extends State<WeaponsPage> {
                               selectedSortOption = SortOption.name;
                               sortWeapons(SortOption.name);
                             });
-                            Navigator.of(context).pop(); // Close the dialog
+                            Navigator.of(context).pop();
                           },
                         ),
                         ListTile(
@@ -161,7 +166,7 @@ class _WeaponsPageState extends State<WeaponsPage> {
                                         filterWeaponsByCategory(option);
                                       });
                                       Navigator.of(context)
-                                          .pop(); // Close the dialog
+                                          .pop();
                                     },
                                   ),
                                 );
@@ -251,16 +256,12 @@ class _WeaponsPageState extends State<WeaponsPage> {
                           itemBuilder: (context, index) {
                             return Container(
                                 margin: const EdgeInsets.all(10),
-                                // Add some margin around each ListTile
                                 decoration: BoxDecoration(
                                   color: Theme.of(context)
                                       .colorScheme
                                       .secondaryContainer,
-                                  // Change the color of the ListTile
                                   borderRadius: BorderRadius.circular(10),
-                                  // Add some border radius to the ListTile
                                   boxShadow: [
-                                    // Add some shadow to the ListTile
                                     BoxShadow(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -326,7 +327,6 @@ class _WeaponsPageState extends State<WeaponsPage> {
                                           height: 50,
                                           width: 50,
                                           child: ClipRRect(
-                                            // Clip the image to make it circular
                                             borderRadius:
                                                 BorderRadius.circular(25),
                                             child: Image.asset(
@@ -341,7 +341,6 @@ class _WeaponsPageState extends State<WeaponsPage> {
                                             Text(
                                               displayedWeapons[index].name,
                                               style: const TextStyle(
-                                                // Add some style to the text
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -371,6 +370,9 @@ class _WeaponsPageState extends State<WeaponsPage> {
     );
   }
 
+  /// Sort weapons by category/name/default/not found.
+  /// Category order is defined to provide consistent grouping for weapon types.
+  /// @param option SortOption? option
   void sortWeapons(SortOption? option) async {
     List<WeaponCategory> categoryOrder = [
       WeaponCategory.dagger,
@@ -455,11 +457,12 @@ class _WeaponsPageState extends State<WeaponsPage> {
     });
   }
 
+  /// Filter weapons by a specific category.
+  /// @param category WeaponCategory? category to filter by
   void filterWeaponsByCategory(WeaponCategory? category) {
     setState(() {
       if (category == null) {
-        displayedWeapons = List.from(
-            weapons); // If no category is selected, display all weapons
+        displayedWeapons = List.from(weapons);
       } else {
         displayedWeapons = weapons
             .where((weapon) => weapon.weaponCategory == category)

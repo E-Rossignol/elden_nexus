@@ -1,6 +1,18 @@
 import 'package:elden_nexus/constants/constant.dart';
 import 'item.dart';
 
+/// Representation of an armor piece item.
+///
+/// Contains metadata and defensive values.
+/// @param name Armor name.
+/// @param image Image path or URL.
+/// @param armorPiece Piece identifier (head/chest/etc).
+/// @param howToFind Description how to obtain.
+/// @param mapLink Map link reference.
+/// @param weight Armor weight.
+/// @param damageNegation Defensive stats container.
+/// @param set Optional armor set name.
+/// @param passive Optional passive description.
 class Armor extends Item {
   late String howToFind;
   late String mapLink;
@@ -10,6 +22,7 @@ class Armor extends Item {
   late String set;
   late DamageNegation damageNegation;
 
+  /// Create an Armor instance.
   Armor({
     required super.name,
     required super.image,
@@ -21,9 +34,11 @@ class Armor extends Item {
     this.set = '',
     this.passive = '',
   }) : super(
-          cat: ItemCategory.armor, // Set the category directly here
+          cat: ItemCategory.armor,
         );
 
+  /// Convert this Armor to a Map suitable for Firestore or JSON encoding.
+  /// @return Map<String, dynamic> serialised representation.
   Map<String, dynamic> toMap() {
     return {
       'name': name,
@@ -47,7 +62,11 @@ class Armor extends Item {
     };
   }
 
+  /// Create an Armor from a Map (e.g. Firestore document).
+  /// @param data Map<String, dynamic>? source data.
+  /// @return Armor constructed instance.
   static Armor fromMap(Map<String, dynamic>? data) {
+    // Map string value back to ArmorPiece enum by matching the name part.
     return Armor(
       name: data!['name'],
       image: data['image'],

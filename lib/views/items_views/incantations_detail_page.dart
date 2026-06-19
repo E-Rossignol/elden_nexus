@@ -6,6 +6,10 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../models/incantation.dart';
 import 'incantations_page.dart';
 
+/// Detail page for a single Incantation.
+///
+/// Displays image, FP cost, slots, effect, and requirements.
+/// @param incant Incantation instance passed in constructor.
 class IncantationDetailPage extends StatefulWidget {
   final Incantation incant;
   const IncantationDetailPage({super.key, required this.incant});
@@ -14,6 +18,7 @@ class IncantationDetailPage extends StatefulWidget {
   State<IncantationDetailPage> createState() => _IncantationDetailPageState();
 }
 
+/// State for IncantationDetailPage.
 class _IncantationDetailPageState extends State<IncantationDetailPage> {
   Widget _space() {
     return const SizedBox(
@@ -22,6 +27,8 @@ class _IncantationDetailPageState extends State<IncantationDetailPage> {
     );
   }
 
+  /// Open external URL.
+  /// @param url URL to open
   void _launchURL(String url) async {
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
@@ -30,6 +37,9 @@ class _IncantationDetailPageState extends State<IncantationDetailPage> {
     }
   }
 
+  /// Format requirement to display "-" when zero.
+  /// @param input numeric requirement
+  /// @return String display value
   String requirement(double input) {
     if (input == 0) {
       return "-";
@@ -37,6 +47,9 @@ class _IncantationDetailPageState extends State<IncantationDetailPage> {
     return input.toInt().toString();
   }
 
+  /// Return a short human readable description for a spell type.
+  /// @param type SpellType
+  /// @return String description
   String spellType(SpellType type) {
     switch (type) {
       case SpellType.physical:
@@ -70,6 +83,8 @@ class _IncantationDetailPageState extends State<IncantationDetailPage> {
     Incantation inc = widget.incant;
     String url = inc.mapLink;
     bool isLinkable = url.isNotEmpty;
+
+    // Build link actions for "How to get" dialog.
     List<Widget> linkWidgets = [];
     if (isLinkable) {
       linkWidgets.add(ElevatedButton(
@@ -85,6 +100,7 @@ class _IncantationDetailPageState extends State<IncantationDetailPage> {
       },
       child: const Text('Close'),
     ));
+
     return PopScope(
       canPop: false,
       onPopInvoked: (result) {
@@ -203,8 +219,7 @@ class _IncantationDetailPageState extends State<IncantationDetailPage> {
                       width: MediaQuery.of(context).size.width * 0.7,
                       child: Table(
                         columnWidths: const {
-                          0: FlexColumnWidth(
-                              0.5), // First column is half the size
+                          0: FlexColumnWidth(0.5),
                           1: FlexColumnWidth(1),
                         },
                         children: [
@@ -317,8 +332,7 @@ class _IncantationDetailPageState extends State<IncantationDetailPage> {
                                         height: defaultHeight,
                                         child: Center(
                                             child: Text(
-                                                requirement(
-                                                    inc.requirement.fai),
+                                                requirement(inc.requirement.fai),
                                                 style: TextStyle(
                                                     color: inc.requirement
                                                                 .fai !=
@@ -365,8 +379,7 @@ class _IncantationDetailPageState extends State<IncantationDetailPage> {
                                         height: defaultHeight,
                                         child: Center(
                                             child: Text(
-                                                requirement(
-                                                    inc.requirement.arc),
+                                                requirement(inc.requirement.arc),
                                                 style: TextStyle(
                                                     color: inc.requirement
                                                                 .arc !=

@@ -5,6 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+/// Detail page for a Talisman item.
+///
+/// Shows image, effect with highlighted numbers/plus signs, description and acquisition dialog.
+/// @param tal The Talisman instance to display.
 class TalismanDetailPage extends StatefulWidget {
   final Talisman tal;
   const TalismanDetailPage({super.key, required this.tal});
@@ -13,13 +17,19 @@ class TalismanDetailPage extends StatefulWidget {
   State<TalismanDetailPage> createState() => _TalismanDetailPageState();
 }
 
+/// State for TalismanDetailPage.
 class _TalismanDetailPageState extends State<TalismanDetailPage> {
+  /// Small vertical spacer widget.
+  /// @return Widget spacer
   Widget _space() {
     return const SizedBox(
       height: 10,
     );
   }
 
+  /// Open a URL using url_launcher.
+  /// @param url The url string to open.
+  /// @return Future<void>
   void _launchURL(String url) async {
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
@@ -28,15 +38,20 @@ class _TalismanDetailPageState extends State<TalismanDetailPage> {
     }
   }
 
+  /// Build text spans highlighting numeric parts in red.
+  ///
+  /// Regex highlights numbers, percent sign and plus.
+  /// @param text Source text
+  /// @return List<TextSpan>
   List<TextSpan> _buildTextSpans(String text) {
-    RegExp regExp = RegExp(r'\d+\w?|%|\+'); // Matches any number
+    // Regex matches digits with optional letter (% or + included separately)
+    RegExp regExp = RegExp(r'\d+\w?|%|\+');
     List<TextSpan> spans = [];
     text.splitMapJoin(
       regExp,
       onMatch: (m) {
         spans.add(TextSpan(
-            text: m.group(0)!,
-            style: const TextStyle(color: Colors.redAccent)));
+            text: m.group(0)!, style: const TextStyle(color: Colors.redAccent)));
         return m.group(0)!;
       },
       onNonMatch: (n) {
@@ -47,6 +62,9 @@ class _TalismanDetailPageState extends State<TalismanDetailPage> {
     return spans;
   }
 
+  /// Build a centered RichText widget from highlighted spans.
+  /// @param text Source text
+  /// @return Widget rich text
   Widget buildRichText(String text) {
     return Align(
       alignment: Alignment.center,

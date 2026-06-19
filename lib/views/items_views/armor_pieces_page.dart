@@ -10,6 +10,10 @@ import '../../models/armor.dart';
 import 'armor_pieces_detail_page.dart';
 import 'armor_set_detail_page.dart';
 
+/// Page listing armor pieces for a set, allowing marking pieces as found.
+///
+/// @param set ArmorSet belonging to these pieces.
+/// @param armorPieces List<Armor> pieces for the set.
 class ArmorPiecesPage extends StatefulWidget {
   final ArmorSet set;
   final List<Armor> armorPieces;
@@ -20,6 +24,7 @@ class ArmorPiecesPage extends StatefulWidget {
   State<ArmorPiecesPage> createState() => _ArmorPiecesPageState();
 }
 
+/// State for ArmorPiecesPage.
 class _ArmorPiecesPageState extends State<ArmorPiecesPage> {
   late Future<List<String>> futureArmors;
   String id = '';
@@ -30,6 +35,8 @@ class _ArmorPiecesPageState extends State<ArmorPiecesPage> {
     initDatas();
   }
 
+  /// Initialize user id and fetch user-owned armors.
+  /// @return Future<void>
   void initDatas() async {
     id = await const FlutterSecureStorage().read(key: 'id') ?? '';
     futureArmors = DatabaseMethods.instance.getUserArmors(id);
@@ -79,6 +86,9 @@ class _ArmorPiecesPageState extends State<ArmorPiecesPage> {
     );
   }
 
+  /// Return a default image path for a missing piece based on piece type.
+  /// @param arm Armor to evaluate
+  /// @return String path to default image
   String getDefaultImage(Armor arm) {
     switch (arm.armorPiece) {
       case ArmorPiece.helm:
@@ -92,6 +102,8 @@ class _ArmorPiecesPageState extends State<ArmorPiecesPage> {
     }
   }
 
+  /// Build the list view of armor pieces, grouping altered variants and default "no X" entries.
+  /// @return Widget
   Widget _armorPieces() {
     Armor helm = Armor(
         name: "No Helm",
@@ -218,138 +230,130 @@ class _ArmorPiecesPageState extends State<ArmorPiecesPage> {
         return 0;
       }
     });
+
     return FutureBuilder(
       future: futureArmors,
       builder: (context, snapshot) {
-        {
-          if (snapshot.connectionState == ConnectionState.done) {
-            DatabaseMethods db = DatabaseMethods.instance;
+        if (snapshot.connectionState == ConnectionState.done) {
+          DatabaseMethods db = DatabaseMethods.instance;
 
-            return Scrollbar(
-              thickness: 10,
-              interactive: true,
-              thumbVisibility: true,
-              child: ListView.builder(
-                itemCount: displayedArmors.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                      margin: const EdgeInsets.all(10),
-                      // Add some margin around each ListTile
-                      decoration: BoxDecoration(
-                        color: displayedArmors[index].name.contains('altered')
-                            ? Helper.darkenColor(Theme.of(context)
-                                .colorScheme
-                                .secondaryContainer)
-                            : Theme.of(context).colorScheme.secondaryContainer,
-                        // Change the color of the ListTile
-                        borderRadius: BorderRadius.circular(10),
-                        // Add some border radius to the ListTile
-                        boxShadow: [
-                          // Add some shadow to the ListTile
-                          BoxShadow(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .secondaryContainer,
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: const Offset(1, 1),
-                          ),
-                        ],
-                      ),
-                      child: CheckboxListTile(
-                        enabled: displayedArmors[index].weight != 0,
-                        value: snapshot.data!
-                            .contains(displayedArmors[index].name),
-                        onChanged: (bool? value) async {
-                          setState(() {
-                            if (value == true) {
-                              if (!snapshot.data!
-                                  .contains(displayedArmors[index].name)) {
-                                snapshot.data!.add(displayedArmors[index].name);
-                              }
-                            } else {
-                              if (snapshot.data!
-                                  .contains(displayedArmors[index].name)) {
-                                snapshot.data!
-                                    .remove(displayedArmors[index].name);
-                              }
-                            }
-                          });
-                          if (value!) {
-                            await db.addUserArmor(
-                                displayedArmors[index].name, id);
-                          } else {
-                            await db.removeUserArmor(
-                                displayedArmors[index].name, id);
-                          }
-                        },
-                        title: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              IconButton(
-                                icon: Icon(
-                                  Icons.info_outline,
-                                  color: displayedArmors[index].weight != 0
-                                      ? Theme.of(context)
-                                          .colorScheme
-                                          .onSecondaryContainer
-                                      : Colors.blueGrey,
-                                ),
-                                onPressed: displayedArmors[index].weight != 0
-                                    ? () {
-                                        Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                ArmorPiecesDetailPage(
-                                                    armor:
-                                                        displayedArmors[index]),
-                                          ),
-                                        );
-                                      }
-                                    : null,
-                              ),
-                              SizedBox(
-                                height: 50,
-                                width: 50,
-                                child: ClipRRect(
-                                  // Clip the image to make it circular
-                                  borderRadius: BorderRadius.circular(25),
-                                  child: Image.asset(
-                                      displayedArmors[index].image != ""
-                                          ? displayedArmors[index].image
-                                          : getDefaultImage(
-                                              displayedArmors[index])),
-                                ),
-                              ),
-                              const SizedBox(width: 10),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    displayedArmors[index].name,
-                                    style: const TextStyle(
-                                      // Add some style to the text
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+          return Scrollbar(
+            thickness: 10,
+            interactive: true,
+            thumbVisibility: true,
+            child: ListView.builder(
+              itemCount: displayedArmors.length,
+              itemBuilder: (context, index) {
+                return Container(
+                    margin: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: displayedArmors[index].name.contains('altered')
+                          ? Helper.darkenColor(Theme.of(context)
+                              .colorScheme
+                              .secondaryContainer)
+                          : Theme.of(context).colorScheme.secondaryContainer,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color:
+                              Theme.of(context).colorScheme.secondaryContainer,
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: const Offset(1, 1),
                         ),
-                      ));
-                },
-              ),
-            );
-          } else {
-            return SpinKitSpinningLines(
-              color: Theme.of(context).colorScheme.primary,
-              size: 50.0,
-            );
-          }
+                      ],
+                    ),
+                    child: CheckboxListTile(
+                      enabled: displayedArmors[index].weight != 0,
+                      value: snapshot.data!
+                          .contains(displayedArmors[index].name),
+                      onChanged: (bool? value) async {
+                        setState(() {
+                          if (value == true) {
+                            if (!snapshot.data!
+                                .contains(displayedArmors[index].name)) {
+                              snapshot.data!.add(displayedArmors[index].name);
+                            }
+                          } else {
+                            if (snapshot.data!
+                                .contains(displayedArmors[index].name)) {
+                              snapshot.data!
+                                  .remove(displayedArmors[index].name);
+                            }
+                          }
+                        });
+                        if (value!) {
+                          await db.addUserArmor(
+                              displayedArmors[index].name, id);
+                        } else {
+                          await db.removeUserArmor(
+                              displayedArmors[index].name, id);
+                        }
+                      },
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                Icons.info_outline,
+                                color: displayedArmors[index].weight != 0
+                                    ? Theme.of(context)
+                                        .colorScheme
+                                        .onSecondaryContainer
+                                    : Colors.blueGrey,
+                              ),
+                              onPressed: displayedArmors[index].weight != 0
+                                  ? () {
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ArmorPiecesDetailPage(
+                                                  armor:
+                                                      displayedArmors[index]),
+                                        ),
+                                      );
+                                    }
+                                  : null,
+                            ),
+                            SizedBox(
+                              height: 50,
+                              width: 50,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(25),
+                                child: Image.asset(
+                                    displayedArmors[index].image != ""
+                                        ? displayedArmors[index].image
+                                        : getDefaultImage(
+                                            displayedArmors[index])),
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  displayedArmors[index].name,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ));
+              },
+            ),
+          );
+        } else {
+          return SpinKitSpinningLines(
+            color: Theme.of(context).colorScheme.primary,
+            size: 50.0,
+          );
         }
       },
     );

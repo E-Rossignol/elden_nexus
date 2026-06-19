@@ -7,6 +7,10 @@ import 'package:get/get.dart';
 import '../../models/armor_set.dart';
 import 'armor_sets_page.dart';
 
+/// Detail page for an ArmorSet.
+///
+/// Displays set image, passive text, weight and defensive table.
+/// @param armorSet ArmorSet instance passed in constructor.
 class ArmorSetDetailPage extends StatefulWidget {
   final ArmorSet armorSet;
 
@@ -16,7 +20,11 @@ class ArmorSetDetailPage extends StatefulWidget {
   State<ArmorSetDetailPage> createState() => _ArmorSetDetailPageState();
 }
 
+/// State for ArmorSetDetailPage.
 class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
+  /// Convert numeric stat to display string, "-" when zero.
+  /// @param input numeric value
+  /// @return String display value
   String resString(double input) {
     if (input == 0) {
       return "-";
@@ -158,8 +166,7 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                       width: MediaQuery.of(context).size.width * 0.6,
                       child: Table(
                         columnWidths: const {
-                          0: FlexColumnWidth(
-                              1), // First column is half the size
+                          0: FlexColumnWidth(1),
                           1: FlexColumnWidth(0.5),
                         },
                         children: [

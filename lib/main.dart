@@ -8,6 +8,9 @@ import 'constants/locale/locale_string.dart';
 import 'constants/theme/theme_provider.dart';
 import 'firebase_options.dart';
 
+/// Application entry point.
+///
+/// Initializes Firebase and helper data, then starts the Flutter app.
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -22,10 +25,16 @@ Future<void> main() async {
   ));
 }
 
+/// Root widget of the application.
+///
+/// Provides GetMaterialApp configuration, translations and theme integration.
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  /// Build the root GetMaterialApp.
+  ///
+  /// @param context BuildContext
+  /// @return Widget
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

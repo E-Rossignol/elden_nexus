@@ -5,6 +5,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../firebase/auth/auth.dart';
 
+/// Widget that allows a user to change their password.
+///
+/// This widget opens a dialog with fields for old and new password and performs reauthentication before updating.
 class ChangePasswordComponent extends StatefulWidget {
   const ChangePasswordComponent({super.key});
 
@@ -18,26 +21,31 @@ class _ChangePasswordComponentState extends State<ChangePasswordComponent> {
   String _oldPassword = '';
   String _newPassword = '';
 
+  /// Reauthenticate the current user and update the password.
+  ///
+  /// @return Future<void>
+  /// @throws FirebaseAuthException on authentication errors.
   Future<void> _changePassword() async {
     try {
-      // Get the current user
+      // Get the current user from our Auth wrapper.
       User currentUser = Auth().currentUser!;
-      // Create a credential
+      // Create credential from email and provided old password.
       AuthCredential credential = EmailAuthProvider.credential(
         email: currentUser.email!,
         password: _oldPassword,
       );
-      // Reauthenticate the user
+      // Reauthenticate to allow sensitive operation.
       await currentUser.reauthenticateWithCredential(credential);
-      // Update the password
+      // Update the password after successful reauthentication.
       await currentUser.updatePassword(_newPassword);
+      // Persist password locally (existing app behavior).
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('password', _newPassword);
       Navigator.pop(context);
       Get.snackbar(
           'Password Changed', 'Your password has been changed successfully');
     } catch (e) {
-      // Handle the error
+      // Provide user-friendly feedback for common error.
       if (e is FirebaseAuthException && e.code == 'wrong-password') {
         Get.snackbar('Error', 'The old password is incorrect');
       } else {

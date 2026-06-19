@@ -2,6 +2,15 @@ import 'package:elden_nexus/models/item.dart';
 
 import '../constants/constant.dart';
 
+/// Talisman item representation.
+///
+/// @param name Talisman name.
+/// @param image Image path or URL.
+/// @param description Text description.
+/// @param howToFind Acquisition description.
+/// @param mapLink Map link reference.
+/// @param weight Weight value.
+/// @param effect Effect description.
 class Talisman extends Item {
   late String description;
   late String mapLink;
@@ -9,6 +18,7 @@ class Talisman extends Item {
   late String howToFind;
   late String effect;
 
+  /// Create a Talisman instance.
   Talisman({
     required super.name,
     required super.image,
@@ -18,9 +28,12 @@ class Talisman extends Item {
     required this.weight,
     required this.effect,
   }) : super(
-          cat: ItemCategory.talisman, // Set the category directly here
+          cat: ItemCategory.talisman,
         );
 
+  /// Create a Talisman from a Map (e.g. Firestore).
+  /// @param data Map<String, dynamic>? source data.
+  /// @return Talisman instance.
   static Talisman fromMap(Map<String, dynamic>? data) {
     return Talisman(
       name: data?['name'],
@@ -33,6 +46,8 @@ class Talisman extends Item {
     );
   }
 
+  /// Serialise to Map for storage.
+  /// @return Map<String, dynamic> serialised representation.
   Map<String, dynamic> toMap() {
     return {
       'name': name,

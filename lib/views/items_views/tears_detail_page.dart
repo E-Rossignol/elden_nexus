@@ -5,6 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+/// Detail page for a Tear (flask) item.
+///
+/// Shows image, effect with highlighted numbers/percent and optional duration.
+/// @param tear The Tear instance to display.
 class TearDetailPage extends StatefulWidget {
   final Tear tear;
 
@@ -14,13 +18,18 @@ class TearDetailPage extends StatefulWidget {
   State<TearDetailPage> createState() => _TearDetailPageState();
 }
 
+/// State for TearDetailPage.
 class _TearDetailPageState extends State<TearDetailPage> {
+  /// Small vertical spacer.
   Widget _space() {
     return const SizedBox(
       height: 10,
     );
   }
 
+  /// Open a URL using url_launcher.
+  /// @param url The url string to open.
+  /// @return Future<void>
   void _launchURL(String url) async {
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
@@ -29,15 +38,18 @@ class _TearDetailPageState extends State<TearDetailPage> {
     }
   }
 
+  /// Build spans highlighting numbers/percent.
+  /// @param text Source text
+  /// @return List<TextSpan>
   List<TextSpan> _buildTextSpans(String text) {
-    RegExp regExp = RegExp(r'\d+|%|\+'); // Matches any number
+    // Regex matches digits or percent or plus signs
+    RegExp regExp = RegExp(r'\d+|%|\+');
     List<TextSpan> spans = [];
     text.splitMapJoin(
       regExp,
       onMatch: (m) {
         spans.add(TextSpan(
-            text: m.group(0)!,
-            style: const TextStyle(color: Colors.redAccent)));
+            text: m.group(0)!, style: const TextStyle(color: Colors.redAccent)));
         return m.group(0)!;
       },
       onNonMatch: (n) {
@@ -48,6 +60,9 @@ class _TearDetailPageState extends State<TearDetailPage> {
     return spans;
   }
 
+  /// Build centered RichText from spans.
+  /// @param text Source text
+  /// @return Widget
   Widget buildRichText(String text) {
     return Align(
       alignment: Alignment.center,

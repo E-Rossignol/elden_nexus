@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'dart:async';
 import 'package:elden_nexus/firebase/database/database.dart';
 import 'package:elden_nexus/views/loading_screen.dart';
@@ -13,6 +11,8 @@ import '../../models/tear.dart';
 import '../home_page.dart';
 import 'tears_detail_page.dart';
 
+/// Page listing Tears (flasks) with search and sorting.
+/// @param isDlc Whether to list DLC tears.
 class TearsPage extends StatefulWidget {
   final bool isDlc;
   const TearsPage({super.key, required this.isDlc});
@@ -21,6 +21,7 @@ class TearsPage extends StatefulWidget {
   State<TearsPage> createState() => _TearsPageState();
 }
 
+/// State for TearsPage.
 class _TearsPageState extends State<TearsPage> {
   DatabaseMethods db = DatabaseMethods.instance;
   late List<Tear> tears;
@@ -34,11 +35,13 @@ class _TearsPageState extends State<TearsPage> {
   void initState() {
     super.initState();
     tears = widget.isDlc ? db.allDBSOTETears : db.allDBTears;
-    initTearsFuture = initTals();
+    initTearsFuture = initTears();
     futureFoundTears = Future.value([]);
   }
 
-  Future<void> initTals() async {
+  /// Initialize stored id and user's found tears.
+  /// @return Future<void>
+  Future<void> initTears() async {
     id = await FlutterSecureStorage().read(key: 'id') ?? '';
     futureFoundTears = db.getUserTears(id);
     displayedTears = List.from(tears);
@@ -51,16 +54,17 @@ class _TearsPageState extends State<TearsPage> {
       future: initTearsFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          // The Future is complete, return the main widget
           return buildMainWidget(context);
         } else {
-          // The Future is not complete, return a loading indicator
           return const LoadingScreen();
         }
       },
     );
   }
 
+  /// Build main scaffold and handle back navigation.
+  /// @param context BuildContext
+  /// @return Widget
   Widget buildMainWidget(BuildContext context) {
     return PopScope(
       canPop: false,
@@ -108,7 +112,7 @@ class _TearsPageState extends State<TearsPage> {
                               selectedSortOption = SortOption.defaultSort;
                               sortTals(SortOption.defaultSort);
                             });
-                            Navigator.of(context).pop(); // Close the dialog
+                            Navigator.of(context).pop();
                           },
                         ),
                         ListTile(
@@ -118,7 +122,7 @@ class _TearsPageState extends State<TearsPage> {
                               selectedSortOption = SortOption.name;
                               sortTals(SortOption.name);
                             });
-                            Navigator.of(context).pop(); // Close the dialog
+                            Navigator.of(context).pop();
                           },
                         ),
                         ListTile(
@@ -128,7 +132,7 @@ class _TearsPageState extends State<TearsPage> {
                               selectedSortOption = SortOption.notFound;
                               sortTals(SortOption.notFound);
                             });
-                            Navigator.of(context).pop(); // Close the dialog
+                            Navigator.of(context).pop();
                           },
                         ),
                       ],
@@ -220,16 +224,12 @@ class _TearsPageState extends State<TearsPage> {
                                 itemBuilder: (context, index) {
                                   return Container(
                                       margin: const EdgeInsets.all(10),
-                                      // Add some margin around each ListTile
                                       decoration: BoxDecoration(
                                         color: Theme.of(context)
                                             .colorScheme
                                             .secondaryContainer,
-                                        // Change the color of the ListTile
                                         borderRadius: BorderRadius.circular(10),
-                                        // Add some border radius to the ListTile
                                         boxShadow: [
-                                          // Add some shadow to the ListTile
                                           BoxShadow(
                                             color: Theme.of(context)
                                                 .colorScheme
@@ -295,7 +295,6 @@ class _TearsPageState extends State<TearsPage> {
                                                 height: 50,
                                                 width: 50,
                                                 child: ClipRRect(
-                                                  // Clip the image to make it circular
                                                   borderRadius:
                                                       BorderRadius.circular(25),
                                                   child: Image.asset(
@@ -311,7 +310,6 @@ class _TearsPageState extends State<TearsPage> {
                                                   Text(
                                                     displayedTears[index].name,
                                                     style: const TextStyle(
-                                                      // Add some style to the text
                                                       fontSize: 18,
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -342,6 +340,8 @@ class _TearsPageState extends State<TearsPage> {
     );
   }
 
+  /// Sort tears according to chosen option.
+  /// @param option SortOption? option
   void sortTals(SortOption? option) async {
     setState(() {
       if (option == SortOption.name) {
@@ -358,6 +358,7 @@ class _TearsPageState extends State<TearsPage> {
           });
         });
       } else if (option == SortOption.defaultSort) {
+        // defaultOrder defines curated display order for tears
         List<String> defaultOrder = [
           "Crimson Crystal Tear",
           "Crimsonspill Crystal Tear",

@@ -14,6 +14,8 @@ import '../../constants/constant.dart';
 import '../home_page.dart';
 import 'sorceries_detail_page.dart';
 
+/// Page that lists Sorceries with search, sort and found marking.
+/// @param isDlc Whether to use DLC sorceries list.
 class SorceriesPage extends StatefulWidget {
   final bool isDlc;
   const SorceriesPage({super.key, required this.isDlc});
@@ -22,6 +24,7 @@ class SorceriesPage extends StatefulWidget {
   State<SorceriesPage> createState() => _SorceriesPageState();
 }
 
+/// State for SorceriesPage.
 class _SorceriesPageState extends State<SorceriesPage> {
   DatabaseMethods db = DatabaseMethods.instance;
   late List<Sorcery> sorceries;
@@ -39,6 +42,7 @@ class _SorceriesPageState extends State<SorceriesPage> {
     futureFoundSorceries = Future.value([]);
   }
 
+  /// Initialize id and found sorceries; default sort by type.
   Future<void> initSorceries() async {
     id = await FlutterSecureStorage().read(key: 'id') ?? '';
     futureFoundSorceries = db.getUserSorceries(id);
@@ -52,16 +56,15 @@ class _SorceriesPageState extends State<SorceriesPage> {
       future: initSorceriesFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          // The Future is complete, return the main widget
           return buildMainWidget(context);
         } else {
-          // The Future is not complete, return a loading indicator
           return const LoadingScreen();
         }
       },
     );
   }
 
+  /// Build main scaffold and manage back behavior.
   Widget buildMainWidget(BuildContext context) {
     return PopScope(
       canPop: false,
@@ -109,7 +112,7 @@ class _SorceriesPageState extends State<SorceriesPage> {
                               selectedSortOption = SortOption.type;
                               sortSorceries(SortOption.type);
                             });
-                            Navigator.of(context).pop(); // Close the dialog
+                            Navigator.of(context).pop();
                           },
                         ),
                         ListTile(
@@ -119,7 +122,7 @@ class _SorceriesPageState extends State<SorceriesPage> {
                               selectedSortOption = SortOption.name;
                               sortSorceries(SortOption.name);
                             });
-                            Navigator.of(context).pop(); // Close the dialog
+                            Navigator.of(context).pop();
                           },
                         ),
                         ListTile(
@@ -129,7 +132,7 @@ class _SorceriesPageState extends State<SorceriesPage> {
                               selectedSortOption = SortOption.notFound;
                               sortSorceries(SortOption.notFound);
                             });
-                            Navigator.of(context).pop(); // Close the dialog
+                            Navigator.of(context).pop();
                           },
                         ),
                       ],
@@ -214,16 +217,12 @@ class _SorceriesPageState extends State<SorceriesPage> {
                           itemBuilder: (context, index) {
                             return Container(
                                 margin: const EdgeInsets.all(10),
-                                // Add some margin around each ListTile
                                 decoration: BoxDecoration(
                                   color: Theme.of(context)
                                       .colorScheme
                                       .secondaryContainer,
-                                  // Change the color of the ListTile
                                   borderRadius: BorderRadius.circular(10),
-                                  // Add some border radius to the ListTile
                                   boxShadow: [
-                                    // Add some shadow to the ListTile
                                     BoxShadow(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -289,7 +288,6 @@ class _SorceriesPageState extends State<SorceriesPage> {
                                           height: 50,
                                           width: 50,
                                           child: ClipRRect(
-                                            // Clip the image to make it circular
                                             borderRadius:
                                                 BorderRadius.circular(25),
                                             child: Image.asset(
@@ -305,7 +303,6 @@ class _SorceriesPageState extends State<SorceriesPage> {
                                             Text(
                                               displayedSorceries[index].name,
                                               style: const TextStyle(
-                                                // Add some style to the text
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -335,6 +332,8 @@ class _SorceriesPageState extends State<SorceriesPage> {
     );
   }
 
+  /// Sort sorceries according to option.
+  /// @param option SortOption? option
   void sortSorceries(SortOption? option) async {
     setState(() {
       if (option == SortOption.name) {

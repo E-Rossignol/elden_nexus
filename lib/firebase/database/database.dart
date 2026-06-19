@@ -12,10 +12,19 @@ import '../../models/tear.dart';
 import '../../models/weapon.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// Singleton providing methods to read/write game data from Firestore and local cache.
+///
+/// Use DatabaseMethods.instance to access shared instance.
 class DatabaseMethods {
   static DatabaseMethods? _instance;
 
   DatabaseMethods._privateConstructor();
+
+  /// Add user armor.
+  ///
+  /// @param armorName Name of armor.
+  /// @param userID ID of user.
+  /// @return Future<DocumentReference>
 
   static DatabaseMethods get instance {
     _instance ??= DatabaseMethods._privateConstructor();
@@ -24,6 +33,12 @@ class DatabaseMethods {
 
   List<Weapon> _mainGameWeapons = [];
   List<Talisman> _mainGameTalismans = [];
+
+  /// Remove user armor.
+  ///
+  /// @param armorName Name of armor.
+  /// @param userID ID of user.
+  /// @return Future<void>
   List<Armor> _mainGameArmors = [];
   List<Incantation> _mainGameIncantations = [];
   List<Sorcery> _mainGameSorceries = [];
@@ -39,18 +54,36 @@ class DatabaseMethods {
   List<ArmorSet> _mainGameArmorSets = [];
   List<ArmorSet> _soteArmorSets = [];
 
+  /// Get user's armors.
+  ///
+  /// @param userID ID of user.
+  /// @return Future<List<String>>
+  /// Retrieve a code used to validate access.
+  ///
+  /// @return Future<String> The code read from Firestore.
   Future<String> getCheckCode() async {
-    QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection('codeCheck').get();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('codeCheck')
+        .get();
     return querySnapshot.docs.first['value'];
   }
 
+  /// Retrieve all incantations.
+  ///
+  /// @param isDlc boolean indicating DLC collection.
+  /// @return Future<List<Incantation>?> list or null if empty.
+
+  /// Initialize local cache from Firestore if needed.
+  ///
+  /// @return Future<bool> true if initialization succeeded and token matched.
   Future<bool> initDatas() async {
     String code = await getCheckCode();
     if (code != token) {
       return false;
     }
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    // Weapons
     if (prefs.getStringList('mainGameWeapons') == null ||
         prefs.getStringList('mainGameWeapons')!.isEmpty) {
       List<Weapon> weapons = await getAllWeapons(false) ?? [];
@@ -60,14 +93,27 @@ class DatabaseMethods {
       }
       await prefs.setStringList('mainGameWeapons', weaponStrings);
       _mainGameWeapons = weapons;
+
+      /// Add user incantation.
+      ///
+      /// @param incantName Name of incantation.
+      /// @param userID ID of user.
+      /// @return Future<DocumentReference>
     } else if (_mainGameWeapons.isEmpty) {
+      // Load cached weapons into memory
       List<String>? weaponStrings = prefs.getStringList('mainGameWeapons');
       for (String weaponStr in weaponStrings!) {
         _mainGameWeapons.add(Weapon.fromMap(jsonDecode(weaponStr)));
       }
     }
 
+    // Talismans
     if (prefs.getStringList('mainGameTalismans') == null ||
+        /// Remove user incantation.
+        ///
+        /// @param incantName Name of incantation.
+        /// @param userID ID of user.
+        /// @return Future<void>
         prefs.getStringList('mainGameTalismans')!.isEmpty) {
       List<Talisman> talismans = await getAllTalismans(false) ?? [];
       List<String> talismanStrings = [];
@@ -83,6 +129,11 @@ class DatabaseMethods {
       }
     }
 
+    /// Get user's incantations.
+    ///
+    /// @param userID ID of user.
+    /// @return Future<List<String>>
+    // Armors
     if (prefs.getStringList('mainGameArmors') == null ||
         prefs.getStringList('mainGameArmors')!.isEmpty) {
       List<Armor> armors = await getAllArmors(false) ?? [];
@@ -90,6 +141,11 @@ class DatabaseMethods {
       for (Armor armor in armors) {
         armorStrings.add(jsonEncode(armor.toMap()));
       }
+
+      /// Retrieve sorceries.
+      ///
+      /// @param isDlc boolean indicating DLC collection.
+      /// @return Future<List<Sorcery>?> list or null if empty.
       await prefs.setStringList('mainGameArmors', armorStrings);
       _mainGameArmors = armors;
     } else if (_mainGameArmors.isEmpty) {
@@ -99,6 +155,7 @@ class DatabaseMethods {
       }
     }
 
+    // Armor sets
     if (prefs.getStringList('mainGameArmorSets') == null ||
         prefs.getStringList('mainGameArmorSets')!.isEmpty) {
       List<ArmorSet> armors = await getAllArmorSets(false) ?? [];
@@ -108,6 +165,12 @@ class DatabaseMethods {
       }
       await prefs.setStringList('mainGameArmorSets', armorStrings);
       _mainGameArmorSets = armors;
+
+      /// Add user sorcery.
+      ///
+      /// @param sorcName Name of sorcery.
+      /// @param userID ID of user.
+      /// @return Future<DocumentReference>
     } else if (_mainGameArmorSets.isEmpty) {
       List<String>? armorStrings = prefs.getStringList('mainGameArmorSets');
       for (String armorStr in armorStrings!) {
@@ -115,8 +178,14 @@ class DatabaseMethods {
       }
     }
 
+    // Incantations
     if (prefs.getStringList('mainGameIncantations') == null ||
         prefs.getStringList('mainGameIncantations')!.isEmpty) {
+      /// Remove user sorcery.
+      ///
+      /// @param sorcName Name of sorcery.
+      /// @param userID ID of user.
+      /// @return Future<void>
       List<Incantation> incantations = await getAllIncantations(false) ?? [];
       List<String> incantationStrings = [];
       for (Incantation incantation in incantations) {
@@ -125,30 +194,37 @@ class DatabaseMethods {
       await prefs.setStringList('mainGameIncantations', incantationStrings);
       _mainGameIncantations = incantations;
     } else if (_mainGameIncantations.isEmpty) {
-      List<String>? incantationStrings =
-          prefs.getStringList('mainGameIncantations');
+      List<String>? incantationStrings = prefs.getStringList(
+        'mainGameIncantations',
+      );
       for (String incantationStr in incantationStrings!) {
-        _mainGameIncantations
-            .add(Incantation.fromMap(jsonDecode(incantationStr)));
+        _mainGameIncantations.add(
+          Incantation.fromMap(jsonDecode(incantationStr)),
+        );
       }
     }
 
+    /// Get user's sorceries.
+    ///
+    /// @param userID ID of user.
+    /// @return Future<List<String>>
+
+    // Sorceries
     if (prefs.getStringList('mainGameSorceries') == null ||
         prefs.getStringList('mainGameSorceries')!.isEmpty) {
       List<Sorcery> sorceries = await getAllSorceries(false) ?? [];
       List<String> sorceryStrings = [];
       for (Sorcery sorcery in sorceries) {
         sorceryStrings.add(jsonEncode(sorcery.toMap()));
-      }
-      await prefs.setStringList('mainGameSorceries', sorceryStrings);
-      _mainGameSorceries = sorceries;
-    } else if (_mainGameSorceries.isEmpty) {
-      List<String>? sorceryStrings = prefs.getStringList('mainGameSorceries');
-      for (String sorceryStr in sorceryStrings!) {
-        _mainGameSorceries.add(Sorcery.fromMap(jsonDecode(sorceryStr)));
-      }
-    }
 
+        /// Store selected data sets to Firestore (helper to seed DB).
+        ///
+        /// @return Future<void>
+        await prefs.setStringList('mainGameSorceries', sorceryStrings);
+      }
+    } else if (_mainGameSorceries.isEmpty) {}
+
+    // Tears
     if (prefs.getStringList('mainGameTears') == null ||
         prefs.getStringList('mainGameTears')!.isEmpty) {
       List<Tear> tears = await getAllTears(false) ?? [];
@@ -165,6 +241,7 @@ class DatabaseMethods {
       }
     }
 
+    // Ashes of war
     if (prefs.getStringList('mainGameAshesOfWar') == null ||
         prefs.getStringList('mainGameAshesOfWar')!.isEmpty) {
       List<AshOfWar> ashesOfWar = await getAllAow(false) ?? [];
@@ -181,6 +258,7 @@ class DatabaseMethods {
       }
     }
 
+    // SOTE (DLC) equivalents follow similar patterns.
     if (prefs.getStringList('soteWeapons') == null ||
         prefs.getStringList('soteWeapons')!.isEmpty) {
       List<Weapon> weapons = await getAllWeapons(true) ?? [];
@@ -200,6 +278,10 @@ class DatabaseMethods {
     if (prefs.getStringList('soteTalismans') == null ||
         prefs.getStringList('soteTalismans')!.isEmpty) {
       List<Talisman> talismans = await getAllTalismans(true) ?? [];
+
+      /// Migrate stored user entries from an old ID to a new one.
+      ///
+      /// @return Future<void>
       List<String> talismanStrings = [];
       for (Talisman talisman in talismans) {
         talismanStrings.add(jsonEncode(talisman.toMap()));
@@ -255,8 +337,9 @@ class DatabaseMethods {
       await prefs.setStringList('soteIncantations', incantationStrings);
       _soteIncantations = incantations;
     } else if (_soteIncantations.isEmpty) {
-      List<String>? incantationStrings =
-          prefs.getStringList('soteIncantations');
+      List<String>? incantationStrings = prefs.getStringList(
+        'soteIncantations',
+      );
       for (String incantationStr in incantationStrings!) {
         _soteIncantations.add(Incantation.fromMap(jsonDecode(incantationStr)));
       }
@@ -312,42 +395,95 @@ class DatabaseMethods {
     return true;
   }
 
+  /// In-memory getter for main game weapons.
+  ///
+  /// @return List<Weapon>
   get allDBWeapons => _mainGameWeapons;
 
+  /// In-memory getter for main game talismans.
+  ///
+  /// @return List<Talisman>
   get allDBTalismans => _mainGameTalismans;
 
+  /// In-memory getter for main game armors.
+  ///
+  /// @return List<Armor>
   get allDBArmors => _mainGameArmors;
 
+  /// In-memory getter for main game armor sets.
+  ///
+  /// @return List<ArmorSet>
   get allDBArmorSets => _mainGameArmorSets;
 
+  /// In-memory getter for main game incantations.
+  ///
+  /// @return List<Incantation>
   get allDBIncantations => _mainGameIncantations;
 
+  /// In-memory getter for main game sorceries.
+  ///
+  /// @return List<Sorcery>
   get allDBSorceries => _mainGameSorceries;
 
+  /// In-memory getter for main game tears.
+  ///
+  /// @return List<Tear>
   get allDBTears => _mainGameTears;
 
+  /// In-memory getter for main game ashes of war.
+  ///
+  /// @return List<AshOfWar>
   get allDBAshesOfWar => _mainGameAshesOfWar;
 
+  /// In-memory getter for SOTE weapons.
+  ///
+  /// @return List<Weapon>
   get allDBSOTEWeapons => _soteWeapons;
 
+  /// In-memory getter for SOTE talismans.
+  ///
+  /// @return List<Talisman>
   get allDBSOTETalismans => _soteTalismans;
 
+  /// In-memory getter for SOTE armors.
+  ///
+  /// @return List<Armor>
   get allDBSOTEArmors => _soteArmors;
 
+  /// In-memory getter for SOTE armor sets.
+  ///
+  /// @return List<ArmorSet>
   get allDBSOTEArmorSets => _soteArmorSets;
 
+  /// In-memory getter for SOTE incantations.
+  ///
+  /// @return List<Incantation>
   get allDBSOTEIncantations => _soteIncantations;
 
+  /// In-memory getter for SOTE sorceries.
+  ///
+  /// @return List<Sorcery>
   get allDBSOTESorceries => _soteSorceries;
 
+  /// In-memory getter for SOTE tears.
+  ///
+  /// @return List<Tear>
   get allDBSOTETears => _soteTears;
 
+  /// In-memory getter for SOTE ashes of war.
+  ///
+  /// @return List<AshOfWar>
   get allDBSOTEAshesOfWar => _soteAshesOfWar;
 
+  /// Retrieve all talismans from Firestore.
+  ///
+  /// @param isDlc boolean indicating DLC collection.
+  /// @return Future<List<Talisman>?> list or null if empty.
   Future<List<Talisman>?> getAllTalismans(bool isDlc) async {
     String tableName = isDlc ? 'allSOTETalismans' : 'allMainGameTalismans';
-    QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection(tableName).get();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection(tableName)
+        .get();
     List<Talisman> talismans = [];
     if (querySnapshot.docs.isEmpty) {
       return null;
@@ -360,6 +496,10 @@ class DatabaseMethods {
     return talismans;
   }
 
+  /// Retrieve all weapons; delegates to appropriate helper based on DLC flag.
+  ///
+  /// @param isDlc boolean indicating DLC collection.
+  /// @return Future<List<Weapon>?> list or null if empty.
   Future<List<Weapon>?> getAllWeapons(bool isDlc) async {
     String tableName = isDlc ? 'allSOTEWeapons' : 'allMainGameWeapons';
     if (!isDlc) {
@@ -368,8 +508,9 @@ class DatabaseMethods {
     if (isDlc) {
       return allSOTEWeapons();
     }
-    QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection(tableName).get();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection(tableName)
+        .get();
     List<Weapon> weapons = [];
     if (querySnapshot.docs.isEmpty) {
       return null;
@@ -382,16 +523,23 @@ class DatabaseMethods {
     return weapons;
   }
 
+  /// Add a user-owned weapon record to Firestore.
+  ///
+  /// @param weaponName Name of the weapon to add.
+  /// @param userID ID of the user.
+  /// @return Future<DocumentReference> or add result.
   Future addUserWeapon(String weaponName, String userID) async {
-    Map<String, dynamic> json = {
-      'name': weaponName,
-      'userID': userID,
-    };
+    Map<String, dynamic> json = {'name': weaponName, 'userID': userID};
     return await FirebaseFirestore.instance
         .collection('usersWeapons')
         .add(json);
   }
 
+  /// Remove a user-owned weapon record if present.
+  ///
+  /// @param weaponName Name of the weapon to remove.
+  /// @param userID ID of the user.
+  /// @return Future<void>
   Future removeUserWeapon(String weaponName, String userID) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('usersWeapons')
@@ -407,6 +555,10 @@ class DatabaseMethods {
     }
   }
 
+  /// Get a list of user-owned weapons for a user.
+  ///
+  /// @param userID ID of the user.
+  /// @return Future<List<String>> list of weapon names.
   Future<List<String>> getUserWeapons(String userID) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('usersWeapons')
@@ -415,10 +567,15 @@ class DatabaseMethods {
     return querySnapshot.docs.map((doc) => doc['name'].toString()).toList();
   }
 
+  /// Retrieve all ashes of war.
+  ///
+  /// @param isDlc boolean indicating DLC collection.
+  /// @return Future<List<AshOfWar>?> list or null if empty.
   Future<List<AshOfWar>?> getAllAow(bool isDlc) async {
     String tableName = isDlc ? 'allSOTEAOW' : 'allMainGameAOW';
-    QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection(tableName).get();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection(tableName)
+        .get();
     List<AshOfWar> ashesOfWar = [];
     if (querySnapshot.docs.isEmpty) {
       return null;
@@ -432,16 +589,23 @@ class DatabaseMethods {
     return ashesOfWar;
   }
 
+  /// Add a user-owned ash of war.
+  ///
+  /// @param ashName Name of the ash.
+  /// @param userID ID of the user.
+  /// @return Future<DocumentReference>
   Future addUserAsh(String ashName, String userID) async {
-    Map<String, dynamic> json = {
-      'name': ashName,
-      'userID': userID,
-    };
+    Map<String, dynamic> json = {'name': ashName, 'userID': userID};
     return await FirebaseFirestore.instance
         .collection('usersAshesOfWar')
         .add(json);
   }
 
+  /// Remove a user's ash of war entry.
+  ///
+  /// @param ashName Name of the ash.
+  /// @param userID ID of the user.
+  /// @return Future<void>
   Future removeUserAsh(String ashName, String userID) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('usersAshesOfWar')
@@ -457,6 +621,10 @@ class DatabaseMethods {
     }
   }
 
+  /// Get user's ashes of war list.
+  ///
+  /// @param userID ID of the user.
+  /// @return Future<List<String>>
   Future<List<String>> getUserAshes(String userID) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('usersAshesOfWar')
@@ -465,16 +633,23 @@ class DatabaseMethods {
     return querySnapshot.docs.map((doc) => doc['name'].toString()).toList();
   }
 
+  /// Add a talisman for a user.
+  ///
+  /// @param talismanName Name of talisman.
+  /// @param userID ID of user.
+  /// @return Future<DocumentReference>
   Future addUserTalisman(String talismanName, String userID) async {
-    Map<String, dynamic> json = {
-      'name': talismanName,
-      'userID': userID,
-    };
+    Map<String, dynamic> json = {'name': talismanName, 'userID': userID};
     return await FirebaseFirestore.instance
         .collection('usersTalismans')
         .add(json);
   }
 
+  /// Remove a user's talisman entry.
+  ///
+  /// @param talismanName Name of talisman.
+  /// @param userID ID of user.
+  /// @return Future<void>
   Future removeUserTalisman(String talismanName, String userID) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('usersTalismans')
@@ -490,6 +665,10 @@ class DatabaseMethods {
     }
   }
 
+  /// Get user's talismans.
+  ///
+  /// @param userID ID of user.
+  /// @return Future<List<String>>
   Future<List<String>> getUserTalismans(String userID) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('usersTalismans')
@@ -498,13 +677,18 @@ class DatabaseMethods {
     return querySnapshot.docs.map((doc) => doc['name'].toString()).toList();
   }
 
+  /// Retrieve all tears.
+  ///
+  /// @param isDlc boolean indicating DLC collection.
+  /// @return Future<List<Tear>?> list or null if empty.
   Future<List<Tear>?> getAllTears(bool isDlc) async {
     String tableName = isDlc ? 'allSOTETears' : 'allMainGameTears';
     if (isDlc) {
       return allSOTETears();
     }
-    QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection(tableName).get();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection(tableName)
+        .get();
     List<Tear> tears = [];
     if (querySnapshot.docs.isEmpty) {
       return null;
@@ -517,14 +701,21 @@ class DatabaseMethods {
     return tears;
   }
 
+  /// Add user tear.
+  ///
+  /// @param tearName Name of tear.
+  /// @param userID ID of user.
+  /// @return Future<DocumentReference>
   Future addUserTear(String tearName, String userID) async {
-    Map<String, dynamic> json = {
-      'name': tearName,
-      'userID': userID,
-    };
+    Map<String, dynamic> json = {'name': tearName, 'userID': userID};
     return await FirebaseFirestore.instance.collection('usersTears').add(json);
   }
 
+  /// Remove user tear.
+  ///
+  /// @param tearName Name of tear.
+  /// @param userID ID of user.
+  /// @return Future<void>
   Future removeUserTear(String tearName, String userID) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('usersTears')
@@ -540,6 +731,10 @@ class DatabaseMethods {
     }
   }
 
+  /// Get user's tears.
+  ///
+  /// @param userID ID of user.
+  /// @return Future<List<String>>
   Future<List<String>> getUserTears(String userID) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('usersTears')
@@ -548,6 +743,10 @@ class DatabaseMethods {
     return querySnapshot.docs.map((doc) => doc['name'].toString()).toList();
   }
 
+  /// Retrieve all armors.
+  ///
+  /// @param isDlc boolean indicating DLC collection.
+  /// @return Future<List<Armor>?> list or null if empty.
   Future<List<Armor>?> getAllArmors(bool isDlc) async {
     String tableName = isDlc ? 'allSOTEArmors' : 'allMainGameArmors';
     if (!isDlc) {
@@ -555,8 +754,9 @@ class DatabaseMethods {
     } else if (isDlc) {
       return allSOTEArmors();
     }
-    QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection(tableName).get();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection(tableName)
+        .get();
     List<Armor> armors = [];
     if (querySnapshot.docs.isEmpty) {
       return null;
@@ -569,6 +769,10 @@ class DatabaseMethods {
     return armors;
   }
 
+  /// Retrieve all armor sets.
+  ///
+  /// @param isDlc boolean indicating DLC collection.
+  /// @return Future<List<ArmorSet>?> list or null if empty.
   Future<List<ArmorSet>?> getAllArmorSets(bool isDlc) async {
     String tableName = isDlc ? 'allSOTEArmorSets' : 'allMainGameArmorSets';
     if (!isDlc) {
@@ -576,8 +780,9 @@ class DatabaseMethods {
     } else if (isDlc) {
       return allSOTESets();
     }
-    QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection(tableName).get();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection(tableName)
+        .get();
     List<ArmorSet> armors = [];
     if (querySnapshot.docs.isEmpty) {
       return null;
@@ -591,10 +796,7 @@ class DatabaseMethods {
   }
 
   Future addUserArmor(String armorName, String userID) async {
-    Map<String, dynamic> json = {
-      'name': armorName,
-      'userID': userID,
-    };
+    Map<String, dynamic> json = {'name': armorName, 'userID': userID};
     return await FirebaseFirestore.instance.collection('usersArmors').add(json);
   }
 
@@ -622,20 +824,23 @@ class DatabaseMethods {
   }
 
   Future<List<Incantation>?> getAllIncantations(bool isDlc) async {
-    String tableName =
-        isDlc ? 'allSOTEIncantations' : 'allMainGameIncantations';
+    String tableName = isDlc
+        ? 'allSOTEIncantations'
+        : 'allMainGameIncantations';
     if (!isDlc) {
       return allIncantations();
     }
-    QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection(tableName).get();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection(tableName)
+        .get();
     List<Incantation> incants = [];
     if (querySnapshot.docs.isEmpty) {
       return null;
     } else {
       for (QueryDocumentSnapshot doc in querySnapshot.docs) {
-        Incantation incant =
-            Incantation.fromMap(doc.data() as Map<String, dynamic>?);
+        Incantation incant = Incantation.fromMap(
+          doc.data() as Map<String, dynamic>?,
+        );
         incants.add(incant);
       }
     }
@@ -643,10 +848,7 @@ class DatabaseMethods {
   }
 
   Future addUserIncantation(String incantName, String userID) async {
-    Map<String, dynamic> json = {
-      'name': incantName,
-      'userID': userID,
-    };
+    Map<String, dynamic> json = {'name': incantName, 'userID': userID};
     return await FirebaseFirestore.instance
         .collection('usersIncantations')
         .add(json);
@@ -680,8 +882,9 @@ class DatabaseMethods {
     if (!isDlc) {
       return allSorceries();
     }
-    QuerySnapshot querySnapshot =
-        await FirebaseFirestore.instance.collection(tableName).get();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection(tableName)
+        .get();
     List<Sorcery> sorceries = [];
     if (querySnapshot.docs.isEmpty) {
       return null;
@@ -695,10 +898,7 @@ class DatabaseMethods {
   }
 
   Future addUserSorcery(String sorcName, String userID) async {
-    Map<String, dynamic> json = {
-      'name': sorcName,
-      'userID': userID,
-    };
+    Map<String, dynamic> json = {'name': sorcName, 'userID': userID};
     return await FirebaseFirestore.instance
         .collection('usersSorceries')
         .add(json);

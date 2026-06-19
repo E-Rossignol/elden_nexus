@@ -11,6 +11,9 @@ import 'package:elden_nexus/views/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+/// HomePage shows main navigation cards to item lists.
+///
+/// @param isDlc Whether the app should show DLC content.
 class HomePage extends StatefulWidget {
   final bool isDlc;
   const HomePage({super.key, required this.isDlc});
@@ -19,10 +22,13 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+/// State for HomePage, manages animations and navigation.
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
+  /// Title depending on current mode.
   String get _title => widget.isDlc ? 'Shadow of the Erdtree' : 'Base Game'.tr;
 
+  /// Small vertical spacer widget.
   Widget _space() {
     return const SizedBox(
       height: 20,
@@ -42,22 +48,26 @@ class _HomePageState extends State<HomePage>
 
   @override
   void dispose() {
-    _controller.dispose(); // Dispose of the AnimationController
+    _controller.dispose();
     super.dispose();
   }
 
+  /// Build the main content of the HomePage.
+  ///
+  /// @param context BuildContext
+  /// @return Widget
   Widget _buildHomePageContent(BuildContext context) {
     return PopScope(
         canPop: true,
         onPopInvoked: (result) {
+          // Navigate back to welcome page and clear navigation stack.
           Future.delayed(Duration.zero, () {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
                 builder: (context) => WelcomePage(),
               ),
-              (route) =>
-                  false, // This will remove all previous routes from the stack
+              (route) => false,
             );
           });
         },
@@ -101,6 +111,7 @@ class _HomePageState extends State<HomePage>
                       child: AnimatedBuilder(
                         animation: _controller,
                         builder: (BuildContext context, Widget? child) {
+                          // Animated gradient shader to emphasize DLC title.
                           return ShaderMask(
                             shaderCallback: (Rect bounds) {
                               return LinearGradient(

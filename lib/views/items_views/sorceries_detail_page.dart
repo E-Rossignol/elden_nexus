@@ -6,6 +6,10 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../models/sorcery.dart';
 
+/// Detail page for a Sorcery spell.
+///
+/// Shows image, FP cost, slots, effect and requirements.
+/// @param sorc Sorcery instance passed in constructor.
 class SorceryDetailPage extends StatefulWidget {
   final Sorcery sorc;
 
@@ -15,6 +19,7 @@ class SorceryDetailPage extends StatefulWidget {
   State<SorceryDetailPage> createState() => _SorceryDetailPageState();
 }
 
+/// State for SorceryDetailPage.
 class _SorceryDetailPageState extends State<SorceryDetailPage> {
   Widget _space() {
     return const SizedBox(
@@ -23,6 +28,8 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
     );
   }
 
+  /// Launch URL externally.
+  /// @param url string
   void _launchURL(String url) async {
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
@@ -31,6 +38,9 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
     }
   }
 
+  /// Format requirement value to "-" when zero.
+  /// @param input numeric value
+  /// @return String
   String requirement(double input) {
     if (input == 0) {
       return "-";
@@ -38,6 +48,9 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
     return input.toInt().toString();
   }
 
+  /// Return a user-friendly description for a SpellType.
+  /// @param type SpellType
+  /// @return String
   String spellType(SpellType type) {
     switch (type) {
       case SpellType.physical:
@@ -71,6 +84,8 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
     Sorcery sorc = widget.sorc;
     String url = sorc.mapLink;
     bool isLinkable = url.isNotEmpty;
+
+    // Construct dialog actions (open link + close).
     List<Widget> linkWidgets = [];
     if (isLinkable) {
       linkWidgets.add(ElevatedButton(
@@ -86,6 +101,7 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
       },
       child: const Text('Close'),
     ));
+
     return PopScope(
       canPop: false,
       onPopInvoked: (result) {
@@ -204,8 +220,7 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
                       width: MediaQuery.of(context).size.width * 0.7,
                       child: Table(
                         columnWidths: const {
-                          0: FlexColumnWidth(
-                              0.5), // First column is half the size
+                          0: FlexColumnWidth(0.5),
                           1: FlexColumnWidth(1),
                         },
                         children: [
@@ -318,8 +333,7 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
                                         height: defaultHeight,
                                         child: Center(
                                             child: Text(
-                                                requirement(
-                                                    sorc.requirement.fai),
+                                                requirement(sorc.requirement.fai),
                                                 style: TextStyle(
                                                     color: sorc.requirement
                                                                 .fai !=
@@ -366,8 +380,7 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
                                         height: defaultHeight,
                                         child: Center(
                                             child: Text(
-                                                requirement(
-                                                    sorc.requirement.arc),
+                                                requirement(sorc.requirement.arc),
                                                 style: TextStyle(
                                                     color: sorc.requirement
                                                                 .arc !=

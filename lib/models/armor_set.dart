@@ -1,11 +1,19 @@
 import 'package:elden_nexus/constants/constant.dart';
 import 'item.dart';
 
+/// Representation of an armor set aggregated as a single item.
+///
+/// @param name Set name.
+/// @param image Image path or URL.
+/// @param weight Combined weight.
+/// @param damageNegation Defensive stats for the set.
+/// @param passive Optional passive description.
 class ArmorSet extends Item {
   late double weight;
   late DamageNegation damageNegation;
   late String passive;
 
+  /// Create an ArmorSet instance.
   ArmorSet({
     required super.name,
     required super.image,
@@ -13,9 +21,11 @@ class ArmorSet extends Item {
     required this.damageNegation,
     this.passive = "",
   }) : super(
-          cat: ItemCategory.armor, // Set the category directly here
+          cat: ItemCategory.armor,
         );
 
+  /// Serialise the ArmorSet to a Map.
+  /// @return Map<String, dynamic> serialised representation.
   Map<String, dynamic> toMap() {
     return {
       'name': name,
@@ -35,6 +45,9 @@ class ArmorSet extends Item {
     };
   }
 
+  /// Create an ArmorSet from a Map (e.g. Firestore).
+  /// @param data Map<String, dynamic>? source data.
+  /// @return ArmorSet instance.
   static ArmorSet fromMap(Map<String, dynamic>? data) {
     return ArmorSet(
       name: data!['name'],

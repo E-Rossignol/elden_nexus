@@ -1,6 +1,18 @@
 import 'package:elden_nexus/models/item.dart';
 import '../constants/constant.dart';
 
+/// Incantation spell representation.
+///
+/// @param name Spell name.
+/// @param image Image path or URL.
+/// @param description Description text.
+/// @param slots Number of slots required.
+/// @param howToFind Acquisition description.
+/// @param mapLink Map link reference.
+/// @param fPCost Focus point cost.
+/// @param element SpellType element.
+/// @param effect Effect description.
+/// @param requirement Stat requirements for the spell.
 class Incantation extends Item {
   late String description;
   late String mapLink;
@@ -11,6 +23,7 @@ class Incantation extends Item {
   late double slots;
   late SpellsRequirement requirement = SpellsRequirement();
 
+  /// Create an Incantation instance.
   Incantation({
     required super.name,
     required super.image,
@@ -23,9 +36,11 @@ class Incantation extends Item {
     required this.effect,
     required this.requirement,
   }) : super(
-          cat: ItemCategory.incantation, // Set the category directly here
+          cat: ItemCategory.incantation,
         );
 
+  /// Serialise to Map for storage.
+  /// @return Map<String, dynamic> serialised representation.
   Map<String, dynamic> toMap() {
     return {
       'name': name,
@@ -45,6 +60,9 @@ class Incantation extends Item {
     };
   }
 
+  /// Create an Incantation from a Map (e.g. Firestore).
+  /// @param data Map<String, dynamic>? source data.
+  /// @return Incantation instance.
   static Incantation fromMap(Map<String, dynamic>? data) {
     return Incantation(
       name: data?['name'],

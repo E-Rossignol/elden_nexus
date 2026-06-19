@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,6 +11,7 @@ import 'items_views/ashes_of_war_page.dart';
 import 'items_views/talismans_page.dart';
 import 'home_page.dart';
 
+/// RoutingView provides quick navigation to maps and item pages.
 class RoutingView extends StatefulWidget {
   const RoutingView({super.key});
 
@@ -20,6 +19,7 @@ class RoutingView extends StatefulWidget {
   State<RoutingView> createState() => _RoutingViewState();
 }
 
+/// State for RoutingView, handles animated headers and route selection.
 class _RoutingViewState extends State<RoutingView>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
@@ -39,6 +39,9 @@ class _RoutingViewState extends State<RoutingView>
     super.dispose();
   }
 
+  /// Build the routing UI with two sections (Base Game and DLC).
+  /// @param context BuildContext
+  /// @return Widget
   @override
   Widget build(BuildContext context) {
     String selectedRoute = "Weapons";
@@ -104,8 +107,7 @@ class _RoutingViewState extends State<RoutingView>
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                const TearsPage(isDlc: false)),
+                            builder: (context) => const TearsPage(isDlc: false)),
                       );
                       break;
                     case 'Sorceries':
@@ -267,6 +269,7 @@ class _RoutingViewState extends State<RoutingView>
                 },
               ),
               onLongPress: () async {
+                // Hidden code entry: toggles developer flag stored in SharedPreferences.
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 bool isErwan = prefs.getBool('isErwan') ?? false;
 

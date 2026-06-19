@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'dart:async';
 import 'package:elden_nexus/firebase/database/database.dart';
 import 'package:elden_nexus/views/loading_screen.dart';
@@ -13,6 +11,9 @@ import '../../models/talisman.dart';
 import '../home_page.dart';
 import 'talismans_detail_page.dart';
 
+/// Page listing all Talismans, with search and sort options.
+///
+/// @param isDlc If true, display DLC talismans.
 class TalismansPage extends StatefulWidget {
   final bool isDlc;
   const TalismansPage({super.key, required this.isDlc});
@@ -21,6 +22,7 @@ class TalismansPage extends StatefulWidget {
   State<TalismansPage> createState() => _TalismansPageState();
 }
 
+/// State for TalismansPage.
 class _TalismansPageState extends State<TalismansPage> {
   DatabaseMethods db = DatabaseMethods.instance;
   late List<Talisman> tals;
@@ -38,6 +40,8 @@ class _TalismansPageState extends State<TalismansPage> {
     futureFoundTals = Future.value([]);
   }
 
+  /// Initialize stored id and user's found talismans.
+  /// @return Future<void>
   Future<void> initTals() async {
     id = await FlutterSecureStorage().read(key: 'id') ?? '';
     futureFoundTals = db.getUserTalismans(id);
@@ -51,16 +55,17 @@ class _TalismansPageState extends State<TalismansPage> {
       future: initTalsFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          // The Future is complete, return the main widget
           return buildMainWidget(context);
         } else {
-          // The Future is not complete, return a loading indicator
           return const LoadingScreen();
         }
       },
     );
   }
 
+  /// Build main scaffold. Handles back behavior via PopScope.
+  /// @param context BuildContext
+  /// @return Widget
   Widget buildMainWidget(BuildContext context) {
     return PopScope(
       canPop: false,
@@ -108,7 +113,7 @@ class _TalismansPageState extends State<TalismansPage> {
                               selectedSortOption = SortOption.defaultSort;
                               sortTals(SortOption.defaultSort);
                             });
-                            Navigator.of(context).pop(); // Close the dialog
+                            Navigator.of(context).pop();
                           },
                         ),
                         ListTile(
@@ -118,7 +123,7 @@ class _TalismansPageState extends State<TalismansPage> {
                               selectedSortOption = SortOption.name;
                               sortTals(SortOption.name);
                             });
-                            Navigator.of(context).pop(); // Close the dialog
+                            Navigator.of(context).pop();
                           },
                         ),
                         ListTile(
@@ -128,7 +133,7 @@ class _TalismansPageState extends State<TalismansPage> {
                               selectedSortOption = SortOption.notFound;
                               sortTals(SortOption.notFound);
                             });
-                            Navigator.of(context).pop(); // Close the dialog
+                            Navigator.of(context).pop();
                           },
                         ),
                       ],
@@ -213,16 +218,12 @@ class _TalismansPageState extends State<TalismansPage> {
                           itemBuilder: (context, index) {
                             return Container(
                                 margin: const EdgeInsets.all(10),
-                                // Add some margin around each ListTile
                                 decoration: BoxDecoration(
                                   color: Theme.of(context)
                                       .colorScheme
                                       .secondaryContainer,
-                                  // Change the color of the ListTile
                                   borderRadius: BorderRadius.circular(10),
-                                  // Add some border radius to the ListTile
                                   boxShadow: [
-                                    // Add some shadow to the ListTile
                                     BoxShadow(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -287,7 +288,6 @@ class _TalismansPageState extends State<TalismansPage> {
                                           height: 50,
                                           width: 50,
                                           child: ClipRRect(
-                                            // Clip the image to make it circular
                                             borderRadius:
                                                 BorderRadius.circular(25),
                                             child: Image.asset(
@@ -302,7 +302,6 @@ class _TalismansPageState extends State<TalismansPage> {
                                             Text(
                                               displayedTals[index].name,
                                               style: const TextStyle(
-                                                // Add some style to the text
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -332,6 +331,8 @@ class _TalismansPageState extends State<TalismansPage> {
     );
   }
 
+  /// Sort talismans according to chosen option.
+  /// @param option SortOption? option
   void sortTals(SortOption? option) async {
     setState(() {
       if (option == SortOption.name) {
@@ -348,6 +349,7 @@ class _TalismansPageState extends State<TalismansPage> {
           });
         });
       } else if (option == SortOption.defaultSort) {
+        // defaultSortOrder defines a curated order; used to sort talismans consistently.
         List<String> defaultSortOrder = [
           "Crimson Amber Medallion",
           "Crimson Amber Medallion +1",

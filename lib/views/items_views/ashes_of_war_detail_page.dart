@@ -5,6 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+/// Detail page for an AshOfWar entry.
+///
+/// Shows image, description, usable weapons and acquisition dialog.
+/// @param ash AshOfWar instance to display.
 class AshOfWarDetailPage extends StatefulWidget {
   final AshOfWar ash;
   const AshOfWarDetailPage({super.key, required this.ash});
@@ -13,6 +17,7 @@ class AshOfWarDetailPage extends StatefulWidget {
   State<AshOfWarDetailPage> createState() => _AshOfWarDetailPageState();
 }
 
+/// State for AshOfWarDetailPage.
 class _AshOfWarDetailPageState extends State<AshOfWarDetailPage> {
   Widget _space() {
     return const SizedBox(
@@ -20,6 +25,9 @@ class _AshOfWarDetailPageState extends State<AshOfWarDetailPage> {
     );
   }
 
+  /// Launch external URL.
+  /// @param url URL to open
+  /// @return Future<void>
   void _launchURL(String url) async {
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
@@ -33,6 +41,8 @@ class _AshOfWarDetailPageState extends State<AshOfWarDetailPage> {
     AshOfWar ash = widget.ash;
     String url = ash.mapLink;
     bool isLinkable = url.isNotEmpty;
+
+    // Build actions for the acquisition dialog.
     List<Widget> linkWidgets = [];
     if (isLinkable) {
       linkWidgets.add(ElevatedButton(
@@ -48,6 +58,7 @@ class _AshOfWarDetailPageState extends State<AshOfWarDetailPage> {
       },
       child: const Text('Close'),
     ));
+
     return PopScope(
       canPop: false,
       onPopInvoked: (result) {

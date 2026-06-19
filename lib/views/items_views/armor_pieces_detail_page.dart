@@ -6,6 +6,10 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../firebase/database/database.dart';
 
+/// Detail page that displays a single Armor piece.
+///
+/// Shows image, stats table and "how to get" dialog.
+/// @param armor Armor instance to display (passed in constructor).
 class ArmorPiecesDetailPage extends StatefulWidget {
   final Armor armor;
 
@@ -15,8 +19,13 @@ class ArmorPiecesDetailPage extends StatefulWidget {
   State<ArmorPiecesDetailPage> createState() => _ArmorPiecesDetailPageState();
 }
 
+/// State for ArmorPiecesDetailPage.
 class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
+  /// Launches an external URL using url_launcher.
+  /// @param url The URL string to open.
+  /// @return Future<void>
   void _launchURL(String url) async {
+    // Attempt to launch the URL.
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
     } else {
@@ -24,6 +33,10 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
     }
   }
 
+  /// Convert a numeric stat to a display string.
+  /// Returns "-" when stat equals 0.
+  /// @param input numeric value
+  /// @return String display value
   String resString(double input) {
     if (input == 0) {
       return "-";
@@ -38,6 +51,8 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
     Armor armor = widget.armor;
     String url = armor.mapLink;
     bool isLinkable = url.isNotEmpty;
+
+    // Build dialog action widgets: open link (if available) + close.
     List<Widget> linkWidgets = [];
     if (isLinkable) {
       linkWidgets.add(ElevatedButton(
@@ -53,6 +68,7 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
       },
       child: const Text('Close'),
     ));
+
     return PopScope(
       canPop: false,
       onPopInvoked: (result) {
@@ -188,8 +204,7 @@ class _ArmorPiecesDetailPageState extends State<ArmorPiecesDetailPage> {
                       width: MediaQuery.of(context).size.width * 0.6,
                       child: Table(
                         columnWidths: const {
-                          0: FlexColumnWidth(
-                              1), // First column is half the size
+                          0: FlexColumnWidth(1),
                           1: FlexColumnWidth(0.5),
                         },
                         children: [

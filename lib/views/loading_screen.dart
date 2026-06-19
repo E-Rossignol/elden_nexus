@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
+/// Full-screen loading indicator used while data or initialization completes.
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});
 
@@ -9,7 +10,11 @@ class LoadingScreen extends StatefulWidget {
   State<LoadingScreen> createState() => _LoadingScreenState();
 }
 
+/// State for LoadingScreen.
 class _LoadingScreenState extends State<LoadingScreen> {
+  /// Build the loading UI.
+  /// @param context BuildContext
+  /// @return Widget
   @override
   Widget build(BuildContext context) {
     return PopScope(

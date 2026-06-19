@@ -14,6 +14,8 @@ import '../../constants/constant.dart';
 import '../home_page.dart';
 import 'incantations_detail_page.dart';
 
+/// Page that lists Incantations and supports marking found and sorting.
+/// @param isDlc Whether to use DLC incantations list.
 class IncantationsPage extends StatefulWidget {
   final bool isDlc;
   const IncantationsPage({super.key, required this.isDlc});
@@ -22,6 +24,7 @@ class IncantationsPage extends StatefulWidget {
   State<IncantationsPage> createState() => _IncantationsPageState();
 }
 
+/// State for IncantationsPage.
 class _IncantationsPageState extends State<IncantationsPage> {
   DatabaseMethods db = DatabaseMethods.instance;
   late List<Incantation> incants;
@@ -39,6 +42,7 @@ class _IncantationsPageState extends State<IncantationsPage> {
     futureFoundIncants = Future.value([]);
   }
 
+  /// Initialize id and user-owned incantations; default sort by type.
   Future<void> initIncants() async {
     id = await FlutterSecureStorage().read(key: 'id') ?? '';
     futureFoundIncants = db.getUserIncantations(id);
@@ -52,16 +56,15 @@ class _IncantationsPageState extends State<IncantationsPage> {
       future: initIncantsFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          // The Future is complete, return the main widget
           return buildMainWidget(context);
         } else {
-          // The Future is not complete, return a loading indicator
           return const LoadingScreen();
         }
       },
     );
   }
 
+  /// Build main widget and handle back behavior.
   Widget buildMainWidget(BuildContext context) {
     return PopScope(
       canPop: false,
@@ -109,7 +112,7 @@ class _IncantationsPageState extends State<IncantationsPage> {
                               selectedSortOption = SortOption.type;
                               sortIncants(SortOption.type);
                             });
-                            Navigator.of(context).pop(); // Close the dialog
+                            Navigator.of(context).pop();
                           },
                         ),
                         ListTile(
@@ -119,7 +122,7 @@ class _IncantationsPageState extends State<IncantationsPage> {
                               selectedSortOption = SortOption.name;
                               sortIncants(SortOption.name);
                             });
-                            Navigator.of(context).pop(); // Close the dialog
+                            Navigator.of(context).pop();
                           },
                         ),
                         ListTile(
@@ -129,7 +132,7 @@ class _IncantationsPageState extends State<IncantationsPage> {
                               selectedSortOption = SortOption.notFound;
                               sortIncants(SortOption.notFound);
                             });
-                            Navigator.of(context).pop(); // Close the dialog
+                            Navigator.of(context).pop();
                           },
                         ),
                       ],
@@ -214,16 +217,12 @@ class _IncantationsPageState extends State<IncantationsPage> {
                           itemBuilder: (context, index) {
                             return Container(
                                 margin: const EdgeInsets.all(10),
-                                // Add some margin around each ListTile
                                 decoration: BoxDecoration(
                                   color: Theme.of(context)
                                       .colorScheme
                                       .secondaryContainer,
-                                  // Change the color of the ListTile
                                   borderRadius: BorderRadius.circular(10),
-                                  // Add some border radius to the ListTile
                                   boxShadow: [
-                                    // Add some shadow to the ListTile
                                     BoxShadow(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -289,7 +288,6 @@ class _IncantationsPageState extends State<IncantationsPage> {
                                           height: 50,
                                           width: 50,
                                           child: ClipRRect(
-                                            // Clip the image to make it circular
                                             borderRadius:
                                                 BorderRadius.circular(25),
                                             child: Image.asset(
@@ -304,7 +302,6 @@ class _IncantationsPageState extends State<IncantationsPage> {
                                             Text(
                                               displayedIncants[index].name,
                                               style: const TextStyle(
-                                                // Add some style to the text
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -334,6 +331,8 @@ class _IncantationsPageState extends State<IncantationsPage> {
     );
   }
 
+  /// Sort incantations according to the chosen option.
+  /// @param option SortOption? option
   void sortIncants(SortOption? option) async {
     setState(() {
       if (option == SortOption.name) {

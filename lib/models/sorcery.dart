@@ -2,6 +2,18 @@ import 'package:elden_nexus/models/item.dart';
 
 import '../constants/constant.dart';
 
+/// Sorcery spell representation.
+///
+/// @param name Spell name.
+/// @param image Image path or URL.
+/// @param description Description text.
+/// @param slots Number of slots required.
+/// @param howToFind Acquisition description.
+/// @param mapLink Map link reference.
+/// @param fPCost Focus point cost.
+/// @param element SpellType element.
+/// @param effect Effect description.
+/// @param requirement Stat requirements for the spell.
 class Sorcery extends Item {
   late String description;
   late String mapLink;
@@ -12,6 +24,7 @@ class Sorcery extends Item {
   late double slots;
   late SpellsRequirement requirement = SpellsRequirement();
 
+  /// Create a Sorcery instance.
   Sorcery({
     required super.name,
     required super.image,
@@ -24,9 +37,11 @@ class Sorcery extends Item {
     required this.effect,
     required this.requirement,
   }) : super(
-          cat: ItemCategory.sorcery, // Set the category directly here
+          cat: ItemCategory.sorcery,
         );
 
+  /// Serialise to Map for storage.
+  /// @return Map<String, dynamic> serialised representation.
   Map<String, dynamic> toMap() {
     return {
       'name': name,
@@ -46,6 +61,9 @@ class Sorcery extends Item {
     };
   }
 
+  /// Create a Sorcery from a Map (e.g. Firestore).
+  /// @param data Map<String, dynamic>? source data.
+  /// @return Sorcery instance.
   static Sorcery fromMap(Map<String, dynamic>? data) {
     return Sorcery(
       name: data?['name'],

@@ -7,6 +7,10 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../constants/helper.dart';
 
+/// Detail page for a Weapon.
+///
+/// Displays image, category, status effect animation and damages/requirements.
+/// @param weapon The Weapon instance to display.
 class WeaponDetailPage extends StatefulWidget {
   final Weapon weapon;
 
@@ -21,6 +25,9 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
   late AnimationController _controller;
   late List<Color> statusColors;
 
+  /// Open an external url unless it's a placeholder.
+  /// @param url The url string
+  /// @return Future<void>
   void _launchURL(String url) async {
     if (url == 'Default Link') {
       return;
@@ -35,7 +42,6 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
   @override
   void initState() {
     super.initState();
-
     _controller = AnimationController(
       duration: const Duration(seconds: 5),
       vsync: this,
@@ -48,6 +54,9 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
     super.dispose();
   }
 
+  /// Build the status effect row with animated shader if status exists.
+  /// @param exists Whether a status effect is present.
+  /// @return Widget
   Widget _statusEffect(bool exists) {
     String statusPath = "";
     String statusStr = "";
@@ -55,6 +64,7 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
     if (exists) {
       StatusEffect status = widget.weapon.status.keys.first;
       statusValue = widget.weapon.status[widget.weapon.status.keys.first];
+      // Map each enum to an image path, label and color gradient.
       switch (status) {
         case StatusEffect.blood_loss:
           statusColors = [Colors.red, Colors.purple, Colors.red];
@@ -116,6 +126,7 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
       AnimatedBuilder(
         animation: _controller,
         builder: (BuildContext context, Widget? child) {
+          // Animated shader uses controller value to create a moving gradient.
           return ShaderMask(
             shaderCallback: (Rect bounds) {
               return LinearGradient(
@@ -156,6 +167,9 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
         ));
   }
 
+  /// Format requirement to a display string; returns "-" when zero.
+  /// @param input numeric requirement
+  /// @return String formatted requirement
   String requirement(double input) {
     if (input == 0) {
       return "-";
@@ -163,6 +177,8 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
     return input.toInt().toString();
   }
 
+  /// Build the damages table widget; adjusts height based on weapon type.
+  /// @return Widget
   Widget damageWidget() {
     String incStr = "";
     double percentage = 0.0;
@@ -182,7 +198,7 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
       width: MediaQuery.of(context).size.width * 0.65,
       child: Table(
         columnWidths: const {
-          0: FlexColumnWidth(1), // First column is half the size
+          0: FlexColumnWidth(1),
           1: FlexColumnWidth(0.5),
         },
         children: [
@@ -589,7 +605,6 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
                     child: Table(
                       columnWidths: const {
                         0: FlexColumnWidth(0.5),
-                        // First column is half the size
                         1: FlexColumnWidth(1),
                         2: FlexColumnWidth(1),
                       },
@@ -1060,6 +1075,9 @@ class _WeaponDetailPageState extends State<WeaponDetailPage>
     );
   }
 
+  /// Format damage value for display; returns "-" when zero.
+  /// @param input numeric damage
+  /// @return String
   String damagesString(double input) {
     if (input == 0) {
       return "-";

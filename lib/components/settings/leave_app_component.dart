@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+/// Widget presenting an option to exit the application.
+///
+/// Tapping the ListTile opens a confirmation dialog; if confirmed, the app attempts to exit.
 class LeaveAppComponent extends StatefulWidget {
   const LeaveAppComponent({super.key});
 
@@ -32,6 +35,7 @@ class _LeaveAppComponentState extends State<LeaveAppComponent> {
                 actions: [
                   TextButton(
                     onPressed: () {
+                      // Attempt to close the app (platform-specific behavior).
                       SystemNavigator.pop();
                     },
                     child: Text('Yes'),

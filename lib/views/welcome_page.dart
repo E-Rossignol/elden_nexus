@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// WelcomePage performs initial checks and allows selection between Base Game and DLC.
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
 
@@ -15,8 +16,10 @@ class WelcomePage extends StatefulWidget {
   State<WelcomePage> createState() => _WelcomePageState();
 }
 
+/// State for WelcomePage, manages initialization and token checks.
 class _WelcomePageState extends State<WelcomePage>
     with SingleTickerProviderStateMixin {
+  /// Small vertical spacer widget.
   Widget _space() {
     return const SizedBox(
       height: 20,
@@ -35,9 +38,11 @@ class _WelcomePageState extends State<WelcomePage>
     )..repeat(reverse: true);
   }
 
+  /// Clear developer flag at app start.
+  /// @return Future<void>
   Future<void> initGodMod() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('isErwan');
+    await prefs.remove('isErwan');
   }
 
   @override
@@ -46,6 +51,10 @@ class _WelcomePageState extends State<WelcomePage>
     super.dispose();
   }
 
+  /// Build welcome page UI depending on tokenOk.
+  /// @param context BuildContext
+  /// @param tokenOk whether DB token check passed
+  /// @return Widget
   Widget _buildWelcomePage(BuildContext context, bool tokenOk) {
     return PopScope(
       canPop: false,
@@ -195,6 +204,7 @@ class _WelcomePageState extends State<WelcomePage>
   @override
   Widget build(BuildContext context) {
     DatabaseMethods db = DatabaseMethods.instance;
+    // Check internet availability before initializing DB; this controls token check flow.
     return FutureBuilder(
         future: Helper.isInternetAvailable(),
         builder: (context, snapshot) {

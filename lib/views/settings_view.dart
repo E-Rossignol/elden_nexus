@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors
 import 'package:elden_nexus/firebase/database/database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,13 +5,9 @@ import 'package:elden_nexus/components/settings/change_language_component.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../components/settings/leave_app_component.dart';
 
-/// The `SettingsView` class represents the settings view of the application.
+/// SettingsView provides access to language, app exit and developer actions.
 ///
-/// It extends `StatefulWidget` to create a mutable state for this widget.
-///
-/// The class provides a `build` method which returns a `Scaffold` widget.
-/// The `Scaffold` widget has an `AppBar` with a title `Text` widget that displays 'Settings'.
-/// The body of the `Scaffold` is a `Padding` widget that contains a `ListView` with `DarkModeSwitchComponent`, `ChangeLanguageComponent`, and `LogOutComponent` components.
+/// @param isLogin Whether the view is shown in a login flow (unused in current UI).
 class SettingsView extends StatefulWidget {
   final bool isLogin;
   const SettingsView({this.isLogin = false, super.key});
@@ -21,18 +16,14 @@ class SettingsView extends StatefulWidget {
   SettingsViewState createState() => SettingsViewState();
 }
 
-/// The `_SettingsViewState` class represents the mutable state for the `SettingsView` widget.
-///
-/// It extends `State<SettingsView>` to create a mutable state for the `SettingsView` widget.
-///
-/// The class provides a `build` method which returns a `Scaffold` widget.
-/// The `Scaffold` widget has an `AppBar` with a title `Text` widget that displays 'Settings'.
-/// The body of the `Scaffold` is a `Padding` widget that contains a `ListView` with `DarkModeSwitchComponent`, `ChangeLanguageComponent`, and `LogOutComponent` components.
+/// State for SettingsView, manages SharedPreferences and optional developer buttons.
 class SettingsViewState extends State<SettingsView> {
   SharedPreferences? prefs;
+
   @override
   void initState() {
     super.initState();
+    // Load SharedPreferences asynchronously.
     SharedPreferences.getInstance().then((value) {
       setState(() {
         prefs = value;
@@ -40,6 +31,8 @@ class SettingsViewState extends State<SettingsView> {
     });
   }
 
+  /// Button to store full DB to Firestore via DatabaseMethods.storeAll().
+  /// @return Widget an ElevatedButton wrapped in Padding
   Widget storeButton() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -74,6 +67,8 @@ class SettingsViewState extends State<SettingsView> {
     );
   }
 
+  /// Button to reset SharedPreferences and reinitialize cached data.
+  /// @return Widget an ElevatedButton wrapped in Padding
   Widget resetSharedPreferencesButton() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -111,6 +106,9 @@ class SettingsViewState extends State<SettingsView> {
     );
   }
 
+  /// Build the settings screen.
+  /// @param context BuildContext
+  /// @return Widget
   @override
   Widget build(BuildContext context) {
     List<Widget> widgets = [];
@@ -118,6 +116,7 @@ class SettingsViewState extends State<SettingsView> {
     widgets.add(const LeaveAppComponent());
     bool isErwan = prefs?.getBool('isErwan') ?? false;
     if (isErwan) {
+      // Developer-only actions are shown when isErwan flag is true.
       widgets.add(storeButton());
       widgets.add(resetSharedPreferencesButton());
     }
