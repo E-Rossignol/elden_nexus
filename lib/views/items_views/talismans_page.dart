@@ -142,15 +142,19 @@ class _TalismansPageState extends State<TalismansPage> {
                 },
               );
             },
-            child: Icon(Icons.sort,
-                color: Theme.of(context).colorScheme.secondaryContainer),
+            child: Icon(
+              Icons.sort,
+              color: Theme.of(context).colorScheme.secondaryContainer,
+            ),
           ),
         ),
         appBar: AppBar(
           leading: Builder(
             builder: (context) => IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined,
-                  color: Theme.of(context).colorScheme.onSurface),
+              icon: Icon(
+                Icons.arrow_circle_left_outlined,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
@@ -217,101 +221,113 @@ class _TalismansPageState extends State<TalismansPage> {
                           itemCount: displayedTals.length,
                           itemBuilder: (context, index) {
                             return Container(
-                                margin: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .secondaryContainer,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondaryContainer,
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
-                                      offset: const Offset(1, 1),
-                                    ),
-                                  ],
-                                ),
-                                child: CheckboxListTile(
-                                  value: snapshot.data!
-                                      .contains(displayedTals[index].name),
-                                  onChanged: (bool? value) async {
-                                    setState(() {
-                                      if (value == true) {
-                                        if (!snapshot.data!.contains(
-                                            displayedTals[index].name)) {
-                                          snapshot.data!
-                                              .add(displayedTals[index].name);
-                                        }
-                                      } else {
-                                        if (snapshot.data!.contains(
-                                            displayedTals[index].name)) {
-                                          snapshot.data!.remove(
-                                              displayedTals[index].name);
-                                        }
-                                      }
-                                    });
-                                    if (value!) {
-                                      await db.addUserTalisman(
-                                          displayedTals[index].name, id);
-                                    } else {
-                                      await db.removeUserTalisman(
-                                          displayedTals[index].name, id);
-                                    }
-                                  },
-                                  title: SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      children: [
-                                        IconButton(
-                                          icon: Icon(
-                                            Icons.info_outline,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onSecondaryContainer,
-                                          ),
-                                          onPressed: () {
-                                            Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    TalismanDetailPage(
-                                                        tal: displayedTals[
-                                                            index]),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                        SizedBox(
-                                          height: 50,
-                                          width: 50,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
-                                            child: Image.asset(
-                                                displayedTals[index].image),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              displayedTals[index].name,
-                                              style: const TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                              margin: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.secondaryContainer,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.secondaryContainer,
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: const Offset(1, 1),
                                   ),
-                                ));
+                                ],
+                              ),
+                              child: CheckboxListTile(
+                                value: snapshot.data!.contains(
+                                  displayedTals[index].name,
+                                ),
+                                onChanged: (bool? value) async {
+                                  setState(() {
+                                    if (value == true) {
+                                      if (!snapshot.data!.contains(
+                                        displayedTals[index].name,
+                                      )) {
+                                        snapshot.data!.add(
+                                          displayedTals[index].name,
+                                        );
+                                      }
+                                    } else {
+                                      if (snapshot.data!.contains(
+                                        displayedTals[index].name,
+                                      )) {
+                                        snapshot.data!.remove(
+                                          displayedTals[index].name,
+                                        );
+                                      }
+                                    }
+                                  });
+                                  if (value!) {
+                                    await db.addUserTalisman(
+                                      displayedTals[index].name,
+                                      id,
+                                    );
+                                  } else {
+                                    await db.removeUserTalisman(
+                                      displayedTals[index].name,
+                                      id,
+                                    );
+                                  }
+                                },
+                                title: SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    children: [
+                                      IconButton(
+                                        icon: Icon(
+                                          Icons.info_outline,
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.onSecondaryContainer,
+                                        ),
+                                        onPressed: () {
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  TalismanDetailPage(
+                                                    tal: displayedTals[index],
+                                                  ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      SizedBox(
+                                        height: 50,
+                                        width: 50,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                            25,
+                                          ),
+                                          child: Image.asset(
+                                            displayedTals[index].image,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            displayedTals[index].name,
+                                            style: const TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
                           },
                         ),
                       ),
@@ -343,8 +359,9 @@ class _TalismansPageState extends State<TalismansPage> {
       } else if (option == SortOption.notFound) {
         futureFoundTals.then((foundtals) {
           setState(() {
-            displayedTals =
-                tals.where((tal) => !foundtals.contains(tal.name)).toList();
+            displayedTals = tals
+                .where((tal) => !foundtals.contains(tal.name))
+                .toList();
             displayedTals.sort((a, b) => a.name.compareTo(b.name));
           });
         });
@@ -505,13 +522,15 @@ class _TalismansPageState extends State<TalismansPage> {
           "Verdigris Discus",
           "Rellana's Cameo",
           "Blade of Mercy",
-          "Talisman of All Crucibles"
+          "Talisman of All Crucibles",
         ];
         setState(() {
           displayedTals = tals;
-          displayedTals.sort((a, b) => defaultSortOrder
-              .indexOf(a.name)
-              .compareTo(defaultSortOrder.indexOf(b.name)));
+          displayedTals.sort(
+            (a, b) => defaultSortOrder
+                .indexOf(a.name)
+                .compareTo(defaultSortOrder.indexOf(b.name)),
+          );
         });
       }
     });
@@ -539,19 +558,23 @@ class talsSearch extends SearchDelegate<Talisman> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_circle_left_outlined,
-          color: Theme.of(context).colorScheme.onSurface),
+      icon: Icon(
+        Icons.arrow_circle_left_outlined,
+        color: Theme.of(context).colorScheme.onSurface,
+      ),
       onPressed: () {
         close(
-            context,
-            Talisman(
-                name: '',
-                image: '',
-                mapLink: '',
-                description: '',
-                effect: "",
-                howToFind: "",
-                weight: -1));
+          context,
+          Talisman(
+            name: '',
+            image: '',
+            mapLink: '',
+            description: '',
+            effect: "",
+            howToFind: "",
+            weight: -1,
+          ),
+        );
       },
     );
   }
@@ -573,9 +596,10 @@ class talsSearch extends SearchDelegate<Talisman> {
     final suggestionList = query.isEmpty
         ? tals
         : tals
-            .where(
-                (tal) => tal.name.toLowerCase().contains(query.toLowerCase()))
-            .toList();
+              .where(
+                (tal) => tal.name.toLowerCase().contains(query.toLowerCase()),
+              )
+              .toList();
 
     return _buildSuggestionList(suggestionList);
   }

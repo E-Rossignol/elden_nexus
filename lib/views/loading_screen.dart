@@ -30,9 +30,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.45,
-                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.45),
                 SpinKitCubeGrid(
                   color: Theme.of(context).colorScheme.primary,
                   size: 50.0,

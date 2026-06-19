@@ -24,9 +24,7 @@ class Tear extends Item {
     required this.mapLink,
     required this.duration,
     required this.effect,
-  }) : super(
-          cat: ItemCategory.tear,
-        );
+  }) : super(cat: ItemCategory.tear);
 
   /// Serialise to Map for storage.
   /// @return Map<String, dynamic> serialised representation.

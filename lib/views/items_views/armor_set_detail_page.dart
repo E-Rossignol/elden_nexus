@@ -41,31 +41,38 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
       canPop: false,
       onPopInvoked: (result) {
         Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ArmorSetsPage(
-                isDlc: widget.armorSet.image.contains("dlc"),
-              ),
-            ));
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                ArmorSetsPage(isDlc: widget.armorSet.image.contains("dlc")),
+          ),
+        );
       },
       child: Scaffold(
-        endDrawer: const Drawer(
-          child: SettingsView(),
-        ),
+        endDrawer: const Drawer(child: SettingsView()),
         appBar: AppBar(
-          leading: Builder(builder: (context) {
-            return IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined,
-                  color: Theme.of(context).colorScheme.onSurface),
-              onPressed: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) {
-                  return ArmorSetsPage(
-                      isDlc: widget.armorSet.image.contains("dlc"));
-                }));
-              },
-            );
-          }),
+          leading: Builder(
+            builder: (context) {
+              return IconButton(
+                icon: Icon(
+                  Icons.arrow_circle_left_outlined,
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return ArmorSetsPage(
+                          isDlc: widget.armorSet.image.contains("dlc"),
+                        );
+                      },
+                    ),
+                  );
+                },
+              );
+            },
+          ),
           automaticallyImplyLeading: false,
           actions: [
             Builder(
@@ -109,22 +116,28 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                             ? DatabaseMethods.instance.allDBSOTEArmors
                             : DatabaseMethods.instance.allDBArmors;
                         List<Armor> armorPieces = allArmors
-                            .where((element) =>
-                                element.set == widget.armorSet.name)
+                            .where(
+                              (element) => element.set == widget.armorSet.name,
+                            )
                             .toList();
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => ArmorPiecesPage(
-                                armorPieces: armorPieces, set: widget.armorSet),
+                              armorPieces: armorPieces,
+                              set: widget.armorSet,
+                            ),
                           ),
                         );
                       },
-                      child: Text('Armor pieces'.tr.toUpperCase(),
-                          style: TextStyle(
-                              fontFamily: 'Mantinia',
-                              fontSize: 17,
-                              color: Theme.of(context).colorScheme.primary)),
+                      child: Text(
+                        'Armor pieces'.tr.toUpperCase(),
+                        style: TextStyle(
+                          fontFamily: 'Mantinia',
+                          fontSize: 17,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
                     ),
                   ),
                   armorSet.passive != ""
@@ -136,9 +149,9 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                             child: Text(
                               armorSet.passive,
                               style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface,
-                                  fontSize: 18),
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontSize: 18,
+                              ),
                             ),
                           ),
                         )
@@ -152,9 +165,10 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                         child: Text(
                           'Weight: ${armorSet.weight}',
                           style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSurface,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18),
+                            color: Theme.of(context).colorScheme.onSurface,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                     ),
@@ -176,52 +190,68 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                                 height: defaultTableHeight,
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                      border: Border.all(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background)),
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.secondary,
+                                    border: Border.all(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.background,
+                                    ),
+                                  ),
                                   child: Center(
-                                      child: Container(
-                                          height: defaultHeight,
-                                          child: Center(
-                                              child: Text("Physical",
-                                                  style: TextStyle(
-                                                      fontStyle:
-                                                          FontStyle.italic,
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .onSecondary))))),
+                                    child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                        child: Text(
+                                          "Physical",
+                                          style: TextStyle(
+                                            fontStyle: FontStyle.italic,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.onSecondary,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                               Container(
                                 height: defaultTableHeight,
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondaryContainer,
-                                      border: Border.all(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background)),
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.secondaryContainer,
+                                    border: Border.all(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.background,
+                                    ),
+                                  ),
                                   child: Center(
                                     child: Container(
-                                        height: defaultHeight,
-                                        child: Center(
-                                            child: Text(
-                                                resString(widget.armorSet
-                                                    .damageNegation.physical),
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondaryContainer)))),
+                                      height: defaultHeight,
+                                      child: Center(
+                                        child: Text(
+                                          resString(
+                                            widget
+                                                .armorSet
+                                                .damageNegation
+                                                .physical,
+                                          ),
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.onSecondaryContainer,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -233,52 +263,68 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                                 height: defaultTableHeight,
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                      border: Border.all(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background)),
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.secondary,
+                                    border: Border.all(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.background,
+                                    ),
+                                  ),
                                   child: Center(
-                                      child: Container(
-                                          height: defaultHeight,
-                                          child: Center(
-                                              child: Text("Strike",
-                                                  style: TextStyle(
-                                                      fontStyle:
-                                                          FontStyle.italic,
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .onSecondary))))),
+                                    child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                        child: Text(
+                                          "Strike",
+                                          style: TextStyle(
+                                            fontStyle: FontStyle.italic,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.onSecondary,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                               Container(
                                 height: defaultTableHeight,
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondaryContainer,
-                                      border: Border.all(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background)),
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.secondaryContainer,
+                                    border: Border.all(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.background,
+                                    ),
+                                  ),
                                   child: Center(
                                     child: Container(
-                                        height: defaultHeight,
-                                        child: Center(
-                                            child: Text(
-                                                resString(widget.armorSet
-                                                    .damageNegation.strike),
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondaryContainer)))),
+                                      height: defaultHeight,
+                                      child: Center(
+                                        child: Text(
+                                          resString(
+                                            widget
+                                                .armorSet
+                                                .damageNegation
+                                                .strike,
+                                          ),
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.onSecondaryContainer,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -290,52 +336,68 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                                 height: defaultTableHeight,
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                      border: Border.all(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background)),
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.secondary,
+                                    border: Border.all(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.background,
+                                    ),
+                                  ),
                                   child: Center(
-                                      child: Container(
-                                          height: defaultHeight,
-                                          child: Center(
-                                              child: Text("Slash",
-                                                  style: TextStyle(
-                                                      fontStyle:
-                                                          FontStyle.italic,
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .onSecondary))))),
+                                    child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                        child: Text(
+                                          "Slash",
+                                          style: TextStyle(
+                                            fontStyle: FontStyle.italic,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.onSecondary,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                               Container(
                                 height: defaultTableHeight,
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondaryContainer,
-                                      border: Border.all(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background)),
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.secondaryContainer,
+                                    border: Border.all(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.background,
+                                    ),
+                                  ),
                                   child: Center(
                                     child: Container(
-                                        height: defaultHeight,
-                                        child: Center(
-                                            child: Text(
-                                                resString(widget.armorSet
-                                                    .damageNegation.slash),
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondaryContainer)))),
+                                      height: defaultHeight,
+                                      child: Center(
+                                        child: Text(
+                                          resString(
+                                            widget
+                                                .armorSet
+                                                .damageNegation
+                                                .slash,
+                                          ),
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.onSecondaryContainer,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -347,52 +409,68 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                                 height: defaultTableHeight,
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                      border: Border.all(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background)),
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.secondary,
+                                    border: Border.all(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.background,
+                                    ),
+                                  ),
                                   child: Center(
-                                      child: Container(
-                                          height: defaultHeight,
-                                          child: Center(
-                                              child: Text("Pierce",
-                                                  style: TextStyle(
-                                                      fontStyle:
-                                                          FontStyle.italic,
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .onSecondary))))),
+                                    child: Container(
+                                      height: defaultHeight,
+                                      child: Center(
+                                        child: Text(
+                                          "Pierce",
+                                          style: TextStyle(
+                                            fontStyle: FontStyle.italic,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.onSecondary,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                               Container(
                                 height: defaultTableHeight,
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondaryContainer,
-                                      border: Border.all(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background)),
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.secondaryContainer,
+                                    border: Border.all(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.background,
+                                    ),
+                                  ),
                                   child: Center(
                                     child: Container(
-                                        height: defaultHeight,
-                                        child: Center(
-                                            child: Text(
-                                                resString(widget.armorSet
-                                                    .damageNegation.pierce),
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondaryContainer)))),
+                                      height: defaultHeight,
+                                      child: Center(
+                                        child: Text(
+                                          resString(
+                                            widget
+                                                .armorSet
+                                                .damageNegation
+                                                .pierce,
+                                          ),
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.onSecondaryContainer,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -404,58 +482,83 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                                 height: defaultTableHeight,
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                      border: Border.all(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background)),
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.secondary,
+                                    border: Border.all(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.background,
+                                    ),
+                                  ),
                                   child: Center(
-                                      child: Container(
-                                          height: defaultHeight,
-                                          child: const Center(
-                                              child: Text("Magic",
-                                                  style: TextStyle(
-                                                      fontStyle:
-                                                          FontStyle.italic,
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Color.fromRGBO(
-                                                          25, 25, 112, 1)))))),
+                                    child: Container(
+                                      height: defaultHeight,
+                                      child: const Center(
+                                        child: Text(
+                                          "Magic",
+                                          style: TextStyle(
+                                            fontStyle: FontStyle.italic,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color.fromRGBO(
+                                              25,
+                                              25,
+                                              112,
+                                              1,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                               Container(
                                 height: defaultTableHeight,
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondaryContainer,
-                                      border: Border.all(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background)),
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.secondaryContainer,
+                                    border: Border.all(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.background,
+                                    ),
+                                  ),
                                   child: Center(
                                     child: Container(
-                                        height: defaultHeight,
-                                        child: Center(
-                                            child: Text(
-                                                resString(widget.armorSet
-                                                    .damageNegation.magic),
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: widget
-                                                                .armorSet
-                                                                .damageNegation
-                                                                .magic !=
-                                                            0
-                                                        ? const Color.fromRGBO(
-                                                            125, 125, 212, 1)
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .onSecondaryContainer)))),
+                                      height: defaultHeight,
+                                      child: Center(
+                                        child: Text(
+                                          resString(
+                                            widget
+                                                .armorSet
+                                                .damageNegation
+                                                .magic,
+                                          ),
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color:
+                                                widget
+                                                        .armorSet
+                                                        .damageNegation
+                                                        .magic !=
+                                                    0
+                                                ? const Color.fromRGBO(
+                                                    125,
+                                                    125,
+                                                    212,
+                                                    1,
+                                                  )
+                                                : Theme.of(context)
+                                                      .colorScheme
+                                                      .onSecondaryContainer,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -467,58 +570,75 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                                 height: defaultTableHeight,
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                      border: Border.all(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background)),
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.secondary,
+                                    border: Border.all(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.background,
+                                    ),
+                                  ),
                                   child: Center(
-                                      child: Container(
-                                          height: defaultHeight,
-                                          child: const Center(
-                                              child: Text("Fire",
-                                                  style: TextStyle(
-                                                      fontStyle:
-                                                          FontStyle.italic,
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Color.fromRGBO(
-                                                          139, 0, 0, 1)))))),
+                                    child: Container(
+                                      height: defaultHeight,
+                                      child: const Center(
+                                        child: Text(
+                                          "Fire",
+                                          style: TextStyle(
+                                            fontStyle: FontStyle.italic,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color.fromRGBO(139, 0, 0, 1),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                               Container(
                                 height: defaultTableHeight,
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondaryContainer,
-                                      border: Border.all(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background)),
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.secondaryContainer,
+                                    border: Border.all(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.background,
+                                    ),
+                                  ),
                                   child: Center(
                                     child: Container(
-                                        height: defaultHeight,
-                                        child: Center(
-                                            child: Text(
-                                                resString(widget.armorSet
-                                                    .damageNegation.fire),
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: widget
-                                                                .armorSet
-                                                                .damageNegation
-                                                                .fire !=
-                                                            0
-                                                        ? const Color.fromRGBO(
-                                                            239, 0, 0, 1)
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .onSecondaryContainer)))),
+                                      height: defaultHeight,
+                                      child: Center(
+                                        child: Text(
+                                          resString(
+                                            widget.armorSet.damageNegation.fire,
+                                          ),
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color:
+                                                widget
+                                                        .armorSet
+                                                        .damageNegation
+                                                        .fire !=
+                                                    0
+                                                ? const Color.fromRGBO(
+                                                    239,
+                                                    0,
+                                                    0,
+                                                    1,
+                                                  )
+                                                : Theme.of(context)
+                                                      .colorScheme
+                                                      .onSecondaryContainer,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -530,58 +650,80 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                                 height: defaultTableHeight,
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                      border: Border.all(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background)),
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.secondary,
+                                    border: Border.all(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.background,
+                                    ),
+                                  ),
                                   child: Center(
-                                      child: Container(
-                                          height: defaultHeight,
-                                          child: const Center(
-                                              child: Text("Holy",
-                                                  style: TextStyle(
-                                                      fontStyle:
-                                                          FontStyle.italic,
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Color.fromRGBO(
-                                                          184, 134, 11, 1)))))),
+                                    child: Container(
+                                      height: defaultHeight,
+                                      child: const Center(
+                                        child: Text(
+                                          "Holy",
+                                          style: TextStyle(
+                                            fontStyle: FontStyle.italic,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color.fromRGBO(
+                                              184,
+                                              134,
+                                              11,
+                                              1,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                               Container(
                                 height: defaultTableHeight,
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondaryContainer,
-                                      border: Border.all(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background)),
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.secondaryContainer,
+                                    border: Border.all(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.background,
+                                    ),
+                                  ),
                                   child: Center(
                                     child: Container(
-                                        height: defaultHeight,
-                                        child: Center(
-                                            child: Text(
-                                                resString(widget.armorSet
-                                                    .damageNegation.holy),
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: widget
-                                                                .armorSet
-                                                                .damageNegation
-                                                                .holy !=
-                                                            0
-                                                        ? const Color.fromRGBO(
-                                                            234, 184, 61, 1)
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .onSecondaryContainer)))),
+                                      height: defaultHeight,
+                                      child: Center(
+                                        child: Text(
+                                          resString(
+                                            widget.armorSet.damageNegation.holy,
+                                          ),
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color:
+                                                widget
+                                                        .armorSet
+                                                        .damageNegation
+                                                        .holy !=
+                                                    0
+                                                ? const Color.fromRGBO(
+                                                    234,
+                                                    184,
+                                                    61,
+                                                    1,
+                                                  )
+                                                : Theme.of(context)
+                                                      .colorScheme
+                                                      .onSecondaryContainer,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -593,58 +735,83 @@ class _ArmorSetDetailPageState extends State<ArmorSetDetailPage> {
                                 height: defaultTableHeight,
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                      border: Border.all(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background)),
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.secondary,
+                                    border: Border.all(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.background,
+                                    ),
+                                  ),
                                   child: Center(
-                                      child: Container(
-                                          height: defaultHeight,
-                                          child: const Center(
-                                              child: Text("Lightning",
-                                                  style: TextStyle(
-                                                      fontStyle:
-                                                          FontStyle.italic,
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Color.fromRGBO(
-                                                          173, 173, 0, 1)))))),
+                                    child: Container(
+                                      height: defaultHeight,
+                                      child: const Center(
+                                        child: Text(
+                                          "Lightning",
+                                          style: TextStyle(
+                                            fontStyle: FontStyle.italic,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color.fromRGBO(
+                                              173,
+                                              173,
+                                              0,
+                                              1,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                               Container(
                                 height: defaultTableHeight,
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondaryContainer,
-                                      border: Border.all(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background)),
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.secondaryContainer,
+                                    border: Border.all(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.background,
+                                    ),
+                                  ),
                                   child: Center(
                                     child: Container(
-                                        height: defaultHeight,
-                                        child: Center(
-                                            child: Text(
-                                                resString(widget.armorSet
-                                                    .damageNegation.lightning),
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: widget
-                                                                .armorSet
-                                                                .damageNegation
-                                                                .lightning !=
-                                                            0
-                                                        ? const Color.fromRGBO(
-                                                            223, 223, 0, 1)
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .onSecondaryContainer)))),
+                                      height: defaultHeight,
+                                      child: Center(
+                                        child: Text(
+                                          resString(
+                                            widget
+                                                .armorSet
+                                                .damageNegation
+                                                .lightning,
+                                          ),
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color:
+                                                widget
+                                                        .armorSet
+                                                        .damageNegation
+                                                        .lightning !=
+                                                    0
+                                                ? const Color.fromRGBO(
+                                                    223,
+                                                    223,
+                                                    0,
+                                                    1,
+                                                  )
+                                                : Theme.of(context)
+                                                      .colorScheme
+                                                      .onSecondaryContainer,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),

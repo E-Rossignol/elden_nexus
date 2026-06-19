@@ -39,28 +39,29 @@ class SettingsViewState extends State<SettingsView> {
       child: ElevatedButton(
         onPressed: () async {
           showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                    title: Text('STORE'),
-                    content: Text('ARE YOU SURE TO WANT TO STORE DATA ?'),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text('NO'),
-                      ),
-                      TextButton(
-                        onPressed: () async {
-                          Navigator.of(context).pop();
-                          DatabaseMethods db = DatabaseMethods.instance;
-                          await db.storeAll();
-                          Get.snackbar('STORE', 'Data stored !');
-                        },
-                        child: Text('YES'),
-                      ),
-                    ],
-                  ));
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text('STORE'),
+              content: Text('ARE YOU SURE TO WANT TO STORE DATA ?'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('NO'),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    Navigator.of(context).pop();
+                    DatabaseMethods db = DatabaseMethods.instance;
+                    await db.storeAll();
+                    Get.snackbar('STORE', 'Data stored !');
+                  },
+                  child: Text('YES'),
+                ),
+              ],
+            ),
+          );
         },
         child: Text('STORE'),
       ),
@@ -75,31 +76,32 @@ class SettingsViewState extends State<SettingsView> {
       child: ElevatedButton(
         onPressed: () async {
           showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                    title: Text('Reset'),
-                    content: Text('Reset datas ?'),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text('No'),
-                      ),
-                      TextButton(
-                        onPressed: () async {
-                          Navigator.of(context).pop();
-                          SharedPreferences prefs =
-                              await SharedPreferences.getInstance();
-                          await prefs.clear();
-                          Get.snackbar('RESET', 'Data reseted !');
-                          await DatabaseMethods.instance.initDatas();
-                          Get.snackbar('RESET', 'Data re-wrote !');
-                        },
-                        child: Text('Yes'),
-                      ),
-                    ],
-                  ));
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text('Reset'),
+              content: Text('Reset datas ?'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('No'),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    Navigator.of(context).pop();
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    await prefs.clear();
+                    Get.snackbar('RESET', 'Data reseted !');
+                    await DatabaseMethods.instance.initDatas();
+                    Get.snackbar('RESET', 'Data re-wrote !');
+                  },
+                  child: Text('Yes'),
+                ),
+              ],
+            ),
+          );
         },
         child: Text('Reset internal datas'),
       ),
@@ -129,9 +131,7 @@ class SettingsViewState extends State<SettingsView> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          children: widgets,
-        ),
+        child: ListView(children: widgets),
       ),
     );
   }

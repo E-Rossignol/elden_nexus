@@ -43,7 +43,9 @@ class _ChangePasswordComponentState extends State<ChangePasswordComponent> {
       prefs.setString('password', _newPassword);
       Navigator.pop(context);
       Get.snackbar(
-          'Password Changed', 'Your password has been changed successfully');
+        'Password Changed',
+        'Your password has been changed successfully',
+      );
     } catch (e) {
       // Provide user-friendly feedback for common error.
       if (e is FirebaseAuthException && e.code == 'wrong-password') {
@@ -57,73 +59,77 @@ class _ChangePasswordComponentState extends State<ChangePasswordComponent> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-        leading: Icon(
-            color: Theme.of(context).colorScheme.onPrimaryContainer,
-            Icons.password),
-        title: Text(
-          'Change Password',
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onPrimaryContainer,
-          ),
+      leading: Icon(
+        color: Theme.of(context).colorScheme.onPrimaryContainer,
+        Icons.password,
+      ),
+      title: Text(
+        'Change Password',
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.onPrimaryContainer,
         ),
-        onTap: () {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: Text('Change Password'),
-                content: Container(
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  child: SingleChildScrollView(
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: <Widget>[
-                          TextFormField(
-                            decoration: const InputDecoration(
-                                labelText: 'Old Password'),
-                            obscureText: true,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your old password';
-                              }
-                              return null;
-                            },
-                            onSaved: (value) {
-                              _oldPassword = value!;
-                            },
+      ),
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Change Password'),
+              content: Container(
+                height: MediaQuery.of(context).size.height * 0.3,
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: <Widget>[
+                        TextFormField(
+                          decoration: const InputDecoration(
+                            labelText: 'Old Password',
                           ),
-                          TextFormField(
-                            decoration: const InputDecoration(
-                                labelText: 'New Password'),
-                            obscureText: true,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your new password';
-                              }
-                              return null;
-                            },
-                            onSaved: (value) {
-                              _newPassword = value!;
-                            },
+                          obscureText: true,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your old password';
+                            }
+                            return null;
+                          },
+                          onSaved: (value) {
+                            _oldPassword = value!;
+                          },
+                        ),
+                        TextFormField(
+                          decoration: const InputDecoration(
+                            labelText: 'New Password',
                           ),
-                          ElevatedButton(
-                            onPressed: () async {
-                              if (_formKey.currentState!.validate()) {
-                                _formKey.currentState!.save();
-                                _changePassword();
-                              }
-                            },
-                            child: const Text('Change Password'),
-                          ),
-                        ],
-                      ),
+                          obscureText: true,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your new password';
+                            }
+                            return null;
+                          },
+                          onSaved: (value) {
+                            _newPassword = value!;
+                          },
+                        ),
+                        ElevatedButton(
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              _formKey.currentState!.save();
+                              _changePassword();
+                            }
+                          },
+                          child: const Text('Change Password'),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              );
-            },
-          );
-        });
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 }

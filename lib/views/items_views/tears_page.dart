@@ -141,15 +141,19 @@ class _TearsPageState extends State<TearsPage> {
                 },
               );
             },
-            child: Icon(Icons.sort,
-                color: Theme.of(context).colorScheme.secondaryContainer),
+            child: Icon(
+              Icons.sort,
+              color: Theme.of(context).colorScheme.secondaryContainer,
+            ),
           ),
         ),
         appBar: AppBar(
           leading: Builder(
             builder: (context) => IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined,
-                  color: Theme.of(context).colorScheme.onSurface),
+              icon: Icon(
+                Icons.arrow_circle_left_outlined,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
@@ -202,11 +206,15 @@ class _TearsPageState extends State<TearsPage> {
         ),
         body: displayedTears.isEmpty
             ? Center(
-                child: Text("Nothing to display".toUpperCase(),
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.onBackground,
-                        fontSize: 20,
-                        fontFamily: 'Mantinia')))
+                child: Text(
+                  "Nothing to display".toUpperCase(),
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onBackground,
+                    fontSize: 20,
+                    fontFamily: 'Mantinia',
+                  ),
+                ),
+              )
             : Center(
                 child: Column(
                   children: [
@@ -223,104 +231,113 @@ class _TearsPageState extends State<TearsPage> {
                                 itemCount: displayedTears.length,
                                 itemBuilder: (context, index) {
                                   return Container(
-                                      margin: const EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .secondaryContainer,
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .secondaryContainer,
-                                            spreadRadius: 5,
-                                            blurRadius: 7,
-                                            offset: const Offset(1, 1),
-                                          ),
-                                        ],
-                                      ),
-                                      child: CheckboxListTile(
-                                        value: snapshot.data!.contains(
-                                            displayedTears[index].name),
-                                        onChanged: (bool? value) async {
-                                          setState(() {
-                                            if (value == true) {
-                                              if (!snapshot.data!.contains(
-                                                  displayedTears[index].name)) {
-                                                snapshot.data!.add(
-                                                    displayedTears[index].name);
-                                              }
-                                            } else {
-                                              if (snapshot.data!.contains(
-                                                  displayedTears[index].name)) {
-                                                snapshot.data!.remove(
-                                                    displayedTears[index].name);
-                                              }
-                                            }
-                                          });
-                                          if (value!) {
-                                            await db.addUserTear(
-                                                displayedTears[index].name, id);
-                                          } else {
-                                            await db.removeUserTear(
-                                                displayedTears[index].name, id);
-                                          }
-                                        },
-                                        title: SingleChildScrollView(
-                                          scrollDirection: Axis.horizontal,
-                                          child: Row(
-                                            children: [
-                                              IconButton(
-                                                icon: Icon(
-                                                  Icons.info_outline,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .onSecondaryContainer,
-                                                ),
-                                                onPressed: () {
-                                                  Navigator.pushReplacement(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          TearDetailPage(
-                                                              tear:
-                                                                  displayedTears[
-                                                                      index]),
-                                                    ),
-                                                  );
-                                                },
-                                              ),
-                                              SizedBox(
-                                                height: 50,
-                                                width: 50,
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(25),
-                                                  child: Image.asset(
-                                                      displayedTears[index]
-                                                          .image),
-                                                ),
-                                              ),
-                                              const SizedBox(width: 10),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    displayedTears[index].name,
-                                                    style: const TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
+                                    margin: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.secondaryContainer,
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.secondaryContainer,
+                                          spreadRadius: 5,
+                                          blurRadius: 7,
+                                          offset: const Offset(1, 1),
                                         ),
-                                      ));
+                                      ],
+                                    ),
+                                    child: CheckboxListTile(
+                                      value: snapshot.data!.contains(
+                                        displayedTears[index].name,
+                                      ),
+                                      onChanged: (bool? value) async {
+                                        setState(() {
+                                          if (value == true) {
+                                            if (!snapshot.data!.contains(
+                                              displayedTears[index].name,
+                                            )) {
+                                              snapshot.data!.add(
+                                                displayedTears[index].name,
+                                              );
+                                            }
+                                          } else {
+                                            if (snapshot.data!.contains(
+                                              displayedTears[index].name,
+                                            )) {
+                                              snapshot.data!.remove(
+                                                displayedTears[index].name,
+                                              );
+                                            }
+                                          }
+                                        });
+                                        if (value!) {
+                                          await db.addUserTear(
+                                            displayedTears[index].name,
+                                            id,
+                                          );
+                                        } else {
+                                          await db.removeUserTear(
+                                            displayedTears[index].name,
+                                            id,
+                                          );
+                                        }
+                                      },
+                                      title: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(
+                                          children: [
+                                            IconButton(
+                                              icon: Icon(
+                                                Icons.info_outline,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onSecondaryContainer,
+                                              ),
+                                              onPressed: () {
+                                                Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        TearDetailPage(
+                                                          tear:
+                                                              displayedTears[index],
+                                                        ),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                            SizedBox(
+                                              height: 50,
+                                              width: 50,
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(25),
+                                                child: Image.asset(
+                                                  displayedTears[index].image,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 10),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  displayedTears[index].name,
+                                                  style: const TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
                                 },
                               ),
                             ),
@@ -352,8 +369,9 @@ class _TearsPageState extends State<TearsPage> {
       } else if (option == SortOption.notFound) {
         futureFoundTears.then((foundtals) {
           setState(() {
-            displayedTears =
-                tears.where((tal) => !foundtals.contains(tal.name)).toList();
+            displayedTears = tears
+                .where((tal) => !foundtals.contains(tal.name))
+                .toList();
             displayedTears.sort((a, b) => a.name.compareTo(b.name));
           });
         });
@@ -400,9 +418,11 @@ class _TearsPageState extends State<TearsPage> {
         ];
         setState(() {
           displayedTears = tears;
-          displayedTears.sort((a, b) => defaultOrder
-              .indexOf(a.name)
-              .compareTo(defaultOrder.indexOf(b.name)));
+          displayedTears.sort(
+            (a, b) => defaultOrder
+                .indexOf(a.name)
+                .compareTo(defaultOrder.indexOf(b.name)),
+          );
         });
       }
     });
@@ -430,18 +450,22 @@ class talsSearch extends SearchDelegate<Tear> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_circle_left_outlined,
-          color: Theme.of(context).colorScheme.onSurface),
+      icon: Icon(
+        Icons.arrow_circle_left_outlined,
+        color: Theme.of(context).colorScheme.onSurface,
+      ),
       onPressed: () {
         close(
-            context,
-            Tear(
-                name: '',
-                image: '',
-                mapLink: '',
-                effect: "",
-                howToFind: "",
-                duration: -1));
+          context,
+          Tear(
+            name: '',
+            image: '',
+            mapLink: '',
+            effect: "",
+            howToFind: "",
+            duration: -1,
+          ),
+        );
       },
     );
   }
@@ -463,9 +487,10 @@ class talsSearch extends SearchDelegate<Tear> {
     final suggestionList = query.isEmpty
         ? tals
         : tals
-            .where(
-                (tal) => tal.name.toLowerCase().contains(query.toLowerCase()))
-            .toList();
+              .where(
+                (tal) => tal.name.toLowerCase().contains(query.toLowerCase()),
+              )
+              .toList();
 
     return _buildSuggestionList(suggestionList);
   }

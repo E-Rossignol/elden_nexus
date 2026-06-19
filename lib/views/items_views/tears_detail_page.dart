@@ -22,9 +22,7 @@ class TearDetailPage extends StatefulWidget {
 class _TearDetailPageState extends State<TearDetailPage> {
   /// Small vertical spacer.
   Widget _space() {
-    return const SizedBox(
-      height: 10,
-    );
+    return const SizedBox(height: 10);
   }
 
   /// Open a URL using url_launcher.
@@ -48,8 +46,12 @@ class _TearDetailPageState extends State<TearDetailPage> {
     text.splitMapJoin(
       regExp,
       onMatch: (m) {
-        spans.add(TextSpan(
-            text: m.group(0)!, style: const TextStyle(color: Colors.redAccent)));
+        spans.add(
+          TextSpan(
+            text: m.group(0)!,
+            style: const TextStyle(color: Colors.redAccent),
+          ),
+        );
         return m.group(0)!;
       },
       onNonMatch: (n) {
@@ -69,8 +71,9 @@ class _TearDetailPageState extends State<TearDetailPage> {
       child: RichText(
         textAlign: TextAlign.center,
         text: TextSpan(
-            style: const TextStyle(fontSize: 20, fontFamily: 'Chiralla'),
-            children: _buildTextSpans(text)),
+          style: const TextStyle(fontSize: 20, fontFamily: 'Chiralla'),
+          children: _buildTextSpans(text),
+        ),
       ),
     );
   }
@@ -82,47 +85,59 @@ class _TearDetailPageState extends State<TearDetailPage> {
     bool isLinkable = url.isNotEmpty;
     List<Widget> linkWidgets = [];
     if (isLinkable) {
-      linkWidgets.add(ElevatedButton(
-        onPressed: () {
-          _launchURL(url);
-        },
-        child: Text('Open Link'.tr),
-      ));
+      linkWidgets.add(
+        ElevatedButton(
+          onPressed: () {
+            _launchURL(url);
+          },
+          child: Text('Open Link'.tr),
+        ),
+      );
     }
-    linkWidgets.add(TextButton(
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-      child: const Text('Close'),
-    ));
+    linkWidgets.add(
+      TextButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        child: const Text('Close'),
+      ),
+    );
     return PopScope(
       canPop: false,
       onPopInvoked: (result) {
         Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => TearsPage(
-                isDlc: widget.tear.image.contains("dlc"),
-              ),
-            ));
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                TearsPage(isDlc: widget.tear.image.contains("dlc")),
+          ),
+        );
       },
       child: Scaffold(
-        endDrawer: const Drawer(
-          child: SettingsView(),
-        ),
+        endDrawer: const Drawer(child: SettingsView()),
         appBar: AppBar(
-          leading: Builder(builder: (context) {
-            return IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined,
-                  color: Theme.of(context).colorScheme.onSurface),
-              onPressed: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) {
-                  return TearsPage(isDlc: widget.tear.image.contains("dlc"));
-                }));
-              },
-            );
-          }),
+          leading: Builder(
+            builder: (context) {
+              return IconButton(
+                icon: Icon(
+                  Icons.arrow_circle_left_outlined,
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return TearsPage(
+                          isDlc: widget.tear.image.contains("dlc"),
+                        );
+                      },
+                    ),
+                  );
+                },
+              );
+            },
+          ),
           automaticallyImplyLeading: false,
           actions: [
             Builder(
@@ -160,21 +175,20 @@ class _TearDetailPageState extends State<TearDetailPage> {
                   ),
                   _space(),
                   Container(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    child: SingleChildScrollView(
+                      child: buildRichText(tear.effect),
+                    ),
+                  ),
+                  if (tear.duration != 0)
+                    Container(
                       padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                       height: MediaQuery.of(context).size.height * 0.2,
                       child: SingleChildScrollView(
-                        child: buildRichText(
-                          tear.effect,
-                        ),
-                      )),
-                  if (tear.duration != 0)
-                    Container(
-                        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                        height: MediaQuery.of(context).size.height * 0.2,
-                        child: SingleChildScrollView(
-                          child:
-                              buildRichText("Lasts ${tear.duration} seconds"),
-                        )),
+                        child: buildRichText("Lasts ${tear.duration} seconds"),
+                      ),
+                    ),
                 ],
               ),
             ),
@@ -185,21 +199,23 @@ class _TearDetailPageState extends State<TearDetailPage> {
                 child: ElevatedButton(
                   onPressed: () {
                     showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                              title: Text('How to get ${tear.name}:'),
-                              content: SingleChildScrollView(
-                                child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(tear.howToFind)),
-                              ),
-                              actions: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: linkWidgets,
-                                ),
-                              ],
-                            ));
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text('How to get ${tear.name}:'),
+                        content: SingleChildScrollView(
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(tear.howToFind),
+                          ),
+                        ),
+                        actions: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: linkWidgets,
+                          ),
+                        ],
+                      ),
+                    );
                   },
                   child: const Text('How to get it'),
                 ),

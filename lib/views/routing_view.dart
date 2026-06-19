@@ -75,55 +75,61 @@ class _RoutingViewState extends State<RoutingView>
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                const WeaponsPage(isDlc: false)),
+                          builder: (context) => const WeaponsPage(isDlc: false),
+                        ),
                       );
                       break;
                     case 'Talismans':
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                const TalismansPage(isDlc: false)),
+                          builder: (context) =>
+                              const TalismansPage(isDlc: false),
+                        ),
                       );
                       break;
                     case 'Armor':
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                const ArmorSetsPage(isDlc: false)),
+                          builder: (context) =>
+                              const ArmorSetsPage(isDlc: false),
+                        ),
                       );
                       break;
                     case 'Ashes of War':
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                const AshesOfWarPage(isDlc: false)),
+                          builder: (context) =>
+                              const AshesOfWarPage(isDlc: false),
+                        ),
                       );
                       break;
                     case 'Cracked Tears':
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const TearsPage(isDlc: false)),
+                          builder: (context) => const TearsPage(isDlc: false),
+                        ),
                       );
                       break;
                     case 'Sorceries':
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                const SorceriesPage(isDlc: false)),
+                          builder: (context) =>
+                              const SorceriesPage(isDlc: false),
+                        ),
                       );
                       break;
                     case 'Incantations':
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                const IncantationsPage(isDlc: false)),
+                          builder: (context) =>
+                              const IncantationsPage(isDlc: false),
+                        ),
                       );
                       break;
                   }
@@ -136,7 +142,7 @@ class _RoutingViewState extends State<RoutingView>
                     'Ashes of War',
                     'Sorceries',
                     'Incantations',
-                    'Cracked Tears'
+                    'Cracked Tears',
                   ].map((String value) {
                     return PopupMenuItem<String>(
                       value: value,
@@ -150,7 +156,8 @@ class _RoutingViewState extends State<RoutingView>
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const HomePage(isDlc: false)),
+                      builder: (context) => const HomePage(isDlc: false),
+                    ),
                   );
                 });
               },
@@ -167,7 +174,7 @@ class _RoutingViewState extends State<RoutingView>
                         colors: const <Color>[
                           Colors.orangeAccent,
                           Colors.yellow,
-                          Colors.red
+                          Colors.red,
                         ],
                         stops: [
                           _controller.value - 1,
@@ -197,56 +204,61 @@ class _RoutingViewState extends State<RoutingView>
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                const WeaponsPage(isDlc: true)),
+                          builder: (context) => const WeaponsPage(isDlc: true),
+                        ),
                       );
                       break;
                     case 'Armor':
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                const ArmorSetsPage(isDlc: true)),
+                          builder: (context) =>
+                              const ArmorSetsPage(isDlc: true),
+                        ),
                       );
                       break;
                     case 'Talismans':
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                const TalismansPage(isDlc: true)),
+                          builder: (context) =>
+                              const TalismansPage(isDlc: true),
+                        ),
                       );
                       break;
                     case 'Ashes of War':
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const AshesOfWarPage(
-                                  isDlc: true,
-                                )),
+                          builder: (context) =>
+                              const AshesOfWarPage(isDlc: true),
+                        ),
                       );
                       break;
                     case 'Cracked Tears':
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const TearsPage(isDlc: true)),
+                          builder: (context) => const TearsPage(isDlc: true),
+                        ),
                       );
                       break;
                     case 'Sorceries':
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                const SorceriesPage(isDlc: true)),
+                          builder: (context) =>
+                              const SorceriesPage(isDlc: true),
+                        ),
                       );
                       break;
                     case 'Incantations':
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                const IncantationsPage(isDlc: true)),
+                          builder: (context) =>
+                              const IncantationsPage(isDlc: true),
+                        ),
                       );
                       break;
                   }
@@ -259,7 +271,7 @@ class _RoutingViewState extends State<RoutingView>
                     'Ashes of War',
                     'Sorceries',
                     'Incantations',
-                    'Cracked Tears'
+                    'Cracked Tears',
                   ].map((String value) {
                     return PopupMenuItem<String>(
                       value: value,
@@ -283,8 +295,9 @@ class _RoutingViewState extends State<RoutingView>
                       content: TextField(
                         controller: controller,
                         keyboardType: TextInputType.number,
-                        decoration:
-                            InputDecoration(hintText: "Enter numeric code"),
+                        decoration: InputDecoration(
+                          hintText: "Enter numeric code",
+                        ),
                       ),
                       actions: <Widget>[
                         TextButton(
@@ -295,8 +308,10 @@ class _RoutingViewState extends State<RoutingView>
                               await prefs.setBool('isErwan', isErwan);
                               Navigator.of(context).pop();
                               setState(() {
-                                Get.snackbar('Erwan',
-                                    'Erwan is now ${isErwan ? "unlocked" : "locked"}');
+                                Get.snackbar(
+                                  'Erwan',
+                                  'Erwan is now ${isErwan ? "unlocked" : "locked"}',
+                                );
                               });
                             } else {
                               Navigator.of(context).pop();
@@ -314,7 +329,8 @@ class _RoutingViewState extends State<RoutingView>
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const HomePage(isDlc: true)),
+                      builder: (context) => const HomePage(isDlc: true),
+                    ),
                   );
                 });
               },

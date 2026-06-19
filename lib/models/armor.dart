@@ -33,9 +33,7 @@ class Armor extends Item {
     required this.damageNegation,
     this.set = '',
     this.passive = '',
-  }) : super(
-          cat: ItemCategory.armor,
-        );
+  }) : super(cat: ItemCategory.armor);
 
   /// Convert this Armor to a Map suitable for Firestore or JSON encoding.
   /// @return Map<String, dynamic> serialised representation.
@@ -70,8 +68,9 @@ class Armor extends Item {
     return Armor(
       name: data!['name'],
       image: data['image'],
-      armorPiece: ArmorPiece.values
-          .firstWhere((e) => e.toString() == 'ArmorPiece.${data['piece']}'),
+      armorPiece: ArmorPiece.values.firstWhere(
+        (e) => e.toString() == 'ArmorPiece.${data['piece']}',
+      ),
       howToFind: data['howToFind'],
       mapLink: data['mapLink'],
       weight: data['weight'],

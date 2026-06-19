@@ -22,9 +22,7 @@ class _TalismanDetailPageState extends State<TalismanDetailPage> {
   /// Small vertical spacer widget.
   /// @return Widget spacer
   Widget _space() {
-    return const SizedBox(
-      height: 10,
-    );
+    return const SizedBox(height: 10);
   }
 
   /// Open a URL using url_launcher.
@@ -50,8 +48,12 @@ class _TalismanDetailPageState extends State<TalismanDetailPage> {
     text.splitMapJoin(
       regExp,
       onMatch: (m) {
-        spans.add(TextSpan(
-            text: m.group(0)!, style: const TextStyle(color: Colors.redAccent)));
+        spans.add(
+          TextSpan(
+            text: m.group(0)!,
+            style: const TextStyle(color: Colors.redAccent),
+          ),
+        );
         return m.group(0)!;
       },
       onNonMatch: (n) {
@@ -71,8 +73,9 @@ class _TalismanDetailPageState extends State<TalismanDetailPage> {
       child: RichText(
         textAlign: TextAlign.center,
         text: TextSpan(
-            style: const TextStyle(fontSize: 20, fontFamily: 'Chiralla'),
-            children: _buildTextSpans(text)),
+          style: const TextStyle(fontSize: 20, fontFamily: 'Chiralla'),
+          children: _buildTextSpans(text),
+        ),
       ),
     );
   }
@@ -84,47 +87,59 @@ class _TalismanDetailPageState extends State<TalismanDetailPage> {
     bool isLinkable = url.isNotEmpty;
     List<Widget> linkWidgets = [];
     if (isLinkable) {
-      linkWidgets.add(ElevatedButton(
-        onPressed: () {
-          _launchURL(url);
-        },
-        child: Text('Open Link'.tr),
-      ));
+      linkWidgets.add(
+        ElevatedButton(
+          onPressed: () {
+            _launchURL(url);
+          },
+          child: Text('Open Link'.tr),
+        ),
+      );
     }
-    linkWidgets.add(TextButton(
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-      child: const Text('Close'),
-    ));
+    linkWidgets.add(
+      TextButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        child: const Text('Close'),
+      ),
+    );
     return PopScope(
       canPop: false,
       onPopInvoked: (result) {
         Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => TalismansPage(
-                isDlc: widget.tal.image.contains("dlc"),
-              ),
-            ));
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                TalismansPage(isDlc: widget.tal.image.contains("dlc")),
+          ),
+        );
       },
       child: Scaffold(
-        endDrawer: const Drawer(
-          child: SettingsView(),
-        ),
+        endDrawer: const Drawer(child: SettingsView()),
         appBar: AppBar(
-          leading: Builder(builder: (context) {
-            return IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined,
-                  color: Theme.of(context).colorScheme.onSurface),
-              onPressed: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) {
-                  return TalismansPage(isDlc: widget.tal.image.contains("dlc"));
-                }));
-              },
-            );
-          }),
+          leading: Builder(
+            builder: (context) {
+              return IconButton(
+                icon: Icon(
+                  Icons.arrow_circle_left_outlined,
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return TalismansPage(
+                          isDlc: widget.tal.image.contains("dlc"),
+                        );
+                      },
+                    ),
+                  );
+                },
+              );
+            },
+          ),
           actions: [
             Builder(
               builder: (context) => IconButton(
@@ -141,9 +156,10 @@ class _TalismanDetailPageState extends State<TalismanDetailPage> {
               child: Text(
                 tal.name.replaceAll("+", "plus ").toUpperCase(),
                 style: const TextStyle(
-                    fontFamily: 'Mantinia',
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold),
+                  fontFamily: 'Mantinia',
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
                 maxLines: 1,
               ),
             ),
@@ -167,24 +183,26 @@ class _TalismanDetailPageState extends State<TalismanDetailPage> {
                   ),
                   _space(),
                   Container(
-                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                      height: MediaQuery.of(context).size.height * 0.2,
-                      child: SingleChildScrollView(
-                        child: buildRichText(
-                          tal.effect,
-                        ),
-                      )),
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    child: SingleChildScrollView(
+                      child: buildRichText(tal.effect),
+                    ),
+                  ),
                   Container(
-                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                      height: MediaQuery.of(context).size.height * 0.25,
-                      child: SingleChildScrollView(
-                        child: Text(
-                          tal.description,
-                          style: const TextStyle(
-                              fontSize: 18, fontStyle: FontStyle.italic),
-                          textAlign: TextAlign.justify,
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    height: MediaQuery.of(context).size.height * 0.25,
+                    child: SingleChildScrollView(
+                      child: Text(
+                        tal.description,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontStyle: FontStyle.italic,
                         ),
-                      )),
+                        textAlign: TextAlign.justify,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -195,21 +213,23 @@ class _TalismanDetailPageState extends State<TalismanDetailPage> {
                 child: ElevatedButton(
                   onPressed: () {
                     showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                              title: Text('How to get ${tal.name}:'),
-                              content: SingleChildScrollView(
-                                child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(tal.howToFind)),
-                              ),
-                              actions: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: linkWidgets,
-                                ),
-                              ],
-                            ));
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text('How to get ${tal.name}:'),
+                        content: SingleChildScrollView(
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(tal.howToFind),
+                          ),
+                        ),
+                        actions: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: linkWidgets,
+                          ),
+                        ],
+                      ),
+                    );
                   },
                   child: const Text('How to get it'),
                 ),

@@ -141,15 +141,19 @@ class _SorceriesPageState extends State<SorceriesPage> {
                 },
               );
             },
-            child: Icon(Icons.sort,
-                color: Theme.of(context).colorScheme.secondaryContainer),
+            child: Icon(
+              Icons.sort,
+              color: Theme.of(context).colorScheme.secondaryContainer,
+            ),
           ),
         ),
         appBar: AppBar(
           leading: Builder(
             builder: (context) => IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined,
-                  color: Theme.of(context).colorScheme.onSurface),
+              icon: Icon(
+                Icons.arrow_circle_left_outlined,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
@@ -216,103 +220,114 @@ class _SorceriesPageState extends State<SorceriesPage> {
                           itemCount: displayedSorceries.length,
                           itemBuilder: (context, index) {
                             return Container(
-                                margin: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .secondaryContainer,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondaryContainer,
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
-                                      offset: const Offset(1, 1),
-                                    ),
-                                  ],
-                                ),
-                                child: CheckboxListTile(
-                                  value: snapshot.data!
-                                      .contains(displayedSorceries[index].name),
-                                  onChanged: (bool? value) async {
-                                    setState(() {
-                                      if (value == true) {
-                                        if (!snapshot.data!.contains(
-                                            displayedSorceries[index].name)) {
-                                          snapshot.data!.add(
-                                              displayedSorceries[index].name);
-                                        }
-                                      } else {
-                                        if (snapshot.data!.contains(
-                                            displayedSorceries[index].name)) {
-                                          snapshot.data!.remove(
-                                              displayedSorceries[index].name);
-                                        }
-                                      }
-                                    });
-                                    if (value!) {
-                                      await db.addUserSorcery(
-                                          displayedSorceries[index].name, id);
-                                    } else {
-                                      await db.removeUserSorcery(
-                                          displayedSorceries[index].name, id);
-                                    }
-                                  },
-                                  title: SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      children: [
-                                        IconButton(
-                                          icon: Icon(
-                                            Icons.info_outline,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onSecondaryContainer,
-                                          ),
-                                          onPressed: () {
-                                            Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    SorceryDetailPage(
-                                                        sorc:
-                                                            displayedSorceries[
-                                                                index]),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                        SizedBox(
-                                          height: 50,
-                                          width: 50,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
-                                            child: Image.asset(
-                                                displayedSorceries[index]
-                                                    .image),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              displayedSorceries[index].name,
-                                              style: const TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                              margin: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.secondaryContainer,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.secondaryContainer,
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: const Offset(1, 1),
                                   ),
-                                ));
+                                ],
+                              ),
+                              child: CheckboxListTile(
+                                value: snapshot.data!.contains(
+                                  displayedSorceries[index].name,
+                                ),
+                                onChanged: (bool? value) async {
+                                  setState(() {
+                                    if (value == true) {
+                                      if (!snapshot.data!.contains(
+                                        displayedSorceries[index].name,
+                                      )) {
+                                        snapshot.data!.add(
+                                          displayedSorceries[index].name,
+                                        );
+                                      }
+                                    } else {
+                                      if (snapshot.data!.contains(
+                                        displayedSorceries[index].name,
+                                      )) {
+                                        snapshot.data!.remove(
+                                          displayedSorceries[index].name,
+                                        );
+                                      }
+                                    }
+                                  });
+                                  if (value!) {
+                                    await db.addUserSorcery(
+                                      displayedSorceries[index].name,
+                                      id,
+                                    );
+                                  } else {
+                                    await db.removeUserSorcery(
+                                      displayedSorceries[index].name,
+                                      id,
+                                    );
+                                  }
+                                },
+                                title: SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    children: [
+                                      IconButton(
+                                        icon: Icon(
+                                          Icons.info_outline,
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.onSecondaryContainer,
+                                        ),
+                                        onPressed: () {
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SorceryDetailPage(
+                                                    sorc:
+                                                        displayedSorceries[index],
+                                                  ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      SizedBox(
+                                        height: 50,
+                                        width: 50,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                            25,
+                                          ),
+                                          child: Image.asset(
+                                            displayedSorceries[index].image,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            displayedSorceries[index].name,
+                                            style: const TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
                           },
                         ),
                       ),
@@ -352,7 +367,7 @@ class _SorceriesPageState extends State<SorceriesPage> {
           SpellType.aura_buff,
           SpellType.body_buff,
           SpellType.unique_buff,
-          SpellType.utility_spell
+          SpellType.utility_spell,
         ];
         displayedSorceries = sorceries;
         displayedSorceries.sort((a, b) {
@@ -395,22 +410,26 @@ class SorceriesSearch extends SearchDelegate<Sorcery> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_circle_left_outlined,
-          color: Theme.of(context).colorScheme.onSurface),
+      icon: Icon(
+        Icons.arrow_circle_left_outlined,
+        color: Theme.of(context).colorScheme.onSurface,
+      ),
       onPressed: () {
         close(
-            context,
-            Sorcery(
-                name: '',
-                image: '',
-                slots: 0,
-                description: '',
-                howToFind: '',
-                mapLink: '',
-                fPCost: 0,
-                element: SpellType.physical,
-                effect: '',
-                requirement: SpellsRequirement()));
+          context,
+          Sorcery(
+            name: '',
+            image: '',
+            slots: 0,
+            description: '',
+            howToFind: '',
+            mapLink: '',
+            fPCost: 0,
+            element: SpellType.physical,
+            effect: '',
+            requirement: SpellsRequirement(),
+          ),
+        );
       },
     );
   }
@@ -432,9 +451,10 @@ class SorceriesSearch extends SearchDelegate<Sorcery> {
     final suggestionList = query.isEmpty
         ? sorceries
         : sorceries
-            .where(
-                (sorc) => sorc.name.toLowerCase().contains(query.toLowerCase()))
-            .toList();
+              .where(
+                (sorc) => sorc.name.toLowerCase().contains(query.toLowerCase()),
+              )
+              .toList();
 
     return _buildSuggestionList(suggestionList);
   }

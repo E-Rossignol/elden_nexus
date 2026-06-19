@@ -95,8 +95,7 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
         floatingActionButton: Opacity(
           opacity: 0.8,
           child: FloatingActionButton(
-            backgroundColor:
-                Theme.of(context).colorScheme.onSecondaryContainer,
+            backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
             onPressed: () {
               showDialog(
                 context: context,
@@ -142,15 +141,19 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
                 },
               );
             },
-            child: Icon(Icons.sort,
-                color: Theme.of(context).colorScheme.secondaryContainer),
+            child: Icon(
+              Icons.sort,
+              color: Theme.of(context).colorScheme.secondaryContainer,
+            ),
           ),
         ),
         appBar: AppBar(
           leading: Builder(
             builder: (context) => IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined,
-                  color: Theme.of(context).colorScheme.onSurface),
+              icon: Icon(
+                Icons.arrow_circle_left_outlined,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
@@ -217,101 +220,113 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
                           itemCount: displayedAshes.length,
                           itemBuilder: (context, index) {
                             return Container(
-                                margin: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .secondaryContainer,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondaryContainer,
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
-                                      offset: const Offset(1, 1),
-                                    ),
-                                  ],
-                                ),
-                                child: CheckboxListTile(
-                                  value: snapshot.data!
-                                      .contains(displayedAshes[index].name),
-                                  onChanged: (bool? value) async {
-                                    setState(() {
-                                      if (value == true) {
-                                        if (!snapshot.data!.contains(
-                                            displayedAshes[index].name)) {
-                                          snapshot.data!
-                                              .add(displayedAshes[index].name);
-                                        }
-                                      } else {
-                                        if (snapshot.data!.contains(
-                                            displayedAshes[index].name)) {
-                                          snapshot.data!.remove(
-                                              displayedAshes[index].name);
-                                        }
-                                      }
-                                    });
-                                    if (value!) {
-                                      await db.addUserAsh(
-                                          displayedAshes[index].name, id);
-                                    } else {
-                                      await db.removeUserAsh(
-                                          displayedAshes[index].name, id);
-                                    }
-                                  },
-                                  title: SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      children: [
-                                        IconButton(
-                                          icon: Icon(
-                                            Icons.info_outline,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onSecondaryContainer,
-                                          ),
-                                          onPressed: () {
-                                            Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    AshOfWarDetailPage(
-                                                        ash: displayedAshes[
-                                                            index]),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                        SizedBox(
-                                          height: 50,
-                                          width: 50,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
-                                            child: Image.asset(
-                                                displayedAshes[index].image),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              displayedAshes[index].name,
-                                              style: const TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                              margin: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.secondaryContainer,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.secondaryContainer,
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: const Offset(1, 1),
                                   ),
-                                ));
+                                ],
+                              ),
+                              child: CheckboxListTile(
+                                value: snapshot.data!.contains(
+                                  displayedAshes[index].name,
+                                ),
+                                onChanged: (bool? value) async {
+                                  setState(() {
+                                    if (value == true) {
+                                      if (!snapshot.data!.contains(
+                                        displayedAshes[index].name,
+                                      )) {
+                                        snapshot.data!.add(
+                                          displayedAshes[index].name,
+                                        );
+                                      }
+                                    } else {
+                                      if (snapshot.data!.contains(
+                                        displayedAshes[index].name,
+                                      )) {
+                                        snapshot.data!.remove(
+                                          displayedAshes[index].name,
+                                        );
+                                      }
+                                    }
+                                  });
+                                  if (value!) {
+                                    await db.addUserAsh(
+                                      displayedAshes[index].name,
+                                      id,
+                                    );
+                                  } else {
+                                    await db.removeUserAsh(
+                                      displayedAshes[index].name,
+                                      id,
+                                    );
+                                  }
+                                },
+                                title: SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    children: [
+                                      IconButton(
+                                        icon: Icon(
+                                          Icons.info_outline,
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.onSecondaryContainer,
+                                        ),
+                                        onPressed: () {
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AshOfWarDetailPage(
+                                                    ash: displayedAshes[index],
+                                                  ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      SizedBox(
+                                        height: 50,
+                                        width: 50,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                            25,
+                                          ),
+                                          child: Image.asset(
+                                            displayedAshes[index].image,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            displayedAshes[index].name,
+                                            style: const TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
                           },
                         ),
                       ),
@@ -343,8 +358,9 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
       } else if (option == SortOption.notFound) {
         futureFoundAshes.then((foundAshes) {
           setState(() {
-            displayedAshes =
-                ashes.where((ash) => !foundAshes.contains(ash.name)).toList();
+            displayedAshes = ashes
+                .where((ash) => !foundAshes.contains(ash.name))
+                .toList();
             displayedAshes.sort((a, b) => a.name.compareTo(b.name));
           });
         });
@@ -362,7 +378,7 @@ class _AshesOfWarPageState extends State<AshesOfWarPage> {
           "Blood",
           "Cold",
           "Occult",
-          "Standard"
+          "Standard",
         ];
         displayedAshes = ashes;
         displayedAshes.sort((a, b) => a.name.compareTo(b.name));
@@ -397,19 +413,23 @@ class AshesSearch extends SearchDelegate<AshOfWar> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_circle_left_outlined,
-          color: Theme.of(context).colorScheme.onSurface),
+      icon: Icon(
+        Icons.arrow_circle_left_outlined,
+        color: Theme.of(context).colorScheme.onSurface,
+      ),
       onPressed: () {
         close(
-            context,
-            AshOfWar(
-                name: '',
-                image: '',
-                description: '',
-                howToFind: '',
-                mapLink: '',
-                usableOn: '',
-                affinity: ''));
+          context,
+          AshOfWar(
+            name: '',
+            image: '',
+            description: '',
+            howToFind: '',
+            mapLink: '',
+            usableOn: '',
+            affinity: '',
+          ),
+        );
       },
     );
   }
@@ -431,9 +451,10 @@ class AshesSearch extends SearchDelegate<AshOfWar> {
     final suggestionList = query.isEmpty
         ? ashes
         : ashes
-            .where(
-                (ash) => ash.name.toLowerCase().contains(query.toLowerCase()))
-            .toList();
+              .where(
+                (ash) => ash.name.toLowerCase().contains(query.toLowerCase()),
+              )
+              .toList();
 
     return _buildSuggestionList(suggestionList);
   }

@@ -27,28 +27,29 @@ class _LeaveAppComponentState extends State<LeaveAppComponent> {
       ),
       onTap: () {
         showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: Text('Exit App'),
-                content: Text('Are you sure you want to exit the app?'),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      // Attempt to close the app (platform-specific behavior).
-                      SystemNavigator.pop();
-                    },
-                    child: Text('Yes'),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text('No'),
-                  ),
-                ],
-              );
-            });
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Exit App'),
+              content: Text('Are you sure you want to exit the app?'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    // Attempt to close the app (platform-specific behavior).
+                    SystemNavigator.pop();
+                  },
+                  child: Text('Yes'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('No'),
+                ),
+              ],
+            );
+          },
+        );
       },
     );
   }

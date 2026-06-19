@@ -18,8 +18,12 @@ class Helper {
     const chars =
         'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     Random rnd = Random();
-    return String.fromCharCodes(Iterable.generate(
-        length, (_) => chars.codeUnitAt(rnd.nextInt(chars.length))));
+    return String.fromCharCodes(
+      Iterable.generate(
+        length,
+        (_) => chars.codeUnitAt(rnd.nextInt(chars.length)),
+      ),
+    );
   }
 
   /// Convert WeaponCategory enum to localized display string.
@@ -138,12 +142,17 @@ class Helper {
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
     // Encrypt the device id using AES with fixed key/iv from original code.
     await storage.write(
-        key: 'id',
-        value: encrypt.Encrypter(
-                encrypt.AES(encrypt.Key.fromUtf8('thisIsASecretKey')))
-            .encrypt(androidInfo.id,
-                iv: encrypt.IV.fromUtf8('thisIsAnIVForAES'))
-            .base64);
+      key: 'id',
+      value:
+          encrypt.Encrypter(
+                encrypt.AES(encrypt.Key.fromUtf8('thisIsASecretKey')),
+              )
+              .encrypt(
+                androidInfo.id,
+                iv: encrypt.IV.fromUtf8('thisIsAnIVForAES'),
+              )
+              .base64,
+    );
   }
 
   /// Ensure a token is stored in secure storage.
@@ -180,7 +189,8 @@ class Helper {
   static Color darkenColor(Color color, [double amount = .08]) {
     final hsl = HSLColor.fromColor(color);
     final hslDark = hsl.withLightness(
-        (hsl.lightness <= amount) ? 0.0 : hsl.lightness - amount);
+      (hsl.lightness <= amount) ? 0.0 : hsl.lightness - amount,
+    );
 
     return hslDark.toColor();
   }

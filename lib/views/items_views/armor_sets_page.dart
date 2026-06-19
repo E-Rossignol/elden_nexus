@@ -100,8 +100,7 @@ class _ArmorSetsPageState extends State<ArmorSetsPage> {
         floatingActionButton: Opacity(
           opacity: 0.8,
           child: FloatingActionButton(
-            backgroundColor:
-                Theme.of(context).colorScheme.onSecondaryContainer,
+            backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
             onPressed: () {
               showDialog(
                 context: context,
@@ -137,15 +136,19 @@ class _ArmorSetsPageState extends State<ArmorSetsPage> {
                 },
               );
             },
-            child: Icon(Icons.sort,
-                color: Theme.of(context).colorScheme.secondaryContainer),
+            child: Icon(
+              Icons.sort,
+              color: Theme.of(context).colorScheme.secondaryContainer,
+            ),
           ),
         ),
         appBar: AppBar(
           leading: Builder(
             builder: (context) => IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined,
-                  color: Theme.of(context).colorScheme.onSurface),
+              icon: Icon(
+                Icons.arrow_circle_left_outlined,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
@@ -169,10 +172,13 @@ class _ArmorSetsPageState extends State<ArmorSetsPage> {
                     ),
                   );
                 } else {
-                  return Text("",
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurface,
-                          fontSize: 20));
+                  return Text(
+                    "",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontSize: 20,
+                    ),
+                  );
                 }
               },
             ),
@@ -211,86 +217,89 @@ class _ArmorSetsPageState extends State<ArmorSetsPage> {
                     itemCount: displayedArmors.length,
                     itemBuilder: (context, index) {
                       return Container(
-                          margin: const EdgeInsets.all(15),
-                          decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .secondaryContainer,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset: const Offset(1, 1),
-                              ),
-                            ],
-                          ),
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ArmorSetDetailPage(
-                                        armorSet: displayedArmors[index]),
+                        margin: const EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.secondaryContainer,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.secondaryContainer,
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: const Offset(1, 1),
+                            ),
+                          ],
+                        ),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ArmorSetDetailPage(
+                                    armorSet: displayedArmors[index],
                                   ),
-                                );
-                              },
-                              child: SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.08,
-                                child: Row(
-                                  children: [
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.info_outline,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSecondaryContainer,
-                                      ),
-                                      onPressed: () {
-                                        Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                ArmorSetDetailPage(
-                                                    armorSet:
-                                                        displayedArmors[index]),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                    const SizedBox(width: 30),
-                                    SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.08,
-                                      width:
-                                          MediaQuery.of(context).size.height *
-                                              0.08,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(25),
-                                        child: Image.asset(
-                                            displayedArmors[index].image),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 30),
-                                    Text(
-                                      displayedArmors[index].name,
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
                                 ),
+                              );
+                            },
+                            child: SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.08,
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.info_outline,
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.onSecondaryContainer,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ArmorSetDetailPage(
+                                                armorSet:
+                                                    displayedArmors[index],
+                                              ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                  const SizedBox(width: 30),
+                                  SizedBox(
+                                    height:
+                                        MediaQuery.of(context).size.height *
+                                        0.08,
+                                    width:
+                                        MediaQuery.of(context).size.height *
+                                        0.08,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(25),
+                                      child: Image.asset(
+                                        displayedArmors[index].image,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 30),
+                                  Text(
+                                    displayedArmors[index].name,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ));
+                          ),
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -342,16 +351,20 @@ class armorsSearch extends SearchDelegate<ArmorSet> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_circle_left_outlined,
-          color: Theme.of(context).colorScheme.onSurface),
+      icon: Icon(
+        Icons.arrow_circle_left_outlined,
+        color: Theme.of(context).colorScheme.onSurface,
+      ),
       onPressed: () {
         close(
-            context,
-            ArmorSet(
-                name: "",
-                image: '',
-                damageNegation: DamageNegation(),
-                weight: -1));
+          context,
+          ArmorSet(
+            name: "",
+            image: '',
+            damageNegation: DamageNegation(),
+            weight: -1,
+          ),
+        );
       },
     );
   }
@@ -360,7 +373,8 @@ class armorsSearch extends SearchDelegate<ArmorSet> {
   Widget buildResults(BuildContext context) {
     final results = armors
         .where(
-            (armor) => armor.name.toLowerCase().contains(query.toLowerCase()))
+          (armor) => armor.name.toLowerCase().contains(query.toLowerCase()),
+        )
         .toList();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       onArmorsSelected(results);
@@ -374,9 +388,11 @@ class armorsSearch extends SearchDelegate<ArmorSet> {
     final suggestionList = query.isEmpty
         ? armors
         : armors
-            .where((armor) =>
-                armor.name.toLowerCase().contains(query.toLowerCase()))
-            .toList();
+              .where(
+                (armor) =>
+                    armor.name.toLowerCase().contains(query.toLowerCase()),
+              )
+              .toList();
 
     return _buildSuggestionList(suggestionList);
   }

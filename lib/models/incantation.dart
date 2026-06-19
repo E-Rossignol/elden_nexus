@@ -35,9 +35,7 @@ class Incantation extends Item {
     required this.element,
     required this.effect,
     required this.requirement,
-  }) : super(
-          cat: ItemCategory.incantation,
-        );
+  }) : super(cat: ItemCategory.incantation);
 
   /// Serialise to Map for storage.
   /// @return Map<String, dynamic> serialised representation.
@@ -72,8 +70,9 @@ class Incantation extends Item {
       howToFind: data?['howToFind'],
       mapLink: data?['mapLink'],
       fPCost: data?['fPCost'],
-      element: SpellType.values
-          .firstWhere((e) => e.toString() == 'SpellType.${data?['element']}'),
+      element: SpellType.values.firstWhere(
+        (e) => e.toString() == 'SpellType.${data?['element']}',
+      ),
       effect: data?['effect'],
       requirement: SpellsRequirement(
         int: data?['requirement']['int'] ?? 0,

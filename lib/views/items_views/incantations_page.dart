@@ -141,15 +141,19 @@ class _IncantationsPageState extends State<IncantationsPage> {
                 },
               );
             },
-            child: Icon(Icons.sort,
-                color: Theme.of(context).colorScheme.secondary),
+            child: Icon(
+              Icons.sort,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
           ),
         ),
         appBar: AppBar(
           leading: Builder(
             builder: (context) => IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined,
-                  color: Theme.of(context).colorScheme.onSurface),
+              icon: Icon(
+                Icons.arrow_circle_left_outlined,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
@@ -216,102 +220,114 @@ class _IncantationsPageState extends State<IncantationsPage> {
                           itemCount: displayedIncants.length,
                           itemBuilder: (context, index) {
                             return Container(
-                                margin: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .secondaryContainer,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondaryContainer,
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
-                                      offset: const Offset(1, 1),
-                                    ),
-                                  ],
-                                ),
-                                child: CheckboxListTile(
-                                  value: snapshot.data!
-                                      .contains(displayedIncants[index].name),
-                                  onChanged: (bool? value) async {
-                                    setState(() {
-                                      if (value == true) {
-                                        if (!snapshot.data!.contains(
-                                            displayedIncants[index].name)) {
-                                          snapshot.data!.add(
-                                              displayedIncants[index].name);
-                                        }
-                                      } else {
-                                        if (snapshot.data!.contains(
-                                            displayedIncants[index].name)) {
-                                          snapshot.data!.remove(
-                                              displayedIncants[index].name);
-                                        }
-                                      }
-                                    });
-                                    if (value!) {
-                                      await db.addUserIncantation(
-                                          displayedIncants[index].name, id);
-                                    } else {
-                                      await db.removeUserIncantation(
-                                          displayedIncants[index].name, id);
-                                    }
-                                  },
-                                  title: SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      children: [
-                                        IconButton(
-                                          icon: Icon(
-                                            Icons.info_outline,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onSecondaryContainer,
-                                          ),
-                                          onPressed: () {
-                                            Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    IncantationDetailPage(
-                                                        incant:
-                                                            displayedIncants[
-                                                                index]),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                        SizedBox(
-                                          height: 50,
-                                          width: 50,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
-                                            child: Image.asset(
-                                                displayedIncants[index].image),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              displayedIncants[index].name,
-                                              style: const TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                              margin: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.secondaryContainer,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.secondaryContainer,
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: const Offset(1, 1),
                                   ),
-                                ));
+                                ],
+                              ),
+                              child: CheckboxListTile(
+                                value: snapshot.data!.contains(
+                                  displayedIncants[index].name,
+                                ),
+                                onChanged: (bool? value) async {
+                                  setState(() {
+                                    if (value == true) {
+                                      if (!snapshot.data!.contains(
+                                        displayedIncants[index].name,
+                                      )) {
+                                        snapshot.data!.add(
+                                          displayedIncants[index].name,
+                                        );
+                                      }
+                                    } else {
+                                      if (snapshot.data!.contains(
+                                        displayedIncants[index].name,
+                                      )) {
+                                        snapshot.data!.remove(
+                                          displayedIncants[index].name,
+                                        );
+                                      }
+                                    }
+                                  });
+                                  if (value!) {
+                                    await db.addUserIncantation(
+                                      displayedIncants[index].name,
+                                      id,
+                                    );
+                                  } else {
+                                    await db.removeUserIncantation(
+                                      displayedIncants[index].name,
+                                      id,
+                                    );
+                                  }
+                                },
+                                title: SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    children: [
+                                      IconButton(
+                                        icon: Icon(
+                                          Icons.info_outline,
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.onSecondaryContainer,
+                                        ),
+                                        onPressed: () {
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  IncantationDetailPage(
+                                                    incant:
+                                                        displayedIncants[index],
+                                                  ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      SizedBox(
+                                        height: 50,
+                                        width: 50,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                            25,
+                                          ),
+                                          child: Image.asset(
+                                            displayedIncants[index].image,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            displayedIncants[index].name,
+                                            style: const TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
                           },
                         ),
                       ),
@@ -360,7 +376,7 @@ class _IncantationsPageState extends State<IncantationsPage> {
           SpellType.aura_buff,
           SpellType.body_buff,
           SpellType.unique_buff,
-          SpellType.utility_spell
+          SpellType.utility_spell,
         ];
         displayedIncants = incants;
         displayedIncants.sort((a, b) {
@@ -394,22 +410,26 @@ class IncantsSearch extends SearchDelegate<Incantation> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_circle_left_outlined,
-          color: Theme.of(context).colorScheme.onSurface),
+      icon: Icon(
+        Icons.arrow_circle_left_outlined,
+        color: Theme.of(context).colorScheme.onSurface,
+      ),
       onPressed: () {
         close(
-            context,
-            Incantation(
-                name: '',
-                image: '',
-                slots: 0,
-                description: '',
-                howToFind: '',
-                mapLink: '',
-                fPCost: 0,
-                element: SpellType.physical,
-                effect: '',
-                requirement: SpellsRequirement()));
+          context,
+          Incantation(
+            name: '',
+            image: '',
+            slots: 0,
+            description: '',
+            howToFind: '',
+            mapLink: '',
+            fPCost: 0,
+            element: SpellType.physical,
+            effect: '',
+            requirement: SpellsRequirement(),
+          ),
+        );
       },
     );
   }
@@ -431,9 +451,10 @@ class IncantsSearch extends SearchDelegate<Incantation> {
     final suggestionList = query.isEmpty
         ? incants
         : incants
-            .where(
-                (inc) => inc.name.toLowerCase().contains(query.toLowerCase()))
-            .toList();
+              .where(
+                (inc) => inc.name.toLowerCase().contains(query.toLowerCase()),
+              )
+              .toList();
 
     return _buildSuggestionList(suggestionList);
   }

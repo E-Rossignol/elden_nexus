@@ -27,8 +27,9 @@ class _ChangeLanguageComponent extends State<ChangeLanguageComponent> {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(
-          color: Theme.of(context).colorScheme.onPrimaryContainer,
-          Icons.language),
+        color: Theme.of(context).colorScheme.onPrimaryContainer,
+        Icons.language,
+      ),
       title: Text(
         'languageChange'.tr,
         style: TextStyle(
@@ -48,115 +49,113 @@ class _ChangeLanguageComponent extends State<ChangeLanguageComponent> {
 /// @param locale List of available locales (see _ChangeLanguageComponent.locale).
 void buildDialog(BuildContext context, List locale) {
   showDialog(
-      context: context,
-      builder: (builder) {
-        return AlertDialog(
-          title: Text(
-            'languageChange'.tr,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onPrimaryContainer,
+    context: context,
+    builder: (builder) {
+      return AlertDialog(
+        title: Text(
+          'languageChange'.tr,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onPrimaryContainer,
+          ),
+        ),
+        content: SizedBox(
+          width: double.minPositive,
+          child: ListView.separated(
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GestureDetector(
+                  onTap: () {
+                    if (locale[index]['name'] != "English") {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text(
+                              'languageChange'.tr,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onPrimaryContainer,
+                              ),
+                            ),
+                            content: Text(
+                              'Be careful, other languages than English are not fully implemented yet. Do you want to continue?',
+                              style: TextStyle(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onPrimaryContainer,
+                              ),
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  _updateLanguage(locale[index]['locale']);
+                                },
+                                child: Text(
+                                  'Yes',
+                                  style: TextStyle(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onPrimaryContainer,
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text(
+                                  'close'.tr,
+                                  style: TextStyle(
+                                    color: Theme.of(context).colorScheme.error,
+                                  ),
+                                ),
+                              ),
+                            ],
+                            actionsAlignment: MainAxisAlignment.end,
+                          );
+                        },
+                      );
+                    } else {
+                      _updateLanguage(locale[index]['locale']);
+                    }
+                  },
+                  child: Text(
+                    locale[index]['name'],
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              );
+            },
+            separatorBuilder: (context, index) {
+              return const Divider();
+            },
+            itemCount: locale.length,
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              'close'.tr,
+              style: TextStyle(color: Theme.of(context).colorScheme.error),
             ),
           ),
-          content: SizedBox(
-              width: double.minPositive,
-              child: ListView.separated(
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: GestureDetector(
-                          onTap: () {
-                            if (locale[index]['name'] != "English") {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: Text(
-                                        'languageChange'.tr,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onPrimaryContainer,
-                                        ),
-                                      ),
-                                      content: Text(
-                                        'Be careful, other languages than English are not fully implemented yet. Do you want to continue?',
-                                        style: TextStyle(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onPrimaryContainer,
-                                        ),
-                                      ),
-                                      actions: <Widget>[
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                            _updateLanguage(
-                                                locale[index]['locale']);
-                                          },
-                                          child: Text(
-                                            'Yes',
-                                            style: TextStyle(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .onPrimaryContainer,
-                                            ),
-                                          ),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: Text(
-                                            'close'.tr,
-                                            style: TextStyle(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .error,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                      actionsAlignment: MainAxisAlignment.end,
-                                    );
-                                  });
-                            } else {
-                              _updateLanguage(locale[index]['locale']);
-                            }
-                          },
-                          child: Text(
-                            locale[index]['name'],
-                            style: TextStyle(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onPrimaryContainer,
-                            ),
-                            textAlign: TextAlign.center,
-                          )),
-                    );
-                  },
-                  separatorBuilder: (context, index) {
-                    return const Divider();
-                  },
-                  itemCount: locale.length)),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                'close'.tr,
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.error,
-                ),
-              ),
-            ),
-          ],
-          actionsAlignment: MainAxisAlignment.end,
-        );
-      });
+        ],
+        actionsAlignment: MainAxisAlignment.end,
+      );
+    },
+  );
 }
 
 /// Update application locale using Get.

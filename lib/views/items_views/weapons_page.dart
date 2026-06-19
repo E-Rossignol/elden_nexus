@@ -165,8 +165,7 @@ class _WeaponsPageState extends State<WeaponsPage> {
                                         selectedWeaponCategory = option;
                                         filterWeaponsByCategory(option);
                                       });
-                                      Navigator.of(context)
-                                          .pop();
+                                      Navigator.of(context).pop();
                                     },
                                   ),
                                 );
@@ -180,15 +179,19 @@ class _WeaponsPageState extends State<WeaponsPage> {
                 },
               );
             },
-            child: Icon(Icons.sort,
-                color: Theme.of(context).colorScheme.secondaryContainer),
+            child: Icon(
+              Icons.sort,
+              color: Theme.of(context).colorScheme.secondaryContainer,
+            ),
           ),
         ),
         appBar: AppBar(
           leading: Builder(
             builder: (context) => IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined,
-                  color: Theme.of(context).colorScheme.onSurface),
+              icon: Icon(
+                Icons.arrow_circle_left_outlined,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
@@ -255,102 +258,114 @@ class _WeaponsPageState extends State<WeaponsPage> {
                           itemCount: displayedWeapons.length,
                           itemBuilder: (context, index) {
                             return Container(
-                                margin: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .secondaryContainer,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondaryContainer,
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
-                                      offset: const Offset(1, 1),
-                                    ),
-                                  ],
-                                ),
-                                child: CheckboxListTile(
-                                  value: snapshot.data!
-                                      .contains(displayedWeapons[index].name),
-                                  onChanged: (bool? value) async {
-                                    setState(() {
-                                      if (value == true) {
-                                        if (!snapshot.data!.contains(
-                                            displayedWeapons[index].name)) {
-                                          snapshot.data!.add(
-                                              displayedWeapons[index].name);
-                                        }
-                                      } else {
-                                        if (snapshot.data!.contains(
-                                            displayedWeapons[index].name)) {
-                                          snapshot.data!.remove(
-                                              displayedWeapons[index].name);
-                                        }
-                                      }
-                                    });
-                                    if (value!) {
-                                      await db.addUserWeapon(
-                                          displayedWeapons[index].name, id);
-                                    } else {
-                                      await db.removeUserWeapon(
-                                          displayedWeapons[index].name, id);
-                                    }
-                                  },
-                                  title: SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      children: [
-                                        IconButton(
-                                          icon: Icon(
-                                            Icons.info_outline,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onSecondaryContainer,
-                                          ),
-                                          onPressed: () {
-                                            Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    WeaponDetailPage(
-                                                        weapon:
-                                                            displayedWeapons[
-                                                                index]),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                        SizedBox(
-                                          height: 50,
-                                          width: 50,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
-                                            child: Image.asset(
-                                                displayedWeapons[index].image),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              displayedWeapons[index].name,
-                                              style: const TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                              margin: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.secondaryContainer,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.secondaryContainer,
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: const Offset(1, 1),
                                   ),
-                                ));
+                                ],
+                              ),
+                              child: CheckboxListTile(
+                                value: snapshot.data!.contains(
+                                  displayedWeapons[index].name,
+                                ),
+                                onChanged: (bool? value) async {
+                                  setState(() {
+                                    if (value == true) {
+                                      if (!snapshot.data!.contains(
+                                        displayedWeapons[index].name,
+                                      )) {
+                                        snapshot.data!.add(
+                                          displayedWeapons[index].name,
+                                        );
+                                      }
+                                    } else {
+                                      if (snapshot.data!.contains(
+                                        displayedWeapons[index].name,
+                                      )) {
+                                        snapshot.data!.remove(
+                                          displayedWeapons[index].name,
+                                        );
+                                      }
+                                    }
+                                  });
+                                  if (value!) {
+                                    await db.addUserWeapon(
+                                      displayedWeapons[index].name,
+                                      id,
+                                    );
+                                  } else {
+                                    await db.removeUserWeapon(
+                                      displayedWeapons[index].name,
+                                      id,
+                                    );
+                                  }
+                                },
+                                title: SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    children: [
+                                      IconButton(
+                                        icon: Icon(
+                                          Icons.info_outline,
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.onSecondaryContainer,
+                                        ),
+                                        onPressed: () {
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  WeaponDetailPage(
+                                                    weapon:
+                                                        displayedWeapons[index],
+                                                  ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      SizedBox(
+                                        height: 50,
+                                        width: 50,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                            25,
+                                          ),
+                                          child: Image.asset(
+                                            displayedWeapons[index].image,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            displayedWeapons[index].name,
+                                            style: const TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
                           },
                         ),
                       ),
@@ -416,7 +431,7 @@ class _WeaponsPageState extends State<WeaponsPage> {
       WeaponCategory.small_shield,
       WeaponCategory.medium_shield,
       WeaponCategory.greatshield,
-      WeaponCategory.thrusting_shield
+      WeaponCategory.thrusting_shield,
     ];
     setState(() {
       if (option == SortOption.category) {
@@ -493,23 +508,27 @@ class WeaponSearch extends SearchDelegate<Weapon> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_circle_left_outlined,
-          color: Theme.of(context).colorScheme.onSurface),
+      icon: Icon(
+        Icons.arrow_circle_left_outlined,
+        color: Theme.of(context).colorScheme.onSurface,
+      ),
       onPressed: () {
         close(
-            context,
-            Weapon(
-                name: '',
-                image: '',
-                weaponCategory: WeaponCategory.axe,
-                howToFind: '',
-                scaling: Scaling(),
-                requirements: Requirement(),
-                weight: -1,
-                isSomber: false,
-                damages: Damage(),
-                ashOfWar: "",
-                mapLink: ''));
+          context,
+          Weapon(
+            name: '',
+            image: '',
+            weaponCategory: WeaponCategory.axe,
+            howToFind: '',
+            scaling: Scaling(),
+            requirements: Requirement(),
+            weight: -1,
+            isSomber: false,
+            damages: Damage(),
+            ashOfWar: "",
+            mapLink: '',
+          ),
+        );
       },
     );
   }
@@ -518,7 +537,8 @@ class WeaponSearch extends SearchDelegate<Weapon> {
   Widget buildResults(BuildContext context) {
     final results = weapons
         .where(
-            (weapon) => weapon.name.toLowerCase().contains(query.toLowerCase()))
+          (weapon) => weapon.name.toLowerCase().contains(query.toLowerCase()),
+        )
         .toList();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       onWeaponsSelected(results);
@@ -532,9 +552,11 @@ class WeaponSearch extends SearchDelegate<Weapon> {
     final suggestionList = query.isEmpty
         ? weapons
         : weapons
-            .where((weapon) =>
-                weapon.name.toLowerCase().contains(query.toLowerCase()))
-            .toList();
+              .where(
+                (weapon) =>
+                    weapon.name.toLowerCase().contains(query.toLowerCase()),
+              )
+              .toList();
 
     return _buildSuggestionList(suggestionList);
   }

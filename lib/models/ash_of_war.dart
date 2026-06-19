@@ -18,6 +18,7 @@ class AshOfWar extends Item {
   late String mapLink;
   late String affinity;
   late String usableOn;
+
   /// Create an AshOfWar instance.
   AshOfWar({
     required super.name,
@@ -27,9 +28,7 @@ class AshOfWar extends Item {
     required this.mapLink,
     required this.affinity,
     required this.usableOn,
-  }) : super(
-          cat: ItemCategory.ashOfWar,
-        );
+  }) : super(cat: ItemCategory.ashOfWar);
 
   /// Create from a Map (e.g. Firestore document).
   /// @param data Map<String, dynamic>? source data.

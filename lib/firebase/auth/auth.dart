@@ -21,10 +21,14 @@ class Auth {
   /// @param email The user's email.
   /// @param password The user's password.
   /// @return Future<void>
-  Future<void> signInWithEmailAndPassword(
-      {required String email, required String password}) async {
+  Future<void> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
     await _firebaseAuth.signInWithEmailAndPassword(
-        email: email, password: password);
+      email: email,
+      password: password,
+    );
   }
 
   /// Create a user with email and password.
@@ -32,10 +36,14 @@ class Auth {
   /// @param email The user's email.
   /// @param password The user's password.
   /// @return Future<void>
-  Future<void> createUserWithEmailAndPassword(
-      {required String email, required String password}) async {
+  Future<void> createUserWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
     await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email, password: password);
+      email: email,
+      password: password,
+    );
   }
 
   /// Sign in using provided AuthCredential (e.g., OAuth).

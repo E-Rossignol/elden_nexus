@@ -45,9 +45,7 @@ class Weapon extends Item {
     required this.damages,
     this.status = const {},
     this.passive = '',
-  }) : super(
-          cat: ItemCategory.weapon,
-        );
+  }) : super(cat: ItemCategory.weapon);
 
   /// Serialise to Map for storage.
   /// @return Map<String, dynamic> serialised representation.
@@ -102,15 +100,18 @@ class Weapon extends Item {
       final parts = statusStr.split(' ');
       mapStatus = {
         StatusEffect.values.firstWhere(
-                (e) => e.toString() == 'StatusEffect.${parts[0]}'):
-            double.parse(parts[1])
+          (e) => e.toString() == 'StatusEffect.${parts[0]}',
+        ): double.parse(
+          parts[1],
+        ),
       };
     }
     return Weapon(
       name: data['name'],
       image: data['image'],
       weaponCategory: WeaponCategory.values.firstWhere(
-          (e) => e.toString() == 'WeaponCategory.${data['category']}'),
+        (e) => e.toString() == 'WeaponCategory.${data['category']}',
+      ),
       howToFind: data['howToFind'],
       requirements: Requirement(
         str: data['requirements']['str'] ?? 0,
@@ -154,12 +155,13 @@ class Scaling {
   String arc;
 
   /// Create a Scaling instance.
-  Scaling(
-      {this.str = '-',
-      this.dex = '-',
-      this.int = '-',
-      this.fai = '-',
-      this.arc = '-'});
+  Scaling({
+    this.str = '-',
+    this.dex = '-',
+    this.int = '-',
+    this.fai = '-',
+    this.arc = '-',
+  });
 }
 
 /// Damage breakdown for a weapon.

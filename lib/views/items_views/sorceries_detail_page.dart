@@ -22,10 +22,7 @@ class SorceryDetailPage extends StatefulWidget {
 /// State for SorceryDetailPage.
 class _SorceryDetailPageState extends State<SorceryDetailPage> {
   Widget _space() {
-    return const SizedBox(
-      height: 20,
-      width: 10,
-    );
+    return const SizedBox(height: 20, width: 10);
   }
 
   /// Launch URL externally.
@@ -88,49 +85,60 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
     // Construct dialog actions (open link + close).
     List<Widget> linkWidgets = [];
     if (isLinkable) {
-      linkWidgets.add(ElevatedButton(
-        onPressed: () {
-          _launchURL(url);
-        },
-        child: Text('Open Link'.tr),
-      ));
+      linkWidgets.add(
+        ElevatedButton(
+          onPressed: () {
+            _launchURL(url);
+          },
+          child: Text('Open Link'.tr),
+        ),
+      );
     }
-    linkWidgets.add(TextButton(
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-      child: const Text('Close'),
-    ));
+    linkWidgets.add(
+      TextButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        child: const Text('Close'),
+      ),
+    );
 
     return PopScope(
       canPop: false,
       onPopInvoked: (result) {
         Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SorceriesPage(
-                isDlc: widget.sorc.image.contains("dlc"),
-              ),
-            ));
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                SorceriesPage(isDlc: widget.sorc.image.contains("dlc")),
+          ),
+        );
       },
       child: Scaffold(
-        endDrawer: const Drawer(
-          child: SettingsView(),
-        ),
+        endDrawer: const Drawer(child: SettingsView()),
         appBar: AppBar(
-          leading: Builder(builder: (context) {
-            return IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined,
-                  color: Theme.of(context).colorScheme.onSurface),
-              onPressed: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) {
-                  return SorceriesPage(
-                      isDlc: widget.sorc.image.contains("dlc"));
-                }));
-              },
-            );
-          }),
+          leading: Builder(
+            builder: (context) {
+              return IconButton(
+                icon: Icon(
+                  Icons.arrow_circle_left_outlined,
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return SorceriesPage(
+                          isDlc: widget.sorc.image.contains("dlc"),
+                        );
+                      },
+                    ),
+                  );
+                },
+              );
+            },
+          ),
           automaticallyImplyLeading: false,
           actions: [
             Builder(
@@ -166,234 +174,286 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
                     ),
                   ),
                   SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.25,
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      child: Column(
-                        children: [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              fpCost,
-                              style: const TextStyle(
-                                  fontSize: 15,
-                                  fontStyle: FontStyle.italic,
-                                  fontFamily: 'Chiralla'),
-                              textAlign: TextAlign.left,
+                    height: MediaQuery.of(context).size.height * 0.25,
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            fpCost,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              fontStyle: FontStyle.italic,
+                              fontFamily: 'Chiralla',
                             ),
+                            textAlign: TextAlign.left,
                           ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              slots,
-                              style: const TextStyle(
-                                  fontSize: 15,
-                                  fontStyle: FontStyle.italic,
-                                  fontFamily: 'Chiralla'),
-                              textAlign: TextAlign.left,
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            slots,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              fontStyle: FontStyle.italic,
+                              fontFamily: 'Chiralla',
                             ),
+                            textAlign: TextAlign.left,
                           ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(spellType(sorc.element),
-                                style: const TextStyle(
-                                  fontSize: 17,
-                                  fontFamily: 'Chiralla',
-                                ),
-                                textAlign: TextAlign.left),
-                          ),
-                          _space(),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              sorc.effect,
-                              style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "Chiralla"),
-                              textAlign: TextAlign.left,
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            spellType(sorc.element),
+                            style: const TextStyle(
+                              fontSize: 17,
+                              fontFamily: 'Chiralla',
                             ),
+                            textAlign: TextAlign.left,
                           ),
-                        ],
-                      )),
+                        ),
+                        _space(),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            sorc.effect,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "Chiralla",
+                            ),
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.25 - 60,
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      child: Table(
-                        columnWidths: const {
-                          0: FlexColumnWidth(0.5),
-                          1: FlexColumnWidth(1),
-                        },
-                        children: [
-                          TableRow(
-                            children: [
-                              Center(
-                                  child: Container(
-                                      height: defaultHeight / 2,
-                                      child: const Text(""))),
-                              DecoratedBox(
-                                decoration: BoxDecoration(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                    border: Border.all(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .background)),
-                                child: Center(
-                                    child: Container(
-                                        height: defaultHeight / 2,
-                                        child: Center(
-                                            child: Text("Requirements",
-                                                style: TextStyle(
-                                                    fontStyle: FontStyle.italic,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondary))))),
+                    height: MediaQuery.of(context).size.height * 0.25 - 60,
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: Table(
+                      columnWidths: const {
+                        0: FlexColumnWidth(0.5),
+                        1: FlexColumnWidth(1),
+                      },
+                      children: [
+                        TableRow(
+                          children: [
+                            Center(
+                              child: Container(
+                                height: defaultHeight / 2,
+                                child: const Text(""),
                               ),
-                            ],
-                          ),
-                          TableRow(
-                            children: [
-                              DecoratedBox(
-                                decoration: BoxDecoration(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                    border: Border.all(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .background)),
-                                child: Center(
-                                    child: Container(
-                                        height: defaultHeight,
-                                        child: Center(
-                                            child: Text("INT",
-                                                style: TextStyle(
-                                                    fontStyle: FontStyle.italic,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondary))))),
-                              ),
-                              DecoratedBox(
-                                decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .secondaryContainer,
-                                    border: Border.all(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .background)),
-                                child: Center(
-                                  child: Container(
-                                      height: defaultHeight,
-                                      child: Center(
-                                          child: Text(
-                                              requirement(sorc.requirement.int),
-                                              style: TextStyle(
-                                                  color: sorc.requirement.int !=
-                                                          0
-                                                      ? Colors.redAccent
-                                                      : Theme.of(context)
-                                                          .colorScheme
-                                                          .onSecondaryContainer)))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.secondary,
+                                border: Border.all(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.background,
                                 ),
                               ),
-                            ],
-                          ),
-                          TableRow(
-                            children: [
-                              DecoratedBox(
-                                decoration: BoxDecoration(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                    border: Border.all(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .background)),
-                                child: Center(
-                                    child: Container(
-                                        height: defaultHeight,
-                                        child: Center(
-                                            child: Text("FAI",
-                                                style: TextStyle(
-                                                    fontStyle: FontStyle.italic,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondary))))),
+                              child: Center(
+                                child: Container(
+                                  height: defaultHeight / 2,
+                                  child: Center(
+                                    child: Text(
+                                      "Requirements",
+                                      style: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSecondary,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
-                              DecoratedBox(
-                                decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .secondaryContainer,
-                                    border: Border.all(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .background)),
-                                child: Center(
-                                    child: Container(
-                                        height: defaultHeight,
-                                        child: Center(
-                                            child: Text(
-                                                requirement(sorc.requirement.fai),
-                                                style: TextStyle(
-                                                    color: sorc.requirement
-                                                                .fai !=
-                                                            0
-                                                        ? Colors.redAccent
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .onSecondaryContainer))))),
+                            ),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.secondary,
+                                border: Border.all(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.background,
+                                ),
                               ),
-                            ],
-                          ),
-                          TableRow(
-                            children: [
-                              DecoratedBox(
-                                decoration: BoxDecoration(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                    border: Border.all(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .background)),
-                                child: Center(
-                                    child: Container(
-                                        height: defaultHeight,
-                                        child: Center(
-                                            child: Text("ARC",
-                                                style: TextStyle(
-                                                    fontStyle: FontStyle.italic,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondary))))),
+                              child: Center(
+                                child: Container(
+                                  height: defaultHeight,
+                                  child: Center(
+                                    child: Text(
+                                      "INT",
+                                      style: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSecondary,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
-                              DecoratedBox(
-                                decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .secondaryContainer,
-                                    border: Border.all(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .background)),
-                                child: Center(
-                                    child: Container(
-                                        height: defaultHeight,
-                                        child: Center(
-                                            child: Text(
-                                                requirement(sorc.requirement.arc),
-                                                style: TextStyle(
-                                                    color: sorc.requirement
-                                                                .arc !=
-                                                            0
-                                                        ? Colors.redAccent
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .onSecondaryContainer))))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.secondaryContainer,
+                                border: Border.all(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.background,
+                                ),
                               ),
-                            ],
-                          ),
-                        ],
-                      )),
+                              child: Center(
+                                child: Container(
+                                  height: defaultHeight,
+                                  child: Center(
+                                    child: Text(
+                                      requirement(sorc.requirement.int),
+                                      style: TextStyle(
+                                        color: sorc.requirement.int != 0
+                                            ? Colors.redAccent
+                                            : Theme.of(context)
+                                                  .colorScheme
+                                                  .onSecondaryContainer,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.secondary,
+                                border: Border.all(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.background,
+                                ),
+                              ),
+                              child: Center(
+                                child: Container(
+                                  height: defaultHeight,
+                                  child: Center(
+                                    child: Text(
+                                      "FAI",
+                                      style: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSecondary,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.secondaryContainer,
+                                border: Border.all(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.background,
+                                ),
+                              ),
+                              child: Center(
+                                child: Container(
+                                  height: defaultHeight,
+                                  child: Center(
+                                    child: Text(
+                                      requirement(sorc.requirement.fai),
+                                      style: TextStyle(
+                                        color: sorc.requirement.fai != 0
+                                            ? Colors.redAccent
+                                            : Theme.of(context)
+                                                  .colorScheme
+                                                  .onSecondaryContainer,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.secondary,
+                                border: Border.all(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.background,
+                                ),
+                              ),
+                              child: Center(
+                                child: Container(
+                                  height: defaultHeight,
+                                  child: Center(
+                                    child: Text(
+                                      "ARC",
+                                      style: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSecondary,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.secondaryContainer,
+                                border: Border.all(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.background,
+                                ),
+                              ),
+                              child: Center(
+                                child: Container(
+                                  height: defaultHeight,
+                                  child: Center(
+                                    child: Text(
+                                      requirement(sorc.requirement.arc),
+                                      style: TextStyle(
+                                        color: sorc.requirement.arc != 0
+                                            ? Colors.redAccent
+                                            : Theme.of(context)
+                                                  .colorScheme
+                                                  .onSecondaryContainer,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -404,21 +464,23 @@ class _SorceryDetailPageState extends State<SorceryDetailPage> {
                 child: ElevatedButton(
                   onPressed: () {
                     showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                              title: Text('How to get ${sorc.name}:'),
-                              content: SingleChildScrollView(
-                                child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(sorc.howToFind)),
-                              ),
-                              actions: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: linkWidgets,
-                                ),
-                              ],
-                            ));
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text('How to get ${sorc.name}:'),
+                        content: SingleChildScrollView(
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(sorc.howToFind),
+                          ),
+                        ),
+                        actions: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: linkWidgets,
+                          ),
+                        ],
+                      ),
+                    );
                   },
                   child: const Text('How to get it'),
                 ),

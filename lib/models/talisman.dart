@@ -27,9 +27,7 @@ class Talisman extends Item {
     required this.mapLink,
     required this.weight,
     required this.effect,
-  }) : super(
-          cat: ItemCategory.talisman,
-        );
+  }) : super(cat: ItemCategory.talisman);
 
   /// Create a Talisman from a Map (e.g. Firestore).
   /// @param data Map<String, dynamic>? source data.

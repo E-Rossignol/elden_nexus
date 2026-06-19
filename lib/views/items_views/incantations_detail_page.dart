@@ -21,10 +21,7 @@ class IncantationDetailPage extends StatefulWidget {
 /// State for IncantationDetailPage.
 class _IncantationDetailPageState extends State<IncantationDetailPage> {
   Widget _space() {
-    return const SizedBox(
-      height: 20,
-      width: 10,
-    );
+    return const SizedBox(height: 20, width: 10);
   }
 
   /// Open external URL.
@@ -87,49 +84,60 @@ class _IncantationDetailPageState extends State<IncantationDetailPage> {
     // Build link actions for "How to get" dialog.
     List<Widget> linkWidgets = [];
     if (isLinkable) {
-      linkWidgets.add(ElevatedButton(
-        onPressed: () {
-          _launchURL(url);
-        },
-        child: Text('Open Link'.tr),
-      ));
+      linkWidgets.add(
+        ElevatedButton(
+          onPressed: () {
+            _launchURL(url);
+          },
+          child: Text('Open Link'.tr),
+        ),
+      );
     }
-    linkWidgets.add(TextButton(
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-      child: const Text('Close'),
-    ));
+    linkWidgets.add(
+      TextButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        child: const Text('Close'),
+      ),
+    );
 
     return PopScope(
       canPop: false,
       onPopInvoked: (result) {
         Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => IncantationsPage(
-                isDlc: widget.incant.image.contains("dlc"),
-              ),
-            ));
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                IncantationsPage(isDlc: widget.incant.image.contains("dlc")),
+          ),
+        );
       },
       child: Scaffold(
-        endDrawer: const Drawer(
-          child: SettingsView(),
-        ),
+        endDrawer: const Drawer(child: SettingsView()),
         appBar: AppBar(
-          leading: Builder(builder: (context) {
-            return IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined,
-                  color: Theme.of(context).colorScheme.onSurface),
-              onPressed: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) {
-                  return IncantationsPage(
-                      isDlc: widget.incant.image.contains("dlc"));
-                }));
-              },
-            );
-          }),
+          leading: Builder(
+            builder: (context) {
+              return IconButton(
+                icon: Icon(
+                  Icons.arrow_circle_left_outlined,
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return IncantationsPage(
+                          isDlc: widget.incant.image.contains("dlc"),
+                        );
+                      },
+                    ),
+                  );
+                },
+              );
+            },
+          ),
           automaticallyImplyLeading: false,
           actions: [
             Builder(
@@ -165,234 +173,286 @@ class _IncantationDetailPageState extends State<IncantationDetailPage> {
                     ),
                   ),
                   SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.25,
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      child: Column(
-                        children: [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              fpCost,
-                              style: const TextStyle(
-                                  fontSize: 15,
-                                  fontStyle: FontStyle.italic,
-                                  fontFamily: 'Chiralla'),
-                              textAlign: TextAlign.left,
+                    height: MediaQuery.of(context).size.height * 0.25,
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            fpCost,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              fontStyle: FontStyle.italic,
+                              fontFamily: 'Chiralla',
                             ),
+                            textAlign: TextAlign.left,
                           ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              slots,
-                              style: const TextStyle(
-                                  fontSize: 15,
-                                  fontStyle: FontStyle.italic,
-                                  fontFamily: 'Chiralla'),
-                              textAlign: TextAlign.left,
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            slots,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              fontStyle: FontStyle.italic,
+                              fontFamily: 'Chiralla',
                             ),
+                            textAlign: TextAlign.left,
                           ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(spellType(inc.element),
-                                style: const TextStyle(
-                                  fontSize: 17,
-                                  fontFamily: 'Chiralla',
-                                ),
-                                textAlign: TextAlign.left),
-                          ),
-                          _space(),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              inc.effect,
-                              style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "Chiralla"),
-                              textAlign: TextAlign.left,
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            spellType(inc.element),
+                            style: const TextStyle(
+                              fontSize: 17,
+                              fontFamily: 'Chiralla',
                             ),
+                            textAlign: TextAlign.left,
                           ),
-                        ],
-                      )),
+                        ),
+                        _space(),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            inc.effect,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "Chiralla",
+                            ),
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.25 - 60,
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      child: Table(
-                        columnWidths: const {
-                          0: FlexColumnWidth(0.5),
-                          1: FlexColumnWidth(1),
-                        },
-                        children: [
-                          TableRow(
-                            children: [
-                              Center(
-                                  child: Container(
-                                      height: defaultHeight / 2,
-                                      child: const Text(""))),
-                              DecoratedBox(
-                                decoration: BoxDecoration(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                    border: Border.all(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .background)),
-                                child: Center(
-                                    child: Container(
-                                        height: defaultHeight / 2,
-                                        child: Center(
-                                            child: Text("Requirements",
-                                                style: TextStyle(
-                                                    fontStyle: FontStyle.italic,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondary))))),
+                    height: MediaQuery.of(context).size.height * 0.25 - 60,
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: Table(
+                      columnWidths: const {
+                        0: FlexColumnWidth(0.5),
+                        1: FlexColumnWidth(1),
+                      },
+                      children: [
+                        TableRow(
+                          children: [
+                            Center(
+                              child: Container(
+                                height: defaultHeight / 2,
+                                child: const Text(""),
                               ),
-                            ],
-                          ),
-                          TableRow(
-                            children: [
-                              DecoratedBox(
-                                decoration: BoxDecoration(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                    border: Border.all(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .background)),
-                                child: Center(
-                                    child: Container(
-                                        height: defaultHeight,
-                                        child: Center(
-                                            child: Text("INT",
-                                                style: TextStyle(
-                                                    fontStyle: FontStyle.italic,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondary))))),
-                              ),
-                              DecoratedBox(
-                                decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .secondaryContainer,
-                                    border: Border.all(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .background)),
-                                child: Center(
-                                  child: Container(
-                                      height: defaultHeight,
-                                      child: Center(
-                                          child: Text(
-                                              requirement(inc.requirement.int),
-                                              style: TextStyle(
-                                                  color: inc.requirement.int !=
-                                                          0
-                                                      ? Colors.redAccent
-                                                      : Theme.of(context)
-                                                          .colorScheme
-                                                          .onSecondaryContainer)))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.secondary,
+                                border: Border.all(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.background,
                                 ),
                               ),
-                            ],
-                          ),
-                          TableRow(
-                            children: [
-                              DecoratedBox(
-                                decoration: BoxDecoration(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                    border: Border.all(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .background)),
-                                child: Center(
-                                    child: Container(
-                                        height: defaultHeight,
-                                        child: Center(
-                                            child: Text("FAI",
-                                                style: TextStyle(
-                                                    fontStyle: FontStyle.italic,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondary))))),
+                              child: Center(
+                                child: Container(
+                                  height: defaultHeight / 2,
+                                  child: Center(
+                                    child: Text(
+                                      "Requirements",
+                                      style: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSecondary,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
-                              DecoratedBox(
-                                decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .secondaryContainer,
-                                    border: Border.all(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .background)),
-                                child: Center(
-                                    child: Container(
-                                        height: defaultHeight,
-                                        child: Center(
-                                            child: Text(
-                                                requirement(inc.requirement.fai),
-                                                style: TextStyle(
-                                                    color: inc.requirement
-                                                                .fai !=
-                                                            0
-                                                        ? Colors.redAccent
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .onSecondaryContainer))))),
+                            ),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.secondary,
+                                border: Border.all(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.background,
+                                ),
                               ),
-                            ],
-                          ),
-                          TableRow(
-                            children: [
-                              DecoratedBox(
-                                decoration: BoxDecoration(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                    border: Border.all(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .background)),
-                                child: Center(
-                                    child: Container(
-                                        height: defaultHeight,
-                                        child: Center(
-                                            child: Text("ARC",
-                                                style: TextStyle(
-                                                    fontStyle: FontStyle.italic,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondary))))),
+                              child: Center(
+                                child: Container(
+                                  height: defaultHeight,
+                                  child: Center(
+                                    child: Text(
+                                      "INT",
+                                      style: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSecondary,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
-                              DecoratedBox(
-                                decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .secondaryContainer,
-                                    border: Border.all(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .background)),
-                                child: Center(
-                                    child: Container(
-                                        height: defaultHeight,
-                                        child: Center(
-                                            child: Text(
-                                                requirement(inc.requirement.arc),
-                                                style: TextStyle(
-                                                    color: inc.requirement
-                                                                .arc !=
-                                                            0
-                                                        ? Colors.redAccent
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .onSecondaryContainer))))),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.secondaryContainer,
+                                border: Border.all(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.background,
+                                ),
                               ),
-                            ],
-                          ),
-                        ],
-                      )),
+                              child: Center(
+                                child: Container(
+                                  height: defaultHeight,
+                                  child: Center(
+                                    child: Text(
+                                      requirement(inc.requirement.int),
+                                      style: TextStyle(
+                                        color: inc.requirement.int != 0
+                                            ? Colors.redAccent
+                                            : Theme.of(context)
+                                                  .colorScheme
+                                                  .onSecondaryContainer,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.secondary,
+                                border: Border.all(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.background,
+                                ),
+                              ),
+                              child: Center(
+                                child: Container(
+                                  height: defaultHeight,
+                                  child: Center(
+                                    child: Text(
+                                      "FAI",
+                                      style: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSecondary,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.secondaryContainer,
+                                border: Border.all(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.background,
+                                ),
+                              ),
+                              child: Center(
+                                child: Container(
+                                  height: defaultHeight,
+                                  child: Center(
+                                    child: Text(
+                                      requirement(inc.requirement.fai),
+                                      style: TextStyle(
+                                        color: inc.requirement.fai != 0
+                                            ? Colors.redAccent
+                                            : Theme.of(context)
+                                                  .colorScheme
+                                                  .onSecondaryContainer,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.secondary,
+                                border: Border.all(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.background,
+                                ),
+                              ),
+                              child: Center(
+                                child: Container(
+                                  height: defaultHeight,
+                                  child: Center(
+                                    child: Text(
+                                      "ARC",
+                                      style: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSecondary,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.secondaryContainer,
+                                border: Border.all(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.background,
+                                ),
+                              ),
+                              child: Center(
+                                child: Container(
+                                  height: defaultHeight,
+                                  child: Center(
+                                    child: Text(
+                                      requirement(inc.requirement.arc),
+                                      style: TextStyle(
+                                        color: inc.requirement.arc != 0
+                                            ? Colors.redAccent
+                                            : Theme.of(context)
+                                                  .colorScheme
+                                                  .onSecondaryContainer,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -403,21 +463,23 @@ class _IncantationDetailPageState extends State<IncantationDetailPage> {
                 child: ElevatedButton(
                   onPressed: () {
                     showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                              title: Text('How to get ${inc.name}:'),
-                              content: SingleChildScrollView(
-                                child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(inc.howToFind)),
-                              ),
-                              actions: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: linkWidgets,
-                                ),
-                              ],
-                            ));
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text('How to get ${inc.name}:'),
+                        content: SingleChildScrollView(
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(inc.howToFind),
+                          ),
+                        ),
+                        actions: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: linkWidgets,
+                          ),
+                        ],
+                      ),
+                    );
                   },
                   child: const Text('How to get it'),
                 ),

@@ -11,9 +11,5 @@ class Item {
   late final String image;
 
   /// Create an Item base instance.
-  Item({
-    required this.name,
-    required this.cat,
-    required this.image,
-  });
+  Item({required this.name, required this.cat, required this.image});
 }

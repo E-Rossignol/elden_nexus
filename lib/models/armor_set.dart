@@ -20,9 +20,7 @@ class ArmorSet extends Item {
     required this.weight,
     required this.damageNegation,
     this.passive = "",
-  }) : super(
-          cat: ItemCategory.armor,
-        );
+  }) : super(cat: ItemCategory.armor);
 
   /// Serialise the ArmorSet to a Map.
   /// @return Map<String, dynamic> serialised representation.

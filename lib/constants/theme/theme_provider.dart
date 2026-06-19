@@ -12,8 +12,9 @@ class ThemeProvider with ChangeNotifier {
   MaterialTheme materialTheme = MaterialTheme(ThemeData.light().textTheme);
   ThemeData dark = MaterialTheme(ThemeData.light().textTheme).dark();
   ThemeData light = MaterialTheme(ThemeData.light().textTheme).light();
-  final ThemeData _themeData =
-      MaterialTheme(ThemeData.light().textTheme).dark();
+  final ThemeData _themeData = MaterialTheme(
+    ThemeData.light().textTheme,
+  ).dark();
 
   ThemeData get themeData => _themeData;
 }

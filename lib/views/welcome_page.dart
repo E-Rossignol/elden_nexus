@@ -21,9 +21,7 @@ class _WelcomePageState extends State<WelcomePage>
     with SingleTickerProviderStateMixin {
   /// Small vertical spacer widget.
   Widget _space() {
-    return const SizedBox(
-      height: 20,
-    );
+    return const SizedBox(height: 20);
   }
 
   late AnimationController _controller;
@@ -65,15 +63,18 @@ class _WelcomePageState extends State<WelcomePage>
         ),
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: const Text("ELDEN NEXUS",
-              style: TextStyle(fontFamily: "Mantinia")),
+          title: const Text(
+            "ELDEN NEXUS",
+            style: TextStyle(fontFamily: "Mantinia"),
+          ),
         ),
         body: tokenOk
             ? Container(
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(
-                        'lib/constants/images/app/app_background.jpeg'),
+                      'lib/constants/images/app/app_background.jpeg',
+                    ),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -99,9 +100,9 @@ class _WelcomePageState extends State<WelcomePage>
                                   child: Text(
                                     'Base Game'.tr.toUpperCase(),
                                     style: TextStyle(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSecondary,
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.onSecondary,
                                       fontFamily: 'Mantinia',
                                     ),
                                   ),
@@ -111,7 +112,8 @@ class _WelcomePageState extends State<WelcomePage>
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => toPush),
+                                      builder: (context) => toPush,
+                                    ),
                                   );
                                 },
                               ),
@@ -133,34 +135,44 @@ class _WelcomePageState extends State<WelcomePage>
                                     animation: _controller,
                                     builder:
                                         (BuildContext context, Widget? child) {
-                                      return ShaderMask(
-                                        shaderCallback: (Rect bounds) {
-                                          return LinearGradient(
-                                            begin: Alignment.centerLeft,
-                                            end: Alignment.centerRight,
-                                            colors: const <Color>[
-                                              Color.fromRGBO(139, 0, 0, 1),
-                                              Color.fromRGBO(165, 42, 42, 1),
-                                              Color.fromRGBO(178, 34, 34, 1),
-                                            ],
-                                            stops: [
-                                              _controller.value - 1,
-                                              _controller.value,
-                                              _controller.value + 1,
-                                            ],
-                                          ).createShader(bounds);
+                                          return ShaderMask(
+                                            shaderCallback: (Rect bounds) {
+                                              return LinearGradient(
+                                                begin: Alignment.centerLeft,
+                                                end: Alignment.centerRight,
+                                                colors: const <Color>[
+                                                  Color.fromRGBO(139, 0, 0, 1),
+                                                  Color.fromRGBO(
+                                                    165,
+                                                    42,
+                                                    42,
+                                                    1,
+                                                  ),
+                                                  Color.fromRGBO(
+                                                    178,
+                                                    34,
+                                                    34,
+                                                    1,
+                                                  ),
+                                                ],
+                                                stops: [
+                                                  _controller.value - 1,
+                                                  _controller.value,
+                                                  _controller.value + 1,
+                                                ],
+                                              ).createShader(bounds);
+                                            },
+                                            child: Text(
+                                              "SHADOW OF THE ERDTREE",
+                                              style: TextStyle(
+                                                color: Theme.of(
+                                                  context,
+                                                ).colorScheme.onSecondary,
+                                                fontFamily: 'Mantinia',
+                                              ),
+                                            ),
+                                          );
                                         },
-                                        child: Text(
-                                          "SHADOW OF THE ERDTREE",
-                                          style: TextStyle(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onSecondary,
-                                            fontFamily: 'Mantinia',
-                                          ),
-                                        ),
-                                      );
-                                    },
                                   ),
                                 ),
                                 onTap: () {
@@ -168,7 +180,8 @@ class _WelcomePageState extends State<WelcomePage>
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => toPush),
+                                      builder: (context) => toPush,
+                                    ),
                                   );
                                 },
                               ),
@@ -185,8 +198,9 @@ class _WelcomePageState extends State<WelcomePage>
                 child: AlertDialog(
                   title: Text("error".tr),
                   content: Text(
-                      'You have a bad version of the app, please contact developer for new version.'
-                          .tr),
+                    'You have a bad version of the app, please contact developer for new version.'
+                        .tr,
+                  ),
                   actions: [
                     TextButton(
                       onPressed: () {
@@ -206,61 +220,55 @@ class _WelcomePageState extends State<WelcomePage>
     DatabaseMethods db = DatabaseMethods.instance;
     // Check internet availability before initializing DB; this controls token check flow.
     return FutureBuilder(
-        future: Helper.isInternetAvailable(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Scaffold(
-              body: Center(
-                child: LoadingScreen(),
-              ),
-            );
-          } else if (snapshot.hasError) {
-            return Scaffold(
-              body: Center(
-                child: Text("Error: ${snapshot.error}"),
-              ),
-            );
-          } else {
-            return snapshot.data!
-                ? FutureBuilder(
-                    future: db.initDatas(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Scaffold(
-                          body: Center(
-                            child: LoadingScreen(),
-                          ),
-                        );
-                      } else if (snapshot.hasError) {
-                        return Scaffold(
-                          body: Center(
-                            child: Text("Error: ${snapshot.error}"),
-                          ),
-                        );
-                      } else {
-                        return _buildWelcomePage(context, snapshot.data!);
-                      }
-                    })
-                : PopScope(
-                    canPop: false,
-                    child: AlertDialog(
-                      title: Center(
-                          child: Text("Internet connection required".tr)),
-                      content: Center(
-                          child: Text(
-                              "You need an internet connection to access the app."
-                                  .tr)),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            setState(() {});
-                          },
-                          child: Text("Retry".tr),
-                        ),
-                      ],
+      future: Helper.isInternetAvailable(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Scaffold(body: Center(child: LoadingScreen()));
+        } else if (snapshot.hasError) {
+          return Scaffold(
+            body: Center(child: Text("Error: ${snapshot.error}")),
+          );
+        } else {
+          return snapshot.data!
+              ? FutureBuilder(
+                  future: db.initDatas(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Scaffold(
+                        body: Center(child: LoadingScreen()),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Scaffold(
+                        body: Center(child: Text("Error: ${snapshot.error}")),
+                      );
+                    } else {
+                      return _buildWelcomePage(context, snapshot.data!);
+                    }
+                  },
+                )
+              : PopScope(
+                  canPop: false,
+                  child: AlertDialog(
+                    title: Center(
+                      child: Text("Internet connection required".tr),
                     ),
-                  );
-          }
-        });
+                    content: Center(
+                      child: Text(
+                        "You need an internet connection to access the app.".tr,
+                      ),
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          setState(() {});
+                        },
+                        child: Text("Retry".tr),
+                      ),
+                    ],
+                  ),
+                );
+        }
+      },
+    );
   }
 }

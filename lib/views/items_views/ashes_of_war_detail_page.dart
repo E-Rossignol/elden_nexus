@@ -20,9 +20,7 @@ class AshOfWarDetailPage extends StatefulWidget {
 /// State for AshOfWarDetailPage.
 class _AshOfWarDetailPageState extends State<AshOfWarDetailPage> {
   Widget _space() {
-    return const SizedBox(
-      height: 10,
-    );
+    return const SizedBox(height: 10);
   }
 
   /// Launch external URL.
@@ -45,49 +43,60 @@ class _AshOfWarDetailPageState extends State<AshOfWarDetailPage> {
     // Build actions for the acquisition dialog.
     List<Widget> linkWidgets = [];
     if (isLinkable) {
-      linkWidgets.add(ElevatedButton(
-        onPressed: () {
-          _launchURL(url);
-        },
-        child: Text('Open Link'.tr),
-      ));
+      linkWidgets.add(
+        ElevatedButton(
+          onPressed: () {
+            _launchURL(url);
+          },
+          child: Text('Open Link'.tr),
+        ),
+      );
     }
-    linkWidgets.add(TextButton(
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-      child: const Text('Close'),
-    ));
+    linkWidgets.add(
+      TextButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        child: const Text('Close'),
+      ),
+    );
 
     return PopScope(
       canPop: false,
       onPopInvoked: (result) {
         Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AshesOfWarPage(
-                isDlc: widget.ash.image.contains("dlc"),
-              ),
-            ));
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                AshesOfWarPage(isDlc: widget.ash.image.contains("dlc")),
+          ),
+        );
       },
       child: Scaffold(
-        endDrawer: const Drawer(
-          child: SettingsView(),
-        ),
+        endDrawer: const Drawer(child: SettingsView()),
         appBar: AppBar(
-          leading: Builder(builder: (context) {
-            return IconButton(
-              icon: Icon(Icons.arrow_circle_left_outlined,
-                  color: Theme.of(context).colorScheme.onSurface),
-              onPressed: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) {
-                  return AshesOfWarPage(
-                      isDlc: widget.ash.image.contains("dlc"));
-                }));
-              },
-            );
-          }),
+          leading: Builder(
+            builder: (context) {
+              return IconButton(
+                icon: Icon(
+                  Icons.arrow_circle_left_outlined,
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return AshesOfWarPage(
+                          isDlc: widget.ash.image.contains("dlc"),
+                        );
+                      },
+                    ),
+                  );
+                },
+              );
+            },
+          ),
           automaticallyImplyLeading: false,
           actions: [
             Builder(
@@ -125,72 +134,81 @@ class _AshOfWarDetailPageState extends State<AshOfWarDetailPage> {
                   ),
                   _space(),
                   Container(
-                      padding: const EdgeInsets.all(20),
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            Text(
-                              ash.description,
-                              style: const TextStyle(
-                                  fontSize: 16, fontStyle: FontStyle.italic),
-                              textAlign: TextAlign.justify,
+                    padding: const EdgeInsets.all(20),
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Text(
+                            ash.description,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontStyle: FontStyle.italic,
                             ),
-                            _space(),
-                            Text(
-                              ash.usableOn,
-                              style: const TextStyle(
-                                  fontSize: 18,
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.justify,
+                          ),
+                          _space(),
+                          Text(
+                            ash.usableOn,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.bold,
                             ),
-                          ],
-                        ),
-                      )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                   Container(
-                      padding: const EdgeInsets.all(20),
-                      height: MediaQuery.of(context).size.height * 0.1,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  const TextSpan(
-                                      text: 'Affinity: ',
-                                      style: TextStyle(fontSize: 18)),
-                                  TextSpan(
-                                    text: ash.affinity,
-                                    style: const TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.redAccent),
+                    padding: const EdgeInsets.all(20),
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                const TextSpan(
+                                  text: 'Affinity: ',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                TextSpan(
+                                  text: ash.affinity,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.redAccent,
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                   ElevatedButton(
                     onPressed: () {
                       showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                                title: Text('How to get ${ash.name}:'),
-                                content: SingleChildScrollView(
-                                  child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(ash.howToFind)),
-                                ),
-                                actions: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: linkWidgets,
-                                  ),
-                                ],
-                              ));
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: Text('How to get ${ash.name}:'),
+                          content: SingleChildScrollView(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(ash.howToFind),
+                            ),
+                          ),
+                          actions: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: linkWidgets,
+                            ),
+                          ],
+                        ),
+                      );
                     },
                     child: const Text('How to get it'),
                   ),
