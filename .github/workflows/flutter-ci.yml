@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  flutter-ci:
+  app-lint:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,5 +29,16 @@ jobs:
       - name: Static analysis
         run: flutter analyze --no-fatal-infos --no-fatal-warnings
 
+
+  app-release:
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Build Android APK
         run: flutter build apk --release
+
+      - name: Update Deliverables
+        run: |
+          ls
+          cd build/app/outputs/flutter-apk
+          cp app-release.apk ../../../../lib/deliverables/app-release.apk
