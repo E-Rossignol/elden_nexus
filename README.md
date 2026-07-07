@@ -17,7 +17,7 @@ A lightweight, polished Flutter application for Elden Ring players to browse, sa
 - Optional Firebase auth and DB helpers in `lib/firebase/`.
 
 ## Demonstration
-\@TODO: SCREENSHOTS of key views (home, item list, item detail, settings) to showcase UI and features.
+You can find a demonstration video at the following link: [https://youtu.be/oagzGhtAPAw](https://youtu.be/oagzGhtAPAw)
 
 ## Tech Stack
 - Flutter (stable)
